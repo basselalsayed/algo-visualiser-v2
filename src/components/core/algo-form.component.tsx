@@ -39,13 +39,13 @@ export const AlgoForm: FC<{ className?: string }> = ({ className }) => {
           }
         }}
       >
-        {algoInfo.map(({ id, name, header, footer, runTime2 }) => (
+        {algoInfo.map(({ id, name, header, footer, runTime }) => (
           <CarouselItem key={id} className='flex items-center justify-center'>
             <Card title={name} description={header}>
               <ul className='text-left flex flex-col gap-2'>
                 <div className='flex text-base items-center gap-1'>
-                  <p>Running time:</p>
-                  <Tex2SVG display='inline' latex={runTime2} />
+                  <p>Runtime:</p>
+                  <Tex2SVG display='inline' latex={runTime} />
                 </div>
                 {footer.split('\n').map((s) => (
                   <li key={s}>{s}</li>
