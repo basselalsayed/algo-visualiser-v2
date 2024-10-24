@@ -1,4 +1,11 @@
-import { Dijkstra } from '../algorithms';
+import {
+  AStarEuclidean,
+  AStarManhatten,
+  BreadthFirstSearch,
+  DepthFirstSearch,
+  Dijkstra,
+  TPathFindingAlgorithm,
+} from '../algorithms';
 
 export const algoInfo = [
   {
@@ -8,6 +15,7 @@ export const algoInfo = [
     runTime: '( O((V + E) \\log V) )',
     footer:
       'Always finds the shortest path.\nUses distance of nodes to choose the direction to travel.',
+    class: Dijkstra,
   },
   {
     id: 'astar-e',
@@ -16,6 +24,7 @@ export const algoInfo = [
     runTime: '( O((V + E) \\log V) )',
     footer:
       'May find the shortest path.\nUses as the crow flies heuristic to decide direction of search.',
+    class: AStarEuclidean,
   },
   {
     id: 'astar-m',
@@ -24,6 +33,7 @@ export const algoInfo = [
     runTime: '( O((V + E) \\log V) )',
     footer:
       'Will find the shortest path.\nSimilar to Dijkstra, but with the “taxi cab” heuristic to guide the search.',
+    class: AStarManhatten,
   },
   {
     id: 'dfs',
@@ -32,6 +42,7 @@ export const algoInfo = [
     runTime: '( O(V + E) )',
     footer:
       'Will not find the shortest path.\nSearches every branch of a graph.',
+    class: DepthFirstSearch,
   },
   {
     id: 'bfs',
@@ -40,7 +51,16 @@ export const algoInfo = [
     runTime: '( O(V + E) )',
     footer:
       'Will find the shortest path.\nSearches every branch of a graph.\nWill search paths only after its current path has been fully explored.',
+    class: BreadthFirstSearch,
   },
 ];
 
-export type AlgoInfo = (typeof algoInfo)[number];
+// export type AlgoInfo = (typeof algoInfo)[number];
+export type AlgoInfo = {
+  id: string;
+  name: string;
+  header: string;
+  runTime: string;
+  footer: string;
+  class: TPathFindingAlgorithm;
+};
