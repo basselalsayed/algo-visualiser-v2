@@ -1,16 +1,18 @@
 import { animate } from 'framer-motion/dom';
-import type { Grid, Node, RuntimeInfo } from './types';
+import type { Node, RuntimeInfo } from './types';
 import { sleep } from '../utils';
+import { NodeMap } from '@/hooks/useGrid';
 
 export abstract class PathFindingAlgorithm {
   constructor(
-    public grid: Grid,
+    public grid: NodeMap,
     public start: Node,
     public end: Node
-  ) {}
+  ) {
+    this.run = this.run.bind(this);
+  }
 
-  flatGrid = this.grid.flat();
-  totalNodes = this.flatGrid.length;
+  totalNodes = this.grid.size;
 
   protected queue: Node[] = [];
   protected visitedNodes: Node[] = [];
@@ -26,11 +28,17 @@ export abstract class PathFindingAlgorithm {
     ];
 
     return directions
-      .map(({ x, y }) => this.grid[xIndex + x]?.[yIndex + y])
+      .map(({ x, y }) => this.grid.get([xIndex + x, yIndex + y]))
+      .filter(Boolean)
       .filter(
-        (neighbor) =>
-          neighbor && (includeFences || !neighbor.isWall) && !neighbor.visited
+        (neighbor) => (includeFences || !neighbor.isWall) && !neighbor.visited
       );
+  }
+
+  getNodeFromPosition(this: this, x: number, y: number): Node {
+    if (!this.grid.has([x, y])) throw new Error('Invalid coordinates');
+
+    return this.grid.get([x, y])!;
   }
 
   get shortestPath(): Node[] {

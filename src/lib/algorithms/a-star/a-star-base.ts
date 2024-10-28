@@ -1,12 +1,8 @@
 import { sleep } from '../../utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { Grid, Node } from '../types';
+import type { Node } from '../types';
 
 export abstract class AStarBase extends PathFindingAlgorithm {
-  constructor(grid: Grid, start: Node, end: Node) {
-    super(grid, start, end);
-  }
-
   override queue = [this.start];
 
   get hasRun(): boolean {

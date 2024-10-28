@@ -1,4 +1,5 @@
 import type { Node } from '@/components/grid/node.component';
+import { NodeMap } from '@/hooks/useGrid';
 
 export type Grid = Node[][];
 
@@ -12,7 +13,7 @@ export interface RuntimeInfo {
 export { Node };
 
 export type TPathFindingAlgorithm = new (
-  grid: Grid,
+  grid: NodeMap,
   start: Node,
   end: Node
 ) => { run: () => Promise<RuntimeInfo> };

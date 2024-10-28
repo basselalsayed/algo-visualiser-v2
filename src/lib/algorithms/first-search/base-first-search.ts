@@ -1,13 +1,9 @@
 import { sleep } from '@/lib/utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import { Grid, Node, RuntimeInfo } from '../types';
+import type { Node, RuntimeInfo } from '../types';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): Node;
-
-  constructor(grid: Grid, start: Node, end: Node) {
-    super(grid, start, end);
-  }
 
   override queue = [this.start];
 

@@ -1,12 +1,8 @@
-import type { Grid, Node } from './types';
+import type { Node } from './types';
 import { PathFindingAlgorithm } from './path-finding-algorithm';
 import { sleep } from '../utils';
 
 export class Dijkstra extends PathFindingAlgorithm {
-  constructor(grid: Grid, start: Node, end: Node) {
-    super(grid, start, end);
-  }
-
   updateUnvisitedNeighbors(this: this, node: Node): void {
     const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
     for (const neighbour of unvisitedNeighbors) {
@@ -25,7 +21,7 @@ export class Dijkstra extends PathFindingAlgorithm {
     this.start.distance = 0;
     // If a start node is not chosen then it will set all nodes to 0
     // so make a check to be sure that it exists!!!
-    const unvisitedNodes = [...this.flatGrid];
+    const unvisitedNodes = [...this.grid.values()];
 
     this.start.distance = 0;
     while (unvisitedNodes.length) {
