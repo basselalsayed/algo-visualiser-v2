@@ -30,4 +30,8 @@ export class ArrayKeyMap<K extends unknown[], V> extends Map<K, V> {
 
     return false;
   }
+
+  clone(): ArrayKeyMap<K, V> {
+    return new ArrayKeyMap([...this.entries()]);
+  }
 }
