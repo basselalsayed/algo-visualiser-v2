@@ -59,7 +59,10 @@ export const Grid = memo(() => {
 
   const handleNodeMouseOver = useCallback<(node: Node) => NodeType>(
     (node) => {
-      if (wallMode && mouseDown && node.type === 'none') return NodeType.wall;
+      if (wallMode && mouseDown) {
+        if (node.type === 'none') return NodeType.wall;
+        if (node.type === 'wall') return NodeType.none;
+      }
       return node.type;
     },
     [mouseDown, wallMode]
