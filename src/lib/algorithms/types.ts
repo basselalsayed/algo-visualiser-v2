@@ -12,14 +12,16 @@ export interface RuntimeInfo {
 
 export { Node };
 
-export type TPathFindingAlgorithm = new (
+export interface TPathFindingAlgorithm {
+  run: (onDone?: VoidFunction) => Promise<RuntimeInfo>;
+  pause: VoidFunction;
+}
+
+export type TPathFindingAlgorithmConstructor = new (
   grid: NodeMap,
   start: Node,
   end: Node
-) => {
-  run: () => Promise<RuntimeInfo>;
-  pause: VoidFunction;
-};
+) => TPathFindingAlgorithm;
 
 export type TraverseGenerator = Generator<
   void | Promise<void>,

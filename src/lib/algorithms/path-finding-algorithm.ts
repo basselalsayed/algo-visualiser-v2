@@ -120,7 +120,7 @@ export abstract class PathFindingAlgorithm {
     return (this.executionEnd - this.executionStart) / 1000;
   }
 
-  async run(this: this): Promise<RuntimeInfo> {
+  async run(this: this, onDone: VoidFunction): Promise<RuntimeInfo> {
     if (this.paused) {
       this.resume();
     }
@@ -130,6 +130,7 @@ export abstract class PathFindingAlgorithm {
     }
 
     this.traverseGenerator ??= this.traverse();
+    this.nodesProcessed = await this.executeGenerator(this.traverseGenerator);
 
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
@@ -137,8 +138,8 @@ export abstract class PathFindingAlgorithm {
       this.shortestPathGenerator ??= this.animateShortestPath();
 
       await this.executeGenerator(this.shortestPathGenerator);
-    } else {
-      this.nodesProcessed = await this.executeGenerator(this.traverseGenerator);
+
+      onDone();
     }
 
     return {

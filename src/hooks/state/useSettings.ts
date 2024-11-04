@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 import { algoInfo, AlgoInfo } from '../../lib/constants/algoInfo';
+import { DispatchFunction } from './types';
 
 const DEFAULT_NODE_SIZE = 32;
 
@@ -14,10 +15,7 @@ interface SettingsStore {
   drawSquare: number;
   animationSpeed: number;
   performanceMode: boolean;
-  dispatch: <T extends Exclude<keyof SettingsStore, 'dispatch' | 'reset'>>(
-    type: T,
-    payload: SettingsStore[T]
-  ) => void;
+  dispatch: DispatchFunction<SettingsStore, 'dispatch' | 'reset'>;
   reset: VoidFunction;
 }
 

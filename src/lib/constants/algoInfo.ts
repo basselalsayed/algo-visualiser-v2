@@ -4,7 +4,7 @@ import {
   BreadthFirstSearch,
   DepthFirstSearch,
   Dijkstra,
-  TPathFindingAlgorithm,
+  TPathFindingAlgorithmConstructor,
 } from '../algorithms';
 
 export const algoInfo = [
@@ -62,5 +62,5 @@ export type AlgoInfo = {
   header: string;
   runTime: string;
   footer: string;
-  class: TPathFindingAlgorithm;
+  class: TPathFindingAlgorithmConstructor;
 };

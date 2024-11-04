@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import type { Node } from '@/components/grid/node.component';
 import { ArrayKeyMap } from '@/lib/array-key-map';
+import { DispatchFunction } from './types';
 
 export type NodeCoordinates = [x: number, y: number];
 export type NodeMap = ArrayKeyMap<NodeCoordinates, Node>;
@@ -13,10 +14,7 @@ interface GridStore {
   startNode?: Node;
   endNode?: Node;
   wallMode: boolean;
-  dispatch(
-    key: Extract<keyof GridStore, 'startNode' | 'endNode' | 'wallMode'>,
-    value: GridStore[typeof key]
-  ): void;
+  dispatch: DispatchFunction<GridStore, 'startNode' | 'endNode' | 'wallMode'>;
 }
 
 export const useGrid = create<GridStore>((set, get) => ({
@@ -30,7 +28,7 @@ export const useGrid = create<GridStore>((set, get) => ({
         state.refsMap.delete(key);
       }
 
-      return { ...state, refsMap: state.refsMap.clone() };
+      return { ...state };
     }),
   resetGrid() {
     for (const element of get().refsMap.values()) {
