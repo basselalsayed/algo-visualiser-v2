@@ -16,4 +16,12 @@ export type TPathFindingAlgorithm = new (
   grid: NodeMap,
   start: Node,
   end: Node
-) => { run: () => Promise<RuntimeInfo> };
+) => {
+  run: () => Promise<RuntimeInfo>;
+  pause: VoidFunction;
+};
+
+export type TraverseGenerator = Generator<
+  void | Promise<void>,
+  RuntimeInfo['nodesProcessed']
+>;

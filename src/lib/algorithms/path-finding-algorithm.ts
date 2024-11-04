@@ -1,6 +1,6 @@
 import { animate } from 'framer-motion/dom';
-import type { Node, RuntimeInfo } from './types';
-import { sleep } from '../utils';
+import type { Node, RuntimeInfo, TraverseGenerator } from './types';
+import { assert, sleep } from '../utils';
 import { NodeMap } from '@/hooks/useGrid';
 
 export abstract class PathFindingAlgorithm {
@@ -10,6 +10,8 @@ export abstract class PathFindingAlgorithm {
     public end: Node
   ) {
     this.run = this.run.bind(this);
+    this.pause = this.pause.bind(this);
+    this.resume = this.resume.bind(this);
   }
 
   totalNodes = this.grid.size;
@@ -73,7 +75,7 @@ export abstract class PathFindingAlgorithm {
     );
   }
 
-  async animateShortestPath(this: this): Promise<void> {
+  *animateShortestPath(this: this) {
     for (const node of this.shortestPath) {
       animate(
         node.domNode!,
@@ -82,28 +84,76 @@ export abstract class PathFindingAlgorithm {
           scale: [0.8, 1.2, 1],
         },
         {
-          duration: 0.3,
+          duration: 0.15,
           ease: 'easeInOut',
         }
       );
 
-      await sleep(10);
+      yield sleep(10);
     }
   }
 
-  abstract traverse(this: this): Promise<RuntimeInfo['nodesProcessed']>;
+  abstract traverse(this: this): TraverseGenerator;
+
+  private accessor traverseGenerator: TraverseGenerator | undefined;
+  private accessor shortestPathGenerator:
+    | Generator<Promise<void>, void>
+    | undefined;
+
+  async executeGenerator(gen: Generator) {
+    let result = gen.next();
+    while (!result.done && !this.paused) {
+      await result.value;
+      result = gen.next();
+    }
+    return result.value;
+  }
+
+  private accessor executionStart: number | undefined;
+  private accessor executionEnd: number | undefined;
+  private accessor nodesProcessed: number = 0;
+
+  get runtime(): number {
+    assert(this.executionStart, 'number');
+    assert(this.executionEnd, 'number');
+
+    return (this.executionEnd - this.executionStart) / 1000;
+  }
 
   async run(this: this): Promise<RuntimeInfo> {
-    const timerBegin = performance.now();
-    const nodesProcessed = await this.traverse();
-    const timerComplete = performance.now();
-    await this.animateShortestPath();
+    if (this.paused) {
+      this.resume();
+    }
+
+    if (!this.traverseGenerator) {
+      this.executionStart = performance.now();
+    }
+
+    this.traverseGenerator ??= this.traverse();
+
+    if (this.traverseGenerator.next().done) {
+      this.executionEnd = performance.now();
+
+      this.shortestPathGenerator ??= this.animateShortestPath();
+
+      await this.executeGenerator(this.shortestPathGenerator);
+    } else {
+      this.nodesProcessed = await this.executeGenerator(this.traverseGenerator);
+    }
 
     return {
-      nodesProcessed,
+      nodesProcessed: this.nodesProcessed,
       shortestPath: this.shortestPath.length,
-      nodesUntouched: this.totalNodes - nodesProcessed,
-      runtime: (timerComplete - timerBegin) / 1000,
+      nodesUntouched: this.totalNodes - this.nodesProcessed,
+      runtime: this.runtime,
     };
+  }
+
+  protected accessor paused: boolean = false;
+  pause(this: this): void {
+    this.paused = true;
+  }
+  resume(this: this): void {
+    this.paused = false;
   }
 }

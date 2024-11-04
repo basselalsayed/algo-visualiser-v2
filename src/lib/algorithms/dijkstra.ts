@@ -17,7 +17,7 @@ export class Dijkstra extends PathFindingAlgorithm {
     nodes.sort((a, b) => a.distance - b.distance);
   }
 
-  async traverse(this: this) {
+  *traverse(this: this) {
     this.start.distance = 0;
     // If a start node is not chosen then it will set all nodes to 0
     // so make a check to be sure that it exists!!!
@@ -37,7 +37,7 @@ export class Dijkstra extends PathFindingAlgorithm {
       if (closestNode === this.end) break;
       this.updateUnvisitedNeighbors(closestNode);
 
-      await sleep(5);
+      yield sleep(5);
     }
 
     return this.visitedNodes.length;

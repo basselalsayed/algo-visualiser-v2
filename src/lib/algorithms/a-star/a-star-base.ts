@@ -11,7 +11,7 @@ export abstract class AStarBase extends PathFindingAlgorithm {
 
   abstract findManhatten(this: this, node: Node, endNode: Node): number;
 
-  async traverse(this: this) {
+  *traverse(this: this) {
     this.queue = [this.start];
 
     this.start.distance = 0;
@@ -31,7 +31,7 @@ export abstract class AStarBase extends PathFindingAlgorithm {
 
       this.addNeighboursToOpen(currentNode);
 
-      await sleep(10);
+      yield sleep(10);
     }
 
     return this.visitedNodes.length;

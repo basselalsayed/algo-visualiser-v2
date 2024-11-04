@@ -1,6 +1,6 @@
 import { sleep } from '@/lib/utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { Node, RuntimeInfo } from '../types';
+import type { Node } from '../types';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): Node;
@@ -16,7 +16,7 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
     }
   }
 
-  async traverse(this: this): Promise<RuntimeInfo['nodesProcessed']> {
+  *traverse(this: this) {
     while (this.queue.length) {
       const currentNode = this.getCurrentNode()!;
       if (currentNode.isWall) continue;
@@ -29,7 +29,7 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
         this.updateUnvisitedNeighbors(currentNode);
       }
 
-      await sleep(10);
+      yield sleep(10);
     }
 
     return this.visitedNodes.length;
