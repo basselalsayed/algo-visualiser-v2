@@ -1,12 +1,12 @@
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useBoolean, useEventListener } from 'usehooks-ts';
 
-import { SettingsAction, useSettings } from '@/hooks/state/useSettings';
+import { useSettings } from '@/hooks/state/useSettings';
 import { Node } from './node.component';
 import { NodeType } from './node-type.enum';
 
 import { useShallow } from 'zustand/react/shallow';
-import { useGrid } from '@/hooks/useGrid';
+import { useGrid } from '@/hooks/state/useGrid';
 import { useResizeObserver } from '@/hooks/util/useResizeObserver';
 
 export const Grid = memo(() => {
@@ -21,14 +21,10 @@ export const Grid = memo(() => {
     }))
   );
 
-  const {
-    addRef,
-    resetGrid,
-    wallMode,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } = useGrid(
-    useShallow(({ addRef, resetGrid, wallMode }) => ({
+  const { addRef, refreshKey, resetGrid, wallMode } = useGrid(
+    useShallow(({ addRef, refreshKey, resetGrid, wallMode }) => ({
       addRef,
+      refreshKey,
       resetGrid,
       wallMode,
     }))
@@ -40,10 +36,10 @@ export const Grid = memo(() => {
   });
 
   useEffect(() => {
-    dispatch(SettingsAction.gridHeight, height);
-    dispatch(SettingsAction.maxGridHeight, height);
-    dispatch(SettingsAction.gridWidth, width);
-    dispatch(SettingsAction.maxGridWidth, width);
+    dispatch('gridHeight', height);
+    dispatch('maxGridHeight', height);
+    dispatch('gridWidth', width);
+    dispatch('maxGridWidth', width);
     resetGrid();
   }, [dispatch, height, resetGrid, width]);
 
@@ -103,7 +99,7 @@ export const Grid = memo(() => {
     >
       {[...Array(columnCount)].map((_, xIndex) => (
         <div
-          key={`col-${xIndex}-${nodeSize}`}
+          key={`col-${xIndex}-${nodeSize}-${refreshKey}`}
           className='flex flex-col flex-shrink'
         >
           {[...Array(rowCount)].map((_, yIndex) => (

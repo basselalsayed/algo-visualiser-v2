@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
 import type { Node } from '@/components/grid/node.component';
@@ -11,13 +12,14 @@ interface GridStore {
   refsMap: NodeMap;
   addRef: (x: number, y: number, el: Node | null) => void;
   resetGrid: VoidFunction;
+  refreshKey: string;
   startNode?: Node;
   endNode?: Node;
   wallMode: boolean;
-  dispatch: DispatchFunction<GridStore, 'startNode' | 'endNode' | 'wallMode'>;
+  dispatch: DispatchFunction<GridStore, 'refsMap' | 'addRef' | 'resetGrid'>;
 }
 
-export const useGrid = create<GridStore>((set, get) => ({
+export const useGrid = create<GridStore>((set) => ({
   refsMap: new ArrayKeyMap<NodeCoordinates, Node>(),
   addRef: (x, y, el) =>
     set((state) => {
@@ -28,13 +30,16 @@ export const useGrid = create<GridStore>((set, get) => ({
         state.refsMap.delete(key);
       }
 
-      return { ...state };
+      return { ...state, refsMap: state.refsMap.clone() };
     }),
-  resetGrid() {
-    for (const element of get().refsMap.values()) {
-      element.reset();
-    }
-  },
+  refreshKey: nanoid(),
+  resetGrid: () =>
+    set((state) => ({
+      ...state,
+      refreshKey: nanoid(),
+      startNode: undefined,
+      endNode: undefined,
+    })),
   startNode: undefined,
   endNode: undefined,
   wallMode: false,
