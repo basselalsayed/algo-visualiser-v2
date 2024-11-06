@@ -157,7 +157,7 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className='overflow-hidden'>
+    <div ref={carouselRef} className='space-y-4 overflow-hidden'>
       <div
         ref={ref}
         className={cn(
@@ -167,6 +167,7 @@ const CarouselContent = React.forwardRef<
         )}
         {...props}
       />
+      <CarouselControls />
     </div>
   );
 });
@@ -194,6 +195,16 @@ const CarouselItem = React.forwardRef<
 });
 CarouselItem.displayName = 'CarouselItem';
 
+const CarouselControls: React.FC = () => (
+  <div className='flex items-center justify-between'>
+    <div className='space-x-2'>
+      <CarouselPrevious />
+      <CarouselNext />
+    </div>
+    <CarouselDotButtons />
+  </div>
+);
+
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
@@ -206,10 +217,8 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute  h-8 w-8 rounded-full',
-        orientation === 'horizontal'
-          ? '-left-12 top-1/2 -translate-y-1/2'
-          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+        'h-8 w-8 rounded-full',
+        orientation === 'vertical' && 'rotate-90',
         className
       )}
       disabled={!canScrollPrev}
@@ -235,10 +244,8 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute h-8 w-8 rounded-full',
-        orientation === 'horizontal'
-          ? '-right-12 top-1/2 -translate-y-1/2'
-          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+        'h-8 w-8 rounded-full',
+        orientation === 'vertical' && 'rotate-90',
         className
       )}
       disabled={!canScrollNext}
@@ -252,6 +259,70 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = 'CarouselNext';
 
+const CarouselDotButtons = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { buttonClassName?: string }
+>(({ buttonClassName, className, ...rest }) => {
+  const { api } = useCarousel();
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([]);
+
+  const onDotButtonClick = React.useCallback(
+    (index: number) => {
+      api?.scrollTo(index);
+    },
+    [api]
+  );
+
+  const onInit = React.useCallback((api: CarouselApi) => {
+    if (api) setScrollSnaps(api.scrollSnapList());
+  }, []);
+
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (api) setSelectedIndex(api.selectedScrollSnap());
+  }, []);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    onInit(api);
+    onSelect(api);
+    api.on('reInit', onInit).on('reInit', onSelect).on('select', onSelect);
+  }, [api, onInit, onSelect]);
+
+  return (
+    <div className={cn('flex justify-center gap-x-2', className)} {...rest}>
+      {scrollSnaps.map((_, index) => (
+        <DotButton
+          key={index}
+          onClick={() => onDotButtonClick(index)}
+          className={(index === selectedIndex ? 'bg-transparent' : '').concat(
+            buttonClassName ?? ''
+          )}
+        />
+      ))}
+    </div>
+  );
+});
+CarouselDotButtons.displayName = 'CarouselDotButtons';
+
+export const DotButton = React.forwardRef<
+  HTMLButtonElement,
+  React.HTMLAttributes<HTMLButtonElement>
+>(({ className, ...rest }, ref) => (
+  <Button
+    ref={ref}
+    type='button'
+    variant='outline'
+    className={cn(
+      'h-6 w-6 rounded-full border border-primary-foreground p-0',
+      className
+    )}
+    {...rest}
+  />
+));
+DotButton.displayName = 'DotButton';
+
 export {
   type CarouselApi,
   Carousel,
@@ -259,4 +330,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDotButtons,
+  CarouselControls,
 };
