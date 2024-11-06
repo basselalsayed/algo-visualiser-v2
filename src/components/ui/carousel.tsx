@@ -262,7 +262,7 @@ CarouselNext.displayName = 'CarouselNext';
 const CarouselDotButtons = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { buttonClassName?: string }
->(({ buttonClassName, className, ...rest }) => {
+>(({ buttonClassName, className, ...rest }, ref) => {
   const { api } = useCarousel();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([]);
@@ -291,7 +291,11 @@ const CarouselDotButtons = React.forwardRef<
   }, [api, onInit, onSelect]);
 
   return (
-    <div className={cn('flex justify-center gap-x-2', className)} {...rest}>
+    <div
+      ref={ref}
+      className={cn('flex justify-center gap-x-2', className)}
+      {...rest}
+    >
       {scrollSnaps.map((_, index) => (
         <DotButton
           key={index}
