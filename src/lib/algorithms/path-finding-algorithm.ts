@@ -6,20 +6,31 @@ import { NodeMap } from '@/hooks/useGrid';
 export abstract class PathFindingAlgorithm {
   constructor(
     public grid: NodeMap,
-    public start: Node,
-    public end: Node
+    public start: NodeCoordinates,
+    public end: NodeCoordinates
   ) {
     this.run = this.run.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
   }
 
+  get startNode(): INode {
+    return this.getNodeFromPosition(...this.start);
+  }
+  get endNode(): INode {
+    return this.getNodeFromPosition(...this.end);
+  }
+
   totalNodes = this.grid.size;
 
-  protected queue: Node[] = [];
-  protected visitedNodes: Node[] = [];
+  protected queue: INode[] = [];
+  protected visitedNodes: INode[] = [];
 
-  getUnvisitedNeighbors(this: this, node: Node, includeFences = true): Node[] {
+  getUnvisitedNeighbors(
+    this: this,
+    node: INode,
+    includeFences = true
+  ): INode[] {
     const { xIndex, yIndex } = node;
 
     const directions = [
@@ -37,15 +48,15 @@ export abstract class PathFindingAlgorithm {
       );
   }
 
-  getNodeFromPosition(this: this, x: number, y: number): Node {
+  getNodeFromPosition(this: this, x: number, y: number): INode {
     if (!this.grid.has([x, y])) throw new Error('Invalid coordinates');
 
     return this.grid.get([x, y])!;
   }
 
-  get shortestPath(): Node[] {
+  get shortestPath(): INode[] {
     const shortestPath = [];
-    let thisNode: Node | undefined = this.end;
+    let thisNode: INode | undefined = this.endNode;
 
     while (thisNode) {
       shortestPath.unshift(thisNode);
@@ -55,10 +66,10 @@ export abstract class PathFindingAlgorithm {
     return shortestPath;
   }
 
-  visitNode(this: this, node: Node): void {
+  async visitNode(this: this, node: INode): Promise<void> {
     this.visitedNodes.push(node);
 
-    node.visited = true;
+    node.setVisited(true);
 
     animate(
       node.domNode!,

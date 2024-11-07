@@ -1,17 +1,17 @@
 import { sleep } from '@/lib/utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { Node } from '../types';
+import type { INode } from '../types';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
-  abstract getCurrentNode(): Node;
+  abstract getCurrentNode(): INode;
 
-  override queue = [this.start];
+  override queue = [this.startNode];
 
-  updateUnvisitedNeighbors(this: this, node: Node): void {
+  updateUnvisitedNeighbors(this: this, node: INode): void {
     const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
 
     for (const neighbour of unvisitedNeighbors) {
-      neighbour.pastNode = node;
+      neighbour.setPastNode(node);
       this.queue.push(neighbour);
     }
   }
@@ -25,7 +25,6 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
 
       if (!currentNode.visited) {
         this.visitNode(currentNode);
-
         this.updateUnvisitedNeighbors(currentNode);
       }
 

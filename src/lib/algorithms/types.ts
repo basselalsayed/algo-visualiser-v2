@@ -1,7 +1,5 @@
-import type { Node } from '@/components/grid/node.component';
-import { NodeMap } from '@/hooks/useGrid';
-
-export type Grid = Node[][];
+import { INode } from '@/components/grid/node.interface';
+import { NodeCoordinates, NodeMap } from '@/hooks/state/useGrid';
 
 export interface RuntimeInfo {
   nodesProcessed: number;
@@ -10,18 +8,20 @@ export interface RuntimeInfo {
   runtime: number;
 }
 
-export { Node };
+export type { INode };
 
 export interface TPathFindingAlgorithm {
   run: (onDone?: VoidFunction) => Promise<RuntimeInfo>;
   pause: VoidFunction;
 }
 
-export type TPathFindingAlgorithmConstructor = new (
-  grid: NodeMap,
-  start: Node,
-  end: Node
-) => TPathFindingAlgorithm;
+export interface IPathFindingAlgorithmConstructor {
+  new (
+    grid: NodeMap,
+    start: NodeCoordinates,
+    end: NodeCoordinates
+  ): IPathFindingAlgorithm;
+}
 
 export type TraverseGenerator = Generator<
   void | Promise<void>,

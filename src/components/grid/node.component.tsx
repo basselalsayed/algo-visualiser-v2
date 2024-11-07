@@ -2,6 +2,7 @@ import { createRef, RefObject, PureComponent } from 'react';
 import { NodeType } from './node-type.enum';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { INode } from './node.interface';
 
 interface Props {
   size: number;
@@ -17,7 +18,7 @@ interface State {
   visited: boolean;
 }
 
-export class Node extends PureComponent<Props, State> {
+export class Node extends PureComponent<Props, State> implements INode {
   constructor(props: Props) {
     super(props);
 
@@ -32,37 +33,73 @@ export class Node extends PureComponent<Props, State> {
     this.ref = createRef();
     this.handleClick = this.handleClick.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.setPastNode = this.setPastNode.bind(this);
+    this.setHeuristic = this.setHeuristic.bind(this);
+    this.setManhatten = this.setManhatten.bind(this);
+    this.setDistance = this.setDistance.bind(this);
+    this.setType = this.setType.bind(this);
+    this.setVisited = this.setVisited.bind(this);
   }
 
-  xIndex: number;
-  yIndex: number;
-  pastNode?: Node;
-  private _visited = false;
-  public get visited() {
-    return this._visited;
-  }
-  public set visited(value) {
-    this._visited = value;
-    this.setState({ visited: value });
+  private ref: RefObject<HTMLDivElement>;
+  readonly xIndex: number;
+  readonly yIndex: number;
+
+  private _pastNode?: Node | undefined;
+  get pastNode() {
+    return this._pastNode;
   }
 
-  heuristic = Infinity;
-  manhatten = Infinity;
-  distance = Infinity;
-  ref: RefObject<HTMLDivElement>;
+  setPastNode(value?: Node) {
+    this._pastNode = value;
+  }
 
-  reset(this: this) {
-    this.pastNode = undefined;
-    this.visited = false;
-    this.heuristic = Infinity;
-    this.manhatten = Infinity;
-    this.distance = Infinity;
-    this.setState({ type: NodeType.none });
+  private _heuristic = Infinity;
+  get heuristic() {
+    return this._heuristic;
+  }
+  setHeuristic(value: number) {
+    this._heuristic = value;
+  }
+
+  private _manhatten = Infinity;
+  get manhatten() {
+    return this._manhatten;
+  }
+  setManhatten(value: number) {
+    this._manhatten = value;
+  }
+
+  private _distance = Infinity;
+  get distance() {
+    return this._distance;
+  }
+  setDistance(value: number) {
+    this._distance = value;
   }
 
   get type() {
     return this.state.type;
   }
+  setType(type: NodeType) {
+    this.setState({ type });
+  }
+
+  get visited() {
+    return this.state.visited;
+  }
+  setVisited(visited: boolean) {
+    this.setState({ visited });
+  }
+
+  reset(this: this) {
+    this.setPastNode(undefined);
+    this.setHeuristic(Infinity);
+    this.setManhatten(Infinity);
+    this.setDistance(Infinity);
+    this.setState({ type: NodeType.none, visited: false });
+  }
+
   get isStart() {
     return this.type === 'start';
   }
@@ -78,19 +115,19 @@ export class Node extends PureComponent<Props, State> {
     return this.ref.current;
   }
 
-  handleClick() {
+  private handleClick() {
     const { onClick } = this.props;
     this.setState({ type: onClick(this) });
   }
 
-  handleMouseOver() {
+  private handleMouseOver() {
     const { onMouseOver } = this.props;
     this.setState({ type: onMouseOver(this) });
   }
 
   render() {
     const { size, xIndex, yIndex, isLastColumn } = this.props;
-    const { type } = this.state;
+    const { type, visited } = this.state;
 
     return (
       <motion.div

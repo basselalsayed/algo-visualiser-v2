@@ -1,22 +1,24 @@
 import { sleep } from '../../utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { Node } from '../types';
+import type { INode } from '../types';
 
 export abstract class AStarBase extends PathFindingAlgorithm {
-  override queue = [this.start];
+  override queue = [this.startNode];
 
   get hasRun(): boolean {
     return !!this.visitedNodes.length;
   }
 
-  abstract findManhatten(this: this, node: Node, endNode: Node): number;
+  abstract findManhatten(this: this, node: INode, endNode: INode): number;
 
   *traverse(this: this) {
-    this.queue = [this.start];
+    this.queue = [this.startNode];
 
-    this.start.distance = 0;
-    this.start.manhatten = this.findManhatten(this.start, this.end);
-    this.setHeuristicTotal(this.start);
+    this.startNode.setDistance(0);
+    this.startNode.setManhatten(
+      this.findManhatten(this.startNode, this.endNode)
+    );
+    this.startNode.setHeuristic(this.findHeuristicTotal(this.startNode));
 
     while (this.queue.length) {
       this.sortOpenHeuritsicUnvisited();
@@ -37,8 +39,8 @@ export abstract class AStarBase extends PathFindingAlgorithm {
     return this.visitedNodes.length;
   }
 
-  setHeuristicTotal(this: this, node: Node) {
-    node.heuristic = node.distance + node.manhatten;
+  findHeuristicTotal(this: this, node: INode) {
+    return node.distance + node.manhatten;
   }
 
   sortOpenHeuritsicUnvisited(this: this) {
@@ -47,20 +49,20 @@ export abstract class AStarBase extends PathFindingAlgorithm {
       .filter((nodes) => !nodes.visited);
   }
 
-  heuristicCheck(this: this, node: Node) {
+  maybeUpdateHeuristic(this: this, node: INode) {
     const heuristicTotal = node.distance + node.manhatten;
     if (node.heuristic > heuristicTotal) {
-      node.heuristic = heuristicTotal;
+      node.setHeuristic(heuristicTotal);
     }
   }
 
-  addNeighboursToOpen(this: this, node: Node) {
+  addNeighboursToOpen(this: this, node: INode) {
     const notWallNeighbours = this.getUnvisitedNeighbors(node, false);
     for (const neighbour of notWallNeighbours) {
-      neighbour.distance = node.distance + 1;
-      neighbour.manhatten = this.findManhatten(neighbour, this.end);
-      this.heuristicCheck(neighbour);
-      neighbour.pastNode = node;
+      neighbour.setDistance(node.distance + 1);
+      neighbour.setManhatten(this.findManhatten(neighbour, this.endNode));
+      this.maybeUpdateHeuristic(neighbour);
+      neighbour.setPastNode(node);
       if (!this.queue.includes(neighbour)) {
         this.queue.push(neighbour);
       }

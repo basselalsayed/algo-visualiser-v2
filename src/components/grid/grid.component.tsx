@@ -53,7 +53,7 @@ export const Grid = memo(() => {
   useEventListener('mousedown', setTrue, gridRef);
   useEventListener('mouseup', setFalse, gridRef);
 
-  const handleNodeMouseOver = useCallback<(node: Node) => NodeType>(
+  const handleNodeMouseOver = useCallback<(node: INode) => NodeType>(
     (node) => {
       if (wallMode && mouseDown) {
         if (node.type === 'none') return NodeType.wall;
@@ -64,32 +64,35 @@ export const Grid = memo(() => {
     [mouseDown, wallMode]
   );
 
-  const handleNodeClick = useCallback<(type: Node) => NodeType>((node) => {
-    const { startNode, endNode, wallMode, dispatch } = useGrid.getState();
+  const handleNodeClick = useCallback<(node: INode) => NodeType>(
+    ({ type, xIndex, yIndex }) => {
+      const { startNode, endNode, wallMode, dispatch } = useGrid.getState();
 
-    switch (node.type) {
-      case 'none':
-        if (wallMode) return NodeType.wall;
+      switch (type) {
+        case 'none':
+          if (wallMode) return NodeType.wall;
 
-        if (!startNode) {
-          dispatch('startNode', node);
-          return NodeType.start;
-        }
-        if (!endNode) {
-          dispatch('endNode', node);
-          return NodeType.end;
-        }
-        return NodeType.none;
-      case 'start':
-        dispatch('startNode', undefined);
-        return NodeType.none;
-      case 'end':
-        dispatch('endNode', undefined);
-        return NodeType.none;
-      default:
-        return NodeType.none;
-    }
-  }, []);
+          if (!startNode) {
+            dispatch('startNode', [xIndex, yIndex]);
+            return NodeType.start;
+          }
+          if (!endNode) {
+            dispatch('endNode', [xIndex, yIndex]);
+            return NodeType.end;
+          }
+          return NodeType.none;
+        case 'start':
+          dispatch('startNode', undefined);
+          return NodeType.none;
+        case 'end':
+          dispatch('endNode', undefined);
+          return NodeType.none;
+        default:
+          return NodeType.none;
+      }
+    },
+    []
+  );
 
   return (
     <div

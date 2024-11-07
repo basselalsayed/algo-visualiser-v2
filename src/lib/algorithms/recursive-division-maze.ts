@@ -1,7 +1,7 @@
-import { NodeMap } from '@/hooks/useGrid';
+import { NodeMap } from '@/hooks/state/useGrid';
 
 import { sleep } from '../utils';
-import { Node } from './types';
+import { INode } from './types';
 import { NodeType } from '@/components/grid/node-type.enum';
 
 export class RecursiveDivisionMaze {
@@ -44,7 +44,7 @@ export class RecursiveDivisionMaze {
     }
   }
 
-  getNodeFromPosition(this: this, x: number, y: number): Node {
+  getNodeFromPosition(this: this, x: number, y: number): INode {
     if (!this.grid.has([x, y])) throw new Error('Invalid coordinates');
 
     return this.grid.get([x, y])!;
@@ -83,7 +83,7 @@ export class RecursiveDivisionMaze {
     const passageNode = horizontal
       ? this.getNodeFromPosition(wallX + passageIndex, wallY)
       : this.getNodeFromPosition(wallX, wallY + passageIndex);
-    passageNode.setState({ type: NodeType.none });
+    passageNode.setType(NodeType.none);
     if (horizontal) {
       this.recursiveDivision(x, y, width, wallY - y); // upper part
       this.recursiveDivision(x, wallY + 2, width, y + height - wallY - 2); // lower part
@@ -93,12 +93,12 @@ export class RecursiveDivisionMaze {
     }
   }
 
-  async animateWall(this: this, node: Node, ms = 10): Promise<void> {
-    node.setState({ type: NodeType.wall });
+  async animateWall(this: this, node: INode, ms = 10): Promise<void> {
+    node.setType(NodeType.wall);
     await sleep(ms);
   }
 
-  getNotWallNeighbors(this: this, node: Node): number {
+  getNotWallNeighbors(this: this, node: INode): number {
     const { xIndex, yIndex } = node;
 
     const directions = [

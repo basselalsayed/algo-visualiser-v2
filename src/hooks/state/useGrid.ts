@@ -4,23 +4,24 @@ import { create } from 'zustand';
 import type { Node } from '@/components/grid/node.component';
 import { ArrayKeyMap } from '@/lib/array-key-map';
 import { DispatchFunction } from './types';
+import { type INode } from '@/components/grid/node.interface';
 
 export type NodeCoordinates = [x: number, y: number];
-export type NodeMap = ArrayKeyMap<NodeCoordinates, Node>;
+export type NodeMap = ArrayKeyMap<NodeCoordinates, INode>;
 
 interface GridStore {
   refsMap: NodeMap;
   addRef: (x: number, y: number, el: Node | null) => void;
   resetGrid: VoidFunction;
   refreshKey: string;
-  startNode?: Node;
-  endNode?: Node;
+  startNode?: NodeCoordinates;
+  endNode?: NodeCoordinates;
   wallMode: boolean;
   dispatch: DispatchFunction<GridStore, 'refsMap' | 'addRef' | 'resetGrid'>;
 }
 
 export const useGrid = create<GridStore>((set) => ({
-  refsMap: new ArrayKeyMap<NodeCoordinates, Node>(),
+  refsMap: new ArrayKeyMap<NodeCoordinates, INode>(),
   addRef: (x, y, el) =>
     set((state) => {
       const key: NodeCoordinates = [x, y];
