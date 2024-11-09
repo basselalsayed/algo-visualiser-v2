@@ -62,6 +62,7 @@ export default tseslint.config(
       ],
       'sort/imports': 'off',
       'sort/import-members': 'off',
+      'sort/type-properties': 'error',
     },
     settings: {
       'import/parsers': {
