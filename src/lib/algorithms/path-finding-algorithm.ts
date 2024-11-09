@@ -1,9 +1,18 @@
 import { animate } from 'framer-motion/dom';
-import type { Node, RuntimeInfo, TraverseGenerator } from './types';
-import { assert, sleep } from '../utils';
-import { NodeMap } from '@/hooks/useGrid';
 
-export abstract class PathFindingAlgorithm {
+import { assert, convertToSeconds, sleep } from '../utils';
+import { type NodeCoordinates, type NodeMap } from '@/hooks/state/useGrid';
+
+import type {
+  INode,
+  IPathFindingAlgorithm,
+  RuntimeInfo,
+  TraverseGenerator,
+} from './types';
+
+export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
+  abstract name: string;
+
   constructor(
     public grid: NodeMap,
     public start: NodeCoordinates,
@@ -12,6 +21,7 @@ export abstract class PathFindingAlgorithm {
     this.run = this.run.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   get startNode(): INode {
@@ -21,7 +31,9 @@ export abstract class PathFindingAlgorithm {
     return this.getNodeFromPosition(...this.end);
   }
 
-  totalNodes = this.grid.size;
+  get totalNodes() {
+    return this.grid.size;
+  }
 
   protected queue: INode[] = [];
   protected visitedNodes: INode[] = [];
@@ -131,7 +143,10 @@ export abstract class PathFindingAlgorithm {
     return (this.executionEnd - this.executionStart) / 1000;
   }
 
-  async run(this: this, onDone: VoidFunction): Promise<RuntimeInfo> {
+  async run(
+    this: this,
+    onDone?: (results: RuntimeInfo) => unknown
+  ): Promise<void> {
     if (this.paused) {
       this.resume();
     }
@@ -150,15 +165,16 @@ export abstract class PathFindingAlgorithm {
 
       await this.executeGenerator(this.shortestPathGenerator);
 
-      onDone();
+      if (this.shortestPathGenerator.next().done) {
+        onDone?.({
+          name: this.name,
+          nodesProcessed: this.nodesProcessed,
+          nodesUntouched: this.totalNodes - this.nodesProcessed,
+          runtime: this.runtime,
+          shortestPath: this.shortestPath.length,
+        });
+      }
     }
-
-    return {
-      nodesProcessed: this.nodesProcessed,
-      shortestPath: this.shortestPath.length,
-      nodesUntouched: this.totalNodes - this.nodesProcessed,
-      runtime: this.runtime,
-    };
   }
 
   protected accessor paused: boolean = false;
@@ -167,5 +183,14 @@ export abstract class PathFindingAlgorithm {
   }
   resume(this: this): void {
     this.paused = false;
+  }
+
+  reset(this: this): void {
+    for (const node of this.grid.values()) {
+      node.reset(false);
+    }
+    this.visitedNodes = [];
+    this.traverseGenerator = undefined;
+    this.shortestPathGenerator = undefined;
   }
 }

@@ -1,9 +1,11 @@
+import type { INode } from '../types';
+
 import { AStarBase } from './a-star-base';
 
-import type { Node } from '../types';
-
 export class AStarManhatten extends AStarBase {
-  findManhatten(this: this, node: Node, endNode: Node) {
+  name = 'A* Manhatten';
+
+  findManhatten(this: this, node: INode, endNode: INode) {
     const manhatten =
       Math.abs(node.xIndex - endNode.xIndex) +
       Math.abs(node.yIndex - endNode.yIndex);

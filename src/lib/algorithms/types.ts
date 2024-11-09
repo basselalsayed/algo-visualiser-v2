@@ -1,18 +1,20 @@
-import { INode } from '@/components/grid/node.interface';
-import { NodeCoordinates, NodeMap } from '@/hooks/state/useGrid';
+import { type INode } from '@/components/grid/node.interface';
+import { type NodeCoordinates, type NodeMap } from '@/hooks/state/useGrid';
 
 export interface RuntimeInfo {
+  name: string;
   nodesProcessed: number;
   nodesUntouched: number;
-  shortestPath: number;
   runtime: number;
+  shortestPath: number;
 }
 
 export type { INode };
 
-export interface TPathFindingAlgorithm {
-  run: (onDone?: VoidFunction) => Promise<RuntimeInfo>;
-  pause: VoidFunction;
+export interface IPathFindingAlgorithm {
+  pause(): void;
+  reset(): void | Promise<void>;
+  run(onDone?: (results: RuntimeInfo) => unknown): Promise<void>;
 }
 
 export interface IPathFindingAlgorithmConstructor {

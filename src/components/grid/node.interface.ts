@@ -19,4 +19,5 @@ export interface INode {
   setManhatten(manhatten: number): void;
   distance: number;
   setDistance(distance: number): void;
+  reset(resetType: boolean | NodeType[]): void;
 }

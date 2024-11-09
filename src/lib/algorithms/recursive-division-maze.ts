@@ -1,16 +1,22 @@
-import { NodeMap } from '@/hooks/state/useGrid';
-
 import { sleep } from '../utils';
-import { INode } from './types';
 import { NodeType } from '@/components/grid/node-type.enum';
+import { type NodeMap } from '@/hooks/state/useGrid';
+
+import { type INode } from './types';
 
 export class RecursiveDivisionMaze {
-  constructor(public readonly grid: NodeMap) {
+  constructor(
+    public readonly grid: NodeMap,
+    readonly onDone?: VoidFunction
+  ) {
+    this.cols = Math.max(...[...this.grid.keys()].map(([x]) => x)) + 1;
+    this.rows = Math.max(...[...this.grid.keys()].map(([, y]) => y)) + 1;
+
     this.run = this.run.bind(this);
   }
 
-  cols = Math.max(...[...this.grid.keys()].map(([x]) => x)) + 1;
-  rows = Math.max(...[...this.grid.keys()].map(([, y]) => y)) + 1;
+  cols: number;
+  rows: number;
 
   wallIsHorizontal(this: this, width: number, height: number): boolean {
     return height > width;
@@ -58,7 +64,10 @@ export class RecursiveDivisionMaze {
     height: number
   ) {
     // if the area is too small to divide
-    if (width < 2 || height < 2) return;
+    if (width < 2 || height < 2) {
+      this.onDone?.();
+      return;
+    }
 
     const horizontal = this.wallIsHorizontal(width, height);
 

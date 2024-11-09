@@ -1,8 +1,11 @@
-import type { Node } from '../types';
+import type { INode } from '../types';
+
 import { AStarBase } from './a-star-base';
 
 export class AStarEuclidean extends AStarBase {
-  findManhatten(this: this, node: Node, endNode: Node) {
+  name = 'A* Euclidean';
+
+  findManhatten(this: this, node: INode, endNode: INode) {
     const manhatten =
       (node.xIndex - endNode.xIndex) ** 2 + (node.yIndex - endNode.yIndex) ** 2;
 

@@ -92,12 +92,19 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setState({ visited });
   }
 
-  reset(this: this) {
+  reset(this: this, resetType: boolean | NodeType[]) {
     this.setPastNode(undefined);
     this.setHeuristic(Infinity);
     this.setManhatten(Infinity);
     this.setDistance(Infinity);
-    this.setState({ type: NodeType.none, visited: false });
+
+    let newType = this.type;
+
+    if (resetType === true) newType = NodeType.none;
+    else if (Array.isArray(resetType) && resetType.includes(this.type))
+      newType = NodeType.none;
+
+    this.setState({ type: newType, visited: false });
   }
 
   get isStart() {

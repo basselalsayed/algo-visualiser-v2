@@ -1,6 +1,6 @@
-import { sleep } from '@/lib/utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
 import type { INode } from '../types';
+import { sleep } from '@/lib/utils';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): INode;
@@ -32,5 +32,10 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
     }
 
     return this.visitedNodes.length;
+  }
+
+  override reset(this: this): void {
+    super.reset();
+    this.queue = [this.startNode];
   }
 }

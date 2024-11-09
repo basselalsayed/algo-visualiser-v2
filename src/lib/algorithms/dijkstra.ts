@@ -1,8 +1,11 @@
-import type { INode } from './types';
-import { PathFindingAlgorithm } from './path-finding-algorithm';
 import { sleep } from '../utils';
 
+import { PathFindingAlgorithm } from './path-finding-algorithm';
+import type { INode } from './types';
+
 export class Dijkstra extends PathFindingAlgorithm {
+  name = 'Dijkstra';
+
   updateUnvisitedNeighbors(this: this, node: INode): void {
     const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
     for (const neighbour of unvisitedNeighbors) {
@@ -23,7 +26,6 @@ export class Dijkstra extends PathFindingAlgorithm {
     // so make a check to be sure that it exists!!!
     const unvisitedNodes = [...this.grid.values()];
 
-    this.start.distance = 0;
     while (unvisitedNodes.length) {
       this.sortNodesByDistance(unvisitedNodes);
 

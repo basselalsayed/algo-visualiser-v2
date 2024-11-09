@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -33,4 +33,20 @@ export function assert(value: unknown, type: T0): asserts value is T0 {
       `Expected type '${type}', but received '${actualType}'`
     );
   }
+}
+
+export function convertToMilliseconds(
+  start: DOMHighResTimeStamp,
+  end: DOMHighResTimeStamp
+) {
+  const milliseconds = end - start;
+  return Math.floor(milliseconds * 1000) / 1000; // 3 decimal places
+}
+
+export function convertToSeconds(
+  start: DOMHighResTimeStamp,
+  end: DOMHighResTimeStamp
+) {
+  const seconds = (end - start) / 1000;
+  return Math.floor(seconds * 1000) / 1000;
 }

@@ -1,8 +1,11 @@
-import type { Node } from '../types';
+import type { INode } from '../types';
+
 import { BaseFirstSearch } from './base-first-search';
 
 export class DepthFirstSearch extends BaseFirstSearch {
-  getCurrentNode(): Node {
+  name = 'DFS';
+
+  getCurrentNode(): INode {
     return this.queue.pop()!;
   }
 }
