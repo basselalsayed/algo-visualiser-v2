@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useMutation } from '@/data/hooks/useMutation';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
 import { RecursiveDivisionMaze } from '@/lib/algorithms/recursive-division-maze';
 
@@ -58,12 +59,19 @@ export const useRun = (): useRunReturn => {
     dispatch('runState', 'idle');
   }, [currentAlgo.class, dispatch, endNode, refsMap, startNode]);
 
-  const onRunComplete = useCallback((result: RuntimeInfo) => {
-    const { addResult } = useStats.getState();
-    const { dispatch } = useRunStore.getState();
-    dispatch('runState', 'done');
-    addResult(result);
-  }, []);
+  const trigger = useMutation({ tableName: 'algo_result' });
+
+  const onRunComplete = useCallback(
+    (result: RuntimeInfo) => {
+      const { addResult } = useStats.getState();
+      const { dispatch } = useRunStore.getState();
+      dispatch('runState', 'done');
+
+      trigger([result]);
+      addResult(result);
+    },
+    [trigger]
+  );
 
   const onRunCompleteReplay = useCallback(() => {
     const { dispatch } = useRunStore.getState();

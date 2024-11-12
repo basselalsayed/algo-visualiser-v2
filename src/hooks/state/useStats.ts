@@ -1,33 +1,42 @@
-import { type RuntimeInfo } from '@/lib/algorithms';
-import { produce } from 'immer';
+import { createDraft, finishDraft, produce } from 'immer';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { type RuntimeInfo } from '@/lib/algorithms';
+import { sleep } from '@/lib/utils';
+
+import { type DispatchFunction } from './types';
+
+export type ResultsSource = 'local' | 'global';
+
 interface StatsStore {
-  statsOpen: boolean;
-  setStatsOpen: (open: boolean) => void;
-  results: RuntimeInfo[];
   addResult: (result: RuntimeInfo) => void;
+  dispatch: DispatchFunction<StatsStore, 'dispatch' | 'addResult' | 'results'>;
+  results: RuntimeInfo[];
+  resultsSource: ResultsSource;
+  statsOpen: boolean;
 }
 
 export const useStats = create(
   persist<StatsStore>(
-    (set) => ({
-      statsOpen: true,
-      setStatsOpen: (open) =>
+    (set, get) => ({
+      addResult: async (result) => {
+        const draft = createDraft(get());
+        draft.results.push(result);
+        await sleep(300);
+        draft.statsOpen = true;
+
+        return set(finishDraft(draft));
+      },
+      dispatch: (type, payload) =>
         set(
-          produce((state) => {
-            state.statsOpen = open;
+          produce<StatsStore>((state) => {
+            state[type] = payload;
           })
         ),
       results: [],
-      addResult: (result) =>
-        set(
-          produce((state) => {
-            state.results.push(result);
-            state.statsOpen = true;
-          })
-        ),
+      resultsSource: 'local',
+      statsOpen: true,
     }),
     {
       name: 'statsStorage',

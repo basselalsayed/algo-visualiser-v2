@@ -35,6 +35,15 @@ export function assert(value: unknown, type: T0): asserts value is T0 {
   }
 }
 
+export function typeIs(value: unknown, type: T0): value is T0 {
+  try {
+    assert(value, type);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function convertToMilliseconds(
   start: DOMHighResTimeStamp,
   end: DOMHighResTimeStamp
@@ -49,4 +58,11 @@ export function convertToSeconds(
 ) {
   const seconds = (end - start) / 1000;
   return Math.floor(seconds * 1000) / 1000;
+}
+
+export function elementIsFullyScrolled(element: HTMLElement): boolean {
+  return (
+    Math.floor(element.scrollHeight - element.scrollTop) ===
+    Math.floor(element.clientHeight)
+  );
 }
