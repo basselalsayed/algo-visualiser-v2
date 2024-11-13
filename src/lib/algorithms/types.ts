@@ -12,6 +12,7 @@ export interface RuntimeInfo {
 export type { INode };
 
 export interface IPathFindingAlgorithm {
+  name: string;
   pause(): void;
   reset(): void | Promise<void>;
   run(onDone?: (results: RuntimeInfo) => unknown): Promise<void>;

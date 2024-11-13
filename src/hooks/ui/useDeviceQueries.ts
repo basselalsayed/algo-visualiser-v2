@@ -1,9 +1,9 @@
 import { useMediaQuery } from 'usehooks-ts';
 
 export const breakPoints = {
+  laptop: 82,
   mobile: 43,
   tablet: 62,
-  laptop: 82,
 };
 
 export const isMobileMq = `(max-width: ${breakPoints.tablet}rem)`;
@@ -18,9 +18,9 @@ export const useDeviceQueries = () => {
   const isDesktop = useMediaQuery(isDesktopMq);
 
   return {
+    isDesktop,
     isMobile,
     isMobileOrTablet,
     isTablet,
-    isDesktop,
   };
 };

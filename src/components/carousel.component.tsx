@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, FC } from 'react';
+import { type ComponentPropsWithoutRef, type FC } from 'react';
+
 import * as C from './ui/carousel';
 
 export const Carousel: FC<ComponentPropsWithoutRef<typeof C.Carousel>> = ({
@@ -10,6 +11,6 @@ export const Carousel: FC<ComponentPropsWithoutRef<typeof C.Carousel>> = ({
   </C.Carousel>
 );
 
-const { CarouselItem, CarouselControls } = C;
+const { CarouselControls, CarouselItem } = C;
 
-export { CarouselItem, CarouselControls };
+export { CarouselControls, CarouselItem };

@@ -3,27 +3,27 @@ import { useEffect, useRef, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 type Size = {
-  width: number | undefined;
   height: number | undefined;
+  width: number | undefined;
 };
 
 type UseResizeObserverOptions<T extends HTMLElement = HTMLElement> = {
-  ref: React.RefObject<T>;
-  onResize?: (size: Size) => void;
   box?: 'border-box' | 'content-box' | 'device-pixel-content-box';
+  onResize?: (size: Size) => void;
+  ref: React.RefObject<T>;
   throttleDelay?: number;
 };
 
 const initialSize: Size = {
-  width: undefined,
   height: undefined,
+  width: undefined,
 };
 
 export function useResizeObserver<T extends HTMLElement = HTMLElement>(
   options: UseResizeObserverOptions<T>
 ): Size {
-  const { ref, box = 'content-box', throttleDelay = 100 } = options;
-  const [{ width, height }, setSize] = useState<Size>(initialSize);
+  const { box = 'content-box', ref, throttleDelay = 100 } = options;
+  const [{ height, width }, setSize] = useState<Size>(initialSize);
   const isMounted = useIsMounted();
   const previousSize = useRef<Size>({ ...initialSize });
   const onResize = useRef<((size: Size) => void) | undefined>(undefined);
@@ -50,7 +50,7 @@ export function useResizeObserver<T extends HTMLElement = HTMLElement>(
         previousSize.current.height !== newHeight;
 
       if (hasChanged) {
-        const newSize: Size = { width: newWidth, height: newHeight };
+        const newSize: Size = { height: newHeight, width: newWidth };
         previousSize.current = newSize;
 
         const handleResize = () => {
@@ -72,7 +72,7 @@ export function useResizeObserver<T extends HTMLElement = HTMLElement>(
     };
   }, [box, ref, isMounted, throttleDelay]);
 
-  return { width, height };
+  return { height, width };
 }
 
 type BoxSizesKey = keyof Pick<

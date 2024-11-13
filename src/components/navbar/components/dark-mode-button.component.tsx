@@ -1,4 +1,4 @@
-import { Sun, Moon } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useDarkMode } from 'usehooks-ts';
 
 import { Button } from '@/components/ui/button';

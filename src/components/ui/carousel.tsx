@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -13,20 +13,20 @@ export type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
 
 type CarouselProps = {
-  opts?: CarouselOptions;
-  plugins?: CarouselPlugin;
-  orientation?: 'horizontal' | 'vertical';
-  setApi?: (api: CarouselApi) => void;
   onItemSelect?: (api: CarouselApi) => void;
+  opts?: CarouselOptions;
+  orientation?: 'horizontal' | 'vertical';
+  plugins?: CarouselPlugin;
+  setApi?: (api: CarouselApi) => void;
 };
 
 type CarouselContextProps = {
-  carouselRef: ReturnType<typeof useEmblaCarousel>[0];
   api: ReturnType<typeof useEmblaCarousel>[1];
-  scrollPrev: () => void;
-  scrollNext: () => void;
-  canScrollPrev: boolean;
   canScrollNext: boolean;
+  canScrollPrev: boolean;
+  carouselRef: ReturnType<typeof useEmblaCarousel>[0];
+  scrollNext: () => void;
+  scrollPrev: () => void;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -47,13 +47,13 @@ const Carousel = React.forwardRef<
 >(
   (
     {
-      orientation = 'horizontal',
-      opts,
-      setApi,
-      plugins,
-      className,
       children,
+      className,
       onItemSelect,
+      opts,
+      orientation = 'horizontal',
+      plugins,
+      setApi,
       ...props
     },
     ref
@@ -123,15 +123,15 @@ const Carousel = React.forwardRef<
     return (
       <CarouselContext.Provider
         value={{
-          carouselRef,
           api: api,
+          canScrollNext,
+          canScrollPrev,
+          carouselRef,
           opts,
           orientation:
             orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
-          scrollPrev,
           scrollNext,
-          canScrollPrev,
-          canScrollNext,
+          scrollPrev,
         }}
       >
         <div
@@ -208,8 +208,8 @@ const CarouselControls: React.FC = () => (
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+>(({ className, size = 'icon', variant = 'outline', ...props }, ref) => {
+  const { canScrollPrev, orientation, scrollPrev } = useCarousel();
 
   return (
     <Button
@@ -235,8 +235,8 @@ CarouselPrevious.displayName = 'CarouselPrevious';
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
+>(({ className, size = 'icon', variant = 'outline', ...props }, ref) => {
+  const { canScrollNext, orientation, scrollNext } = useCarousel();
 
   return (
     <Button
@@ -328,12 +328,12 @@ export const DotButton = React.forwardRef<
 DotButton.displayName = 'DotButton';
 
 export {
-  type CarouselApi,
   Carousel,
+  type CarouselApi,
   CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-  CarouselDotButtons,
   CarouselControls,
+  CarouselDotButtons,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 };

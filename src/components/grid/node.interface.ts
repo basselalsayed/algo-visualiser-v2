@@ -1,23 +1,23 @@
 import { type NodeType } from './node-type.enum';
 
 export interface INode {
+  distance: number;
   domNode: HTMLDivElement;
-  type: NodeType;
-  setType(type: NodeType): void;
-  isStart: boolean;
+  heuristic: number;
   isEnd: boolean;
+  isStart: boolean;
   isWall: boolean;
+  manhatten: number;
+  pastNode?: INode;
+  reset(resetType: boolean | NodeType[]): void;
+  setDistance(distance: number): void;
+  setHeuristic(heuristic: number): void;
+  setManhatten(manhatten: number): void;
+  setPastNode(pastNode?: INode): void;
+  setType(type: NodeType): void;
+  setVisited(visited: boolean): void;
+  type: NodeType;
+  visited: boolean;
   xIndex: number;
   yIndex: number;
-  visited: boolean;
-  setVisited(visited: boolean): void;
-  pastNode?: INode;
-  setPastNode(pastNode?: INode): void;
-  heuristic: number;
-  setHeuristic(heuristic: number): void;
-  manhatten: number;
-  setManhatten(manhatten: number): void;
-  distance: number;
-  setDistance(distance: number): void;
-  reset(resetType: boolean | NodeType[]): void;
 }

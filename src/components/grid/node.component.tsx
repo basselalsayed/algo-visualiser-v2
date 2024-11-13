@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 import { INode } from './node.interface';
 
 interface Props {
-  size: number;
-  xIndex: number;
-  yIndex: number;
   isLastColumn: boolean;
   onClick: (node: Node) => NodeType;
   onMouseOver: (node: Node) => NodeType;
+  size: number;
+  xIndex: number;
+  yIndex: number;
 }
 
 interface State {
@@ -133,7 +133,7 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
 
   render() {
-    const { size, xIndex, yIndex, isLastColumn } = this.props;
+    const { isLastColumn, size, xIndex, yIndex } = this.props;
     const { type, visited } = this.state;
 
     return (

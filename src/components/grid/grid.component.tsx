@@ -1,23 +1,26 @@
+import { motion } from 'framer-motion';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useBoolean, useEventListener } from 'usehooks-ts';
-
-import { useSettings } from '@/hooks/state/useSettings';
-import { Node } from './node.component';
-import { NodeType } from './node-type.enum';
-
 import { useShallow } from 'zustand/react/shallow';
+
 import { useGrid } from '@/hooks/state/useGrid';
+import { useSettings } from '@/hooks/state/useSettings';
 import { useResizeObserver } from '@/hooks/util/useResizeObserver';
+import { cn } from '@/lib/utils';
+
+import { NodeType } from './node-type.enum';
+import { Node } from './node.component';
+import { type INode } from './node.interface';
 
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const { nodeSize, gridHeight, gridWidth, dispatch } = useSettings(
-    useShallow(({ nodeSize, gridHeight, gridWidth, dispatch }) => ({
-      nodeSize,
+  const { dispatch, gridHeight, gridWidth, nodeSize } = useSettings(
+    useShallow(({ dispatch, gridHeight, gridWidth, nodeSize }) => ({
+      dispatch,
       gridHeight,
       gridWidth,
-      dispatch,
+      nodeSize,
     }))
   );
 
@@ -30,7 +33,7 @@ export const Grid = memo(() => {
     }))
   );
 
-  const { width = 0, height = 0 } = useResizeObserver({
+  const { height = 0, width = 0 } = useResizeObserver({
     ref: gridRef,
     throttleDelay: 2000,
   });
@@ -48,7 +51,7 @@ export const Grid = memo(() => {
     [gridHeight, gridWidth, nodeSize]
   );
 
-  const { value: mouseDown, setTrue, setFalse } = useBoolean(false);
+  const { setFalse, setTrue, value: mouseDown } = useBoolean(false);
 
   useEventListener('mousedown', setTrue, gridRef);
   useEventListener('mouseup', setFalse, gridRef);
@@ -66,7 +69,7 @@ export const Grid = memo(() => {
 
   const handleNodeClick = useCallback<(node: INode) => NodeType>(
     ({ type, xIndex, yIndex }) => {
-      const { startNode, endNode, wallMode, dispatch } = useGrid.getState();
+      const { dispatch, endNode, startNode, wallMode } = useGrid.getState();
 
       switch (type) {
         case 'none':
