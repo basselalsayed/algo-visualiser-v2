@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --cache",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "update-index-ts": "cd src && for f in *; do pnpm dlx create-ts-index create ./$f -w -b; done"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.1",
@@ -29,11 +30,13 @@
     "@supabase/supabase-js": "2.45.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cmdk": "1.0.0",
     "embla-carousel-react": "^8.3.1",
     "framer-motion": "^11.11.11",
     "immer": "^10.1.1",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.452.0",
+    "motion": "^11.11.17",
     "nanoid": "^5.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -41,12 +44,14 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
+    "ts-pattern": "^5.5.0",
     "type-fest": "^4.26.1",
     "usehooks-ts": "^3.1.0",
     "zustand": "5.0.0-rc.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
+    "@simbathesailor/use-what-changed": "^2.0.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",

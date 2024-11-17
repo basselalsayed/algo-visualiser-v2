@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -8,7 +8,6 @@ import { RecursiveDivisionMaze } from '@/lib/algorithms/recursive-division-maze'
 
 import { type DispatchFunction } from './types';
 import { useGrid } from './useGrid';
-import { useSettings } from './useSettings';
 import { useStats } from './useStats';
 
 type RunState = 'idle' | 'running' | 'paused' | 'done';
@@ -21,7 +20,7 @@ interface RunStore {
   runState: RunState;
 }
 
-const useRunStore = create<RunStore>((set) => ({
+export const useRunStore = create<RunStore>((set) => ({
   algoInstance: undefined,
   dispatch: (key, value) => set((state) => ({ ...state, [key]: value })),
   mazeRunState: 'idle',
@@ -29,7 +28,9 @@ const useRunStore = create<RunStore>((set) => ({
 }));
 
 interface useRunReturn {
+  algoRunning: boolean;
   maze: RecursiveDivisionMaze;
+  mazeRunning: boolean;
   readyToRun: boolean;
   readyToRunMaze: boolean;
   reset: VoidFunction;
@@ -41,23 +42,7 @@ interface useRunReturn {
 export const useRun = (): useRunReturn => {
   const { algoInstance, dispatch, mazeRunState, runState } = useRunStore();
 
-  const { currentAlgo } = useSettings();
-
-  const { endNode, refsMap, resetGrid, resetWalls, startNode } = useGrid();
-
-  useEffect(() => {
-    algoInstance?.reset();
-  }, [algoInstance, refsMap]);
-
-  useEffect(() => {
-    dispatch(
-      'algoInstance',
-      startNode && endNode
-        ? new currentAlgo.class(refsMap, startNode, endNode)
-        : undefined
-    );
-    dispatch('runState', 'idle');
-  }, [currentAlgo.class, dispatch, endNode, refsMap, startNode]);
+  const { refsMap, resetGrid, resetWalls } = useGrid();
 
   const trigger = useMutation({ tableName: 'algo_result' });
 
@@ -138,7 +123,9 @@ export const useRun = (): useRunReturn => {
   }, [dispatch, maze, mazeRunState, resetWalls]);
 
   return {
+    algoRunning: runState === 'running',
     maze,
+    mazeRunning: mazeRunState === 'running',
     readyToRun,
     readyToRunMaze,
     reset,
@@ -148,10 +135,10 @@ export const useRun = (): useRunReturn => {
   };
 };
 
-export const useIsRunning = (): {
-  algoRunning: boolean;
-  mazeRunning: boolean;
-} => {
+export const useIsRunning = (): Pick<
+  useRunReturn,
+  'algoRunning' | 'mazeRunning'
+> => {
   const { mazeRunState, runState } = useRunStore(
     useShallow(({ mazeRunState, runState }) => ({
       mazeRunState,
