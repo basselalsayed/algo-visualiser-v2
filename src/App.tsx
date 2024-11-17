@@ -14,6 +14,8 @@ import {
 } from '@/hooks';
 
 function App() {
+  useKeyboardShortcuts();
+
   const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
