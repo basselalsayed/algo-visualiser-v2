@@ -1,0 +1,1 @@
+export const PERFORMANCE_NODE_SIZE_THRESHOLD = 24;
