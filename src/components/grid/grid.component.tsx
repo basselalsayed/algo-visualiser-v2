@@ -3,6 +3,7 @@ import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useBoolean, useEventListener } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useDimensions } from '@/hooks';
 import { useGrid } from '@/hooks/state/useGrid';
 import { useSettings } from '@/hooks/state/useSettings';
 import { useResizeObserver } from '@/hooks/util/useResizeObserver';
@@ -15,11 +16,9 @@ import { type INode } from './node.interface';
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const { dispatch, gridHeight, gridWidth, nodeSize } = useSettings(
-    useShallow(({ dispatch, gridHeight, gridWidth, nodeSize }) => ({
+  const { dispatch, nodeSize } = useSettings(
+    useShallow(({ dispatch, nodeSize }) => ({
       dispatch,
-      gridHeight,
-      gridWidth,
       nodeSize,
     }))
   );
@@ -46,10 +45,7 @@ export const Grid = memo(() => {
     resetGrid();
   }, [dispatch, height, resetGrid, width]);
 
-  const [columnCount, rowCount] = useMemo(
-    () => [Math.floor(gridWidth / nodeSize), Math.floor(gridHeight / nodeSize)],
-    [gridHeight, gridWidth, nodeSize]
-  );
+  const { columnCount, rowCount } = useDimensions();
 
   const { setFalse, setTrue, value: mouseDown } = useBoolean(false);
 
