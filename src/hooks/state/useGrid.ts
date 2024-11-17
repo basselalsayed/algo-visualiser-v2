@@ -1,10 +1,8 @@
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
-import { NodeType } from '@/components/grid/node-type.enum';
-import type { Node } from '@/components/grid/node.component';
-import { type INode } from '@/components/grid/node.interface';
-import { ArrayKeyMap } from '@/lib/array-key-map';
+import { type INode, type Node, NodeType } from '@/components';
+import { ArrayKeyMap } from '@/lib';
 
 import { type DispatchFunction } from './types';
 
@@ -12,15 +10,15 @@ export type NodeCoordinates = [x: number, y: number];
 export type NodeMap = ArrayKeyMap<NodeCoordinates, INode>;
 
 interface GridStore {
-  refsMap: NodeMap;
   addRef: (x: number, y: number, el: Node | null) => void;
+  dispatch: DispatchFunction<GridStore, 'refsMap' | 'addRef' | 'resetGrid'>;
+  endNode?: NodeCoordinates;
+  refreshKey: string;
+  refsMap: NodeMap;
   resetGrid: VoidFunction;
   resetWalls: VoidFunction;
-  refreshKey: string;
   startNode?: NodeCoordinates;
-  endNode?: NodeCoordinates;
   wallMode: boolean;
-  dispatch: DispatchFunction<GridStore, 'refsMap' | 'addRef' | 'resetGrid'>;
 }
 
 export const useGrid = create<GridStore>((set, get) => ({

@@ -2,8 +2,7 @@ import { useMemo, useRef } from 'react';
 import { match } from 'ts-pattern';
 import { useEventCallback, useEventListener } from 'usehooks-ts';
 
-import { type NodeCoordinates, useGrid, useRun } from '../state';
-import { useCommand } from '../state/useCommand';
+import { type NodeCoordinates, useCommand, useGrid, useRun } from '../state';
 import { NodeType } from '@/components/grid';
 import {
   EDIT_ALGORITHM,

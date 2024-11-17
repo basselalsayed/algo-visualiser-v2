@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useSettings } from '../state/useSettings';
+import { useSettings } from '../state';
 
 interface useDimensionsReturn {
   columnCount: number;

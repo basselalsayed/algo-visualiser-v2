@@ -1,8 +1,7 @@
-import { createRef, RefObject, PureComponent } from 'react';
-import { NodeType } from './node-type.enum';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-import { INode } from './node.interface';
+
+import { NodeType } from './node-type.enum';
+import { type INode } from './node.interface';
 
 interface Props {
   isLastColumn: boolean;

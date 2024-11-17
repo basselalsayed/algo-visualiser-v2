@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { useBoolean, useEventListener } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
