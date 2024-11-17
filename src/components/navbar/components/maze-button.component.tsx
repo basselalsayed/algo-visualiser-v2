@@ -1,10 +1,10 @@
 import { BrickWall } from 'lucide-react';
 import { type FC } from 'react';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui';
 import { useRun } from '@/hooks/state/useRun';
 
-export const MazeButton: FC<{ run: () => Promise<void> }> = () => {
+export const MazeButton: FC = () => {
   const { readyToRunMaze, runMaze } = useRun();
 
   return (

@@ -2,7 +2,7 @@ import { PauseIcon, PlayIcon, Repeat1 } from 'lucide-react';
 import { type FC, type ReactElement } from 'react';
 import { match } from 'ts-pattern';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui';
 import { useRun } from '@/hooks/state/useRun';
 
 export const RunButton: FC = () => {
