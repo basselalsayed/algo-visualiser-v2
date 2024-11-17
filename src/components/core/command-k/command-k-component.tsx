@@ -36,6 +36,7 @@ import {
 
 import {
   MazeRunCommandItem,
+  RandomiseWallsCommandItem,
   RunCommandItem,
   ShowStatsCommandItem,
 } from './command-items';
@@ -96,6 +97,7 @@ export const CommandKComponent: FC = () => {
 
             <CommandShortcut primaryKey={EDIT_ALGORITHM} />
           </CommandItem>
+          <RandomiseWallsCommandItem />
         </CommandGroup>
       </CommandList>
     </CommandDialog>

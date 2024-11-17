@@ -60,8 +60,7 @@ export const DesktopNav: FC = () => {
           {settingsSection}
           <ResetButton />
           <MazeButton />
-          <RunButton
-          />
+          <RunButton />
         </NavigationMenuList>
       </NavigationMenu>
     </>
