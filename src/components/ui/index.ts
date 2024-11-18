@@ -1,7 +1,5 @@
 export * from './accordion';
 export * from './button';
-export * from './card';
-export * from './carousel';
 export * from './checkbox';
 export * from './command';
 export * from './dialog';

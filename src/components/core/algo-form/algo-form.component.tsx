@@ -1,8 +1,7 @@
 import { type FC, useRef } from 'react';
 import TexSVG from 'react-hook-mathjax';
 
-import { Carousel } from '@/components';
-import { Card, CarouselItem } from '@/components/ui';
+import { Card, Carousel, CarouselItem } from '@/components';
 import { useSettings } from '@/hooks/state/useSettings';
 import { algoInfo } from '@/lib/constants/algoInfo';
 import { cn } from '@/lib/utils';
