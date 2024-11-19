@@ -1,7 +1,7 @@
 import { Settings2 } from 'lucide-react';
 import { type FC, useState } from 'react';
 
-import { Accordian, AccordianItem, AlgoForm, SettingsForm } from '..';
+import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 import {
   Button,
   Sheet,
@@ -69,7 +69,7 @@ export const MobileNav: FC = () => {
               className='border-1 border-primary bg-background shadow-lg'
             >
               <Settings2 absoluteStrokeWidth />
-              <span className='sr-only'>Toggle menu</span>
+              <SrOnly tKey='sr.toggleMenu' />
             </Button>
           </SheetTrigger>
           <RunButton />

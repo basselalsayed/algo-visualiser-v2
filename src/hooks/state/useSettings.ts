@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
-import { type AlgoInfo, algoInfo } from '../../lib/constants/algoInfo';
+import { type AlgoInfo, algoInfo } from '@/lib/constants';
 
 import { type DispatchFunction } from './types';
 

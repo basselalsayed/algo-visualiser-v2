@@ -1,4 +1,4 @@
-import { type ParseKeys } from 'i18next';
+import { type DefaultNamespace, type ParseKeys } from 'i18next';
 
 declare type AsyncVoidFunction = () => Promise<void>;
 /** See https://stackoverflow.com/a/51390763/1470607  */
@@ -17,9 +17,9 @@ declare interface Array<T> {
 }
 
 declare global {
-  declare type TKey = ParseKeys;
+  declare type TKey<T = DefaultNamespace> = ParseKeys<T>;
 
-  declare interface TProp {
-    tKey: TKey;
+  declare interface TProp<T = DefaultNamespace> {
+    tKey: TKey<T>;
   }
 }
