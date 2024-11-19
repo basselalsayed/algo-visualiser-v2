@@ -1,0 +1,57 @@
+{
+  "translations": {
+    "appName": "Algorithm Visualiser",
+    "navbar": {
+      "appName": "Algorithm Visualiser",
+      "algorithms": "Algorithms",
+      "settings": "Settings",
+      "wallSwitch": "WallMode"
+    },
+    "settings": {
+      "title": "Settings",
+      "nodeSize": "Node size",
+      "gridWidth": "Grid width",
+      "gridHeight": "Grid height",
+      "drawSquare": "Draw square",
+      "animationSpeed": "Animation speed",
+      "performance": "Performance mode",
+      "performanceCheck": "This size is only recommended for faster devices, are you sure?",
+      "reset": "Reset"
+    },
+    "commandk": {
+      "searchPlaceholder": "Type a command or search...",
+      "headings": {
+        "actions": "Actions",
+        "controls": "Controls",
+        "settings": "Settings",
+        "misc": "Miscellaneous"
+      },
+      "play": "Play",
+      "pause": "Pause",
+      "replay": "Replay",
+      "resetGrid": "Reset grid",
+      "buildMaze": "Build maze",
+      "showStats": "Show previous runs",
+      "algorithm": "Algorithm",
+      "darkMode": {
+        "enable": "Enable dark mode",
+        "disable": "Disable dark mode"
+      },
+      "wallMode": {
+        "enable": "Enable wall mode",
+        "disable": "Disable wall mode"
+      },
+      "randomWalls": "Randomise walls"
+    },
+    "stats": {
+      "title": "Run History",
+      "algorithm": "Algorithm",
+      "nodesProcessed": "Nodes processed",
+      "shortestPath": "Shortest path",
+      "nodesUntouched": "Nodes untouched",
+      "runtime": "Runtime",
+      "local": "Local",
+      "global": "Global"
+    }
+  }
+}
