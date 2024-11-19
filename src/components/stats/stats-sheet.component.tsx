@@ -1,6 +1,7 @@
 import { useOffsetInfiniteScrollQuery } from '@supabase-cache-helpers/postgrest-swr';
 import { throttle } from 'lodash-es';
 import { type FC, type UIEvent, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useEventCallback } from 'usehooks-ts';
 
 import { Tabs } from '../tabs.component';
@@ -18,7 +19,7 @@ import { StatsTable } from './stats-table.component';
 export const StatsSheet: FC = () => {
   const { dispatch, results: local, resultsSource, statsOpen } = useStats();
 
-  const isGlobal = resultsSource === 'global';
+  const isGlobal = resultsSource === 'stats.global';
 
   const { isMobile } = useDeviceQueries();
 
@@ -48,14 +49,16 @@ export const StatsSheet: FC = () => {
     }, 300)
   );
 
+  const { t } = useTranslation();
+
   return (
     <Sheet open={statsOpen} onOpenChange={(v) => dispatch('statsOpen', v)}>
       <SheetContent className='flex flex-col gap-y-4 sm:w-7/12'>
-        <h1>Previous runs</h1>
+        <h1>{t('stats.title')}</h1>
         <Tabs
-          defaultValue='local'
+          defaultValue='stats.local'
           value={resultsSource}
-          values={['local', 'global']}
+          values={['stats.local', 'stats.global']}
           onValueChange={(v) => dispatch('resultsSource', v)}
         />
         <ScrollArea ref={scrollRef} onScroll={onScroll}>

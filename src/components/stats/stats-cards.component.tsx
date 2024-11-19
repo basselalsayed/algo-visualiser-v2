@@ -1,4 +1,5 @@
 import { type FC, Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Card } from '../card.component';
 import { Separator } from '../ui/separator';
@@ -26,34 +27,42 @@ export const StatsCards: FC<StatsProps> = ({ loading, results }) => (
 const StatsCard: FC<{ index: number; result: RuntimeInfo }> = ({
   index,
   result: { name, nodesProcessed, nodesUntouched, runtime, shortestPath },
-}) => (
-  <Card
-    title={`${index + 1}. ${name}`}
-    contentClassName='grid grid-cols-2 items-center gap-y-2'
-  >
-    <h4>Nodes processed</h4>
-    <h3>{nodesProcessed}</h3>
-    <h4>Shortest path</h4>
-    <h3>{shortestPath}</h3>
-    <h4>Nodes untouched</h4>
-    <h3>{nodesUntouched}</h3>
-    <h4>Runtime</h4>
-    <h3>{runtime}</h3>
-  </Card>
-);
+}) => {
+  const { t } = useTranslation();
 
-const SkeletonStatsCard: FC = () => (
-  <Card
-    title={<Skeleton className='h-8' />}
-    contentClassName='grid grid-cols-2 items-center gap-y-2'
-  >
-    <h4>Nodes processed</h4>
-    <Skeleton className='h-8' />
-    <h4>Shortest path</h4>
-    <Skeleton className='h-8' />
-    <h4>Nodes untouched</h4>
-    <Skeleton className='h-8' />
-    <h4>Runtime</h4>
-    <Skeleton className='h-8' />
-  </Card>
-);
+  return (
+    <Card
+      title={`${index + 1}. ${name}`}
+      contentClassName='grid grid-cols-2 items-center gap-y-2'
+    >
+      <h4>{t('stats.nodesProcessed')}</h4>
+      <h3>{nodesProcessed}</h3>
+      <h4>{t('stats.shortestPath')}</h4>
+      <h3>{shortestPath}</h3>
+      <h4>{t('stats.nodesUntouched')}</h4>
+      <h3>{nodesUntouched}</h3>
+      <h4>{t('stats.runtime')}</h4>
+      <h3>{runtime}</h3>
+    </Card>
+  );
+};
+
+const SkeletonStatsCard: FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Card
+      title={<Skeleton className='h-8' />}
+      contentClassName='grid grid-cols-2 items-center gap-y-2'
+    >
+      <h4>{t('stats.nodesProcessed')}</h4>
+      <Skeleton className='h-8' />
+      <h4>{t('stats.shortestPath')}</h4>
+      <Skeleton className='h-8' />
+      <h4>{t('stats.nodesUntouched')}</h4>
+      <Skeleton className='h-8' />
+      <h4>{t('stats.runtime')}</h4>
+      <Skeleton className='h-8' />
+    </Card>
+  );
+};

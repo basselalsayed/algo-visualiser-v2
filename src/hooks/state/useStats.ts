@@ -7,7 +7,7 @@ import { sleep } from '@/lib/utils';
 
 import { type DispatchFunction } from './types';
 
-export type ResultsSource = 'local' | 'global';
+export type ResultsSource = 'stats.local' | 'stats.global';
 
 interface StatsStore {
   addResult: (result: RuntimeInfo) => void;
@@ -35,7 +35,7 @@ export const useStats = create(
           })
         ),
       results: [],
-      resultsSource: 'local',
+      resultsSource: 'stats.local',
       statsOpen: true,
     }),
     {
