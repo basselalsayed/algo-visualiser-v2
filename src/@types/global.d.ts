@@ -1,3 +1,5 @@
+import { type ParseKeys } from 'i18next';
+
 declare type AsyncVoidFunction = () => Promise<void>;
 /** See https://stackoverflow.com/a/51390763/1470607  */
 type Falsy = false | 0 | '' | null | undefined;
@@ -12,4 +14,12 @@ declare interface Array<T> {
     predicate: BooleanConstructor,
     thisArg?: unknown
   ): Exclude<S, Falsy>[];
+}
+
+declare global {
+  declare type TKey = ParseKeys;
+
+  declare interface TProp {
+    tKey: TKey;
+  }
 }

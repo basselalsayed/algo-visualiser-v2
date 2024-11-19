@@ -7,6 +7,21 @@
       "settings": "Settings",
       "wallSwitch": "WallMode"
     },
+    "sr": {
+      "resetGrid": "Reset grid",
+      "darkMode": {
+        "enable": "Enable dark mode",
+        "disable": "Disable dark mode"
+      },
+      "buildMaze": "Build maze",
+      "play": "Play",
+      "pause": "Pause",
+      "replay": "Replay",
+      "toggleMenu": "Toggle menu",
+      "nextSlide": "Next slide",
+      "prevSlide": "Previous slide",
+      "close": "Close"
+    },
     "settings": {
       "title": "Settings",
       "nodeSize": "Node size",

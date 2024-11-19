@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 
 import { Label, Switch } from '@/components/ui';
@@ -7,6 +8,8 @@ export const WallSwitch = () => {
   const { dispatch, wallMode } = useGrid(
     useShallow(({ dispatch, wallMode }) => ({ dispatch, wallMode }))
   );
+
+  const { t } = useTranslation();
 
   return (
     <div className='flex items-center gap-x-2 px-4'>
@@ -19,7 +22,7 @@ export const WallSwitch = () => {
         htmlFor='wall-mode'
         onClick={() => dispatch('wallMode', !wallMode)}
       >
-        Wall mode
+        {t('navbar.wallSwitch')}
       </Label>
     </div>
   );
