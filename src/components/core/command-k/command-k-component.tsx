@@ -73,7 +73,7 @@ export const CommandKComponent: FC = () => {
           <CommandKItem
             icon={<Navigation />}
             shortcut={EDIT_ALGORITHM}
-            tLabel='commandk.algorithm'
+            tKey='commandk.algorithm'
           >
             <ul className='flex flex-wrap justify-center gap-2'>
               <AlgoFormMini />

@@ -38,8 +38,7 @@ export const CommandKItem = forwardRef<
     closeOnSelect?: boolean;
     icon: ReactElement;
     shortcut?: string;
-    tLabel?: ParseKeys;
-  }
+  } & TProp
 >(
   (
     {
@@ -48,7 +47,7 @@ export const CommandKItem = forwardRef<
       icon,
       onSelect,
       shortcut,
-      tLabel,
+      tKey,
       ...props
     },
     ref
@@ -69,7 +68,7 @@ export const CommandKItem = forwardRef<
         }}
       >
         {icon}
-        {tLabel && <span>{t(tLabel)}</span>}
+        {tKey && <span>{t(tKey)}</span>}
         {children && children}
         {shortcut && <CommandShortcut primaryKey={shortcut} />}
       </CommandItem>
@@ -81,7 +80,7 @@ export const CommandKItem = forwardRef<
 export const RunCommandItem: FC = () => {
   const { algoRunning, readyToRun, run, runState } = useRun();
 
-  const [icon, label] = match(runState)
+  const [icon, tKey] = match(runState)
     .returnType<[ReactElement, ParseKeys]>()
     .with('idle', 'paused', () => [<PlayIcon />, 'commandk.play'])
     .with('running', () => [<PauseIcon />, 'commandk.pause'])
@@ -95,7 +94,7 @@ export const RunCommandItem: FC = () => {
       shortcut={RUN_ALGO_KEY}
       icon={icon}
       closeOnSelect={!algoRunning}
-      tLabel={label}
+      tKey={tKey}
     />
   );
 };
@@ -110,7 +109,7 @@ export const MazeRunCommandItem: FC = () => {
       shortcut={RUN_MAZE_KEY}
       icon={<BrickWall />}
       closeOnSelect
-      tLabel='commandk.buildMaze'
+      tKey='commandk.buildMaze'
     />
   );
 };
@@ -122,7 +121,7 @@ export const ShowStatsCommandItem: FC = () => {
     <CommandKItem
       onSelect={() => dispatch('statsOpen', !statsOpen)}
       icon={<ChartNoAxesColumn />}
-      tLabel='commandk.showStats'
+      tKey='commandk.showStats'
     />
   );
 };
@@ -134,7 +133,7 @@ export const ResetGridCommandItem: FC = () => {
     <CommandKItem
       onSelect={reset}
       icon={<RotateCcw />}
-      tLabel='commandk.resetGrid'
+      tKey='commandk.resetGrid'
     />
   );
 };
@@ -147,7 +146,7 @@ export const DarkModeCommandItem: FC = () => {
     <CommandKItem
       onSelect={toggle}
       icon={<IconComponent />}
-      tLabel={
+      tKey={
         isDarkMode ? 'commandk.darkMode.disable' : 'commandk.darkMode.enable'
       }
     />
@@ -163,9 +162,7 @@ export const WallModeCommandItem: FC = () => {
     <CommandKItem
       icon={<Fence />}
       onSelect={() => dispatch('wallMode', !wallMode)}
-      tLabel={
-        wallMode ? 'commandk.wallMode.disable' : 'commandk.wallMode.enable'
-      }
+      tKey={wallMode ? 'commandk.wallMode.disable' : 'commandk.wallMode.enable'}
     />
   );
 };
@@ -203,7 +200,7 @@ export const RandomiseWallsCommandItem: FC = () => {
       onSelect={() => randomiseWalls(refsMap)}
       icon={<Dices />}
       closeOnSelect
-      tLabel='commandk.randomWalls'
+      tKey='commandk.randomWalls'
     />
   );
 };
