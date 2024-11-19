@@ -5,6 +5,7 @@ export * from './core';
 export * from './grid';
 export * from './kbd-component';
 export * from './navbar';
+export * from './select.component';
 export * from './slider.component';
 export * from './sr-only.component';
 export * from './stats';
