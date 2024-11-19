@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { Card } from '../../card.component';
 import { Button } from '../../ui/button';
 import { useSettings } from '@/hooks/state/useSettings';
@@ -13,17 +15,17 @@ import {
 
 export const SettingsForm = () => {
   const { reset } = useSettings();
+  const { t } = useTranslation();
 
   return (
-    <Card title='Settings' contentClassName='flex flex-col gap-4'>
+    <Card title={t('settings.title')} contentClassName='flex flex-col gap-4'>
       <NodeSizeSlider />
       <GridWidthSlider />
       <GridHeightSlider />
       <DrawSquareSlider />
       <AnimationSpeedSlider />
-
       <PerformanceCheckbox />
-      <Button onClick={reset}>Reset</Button>
+      <Button onClick={reset}>{t('settings.reset')}</Button>
     </Card>
   );
 };
