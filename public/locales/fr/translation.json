@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Durée d'exécution :"
+  },
+  "appName": "Visualiseur d'algorithmes",
+  "commandk": {
+    "algorithm": "Algorithme",
+    "buildMaze": "Construire un labyrinthe",
+    "darkMode": {
+      "disable": "Désactiver le mode sombre",
+      "enable": "Activer le mode sombre"
+    },
+    "headings": {
+      "actions": "Actions",
+      "controls": "Contrôles",
+      "misc": "Divers",
+      "settings": "Paramètres"
+    },
+    "pause": "Pause",
+    "play": "Jouer",
+    "randomWalls": "Murs aléatoires",
+    "replay": "Rejouer",
+    "resetGrid": "Réinitialiser la grille",
+    "searchPlaceholder": "Tapez une commande ou recherchez...",
+    "showStats": "Afficher les précédentes exécutions",
+    "wallMode": {
+      "disable": "Désactiver le mode murs",
+      "enable": "Activer le mode murs"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algorithmes",
+    "appName": "Visualiseur d'algorithmes",
+    "settings": "Paramètres",
+    "wallSwitch": "Mode Murs"
+  },
+  "settings": {
+    "animationSpeed": "Vitesse de l'animation",
+    "drawSquare": "Dessiner un carré",
+    "gridHeight": "Hauteur de la grille",
+    "gridWidth": "Largeur de la grille",
+    "nodeSize": "Taille du nœud",
+    "performance": "Mode performance",
+    "performanceCheck": "Cette taille est recommandée uniquement pour les appareils plus rapides, êtes-vous sûr ?",
+    "reset": "Réinitialiser",
+    "title": "Paramètres"
+  },
+  "sr": {
+    "buildMaze": "Construire un labyrinthe",
+    "close": "Fermer",
+    "darkMode": {
+      "disable": "Désactiver le mode sombre",
+      "enable": "Activer le mode sombre"
+    },
+    "nextSlide": "Diapositive suivante",
+    "pause": "Pause",
+    "play": "Jouer",
+    "prevSlide": "Diapositive précédente",
+    "replay": "Rejouer",
+    "resetGrid": "Réinitialiser la grille",
+    "toggleMenu": "Basculer le menu"
+  },
+  "stats": {
+    "algorithm": "Algorithme",
+    "global": "Global",
+    "local": "Local",
+    "nodesProcessed": "Nœuds traités",
+    "nodesUntouched": "Nœuds non touchés",
+    "runtime": "Durée d'exécution",
+    "shortestPath": "Le chemin le plus court",
+    "title": "Historique des exécutions"
+  }
+}

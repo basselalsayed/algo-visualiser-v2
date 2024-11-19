@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Kan hitta den kortaste vägen.\nAnvänder raklinjens heuristik för att bestämma sökriktningen.",
+    "header": "Viktad",
+    "name": "A* Euklidisk"
+  },
+  "aStarM": {
+    "description": "Hittar den kortaste vägen.\nLiksom Dijkstra, men med heuristik för \"taxi-cab\" för att styra sökningen.",
+    "header": "Viktad",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Hittar den kortaste vägen.\nSöker varje förgrening av en graf.\nSöker vägar först efter att den nuvarande vägen har utforskats.",
+    "header": "Ovägt",
+    "name": "Bredd Först Sökning"
+  },
+  "dfs": {
+    "description": "Kommer inte hitta den kortaste vägen.\nSöker varje förgrening av en graf.",
+    "header": "Ovägt",
+    "name": "Djupet Först Sökning"
+  },
+  "dijkstra": {
+    "description": "Hittar alltid den kortaste vägen.\nAnvänder nodernas avstånd för att välja riktning.",
+    "header": "Viktad",
+    "name": "Dijkstra"
+  }
+}

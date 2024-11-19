@@ -1,0 +1,27 @@
+{
+  "dijkstra": {
+    "description": "Always finds the shortest path.\nUses distance of nodes to choose the direction to travel.",
+    "header": "Weighted",
+    "name": "Dijkstra"
+  },
+  "aStarE": {
+    "description": "May find the shortest path.\nUses as the crow flies heuristic to decide direction of search.",
+    "header": "Weighted",
+    "name": "A* Euclidean"
+  },
+  "aStarM": {
+    "description": "Will find the shortest path.\nSimilar to Dijkstra, but with the “taxi cab” heuristic to guide the search.",
+    "header": "Weighted",
+    "name": "A* Manhatten"
+  },
+  "dfs": {
+    "description": "Will not find the shortest path.\nSearches every branch of a graph.",
+    "header": "Not Weighted",
+    "name": "Depth First Search"
+  },
+  "bfs": {
+    "description": "Will find the shortest path.\nSearches every branch of a graph.\nWill search paths only after its current path has been fully explored.",
+    "header": "Not Weighted",
+    "name": "Breadth First Search"
+  }
+}

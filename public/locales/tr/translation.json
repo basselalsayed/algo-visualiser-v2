@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Çalışma Süresi:"
+  },
+  "appName": "Algoritma Görselleştirici",
+  "commandk": {
+    "algorithm": "Algoritma",
+    "buildMaze": "Labirent Oluştur",
+    "darkMode": {
+      "disable": "Koyu modunu kapat",
+      "enable": "Koyu modunu aç"
+    },
+    "headings": {
+      "actions": "Eylemler",
+      "controls": "Kontroller",
+      "misc": "Diğer",
+      "settings": "Ayarlar"
+    },
+    "pause": "Duraklat",
+    "play": "Oynat",
+    "randomWalls": "Rastgele Duvarlar",
+    "replay": "Yeniden Oyna",
+    "resetGrid": "Izgarayı sıfırla",
+    "searchPlaceholder": "Bir komut yazın veya arayın...",
+    "showStats": "Önceki çalışmaları göster",
+    "wallMode": {
+      "disable": "Duvar modunu kapat",
+      "enable": "Duvar modunu aç"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmalar",
+    "appName": "Algoritma Görselleştirici",
+    "settings": "Ayarlar",
+    "wallSwitch": "Duvar Modu"
+  },
+  "settings": {
+    "animationSpeed": "Animasyon Hızı",
+    "drawSquare": "Kare Çiz",
+    "gridHeight": "Izgara Yüksekliği",
+    "gridWidth": "Izgara Genişliği",
+    "nodeSize": "Düğüm Boyutu",
+    "performance": "Performans Modu",
+    "performanceCheck": "Bu boyut yalnızca daha hızlı cihazlar için önerilir, emin misiniz?",
+    "reset": "Sıfırla",
+    "title": "Ayarlar"
+  },
+  "sr": {
+    "buildMaze": "Labirent Oluştur",
+    "close": "Kapat",
+    "darkMode": {
+      "disable": "Koyu modunu kapat",
+      "enable": "Koyu modunu aç"
+    },
+    "nextSlide": "Sonraki slayt",
+    "pause": "Duraklat",
+    "play": "Oynat",
+    "prevSlide": "Önceki slayt",
+    "replay": "Yeniden Oyna",
+    "resetGrid": "Izgarayı sıfırla",
+    "toggleMenu": "Menüyü aç/kapa"
+  },
+  "stats": {
+    "algorithm": "Algoritma",
+    "global": "Küresel",
+    "local": "Yerel",
+    "nodesProcessed": "İşlenen Düğümler",
+    "nodesUntouched": "Dokunulmayan Düğümler",
+    "runtime": "Çalışma Süresi",
+    "shortestPath": "En Kısa Yol",
+    "title": "Çalışma Geçmişi"
+  }
+}

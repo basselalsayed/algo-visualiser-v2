@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Laufzeit:"
+  },
+  "appName": "Algorithmus Visualisierer",
+  "commandk": {
+    "algorithm": "Algorithmus",
+    "buildMaze": "Labyrinth bauen",
+    "darkMode": {
+      "disable": "Dunkelmodus deaktivieren",
+      "enable": "Dunkelmodus aktivieren"
+    },
+    "headings": {
+      "actions": "Aktionen",
+      "controls": "Steuerung",
+      "misc": "Sonstiges",
+      "settings": "Einstellungen"
+    },
+    "pause": "Pause",
+    "play": "Abspielen",
+    "randomWalls": "Zufällige Wände",
+    "replay": "Wiederholen",
+    "resetGrid": "Raster zurücksetzen",
+    "searchPlaceholder": "Gib einen Befehl ein oder suche...",
+    "showStats": "Vorherige Läufe anzeigen",
+    "wallMode": {
+      "disable": "Wandmodus deaktivieren",
+      "enable": "Wandmodus aktivieren"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algorithmen",
+    "appName": "Algorithmus Visualisierer",
+    "settings": "Einstellungen",
+    "wallSwitch": "Wandmodus"
+  },
+  "settings": {
+    "animationSpeed": "Animationsgeschwindigkeit",
+    "drawSquare": "Quadrat zeichnen",
+    "gridHeight": "Rasterhöhe",
+    "gridWidth": "Rasterbreite",
+    "nodeSize": "Knotengröße",
+    "performance": "Leistungsmodus",
+    "performanceCheck": "Diese Größe wird nur für schnellere Geräte empfohlen. Bist du sicher?",
+    "reset": "Zurücksetzen",
+    "title": "Einstellungen"
+  },
+  "sr": {
+    "buildMaze": "Labyrinth bauen",
+    "close": "Schließen",
+    "darkMode": {
+      "disable": "Dunkelmodus deaktivieren",
+      "enable": "Dunkelmodus aktivieren"
+    },
+    "nextSlide": "Nächste Folie",
+    "pause": "Pause",
+    "play": "Abspielen",
+    "prevSlide": "Vorherige Folie",
+    "replay": "Wiederholen",
+    "resetGrid": "Raster zurücksetzen",
+    "toggleMenu": "Menü umschalten"
+  },
+  "stats": {
+    "algorithm": "Algorithmus",
+    "global": "Global",
+    "local": "Lokal",
+    "nodesProcessed": "Verarbeitete Knoten",
+    "nodesUntouched": "Unberührte Knoten",
+    "runtime": "Laufzeit",
+    "shortestPath": "Kürzester Pfad",
+    "title": "Laufhistorie"
+  }
+}

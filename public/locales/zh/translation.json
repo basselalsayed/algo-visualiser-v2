@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "运行时间:"
+  },
+  "appName": "算法可视化工具",
+  "commandk": {
+    "algorithm": "算法",
+    "buildMaze": "构建迷宫",
+    "darkMode": {
+      "disable": "禁用暗模式",
+      "enable": "启用暗模式"
+    },
+    "headings": {
+      "actions": "操作",
+      "controls": "控制",
+      "misc": "其他",
+      "settings": "设置"
+    },
+    "pause": "暂停",
+    "play": "播放",
+    "randomWalls": "随机生成墙壁",
+    "replay": "重新播放",
+    "resetGrid": "重置网格",
+    "searchPlaceholder": "输入命令或搜索...",
+    "showStats": "显示前次运行结果",
+    "wallMode": {
+      "disable": "禁用墙模式",
+      "enable": "启用墙模式"
+    }
+  },
+  "navbar": {
+    "algorithms": "算法",
+    "appName": "算法可视化工具",
+    "settings": "设置",
+    "wallSwitch": "墙模式"
+  },
+  "settings": {
+    "animationSpeed": "动画速度",
+    "drawSquare": "绘制方格",
+    "gridHeight": "网格高度",
+    "gridWidth": "网格宽度",
+    "nodeSize": "节点大小",
+    "performance": "性能模式",
+    "performanceCheck": "此尺寸仅推荐用于更快的设备，确定吗？",
+    "reset": "重置",
+    "title": "设置"
+  },
+  "sr": {
+    "buildMaze": "构建迷宫",
+    "close": "关闭",
+    "darkMode": {
+      "disable": "禁用暗模式",
+      "enable": "启用暗模式"
+    },
+    "nextSlide": "下一页",
+    "pause": "暂停",
+    "play": "播放",
+    "prevSlide": "上一页",
+    "replay": "重新播放",
+    "resetGrid": "重置网格",
+    "toggleMenu": "切换菜单"
+  },
+  "stats": {
+    "algorithm": "算法",
+    "global": "全局",
+    "local": "局部",
+    "nodesProcessed": "已处理节点",
+    "nodesUntouched": "未处理节点",
+    "runtime": "运行时间",
+    "shortestPath": "最短路径",
+    "title": "运行历史"
+  }
+}

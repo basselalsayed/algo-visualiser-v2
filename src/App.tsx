@@ -10,11 +10,13 @@ import { CommandKComponent, Grid, Navbar, StatsSheet } from '@/components';
 import {
   useGrid,
   useKeyboardShortcuts,
+  useLocale,
   useRunStore,
   useSettings,
 } from '@/hooks';
 
 function App() {
+  useLocale();
   useKeyboardShortcuts();
 
   const { t } = useTranslation();

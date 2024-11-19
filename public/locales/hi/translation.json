@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "चलाने का समय:"
+  },
+  "appName": "अल्गोरिदम दृश्यकर्ता",
+  "commandk": {
+    "algorithm": "अल्गोरिदम",
+    "buildMaze": "भंवर बनाएं",
+    "darkMode": {
+      "disable": "डार्क मोड को अक्षम करें",
+      "enable": "डार्क मोड सक्षम करें"
+    },
+    "headings": {
+      "actions": "क्रियाएँ",
+      "controls": "नियंत्रण",
+      "misc": "विविध",
+      "settings": "सेटिंग्स"
+    },
+    "pause": "विराम",
+    "play": "चलाएं",
+    "randomWalls": "दीवारों को यादृच्छिक बनाएं",
+    "replay": "पुनः खेलें",
+    "resetGrid": "ग्रिड को रीसेट करें",
+    "searchPlaceholder": "एक कमांड टाइप करें या खोजें...",
+    "showStats": "पिछली रन दिखाएं",
+    "wallMode": {
+      "disable": "दीवार मोड अक्षम करें",
+      "enable": "दीवार मोड सक्षम करें"
+    }
+  },
+  "navbar": {
+    "algorithms": "अल्गोरिदम",
+    "appName": "अल्गोरिदम दृश्यकर्ता",
+    "settings": "सेटिंग्स",
+    "wallSwitch": "दीवार मोड"
+  },
+  "settings": {
+    "animationSpeed": "एनीमेशन गति",
+    "drawSquare": "वर्ग बनाएँ",
+    "gridHeight": "ग्रिड की ऊँचाई",
+    "gridWidth": "ग्रिड की चौड़ाई",
+    "nodeSize": "नोड आकार",
+    "performance": "प्रदर्शन मोड",
+    "performanceCheck": "यह आकार केवल तेज़ उपकरणों के लिए अनुशंसित है, क्या आप सुनिश्चित हैं?",
+    "reset": "रीसेट करें",
+    "title": "सेटिंग्स"
+  },
+  "sr": {
+    "buildMaze": "भंवर बनाएं",
+    "close": "बंद करें",
+    "darkMode": {
+      "disable": "डार्क मोड को अक्षम करें",
+      "enable": "डार्क मोड सक्षम करें"
+    },
+    "nextSlide": "अगला स्लाइड",
+    "pause": "विराम",
+    "play": "चलाएं",
+    "prevSlide": "पिछला स्लाइड",
+    "replay": "पुनः खेलें",
+    "resetGrid": "ग्रिड को रीसेट करें",
+    "toggleMenu": "मेनू टॉगल करें"
+  },
+  "stats": {
+    "algorithm": "अल्गोरिदम",
+    "global": "वैश्विक",
+    "local": "स्थानीय",
+    "nodesProcessed": "प्रसंस्कृत नोड",
+    "nodesUntouched": "अप्रसंस्कृत नोड",
+    "runtime": "चलाने का समय",
+    "shortestPath": "सबसे छोटा मार्ग",
+    "title": "रन इतिहास"
+  }
+}

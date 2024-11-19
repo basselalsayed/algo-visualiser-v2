@@ -1,0 +1,27 @@
+{
+  "dijkstra": {
+    "description": "Findet immer den kürzesten Pfad.\nVerwendet die Entfernungen der Knoten, um die Richtung zu wählen.",
+    "header": "Gewichtet",
+    "name": "Dijkstra"
+  },
+  "aStarE": {
+    "description": "Kann den kürzesten Pfad finden.\nVerwendet die Luftlinien-Heuristik, um die Richtung des Suchens zu bestimmen.",
+    "header": "Gewichtet",
+    "name": "A-Stern Euklidisch"
+  },
+  "aStarM": {
+    "description": "Findet den kürzesten Pfad.\nÄhnlich wie Dijkstra, aber mit der \"Taxi-Cab\"-Heuristik, um die Suche zu lenken.",
+    "header": "Gewichtet",
+    "name": "A-Stern Manhattan"
+  },
+  "dfs": {
+    "description": "Findet nicht den kürzesten Pfad.\nDurchsucht jeden Zweig eines Graphen.",
+    "header": "Nicht gewichtet",
+    "name": "Tiefensuche"
+  },
+  "bfs": {
+    "description": "Findet den kürzesten Pfad.\nDurchsucht jeden Zweig eines Graphen.\nDurchsucht nur Wege, nachdem der aktuelle Pfad vollständig erkundet wurde.",
+    "header": "Nicht gewichtet",
+    "name": "Breitensuche"
+  }
+}

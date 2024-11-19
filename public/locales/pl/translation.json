@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Czas wykonania:"
+  },
+  "appName": "Wizualizator Algorytmów",
+  "commandk": {
+    "algorithm": "Algorytm",
+    "buildMaze": "Zbuduj labirynt",
+    "darkMode": {
+      "disable": "Wyłącz tryb ciemny",
+      "enable": "Włącz tryb ciemny"
+    },
+    "headings": {
+      "actions": "Akcje",
+      "controls": "Sterowanie",
+      "misc": "Różne",
+      "settings": "Ustawienia"
+    },
+    "pause": "Pauza",
+    "play": "Odtwórz",
+    "randomWalls": "Losowe ściany",
+    "replay": "Powtórz",
+    "resetGrid": "Zresetuj siatkę",
+    "searchPlaceholder": "Wpisz polecenie lub szukaj...",
+    "showStats": "Pokaż poprzednie uruchomienia",
+    "wallMode": {
+      "disable": "Wyłącz tryb ścian",
+      "enable": "Włącz tryb ścian"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algorytmy",
+    "appName": "Wizualizator Algorytmów",
+    "settings": "Ustawienia",
+    "wallSwitch": "Tryb Ścian"
+  },
+  "settings": {
+    "animationSpeed": "Prędkość animacji",
+    "drawSquare": "Rysuj kwadrat",
+    "gridHeight": "Wysokość siatki",
+    "gridWidth": "Szerokość siatki",
+    "nodeSize": "Rozmiar węzła",
+    "performance": "Tryb wydajności",
+    "performanceCheck": "Ten rozmiar jest zalecany tylko dla szybszych urządzeń, czy jesteś pewny?",
+    "reset": "Resetuj",
+    "title": "Ustawienia"
+  },
+  "sr": {
+    "buildMaze": "Zbuduj labirynt",
+    "close": "Zamknij",
+    "darkMode": {
+      "disable": "Wyłącz tryb ciemny",
+      "enable": "Włącz tryb ciemny"
+    },
+    "nextSlide": "Następny slajd",
+    "pause": "Pauza",
+    "play": "Odtwórz",
+    "prevSlide": "Poprzedni slajd",
+    "replay": "Powtórz",
+    "resetGrid": "Zresetuj siatkę",
+    "toggleMenu": "Przełącz menu"
+  },
+  "stats": {
+    "algorithm": "Algorytm",
+    "global": "Globalny",
+    "local": "Lokalny",
+    "nodesProcessed": "Przetworzone węzły",
+    "nodesUntouched": "Nieprzetworzone węzły",
+    "runtime": "Czas wykonania",
+    "shortestPath": "Najkrótsza ścieżka",
+    "title": "Historia uruchomień"
+  }
+}

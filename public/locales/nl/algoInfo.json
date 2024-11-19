@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Kan het kortste pad vinden.\nGebruikt de luchtlijn-heuristiek om de zoekrichting te bepalen.",
+    "header": "Gewogen",
+    "name": "A* Euclidisch"
+  },
+  "aStarM": {
+    "description": "Vindt het kortste pad.\nVergelijkbaar met Dijkstra, maar met de \"taxi-cab\" heuristiek om de zoekrichting te sturen.",
+    "header": "Gewogen",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Vindt het kortste pad.\nZoekt elke tak van een graaf.\nZoekt pas naar paden nadat het huidige pad volledig is verkend.",
+    "header": "Niet gewogen",
+    "name": "Breedte-eerst zoeken"
+  },
+  "dfs": {
+    "description": "Vindt het kortste pad niet.\nZoekt elke tak van een graaf.",
+    "header": "Niet gewogen",
+    "name": "Diepte-eerst zoeken"
+  },
+  "dijkstra": {
+    "description": "Vindt altijd het kortste pad.\nMaakt gebruik van de afstand van knopen om de richting te kiezen.",
+    "header": "Gewogen",
+    "name": "Dijkstra"
+  }
+}

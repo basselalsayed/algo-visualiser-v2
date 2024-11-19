@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Tempo di esecuzione:"
+  },
+  "appName": "Visualizzatore di Algoritmi",
+  "commandk": {
+    "algorithm": "Algoritmo",
+    "buildMaze": "Costruisci labirinto",
+    "darkMode": {
+      "disable": "Disattiva modalità scura",
+      "enable": "Attiva modalità scura"
+    },
+    "headings": {
+      "actions": "Azioni",
+      "controls": "Controlli",
+      "misc": "Varie",
+      "settings": "Impostazioni"
+    },
+    "pause": "Pausa",
+    "play": "Gioca",
+    "randomWalls": "Muri casuali",
+    "replay": "Riprova",
+    "resetGrid": "Reimposta la griglia",
+    "searchPlaceholder": "Scrivi un comando o cerca...",
+    "showStats": "Mostra le esecuzioni precedenti",
+    "wallMode": {
+      "disable": "Disattiva modalità muri",
+      "enable": "Attiva modalità muri"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmi",
+    "appName": "Visualizzatore di Algoritmi",
+    "settings": "Impostazioni",
+    "wallSwitch": "Modalità Muri"
+  },
+  "settings": {
+    "animationSpeed": "Velocità animazione",
+    "drawSquare": "Disegna quadrato",
+    "gridHeight": "Altezza griglia",
+    "gridWidth": "Larghezza griglia",
+    "nodeSize": "Dimensione nodo",
+    "performance": "Modalità prestazioni",
+    "performanceCheck": "Questa dimensione è consigliata solo per dispositivi più veloci, sei sicuro?",
+    "reset": "Reimposta",
+    "title": "Impostazioni"
+  },
+  "sr": {
+    "buildMaze": "Costruisci labirinto",
+    "close": "Chiudi",
+    "darkMode": {
+      "disable": "Disattiva modalità scura",
+      "enable": "Attiva modalità scura"
+    },
+    "nextSlide": "Prossima diapositiva",
+    "pause": "Pausa",
+    "play": "Gioca",
+    "prevSlide": "Diapositiva precedente",
+    "replay": "Riprova",
+    "resetGrid": "Reimposta la griglia",
+    "toggleMenu": "Alterna menu"
+  },
+  "stats": {
+    "algorithm": "Algoritmo",
+    "global": "Globale",
+    "local": "Locale",
+    "nodesProcessed": "Nodi elaborati",
+    "nodesUntouched": "Nodi non toccati",
+    "runtime": "Tempo di esecuzione",
+    "shortestPath": "Il percorso più breve",
+    "title": "Storico esecuzioni"
+  }
+}
