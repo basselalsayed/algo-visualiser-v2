@@ -69,7 +69,7 @@ export const CommandKComponent: FC = () => {
           <ResetGridCommandItem />
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading='Controls'>
+        <CommandGroup heading={t('commandk.headings.controls')}>
           <CommandKItem
             icon={<Navigation />}
             shortcut={EDIT_ALGORITHM}

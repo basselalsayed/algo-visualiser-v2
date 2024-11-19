@@ -1,4 +1,3 @@
-import { type ParseKeys } from 'i18next';
 import {
   BrickWall,
   ChartNoAxesColumn,
@@ -81,7 +80,7 @@ export const RunCommandItem: FC = () => {
   const { algoRunning, readyToRun, run, runState } = useRun();
 
   const [icon, tKey] = match(runState)
-    .returnType<[ReactElement, ParseKeys]>()
+    .returnType<[ReactElement, TKey]>()
     .with('idle', 'paused', () => [<PlayIcon />, 'commandk.play'])
     .with('running', () => [<PauseIcon />, 'commandk.pause'])
     .with('done', () => [<Repeat1 />, 'commandk.replay'])
