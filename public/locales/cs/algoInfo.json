@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Může najít nejkratší cestu.\nPoužívá heuristiku vzdušné čáry k určení směru hledání.",
+    "header": "Vážený",
+    "name": "A* Eukleidovský"
+  },
+  "aStarM": {
+    "description": "Najde nejkratší cestu.\nPodobně jako Dijkstra, ale s heuristikou \"taxi-cab\" pro vedení hledání.",
+    "header": "Vážený",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Najde nejkratší cestu.\nProhledává každý větev grafu.\nProhledává cesty až po úplném prozkoumání aktuální cesty.",
+    "header": "Nevážený",
+    "name": "Hledání do šířky"
+  },
+  "dfs": {
+    "description": "Nenajde nejkratší cestu.\nProhledává každý větev grafu.",
+    "header": "Nevážený",
+    "name": "Hledání do hloubky"
+  },
+  "dijkstra": {
+    "description": "Vždy najde nejkratší cestu.\nPoužívá vzdálenost uzlů k určení směru.",
+    "header": "Vážený",
+    "name": "Dijkstra"
+  }
+}

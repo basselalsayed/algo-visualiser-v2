@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "実行時間:"
+  },
+  "appName": "アルゴリズムビジュアライザー",
+  "commandk": {
+    "algorithm": "アルゴリズム",
+    "buildMaze": "迷路を作成",
+    "darkMode": {
+      "disable": "ダークモードを無効にする",
+      "enable": "ダークモードを有効にする"
+    },
+    "headings": {
+      "actions": "アクション",
+      "controls": "コントロール",
+      "misc": "その他",
+      "settings": "設定"
+    },
+    "pause": "一時停止",
+    "play": "再生",
+    "randomWalls": "壁をランダム化",
+    "replay": "再実行",
+    "resetGrid": "グリッドをリセット",
+    "searchPlaceholder": "コマンドを入力するか検索...",
+    "showStats": "前回の実行結果を表示",
+    "wallMode": {
+      "disable": "壁モードを無効にする",
+      "enable": "壁モードを有効にする"
+    }
+  },
+  "navbar": {
+    "algorithms": "アルゴリズム",
+    "appName": "アルゴリズムビジュアライザー",
+    "settings": "設定",
+    "wallSwitch": "壁モード"
+  },
+  "settings": {
+    "animationSpeed": "アニメーション速度",
+    "drawSquare": "四角形を描く",
+    "gridHeight": "グリッド高さ",
+    "gridWidth": "グリッド幅",
+    "nodeSize": "ノードサイズ",
+    "performance": "パフォーマンスモード",
+    "performanceCheck": "このサイズは高速なデバイスのみ推奨されます。よろしいですか？",
+    "reset": "リセット",
+    "title": "設定"
+  },
+  "sr": {
+    "buildMaze": "迷路を作成",
+    "close": "閉じる",
+    "darkMode": {
+      "disable": "ダークモードを無効にする",
+      "enable": "ダークモードを有効にする"
+    },
+    "nextSlide": "次のスライド",
+    "pause": "一時停止",
+    "play": "再生",
+    "prevSlide": "前のスライド",
+    "replay": "再実行",
+    "resetGrid": "グリッドをリセット",
+    "toggleMenu": "メニューを切り替え"
+  },
+  "stats": {
+    "algorithm": "アルゴリズム",
+    "global": "グローバル",
+    "local": "ローカル",
+    "nodesProcessed": "処理されたノード",
+    "nodesUntouched": "未処理のノード",
+    "runtime": "実行時間",
+    "shortestPath": "最短経路",
+    "title": "実行履歴"
+  }
+}

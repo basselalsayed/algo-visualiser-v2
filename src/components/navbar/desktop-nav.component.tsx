@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { AlgoForm, Kbd, MazeButton, RunButton, SettingsForm } from '..';
 import {
@@ -16,11 +17,12 @@ import { DarkModeSwitch, ResetButton, WallSwitch } from './components';
 
 export const DesktopNav: FC = () => {
   const { algoRunning } = useIsRunning();
+  const { t } = useTranslation();
 
   const algoSection = (
     <NavigationMenuItem>
       <NavigationMenuTrigger disabled={algoRunning}>
-        Algorithms
+        {t('navbar.algorithms')}
       </NavigationMenuTrigger>
 
       <NavigationMenuContent className='bg-transparent'>
@@ -34,7 +36,7 @@ export const DesktopNav: FC = () => {
   const settingsSection = (
     <NavigationMenuItem>
       <NavigationMenuTrigger disabled={algoRunning}>
-        Settings
+        {t('navbar.settings')}
       </NavigationMenuTrigger>
       <NavigationMenuContent>
         <div className='grid w-[450px] grid-cols-1 gap-6 p-6 px-14 backdrop-blur-lg'>
@@ -48,7 +50,7 @@ export const DesktopNav: FC = () => {
     <>
       <NavigationMenu className='row-start-1 grid w-full max-w-full grid-flow-col items-center justify-between justify-items-stretch'>
         <h1 className='bg-gradient-to-br from-indigo-700 via-purple-700 to-blue-700 bg-clip-text pr-1 text-left text-transparent'>
-          Algorithm Visualiser
+          {t('navbar.appName')}
         </h1>
         <NavigationMenuList className='gap-3'>
           <Button>

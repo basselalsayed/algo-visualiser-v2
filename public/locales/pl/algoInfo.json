@@ -1,0 +1,27 @@
+{
+  "dijkstra": {
+    "description": "Zawsze znajduje najkrótszą ścieżkę.\nUżywa odległości między węzłami do wyboru kierunku.",
+    "header": "WaŜony",
+    "name": "Dijkstra"
+  },
+  "aStarE": {
+    "description": "Może znaleźć najkrótszą ścieżkę.\nUżywa heurystyki w linii prostej, aby określić kierunek poszukiwań.",
+    "header": "WaŜony",
+    "name": "A* Euklidesowy"
+  },
+  "aStarM": {
+    "description": "Znajduje najkrótszą ścieżkę.\nPodobnie do Dijkstry, ale z heurystyką \"taxi-cab\" do prowadzenia poszukiwań.",
+    "header": "WaŜony",
+    "name": "A* Manhattan"
+  },
+  "dfs": {
+    "description": "Nie znajdzie najkrótszej ścieżki.\nPrzeszukuje każdą gałąź grafu.",
+    "header": "Nieważony",
+    "name": "Przeszukiwanie w głąb"
+  },
+  "bfs": {
+    "description": "Znajduje najkrótszą ścieżkę.\nPrzeszukuje każdą gałąź grafu.\nPrzeszukuje ścieżki tylko po tym, jak bieżąca ścieżka została całkowicie zbadana.",
+    "header": "Nieważony",
+    "name": "Przeszukiwanie wszerz"
+  }
+}

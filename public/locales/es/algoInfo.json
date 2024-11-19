@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Puede encontrar el camino más corto.\nUsa la heurística de distancia en línea recta para decidir la dirección de búsqueda.",
+    "header": "Pesado",
+    "name": "A* Euclidiano"
+  },
+  "aStarM": {
+    "description": "Encontrará el camino más corto.\nSimilar a Dijkstra, pero con la heurística de \"taxi-cab\" para guiar la búsqueda.",
+    "header": "Pesado",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Encontrará el camino más corto.\nExplora cada rama de un gráfico.\nExplorará caminos solo después de haber explorado completamente el camino actual.",
+    "header": "No pesado",
+    "name": "Búsqueda en anchura"
+  },
+  "dfs": {
+    "description": "No encontrará el camino más corto.\nExplora cada rama de un gráfico.",
+    "header": "No pesado",
+    "name": "Búsqueda en profundidad"
+  },
+  "dijkstra": {
+    "description": "Siempre encuentra el camino más corto.\nUsa la distancia de los nodos para elegir la dirección.",
+    "header": "Pesado",
+    "name": "Dijkstra"
+  }
+}

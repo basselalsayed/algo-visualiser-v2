@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Tempo de execução:"
+  },
+  "appName": "Visualizador de Algoritmos",
+  "commandk": {
+    "algorithm": "Algoritmo",
+    "buildMaze": "Criar labirinto",
+    "darkMode": {
+      "disable": "Desativar modo escuro",
+      "enable": "Ativar modo escuro"
+    },
+    "headings": {
+      "actions": "Ações",
+      "controls": "Controles",
+      "misc": "Diversos",
+      "settings": "Configurações"
+    },
+    "pause": "Pausar",
+    "play": "Jogar",
+    "randomWalls": "Aleatorizar paredes",
+    "replay": "Repetir",
+    "resetGrid": "Reiniciar grade",
+    "searchPlaceholder": "Digite um comando ou pesquise...",
+    "showStats": "Mostrar execuções anteriores",
+    "wallMode": {
+      "disable": "Desativar modo de paredes",
+      "enable": "Ativar modo de paredes"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmos",
+    "appName": "Visualizador de Algoritmos",
+    "settings": "Configurações",
+    "wallSwitch": "Modo de paredes"
+  },
+  "settings": {
+    "animationSpeed": "Velocidade da animação",
+    "drawSquare": "Desenhar quadrado",
+    "gridHeight": "Altura da grade",
+    "gridWidth": "Largura da grade",
+    "nodeSize": "Tamanho do nó",
+    "performance": "Modo de desempenho",
+    "performanceCheck": "Este tamanho é recomendado apenas para dispositivos mais rápidos, tem certeza?",
+    "reset": "Reiniciar",
+    "title": "Configurações"
+  },
+  "sr": {
+    "buildMaze": "Criar labirinto",
+    "close": "Fechar",
+    "darkMode": {
+      "disable": "Desativar modo escuro",
+      "enable": "Ativar modo escuro"
+    },
+    "nextSlide": "Próximo slide",
+    "pause": "Pausar",
+    "play": "Jogar",
+    "prevSlide": "Slide anterior",
+    "replay": "Repetir",
+    "resetGrid": "Reiniciar grade",
+    "toggleMenu": "Alternar menu"
+  },
+  "stats": {
+    "algorithm": "Algoritmo",
+    "global": "Global",
+    "local": "Local",
+    "nodesProcessed": "Nós processados",
+    "nodesUntouched": "Nós intocados",
+    "runtime": "Tempo de execução",
+    "shortestPath": "Caminho mais curto",
+    "title": "Histórico de execuções"
+  }
+}

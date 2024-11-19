@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Può trovare il percorso più breve.\nUsa l'euristica della distanza in linea retta per determinare la direzione della ricerca.",
+    "header": "Ponderato",
+    "name": "A* Euclideo"
+  },
+  "aStarM": {
+    "description": "Troverà il percorso più breve.\nSimile a Dijkstra, ma con l'euristica del \"taxi-cab\" per guidare la ricerca.",
+    "header": "Ponderato",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Troverà il percorso più breve.\nEsplora ogni ramo di un grafo.\nEsplora i percorsi solo dopo aver completamente esplorato il percorso corrente.",
+    "header": "Non ponderato",
+    "name": "Ricerca in ampiezza"
+  },
+  "dfs": {
+    "description": "Non troverà il percorso più breve.\nEsplora ogni ramo di un grafo.",
+    "header": "Non ponderato",
+    "name": "Ricerca in profondità"
+  },
+  "dijkstra": {
+    "description": "Trova sempre il percorso più breve.\nUsa la distanza tra i nodi per scegliere la direzione.",
+    "header": "Ponderato",
+    "name": "Dijkstra"
+  }
+}

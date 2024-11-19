@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Doba běhu:"
+  },
+  "appName": "Vizualizátor Algoritmů",
+  "commandk": {
+    "algorithm": "Algoritmus",
+    "buildMaze": "Vytvořit bludiště",
+    "darkMode": {
+      "disable": "Deaktivovat tmavý režim",
+      "enable": "Aktivovat tmavý režim"
+    },
+    "headings": {
+      "actions": "Akce",
+      "controls": "Ovládání",
+      "misc": "Různé",
+      "settings": "Nastavení"
+    },
+    "pause": "Pauza",
+    "play": "Přehrát",
+    "randomWalls": "Náhodné zdi",
+    "replay": "Opakovat",
+    "resetGrid": "Obnovit mřížku",
+    "searchPlaceholder": "Zadejte příkaz nebo hledejte...",
+    "showStats": "Zobrazit předchozí běhy",
+    "wallMode": {
+      "disable": "Deaktivovat režim zdí",
+      "enable": "Aktivovat režim zdí"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmy",
+    "appName": "Vizualizátor Algoritmů",
+    "settings": "Nastavení",
+    "wallSwitch": "Režim zdí"
+  },
+  "settings": {
+    "animationSpeed": "Rychlost animace",
+    "drawSquare": "Kreslit čtverec",
+    "gridHeight": "Výška mřížky",
+    "gridWidth": "Šířka mřížky",
+    "nodeSize": "Velikost uzlu",
+    "performance": "Režim výkonu",
+    "performanceCheck": "Tato velikost je doporučena pouze pro rychlejší zařízení, jste si jistí?",
+    "reset": "Obnovit",
+    "title": "Nastavení"
+  },
+  "sr": {
+    "buildMaze": "Vytvořit bludiště",
+    "close": "Zavřít",
+    "darkMode": {
+      "disable": "Deaktivovat tmavý režim",
+      "enable": "Aktivovat tmavý režim"
+    },
+    "nextSlide": "Další snímek",
+    "pause": "Pauza",
+    "play": "Přehrát",
+    "prevSlide": "Předchozí snímek",
+    "replay": "Opakovat",
+    "resetGrid": "Obnovit mřížku",
+    "toggleMenu": "Přepnout menu"
+  },
+  "stats": {
+    "algorithm": "Algoritmus",
+    "global": "Globální",
+    "local": "Lokální",
+    "nodesProcessed": "Zpracované uzly",
+    "nodesUntouched": "Nezpracované uzly",
+    "runtime": "Doba běhu",
+    "shortestPath": "Nejkratší cesta",
+    "title": "Historie běhů"
+  }
+}

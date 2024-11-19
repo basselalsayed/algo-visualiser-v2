@@ -4,6 +4,7 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react';
 import * as React from 'react';
 
+import { SrOnly } from '../sr-only.component';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -229,7 +230,7 @@ const CarouselPrevious = React.forwardRef<
       {...props}
     >
       <ArrowLeftIcon className='h-4 w-4' />
-      <span className='sr-only'>Previous slide</span>
+      <SrOnly tKey='sr.prevSlide' />
     </Button>
   );
 });
@@ -256,7 +257,7 @@ const CarouselNext = React.forwardRef<
       {...props}
     >
       <ArrowRightIcon className='h-4 w-4' />
-      <span className='sr-only'>Next slide</span>
+      <SrOnly tKey='sr.nextSlide' />
     </Button>
   );
 });

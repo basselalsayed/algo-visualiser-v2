@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Pode encontrar o caminho mais curto.\nUsa a heurística de linha reta para decidir a direção da busca.",
+    "header": "Ponderado",
+    "name": "A* Euclidiano"
+  },
+  "aStarM": {
+    "description": "Encontra o caminho mais curto.\nSemelhante ao Dijkstra, mas usa a heurística de 'táxi' para guiar a busca.",
+    "header": "Ponderado",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Encontra o caminho mais curto.\nPesquisa todas as ramificações de um grafo.\nSomente começa a buscar outros caminhos depois de explorar completamente o atual.",
+    "header": "Não ponderado",
+    "name": "Busca em Largura"
+  },
+  "dfs": {
+    "description": "Não encontra o caminho mais curto.\nPesquisa todas as ramificações de um grafo.",
+    "header": "Não ponderado",
+    "name": "Busca em Profundidade"
+  },
+  "dijkstra": {
+    "description": "Sempre encontra o caminho mais curto.\nUsa a distância dos nós para escolher a direção.",
+    "header": "Ponderado",
+    "name": "Dijkstra"
+  }
+}

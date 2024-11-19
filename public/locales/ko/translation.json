@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "실행 시간:"
+  },
+  "appName": "알고리즘 시각화 도구",
+  "commandk": {
+    "algorithm": "알고리즘",
+    "buildMaze": "미로 만들기",
+    "darkMode": {
+      "disable": "어두운 모드 비활성화",
+      "enable": "어두운 모드 활성화"
+    },
+    "headings": {
+      "actions": "작업",
+      "controls": "컨트롤",
+      "misc": "기타",
+      "settings": "설정"
+    },
+    "pause": "일시 정지",
+    "play": "재생",
+    "randomWalls": "벽 무작위 설정",
+    "replay": "다시 실행",
+    "resetGrid": "그리드 초기화",
+    "searchPlaceholder": "명령어 입력 또는 검색...",
+    "showStats": "이전 실행 보기",
+    "wallMode": {
+      "disable": "벽 모드 비활성화",
+      "enable": "벽 모드 활성화"
+    }
+  },
+  "navbar": {
+    "algorithms": "알고리즘",
+    "appName": "알고리즘 시각화 도구",
+    "settings": "설정",
+    "wallSwitch": "벽 모드"
+  },
+  "settings": {
+    "animationSpeed": "애니메이션 속도",
+    "drawSquare": "사각형 그리기",
+    "gridHeight": "그리드 높이",
+    "gridWidth": "그리드 너비",
+    "nodeSize": "노드 크기",
+    "performance": "성능 모드",
+    "performanceCheck": "이 크기는 빠른 장치에서만 권장됩니다. 계속하시겠습니까?",
+    "reset": "초기화",
+    "title": "설정"
+  },
+  "sr": {
+    "buildMaze": "미로 만들기",
+    "close": "닫기",
+    "darkMode": {
+      "disable": "어두운 모드 비활성화",
+      "enable": "어두운 모드 활성화"
+    },
+    "nextSlide": "다음 슬라이드",
+    "pause": "일시 정지",
+    "play": "재생",
+    "prevSlide": "이전 슬라이드",
+    "replay": "다시 실행",
+    "resetGrid": "그리드 초기화",
+    "toggleMenu": "메뉴 토글"
+  },
+  "stats": {
+    "algorithm": "알고리즘",
+    "global": "전역",
+    "local": "로컬",
+    "nodesProcessed": "처리된 노드",
+    "nodesUntouched": "처리되지 않은 노드",
+    "runtime": "실행 시간",
+    "shortestPath": "최단 경로",
+    "title": "실행 기록"
+  }
+}

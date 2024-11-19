@@ -1,0 +1,73 @@
+{
+  "appName": "Algorithm Visualiser",
+  "algoForm": {
+    "runtime": "Runtime:"
+  },
+  "commandk": {
+    "algorithm": "Algorithm",
+    "buildMaze": "Build maze",
+    "darkMode": {
+      "disable": "Disable dark mode",
+      "enable": "Enable dark mode"
+    },
+    "headings": {
+      "actions": "Actions",
+      "controls": "Controls",
+      "misc": "Miscellaneous",
+      "settings": "Settings"
+    },
+    "pause": "Pause",
+    "play": "Play",
+    "randomWalls": "Randomise walls",
+    "replay": "Replay",
+    "resetGrid": "Reset grid",
+    "searchPlaceholder": "Type a command or search...",
+    "showStats": "Show previous runs",
+    "wallMode": {
+      "disable": "Disable wall mode",
+      "enable": "Enable wall mode"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algorithms",
+    "appName": "Algorithm Visualiser",
+    "settings": "Settings",
+    "wallSwitch": "WallMode"
+  },
+  "settings": {
+    "animationSpeed": "Animation speed",
+    "drawSquare": "Draw square",
+    "gridHeight": "Grid height",
+    "gridWidth": "Grid width",
+    "nodeSize": "Node size",
+    "performance": "Performance mode",
+    "performanceCheck": "This size is only recommended for faster devices, are you sure?",
+    "reset": "Reset",
+    "title": "Settings"
+  },
+  "sr": {
+    "buildMaze": "Build maze",
+    "close": "Close",
+    "darkMode": {
+      "disable": "Disable dark mode",
+      "enable": "Enable dark mode"
+    },
+    "nextSlide": "Next slide",
+    "pause": "Pause",
+    "play": "Play",
+    "prevSlide": "Previous slide",
+    "replay": "Replay",
+    "resetGrid": "Reset grid",
+    "toggleMenu": "Toggle menu"
+  },
+  "stats": {
+    "algorithm": "Algorithm",
+    "global": "Global",
+    "local": "Local",
+    "nodesProcessed": "Nodes processed",
+    "nodesUntouched": "Nodes untouched",
+    "runtime": "Runtime",
+    "shortestPath": "Shortest path",
+    "title": "Run History"
+  }
+}

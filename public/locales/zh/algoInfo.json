@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "可能找到最短路径。\n使用直线距离启发式方法来决定搜索方向。",
+    "header": "加权",
+    "name": "A* 欧几里得"
+  },
+  "aStarM": {
+    "description": "找到最短路径。\n与 Dijkstra 类似，但使用“出租车”启发式方法来引导搜索。",
+    "header": "加权",
+    "name": "A* 曼哈顿"
+  },
+  "bfs": {
+    "description": "找到最短路径。\n遍历图的所有分支。\n只有在当前路径完全探索后才开始探索其他路径。",
+    "header": "无加权",
+    "name": "广度优先搜索"
+  },
+  "dfs": {
+    "description": "不会找到最短路径。\n遍历图的所有分支。",
+    "header": "无加权",
+    "name": "深度优先搜索"
+  },
+  "dijkstra": {
+    "description": "始终找到最短路径。\n使用节点的距离来选择方向。",
+    "header": "加权",
+    "name": "代克斯特拉"
+  }
+}

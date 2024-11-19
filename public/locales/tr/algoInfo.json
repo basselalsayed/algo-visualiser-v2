@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "En kısa yolu bulabilir.\nArama yönünü belirlemek için \"doğrudan mesafe\" heuristiği kullanır.",
+    "header": "Ağırlıklı",
+    "name": "A* Öklidyen"
+  },
+  "aStarM": {
+    "description": "En kısa yolu bulur.\nDijkstra'ya benzer, ancak arama yönünü yönlendirmek için \"taksi-cab\" heuristiği kullanır.",
+    "header": "Ağırlıklı",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "En kısa yolu bulur.\nBir grafiğin her dalını arar.\nMevcut yol tamamen keşfedildikten sonra diğer yolları arar.",
+    "header": "Ağırsız",
+    "name": "Genişlik Öncelikli Arama"
+  },
+  "dfs": {
+    "description": "En kısa yolu bulmaz.\nBir grafiğin her dalını arar.",
+    "header": "Ağırsız",
+    "name": "Derinlik Öncelikli Arama"
+  },
+  "dijkstra": {
+    "description": "Her zaman en kısa yolu bulur.\nYön seçmek için düğümlerin mesafesini kullanır.",
+    "header": "Ağırlıklı",
+    "name": "Dijkstra"
+  }
+}

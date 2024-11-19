@@ -1,0 +1,27 @@
+{
+  "aStarE": {
+    "description": "Peut trouver le chemin le plus court.\nUtilise une heuristique à vol d'oiseau pour déterminer la direction de la recherche.",
+    "header": "Pondéré",
+    "name": "A* Euclidien"
+  },
+  "aStarM": {
+    "description": "Trouve le chemin le plus court.\nSemblable à Dijkstra, mais avec l'heuristique « taxi-cab » pour guider la recherche.",
+    "header": "Pondéré",
+    "name": "A* Manhattan"
+  },
+  "bfs": {
+    "description": "Trouve le chemin le plus court.\nExplore chaque branche d'un graphe.\nExplorera les chemins uniquement après avoir complètement exploré le chemin actuel.",
+    "header": "Non pondéré",
+    "name": "Recherche en largeur"
+  },
+  "dfs": {
+    "description": "Ne trouve pas le chemin le plus court.\nExplore chaque branche d'un graphe.",
+    "header": "Non pondéré",
+    "name": "Recherche en profondeur"
+  },
+  "dijkstra": {
+    "description": "Trouve toujours le chemin le plus court.\nUtilise la distance des nœuds pour choisir la direction.",
+    "header": "Pondéré",
+    "name": "Dijkstra"
+  }
+}

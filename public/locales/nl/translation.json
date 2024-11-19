@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Uitvoeringstijd:"
+  },
+  "appName": "Algoritme Visualisatie",
+  "commandk": {
+    "algorithm": "Algoritme",
+    "buildMaze": "Bouw doolhof",
+    "darkMode": {
+      "disable": "Schakel donkere modus uit",
+      "enable": "Schakel donkere modus in"
+    },
+    "headings": {
+      "actions": "Acties",
+      "controls": "Besturing",
+      "misc": "Diversen",
+      "settings": "Instellingen"
+    },
+    "pause": "Pauzeren",
+    "play": "Afspelen",
+    "randomWalls": "Willekeurige muren",
+    "replay": "Opnieuw afspelen",
+    "resetGrid": "Herstel rooster",
+    "searchPlaceholder": "Typ een commando of zoek...",
+    "showStats": "Toon eerdere uitvoeringen",
+    "wallMode": {
+      "disable": "Schakel muismodus uit",
+      "enable": "Schakel muismodus in"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmen",
+    "appName": "Algoritme Visualisatie",
+    "settings": "Instellingen",
+    "wallSwitch": "Muismodus"
+  },
+  "settings": {
+    "animationSpeed": "Animatiesnelheid",
+    "drawSquare": "Teken vierkant",
+    "gridHeight": "Roosterhoogte",
+    "gridWidth": "Roosterbreedte",
+    "nodeSize": "Nodegrootte",
+    "performance": "Prestatiemodus",
+    "performanceCheck": "Deze grootte wordt alleen aanbevolen voor snellere apparaten, weet je het zeker?",
+    "reset": "Herstellen",
+    "title": "Instellingen"
+  },
+  "sr": {
+    "buildMaze": "Bouw doolhof",
+    "close": "Sluiten",
+    "darkMode": {
+      "disable": "Schakel donkere modus uit",
+      "enable": "Schakel donkere modus in"
+    },
+    "nextSlide": "Volgende dia",
+    "pause": "Pauzeren",
+    "play": "Afspelen",
+    "prevSlide": "Vorige dia",
+    "replay": "Opnieuw afspelen",
+    "resetGrid": "Herstel rooster",
+    "toggleMenu": "Wissel menu"
+  },
+  "stats": {
+    "algorithm": "Algoritme",
+    "global": "Globaal",
+    "local": "Lokaal",
+    "nodesProcessed": "Verwerkte knopen",
+    "nodesUntouched": "Onbehandelde knopen",
+    "runtime": "Uitvoeringstijd",
+    "shortestPath": "Kortste pad",
+    "title": "Uitvoeringshistorie"
+  }
+}

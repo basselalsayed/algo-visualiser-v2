@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "الزمن:"
+  },
+  "appName": "عارض الخوارزميات",
+  "commandk": {
+    "algorithm": "الخوارزمية",
+    "buildMaze": "بناء المتاهة",
+    "darkMode": {
+      "disable": "إيقاف الوضع الداكن",
+      "enable": "تشغيل الوضع الداكن"
+    },
+    "headings": {
+      "actions": "الأنشطة",
+      "controls": "التحكم",
+      "misc": "متنوع",
+      "settings": "الإعدادات"
+    },
+    "pause": "إيقاف",
+    "play": "تشغيل",
+    "randomWalls": "توليد جدران عشوائية",
+    "replay": "إعادة التشغيل",
+    "resetGrid": "إعادة تعيين الشبكة",
+    "searchPlaceholder": "اكتب أمرًا أو ابحث...",
+    "showStats": "عرض العمليات السابقة",
+    "wallMode": {
+      "disable": "إيقاف وضع الجدران",
+      "enable": "تشغيل وضع الجدران"
+    }
+  },
+  "navbar": {
+    "algorithms": "الخوارزميات",
+    "appName": "عارض الخوارزميات",
+    "settings": "الإعدادات",
+    "wallSwitch": "وضع الجدران"
+  },
+  "settings": {
+    "animationSpeed": "سرعة الرسوم المتحركة",
+    "drawSquare": "رسم المربع",
+    "gridHeight": "ارتفاع الشبكة",
+    "gridWidth": "عرض الشبكة",
+    "nodeSize": "حجم العقدة",
+    "performance": "وضع الأداء",
+    "performanceCheck": "هذا الحجم موصى به فقط للأجهزة الأسرع، هل أنت متأكد؟",
+    "reset": "إعادة تعيين",
+    "title": "الإعدادات"
+  },
+  "sr": {
+    "buildMaze": "بناء المتاهة",
+    "close": "إغلاق",
+    "darkMode": {
+      "disable": "إيقاف الوضع الداكن",
+      "enable": "تشغيل الوضع الداكن"
+    },
+    "nextSlide": "الشريحة التالية",
+    "pause": "إيقاف",
+    "play": "تشغيل",
+    "prevSlide": "الشريحة السابقة",
+    "replay": "إعادة التشغيل",
+    "resetGrid": "إعادة تعيين الشبكة",
+    "toggleMenu": "التبديل بين القائمة"
+  },
+  "stats": {
+    "algorithm": "الخوارزمية",
+    "global": "عالمي",
+    "local": "محلي",
+    "nodesProcessed": "العقد المعالجة",
+    "nodesUntouched": "العقد غير المتأثرة",
+    "runtime": "الزمن",
+    "shortestPath": "أقصر مسار",
+    "title": "تاريخ العمليات"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Tiempo de ejecución:"
+  },
+  "appName": "Visualizador de Algoritmos",
+  "commandk": {
+    "algorithm": "Algoritmo",
+    "buildMaze": "Construir laberinto",
+    "darkMode": {
+      "disable": "Desactivar modo oscuro",
+      "enable": "Activar modo oscuro"
+    },
+    "headings": {
+      "actions": "Acciones",
+      "controls": "Controles",
+      "misc": "Misceláneo",
+      "settings": "Configuración"
+    },
+    "pause": "Pausa",
+    "play": "Reproducir",
+    "randomWalls": "Paredes aleatorias",
+    "replay": "Repetir",
+    "resetGrid": "Restablecer cuadrícula",
+    "searchPlaceholder": "Escribe un comando o busca...",
+    "showStats": "Mostrar ejecuciones anteriores",
+    "wallMode": {
+      "disable": "Desactivar modo pared",
+      "enable": "Activar modo pared"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmos",
+    "appName": "Visualizador de Algoritmos",
+    "settings": "Configuración",
+    "wallSwitch": "Modo Pared"
+  },
+  "settings": {
+    "animationSpeed": "Velocidad de animación",
+    "drawSquare": "Dibujar cuadrado",
+    "gridHeight": "Altura de cuadrícula",
+    "gridWidth": "Ancho de cuadrícula",
+    "nodeSize": "Tamaño de nodo",
+    "performance": "Modo rendimiento",
+    "performanceCheck": "Este tamaño solo se recomienda para dispositivos más rápidos, ¿estás seguro?",
+    "reset": "Restablecer",
+    "title": "Configuración"
+  },
+  "sr": {
+    "buildMaze": "Construir laberinto",
+    "close": "Cerrar",
+    "darkMode": {
+      "disable": "Desactivar modo oscuro",
+      "enable": "Activar modo oscuro"
+    },
+    "nextSlide": "Siguiente diapositiva",
+    "pause": "Pausa",
+    "play": "Reproducir",
+    "prevSlide": "Diapositiva anterior",
+    "replay": "Repetir",
+    "resetGrid": "Restablecer cuadrícula",
+    "toggleMenu": "Alternar menú"
+  },
+  "stats": {
+    "algorithm": "Algoritmo",
+    "global": "Global",
+    "local": "Local",
+    "nodesProcessed": "Nodos procesados",
+    "nodesUntouched": "Nodos no tocados",
+    "runtime": "Tiempo de ejecución",
+    "shortestPath": "Camino más corto",
+    "title": "Historial de ejecuciones"
+  }
+}

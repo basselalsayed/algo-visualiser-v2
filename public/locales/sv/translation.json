@@ -1,0 +1,73 @@
+{
+  "algoForm": {
+    "runtime": "Körtid:"
+  },
+  "appName": "Algoritmvisualiserare",
+  "commandk": {
+    "algorithm": "Algoritm",
+    "buildMaze": "Bygg labyrint",
+    "darkMode": {
+      "disable": "Stäng av mörkt läge",
+      "enable": "Sätt på mörkt läge"
+    },
+    "headings": {
+      "actions": "Åtgärder",
+      "controls": "Kontroller",
+      "misc": "Övrigt",
+      "settings": "Inställningar"
+    },
+    "pause": "Pausa",
+    "play": "Spela",
+    "randomWalls": "Slumpa väggar",
+    "replay": "Spela om",
+    "resetGrid": "Återställ ruta",
+    "searchPlaceholder": "Skriv ett kommando eller sök...",
+    "showStats": "Visa tidigare körningar",
+    "wallMode": {
+      "disable": "Stäng av väggläge",
+      "enable": "Sätt på väggläge"
+    }
+  },
+  "navbar": {
+    "algorithms": "Algoritmer",
+    "appName": "Algoritmvisualiserare",
+    "settings": "Inställningar",
+    "wallSwitch": "Väggläge"
+  },
+  "settings": {
+    "animationSpeed": "Animeringshastighet",
+    "drawSquare": "Rita fyrkant",
+    "gridHeight": "Rutnätshöjd",
+    "gridWidth": "Rutnätsbredd",
+    "nodeSize": "Nodstorlek",
+    "performance": "Prestandaläge",
+    "performanceCheck": "Denna storlek rekommenderas endast för snabbare enheter, är du säker?",
+    "reset": "Återställ",
+    "title": "Inställningar"
+  },
+  "sr": {
+    "buildMaze": "Bygg labyrint",
+    "close": "Stäng",
+    "darkMode": {
+      "disable": "Stäng av mörkt läge",
+      "enable": "Sätt på mörkt läge"
+    },
+    "nextSlide": "Nästa bild",
+    "pause": "Pausa",
+    "play": "Spela",
+    "prevSlide": "Föregående bild",
+    "replay": "Spela om",
+    "resetGrid": "Återställ ruta",
+    "toggleMenu": "Byt meny"
+  },
+  "stats": {
+    "algorithm": "Algoritm",
+    "global": "Global",
+    "local": "Lokal",
+    "nodesProcessed": "Bearbetade noder",
+    "nodesUntouched": "Oberörda noder",
+    "runtime": "Körtid",
+    "shortestPath": "Kortaste väg",
+    "title": "Körhistorik"
+  }
+}
