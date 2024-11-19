@@ -2,9 +2,11 @@ import {
   ChevronsLeftRight,
   ChevronsUpDown,
   MoveDiagonal2,
+  Navigation,
   Scaling,
 } from 'lucide-react';
 import { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   AlgoFormMini,
@@ -35,32 +37,53 @@ import {
 } from '@/lib/constants';
 
 import {
+  CommandKItem,
+  DarkModeCommandItem,
   MazeRunCommandItem,
   RandomiseWallsCommandItem,
+  ResetGridCommandItem,
   RunCommandItem,
   ShowStatsCommandItem,
+  WallModeCommandItem,
 } from './command-items';
 
 export const CommandKComponent: FC = () => {
   const { dispatch, open, search } = useCommand();
+
+  const { t } = useTranslation();
 
   return (
     <CommandDialog open={open} onOpenChange={(v) => dispatch('open', v)}>
       <CommandInput
         value={search}
         onValueChange={(v) => dispatch('search', v)}
-        placeholder='Type a command or search...'
+        placeholder={t('commandk.searchPlaceholder')}
       />
 
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading='Suggestions'>
+        <CommandGroup heading={t('commandk.headings.actions')}>
           <RunCommandItem />
           <MazeRunCommandItem />
           <ShowStatsCommandItem />
+          <ResetGridCommandItem />
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading='Settings'>
+        <CommandGroup heading='Controls'>
+          <CommandKItem
+            icon={<Navigation />}
+            shortcut={EDIT_ALGORITHM}
+            tLabel='commandk.algorithm'
+          >
+            <ul className='flex flex-wrap justify-center gap-2'>
+              <AlgoFormMini />
+            </ul>
+          </CommandKItem>
+
+          <WallModeCommandItem />
+          <DarkModeCommandItem />
+        </CommandGroup>
+        <CommandGroup heading={t('commandk.headings.settings')}>
           <CommandItem>
             <Scaling />
             <NodeSizeSlider />
@@ -87,17 +110,9 @@ export const CommandKComponent: FC = () => {
             <CommandShortcut primaryKey={EDIT_ANIMATION_SPEED} />
           </CommandItem>
 
-          <CommandItem>
-            <Scaling />
-            <span>Algorithm</span>
-
-            <div className='flex flex-wrap justify-center gap-2'>
-              <AlgoFormMini />
-            </div>
-
-            <CommandShortcut primaryKey={EDIT_ALGORITHM} />
-          </CommandItem>
-          <RandomiseWallsCommandItem />
+          <CommandGroup heading={t('commandk.headings.misc')}>
+            <RandomiseWallsCommandItem />
+          </CommandGroup>
         </CommandGroup>
       </CommandList>
     </CommandDialog>
