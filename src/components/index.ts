@@ -4,6 +4,7 @@ export * from './carousel.component';
 export * from './core';
 export * from './grid';
 export * from './kbd-component';
+export * from './language-select.component';
 export * from './navbar';
 export * from './select.component';
 export * from './slider.component';

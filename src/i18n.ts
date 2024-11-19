@@ -30,3 +30,9 @@ i18n
     ns: [defaultNS, 'algoInfo'],
     supportedLngs: SUPPORTED_LOCALES,
   });
+
+i18n.on('languageChanged', (lang) => {
+  document.documentElement.lang = lang;
+});
+
+export { i18n };

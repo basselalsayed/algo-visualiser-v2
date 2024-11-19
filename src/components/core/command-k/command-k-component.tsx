@@ -1,3 +1,4 @@
+import { GlobeIcon } from '@radix-ui/react-icons';
 import {
   ChevronsLeftRight,
   ChevronsUpDown,
@@ -14,8 +15,9 @@ import {
   DrawSquareSlider,
   GridHeightSlider,
   GridWidthSlider,
+  LanguageSelect,
   NodeSizeSlider,
-} from '@/components/core';
+} from '@/components';
 import {
   CommandDialog,
   CommandEmpty,
@@ -25,7 +27,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from '@/components/ui/command';
+} from '@/components/ui';
 import { useCommand } from '@/hooks';
 import {
   EDIT_ALGORITHM,
@@ -82,6 +84,9 @@ export const CommandKComponent: FC = () => {
 
           <WallModeCommandItem />
           <DarkModeCommandItem />
+          <CommandKItem icon={<GlobeIcon />}>
+            <LanguageSelect />
+          </CommandKItem>
         </CommandGroup>
         <CommandGroup heading={t('commandk.headings.settings')}>
           <CommandItem>

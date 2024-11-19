@@ -37,7 +37,8 @@ export const CommandKItem = forwardRef<
     closeOnSelect?: boolean;
     icon: ReactElement;
     shortcut?: string;
-  } & TProp
+    tKey?: TKey;
+  }
 >(
   (
     {
