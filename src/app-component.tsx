@@ -1,8 +1,4 @@
-import './App.css';
-
-import { MotionConfig } from 'framer-motion';
-import { useEffect } from 'react';
-import { MathJaxProvider } from 'react-hook-mathjax';
+import { type FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
 
@@ -14,11 +10,12 @@ import {
   useSettings,
 } from '@/hooks';
 
-function App() {
+export const App: FC = () => {
 
   useKeyboardShortcuts();
 
   const { t } = useTranslation();
+
   useDocumentTitle(t('appName'));
 
   const { isDarkMode } = useDarkMode();
@@ -52,20 +49,13 @@ function App() {
   }, [currentAlgo.class, dispatch, endNode, refsMap, startNode]);
 
   return (
-    <MotionConfig reducedMotion='always'>
-      <MathJaxProvider
-        options={{
-          options: { enableMenu: false },
-        }}
-      />
+    <>
       <CommandKComponent />
       <StatsSheet />
       <main className='grid w-full grid-flow-row grid-cols-[100%] grid-rows-[91svh_1fr] gap-4 p-4 sm:grid-rows-[1fr_91svh]'>
-      <Grid />
-      <Navbar />
-    </main>
-    </MotionConfig>
+        <Grid />
+        <Navbar />
+      </main>
+    </>
   );
-}
-
-export default App;
+};
