@@ -3,7 +3,8 @@ import './App.css';
 import { MotionConfig } from 'framer-motion';
 import { useEffect } from 'react';
 import { MathJaxProvider } from 'react-hook-mathjax';
-import { useDarkMode } from 'usehooks-ts';
+import { useTranslation } from 'react-i18next';
+import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
 
 import { CommandKComponent, Grid, Navbar, StatsSheet } from '@/components';
 import {
@@ -15,6 +16,9 @@ import {
 
 function App() {
   useKeyboardShortcuts();
+
+  const { t } = useTranslation();
+  useDocumentTitle(t('appName'));
 
   const { isDarkMode } = useDarkMode();
 
