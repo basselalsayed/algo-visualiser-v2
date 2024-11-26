@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { memo, useCallback, useEffect, useRef } from 'react';
+import { match } from 'ts-pattern';
 import { useBoolean, useEventListener } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -67,28 +68,27 @@ export const Grid = memo(() => {
     ({ type, xIndex, yIndex }) => {
       const { dispatch, endNode, startNode, wallMode } = useGrid.getState();
 
-      switch (type) {
-        case 'none':
-          if (wallMode) return NodeType.wall;
-
-          if (!startNode) {
+      return match({ endNode, startNode, type, wallMode })
+        .returnType<NodeType>()
+        .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
+        .with({ startNode: undefined, type: NodeType.none }, () => {
             dispatch('startNode', [xIndex, yIndex]);
             return NodeType.start;
-          }
-          if (!endNode) {
+        })
+        .with({ endNode: undefined, type: NodeType.none }, () => {
             dispatch('endNode', [xIndex, yIndex]);
             return NodeType.end;
-          }
-          return NodeType.none;
-        case 'start':
+        })
+        .with({ type: NodeType.none }, () => NodeType.none)
+        .with({ type: NodeType.start }, () => {
           dispatch('startNode', undefined);
           return NodeType.none;
-        case 'end':
+        })
+        .with({ type: NodeType.end }, () => {
           dispatch('endNode', undefined);
           return NodeType.none;
-        default:
-          return NodeType.none;
-      }
+        })
+        .otherwise(() => NodeType.none);
     },
     []
   );
