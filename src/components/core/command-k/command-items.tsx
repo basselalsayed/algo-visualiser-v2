@@ -21,8 +21,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { NodeType } from '@/components/grid';
 import { CommandItem, CommandShortcut } from '@/components/ui';
-import { useDarkMode } from '@/hooks';
-import { type NodeMap, useCommand, useGrid, useRun, useStats } from '@/hooks';
+import { useCommand, useDarkMode, useGrid, useRun, useStats } from '@/hooks';
 import { RUN_ALGO_KEY, RUN_MAZE_KEY } from '@/lib';
 
 export const CommandKItem = forwardRef<

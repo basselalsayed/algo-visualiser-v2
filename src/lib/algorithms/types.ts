@@ -1,6 +1,3 @@
-import { type NodeCoordinates, type NodeMap } from '@/hooks';
-export { type INode } from '@/components/grid/node.interface';
-
 export interface RuntimeInfo {
   name: string;
   nodesProcessed: number;

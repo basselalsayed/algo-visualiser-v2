@@ -1,7 +1,6 @@
 import { sleep } from '../utils';
 
 import { PathFindingAlgorithm } from './path-finding-algorithm';
-import type { INode } from './types';
 
 export class Dijkstra extends PathFindingAlgorithm {
   name = 'Dijkstra';

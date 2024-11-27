@@ -1,7 +1,6 @@
 import { sleep } from '@/lib/utils';
 
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { INode } from '../types';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): INode;

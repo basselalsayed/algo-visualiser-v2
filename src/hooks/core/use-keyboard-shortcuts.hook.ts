@@ -27,7 +27,7 @@ import {
   type T_COMMAND_SEARCH_KEYS,
 } from '@/lib/constants';
 
-import { type NodeCoordinates, useCommand, useGrid, useRun } from '../state';
+import { useCommand, useGrid, useRun } from '../state';
 
 import { useDimensions } from './use-dimensions.hook';
 

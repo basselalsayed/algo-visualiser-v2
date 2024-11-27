@@ -14,7 +14,6 @@ import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
 import { Node } from './node.component';
-import { type INode } from './node.interface';
 
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
