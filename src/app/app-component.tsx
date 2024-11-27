@@ -5,8 +5,8 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { CommandKComponent, Grid, Navbar, StatsSheet } from '@/components';
 import { useKeyboardShortcuts } from '@/hooks';
 
-import { useHandlleAlgoUpdates } from './useHandleAlgoUpdates';
-import { useHandleDarkMode } from './useHandleDarkMode';
+import { useHandlleAlgoUpdates } from './use-handle-algo-updates.hook';
+import { useHandleDarkMode } from './use-handle-dark-mode.hook';
 
 export const App: FC = () => {
   useHandleDarkMode();

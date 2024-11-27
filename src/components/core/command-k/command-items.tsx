@@ -22,14 +22,8 @@ import { useShallow } from 'zustand/react/shallow';
 import { NodeType } from '@/components/grid';
 import { CommandItem, CommandShortcut } from '@/components/ui';
 import { useDarkMode } from '@/hooks';
-import {
-  type NodeMap,
-  useCommand,
-  useGrid,
-  useRun,
-  useStats,
-} from '@/hooks/state';
-import { RUN_ALGO_KEY, RUN_MAZE_KEY, sleep } from '@/lib';
+import { type NodeMap, useCommand, useGrid, useRun, useStats } from '@/hooks';
+import { RUN_ALGO_KEY, RUN_MAZE_KEY } from '@/lib';
 
 export const CommandKItem = forwardRef<
   ElementRef<typeof CommandItem>,
@@ -168,28 +162,26 @@ export const WallModeCommandItem: FC = () => {
 };
 
 // Misc
-function randomiseWalls(refsMap: NodeMap) {
-  function selectRandomQuarter<T>(arr: T[]): T[] {
-    const quarterLength = Math.ceil(arr.length / 4);
+function selectRandomQuarter<T>(arr: T[]): T[] {
+  const quarterLength = Math.ceil(arr.length / 4);
 
-    const shuffledArray = arr.slice();
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-
-    return shuffledArray.slice(0, quarterLength);
+  const shuffledArray = [...arr];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
 
-  const _refs = selectRandomQuarter([...refsMap.values()]);
+  return shuffledArray.slice(0, quarterLength);
+}
 
-  _refs.forEach(async (node, i) => {
-    await sleep(25 * i);
-    node.setType(NodeType.wall);
-  });
+function randomiseWalls(refsMap: NodeMap) {
+  const flatRefs = selectRandomQuarter([...refsMap.values()]);
+
+  for (const [i, node] of flatRefs.entries()) {
+    setTimeout(() => {
+      node.setType(NodeType.wall);
+    }, 25 * i);
+  }
 }
 
 export const RandomiseWallsCommandItem: FC = () => {

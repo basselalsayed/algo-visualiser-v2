@@ -1,6 +1,9 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useIsRunning } from '@/hooks';
+import { OPEN_COMMAND_KEY } from '@/lib/constants';
+
 import { AlgoForm, Kbd, MazeButton, RunButton, SettingsForm } from '..';
 import {
   Button,
@@ -10,8 +13,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '../ui';
-import { useIsRunning } from '@/hooks/state/useRun';
-import { OPEN_COMMAND_KEY } from '@/lib/constants';
 
 import { DarkModeSwitch, ResetButton, WallSwitch } from './components';
 

@@ -32,8 +32,7 @@ export const useDimensions = (): useDimensionsReturn => {
     [maxGridHeight, nodeSize]
   );
 
-  const maxSquareSize =
-    maxRowCount < maxColumnCount ? maxRowCount : maxColumnCount;
+  const maxSquareSize = Math.min(maxRowCount, maxColumnCount);
 
   return {
     columnCount,

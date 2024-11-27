@@ -1,6 +1,6 @@
 import { type HTMLAttributes, forwardRef } from 'react';
 
-import { usePlatform } from '@/hooks/util/usePlatform';
+import { usePlatform } from '@/hooks';
 import { cn } from '@/lib';
 
 interface Props extends HTMLAttributes<HTMLElement> {

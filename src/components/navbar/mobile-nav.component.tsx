@@ -1,7 +1,6 @@
 import { Settings2 } from 'lucide-react';
 import { type FC, useState } from 'react';
 
-import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 import {
   Button,
   Sheet,
@@ -11,7 +10,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui';
-import { useIsRunning } from '@/hooks/state/useRun';
+import { useIsRunning } from '@/hooks';
+
+import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 
 import {
   DarkModeSwitch,

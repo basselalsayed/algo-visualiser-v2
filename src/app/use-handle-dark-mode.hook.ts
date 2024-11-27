@@ -10,7 +10,7 @@ export const useHandleDarkMode = () => {
   }, [prefersDark, setDarkMode]);
 
   useEffect(() => {
-    const rootClasses = window.document.documentElement.classList;
+    const rootClasses = globalThis.document.documentElement.classList;
 
     rootClasses.remove('dark', 'light');
 

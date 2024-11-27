@@ -26,7 +26,7 @@ export class Dijkstra extends PathFindingAlgorithm {
     // so make a check to be sure that it exists!!!
     const unvisitedNodes = [...this.grid.values()];
 
-    while (unvisitedNodes.length) {
+    while (unvisitedNodes.length > 0) {
       this.sortNodesByDistance(unvisitedNodes);
 
       const closestNode = unvisitedNodes.shift()!;

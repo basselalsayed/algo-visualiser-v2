@@ -1,8 +1,8 @@
 import { type SnakeCasedPropertiesDeep } from 'type-fest';
 
-import { toSnake } from '../strings/toSnake';
+import { toSnake } from '../strings/to-snake.fn';
 
-import { type MapKeysArg, deepMapKeys } from './deepMapKeys';
+import { type MapKeysArg, deepMapKeys } from './deep-map-keys.fn';
 
 export const mapKeysToSnake = <T extends MapKeysArg>(
   obj: T

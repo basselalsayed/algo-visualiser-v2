@@ -46,7 +46,7 @@ export const StatsTable: FC<StatsProps> = ({ loading, results }) => {
           )
         )}
         {loading &&
-          [...Array(DEDFAULT_SKELETON_COUNT)].map((_, index) => (
+          Array.from({ length: DEDFAULT_SKELETON_COUNT }).map((_, index) => (
             <SkeletonTableRow key={index} />
           ))}
       </TableBody>
@@ -58,7 +58,7 @@ const SkeletonTableRow: FC<{ columnCount?: number }> = ({
   columnCount = 6,
 }) => (
   <TableRow>
-    {[...Array(columnCount)].map((_, index) => (
+    {Array.from({ length: columnCount }).map((_, index) => (
       <TableCell key={index}>
         <Skeleton className='h-4' />
       </TableCell>

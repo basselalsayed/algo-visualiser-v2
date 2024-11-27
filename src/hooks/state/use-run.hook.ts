@@ -3,13 +3,13 @@ import { match } from 'ts-pattern';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useMutation } from '@/data/hooks/useMutation';
+import { useMutation } from '@/data/hooks/use-mutation.hook';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
 import { RecursiveDivisionMaze } from '@/lib/algorithms/recursive-division-maze';
 
 import { type DispatchFunction } from './types';
-import { useGrid } from './useGrid';
-import { useStats } from './useStats';
+import { useGrid } from './use-grid.hook';
+import { useStats } from './use-stats.hook';
 
 type RunState = 'idle' | 'running' | 'paused' | 'done';
 type MazeRunState = Exclude<RunState, 'paused'>;
@@ -103,12 +103,12 @@ export const useRun = (): useRunReturn => {
   }, [algoInstance, dispatch, resetGrid]);
 
   const runMaze = useCallback(() => {
-      match(mazeRunState)
-        .with('idle', () => {
+    match(mazeRunState)
+      .with('idle', () => {
         maze.run();
         dispatch('mazeRunState', 'running');
-        })
-        .with('done', () => {
+      })
+      .with('done', () => {
         resetWalls();
         dispatch('mazeRunState', 'running');
         maze.run();

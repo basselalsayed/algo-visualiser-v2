@@ -1,9 +1,8 @@
 import { type FC, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Card } from '../card.component';
-import { Separator } from '../ui/separator';
-import { Skeleton } from '../ui/skeleton';
+import { Card } from '@/components';
+import { Separator, Skeleton } from '@/components/ui';
 import { type RuntimeInfo } from '@/lib/algorithms';
 
 import { DEDFAULT_SKELETON_COUNT } from './constants';
@@ -18,7 +17,7 @@ export const StatsCards: FC<StatsProps> = ({ loading, results }) => (
       </Fragment>
     ))}
     {loading &&
-      [...Array(DEDFAULT_SKELETON_COUNT)].map((_, index) => (
+      Array.from({ length: DEDFAULT_SKELETON_COUNT }).map((_, index) => (
         <SkeletonStatsCard key={index} />
       ))}
   </div>

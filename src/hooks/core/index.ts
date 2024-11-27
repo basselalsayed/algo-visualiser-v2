@@ -1,2 +1,2 @@
-export * from './useDimensions';
-export * from './useKeyboardShortcuts';
+export * from './use-dimensions.hook';
+export * from './use-keyboard-shortcuts.hook';

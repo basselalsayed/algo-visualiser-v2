@@ -23,7 +23,7 @@ export const algoInfo: AlgoInfo[] = [
     header: 'dijkstra.header',
     id: 'dijkstra',
     name: 'dijkstra.name',
-    runTime: '( O((V + E) \\log V) )',
+    runTime: String.raw`( O((V + E) \log V) )`,
   },
   {
     class: AStarEuclidean,
@@ -31,7 +31,7 @@ export const algoInfo: AlgoInfo[] = [
     header: 'aStarE.header',
     id: 'astar-e',
     name: 'aStarE.name',
-    runTime: '( O((V + E) \\log V) )',
+    runTime: String.raw`( O((V + E) \log V) )`,
   },
   {
     class: AStarManhatten,
@@ -39,7 +39,7 @@ export const algoInfo: AlgoInfo[] = [
     header: 'aStarM.header',
     id: 'astar-m',
     name: 'aStarM.name',
-    runTime: '( O((V + E) \\log V) )',
+    runTime: String.raw`( O((V + E) \log V) )`,
   },
   {
     class: DepthFirstSearch,

@@ -4,8 +4,9 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import * as React from 'react';
 
-import { SrOnly } from '../sr-only.component';
 import { cn } from '@/lib/utils';
+
+import { SrOnly } from '../sr-only.component';
 
 const Dialog = DialogPrimitive.Root;
 

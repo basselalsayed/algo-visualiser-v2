@@ -1,2 +1,2 @@
-export * from './usePlatform';
-export * from './useResizeObserver';
+export * from './use-platform.hook';
+export * from './use-resize-observer.hook';

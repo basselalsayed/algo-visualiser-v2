@@ -4,10 +4,12 @@ import { match } from 'ts-pattern';
 import { useBoolean, useEventListener } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useDimensions } from '@/hooks';
-import { useGrid } from '@/hooks/state/useGrid';
-import { useSettings } from '@/hooks/state/useSettings';
-import { useResizeObserver } from '@/hooks/util/useResizeObserver';
+import {
+  useDimensions,
+  useGrid,
+  useResizeObserver,
+  useSettings,
+} from '@/hooks';
 import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
@@ -99,12 +101,12 @@ export const Grid = memo(() => {
       className='h-full w-full flex flex-row p-4 px-2 sm:px-6 items-center justify-center '
       ref={gridRef}
     >
-      {[...Array(columnCount)].map((_, xIndex) => (
+      {Array.from({ length: columnCount }).map((_, xIndex) => (
         <div
           key={`col-${xIndex}-${nodeSize}-${refreshKey}`}
           className='flex flex-col flex-shrink'
         >
-          {[...Array(rowCount)].map((_, yIndex) => (
+          {Array.from({ length: rowCount }).map((_, yIndex) => (
             <Node
               key={`node-${xIndex}-${yIndex}`}
               size={nodeSize}

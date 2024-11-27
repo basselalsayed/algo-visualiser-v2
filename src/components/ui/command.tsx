@@ -3,9 +3,10 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Command as CommandPrimitive } from 'cmdk';
 import * as React from 'react';
 
-import { Kbd } from '../kbd-component';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+
+import { Kbd } from '../kbd-component';
 
 import { ScrollArea } from './scroll-area';
 

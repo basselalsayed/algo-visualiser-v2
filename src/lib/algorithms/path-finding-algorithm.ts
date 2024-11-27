@@ -1,7 +1,8 @@
 import { animate } from 'framer-motion/dom';
 
+import { type NodeCoordinates, type NodeMap } from '@/hooks';
+
 import { assert, convertToSeconds, sleep } from '../utils';
-import { type NodeCoordinates, type NodeMap } from '@/hooks/state/useGrid';
 
 import type {
   INode,

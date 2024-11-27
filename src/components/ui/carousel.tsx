@@ -4,9 +4,10 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react';
 import * as React from 'react';
 
-import { SrOnly } from '../sr-only.component';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
+import { SrOnly } from '../sr-only.component';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -30,7 +31,9 @@ type CarouselContextProps = {
   scrollPrev: () => void;
 } & CarouselProps;
 
-const CarouselContext = React.createContext<CarouselContextProps | null>(null);
+const CarouselContext = React.createContext<CarouselContextProps | undefined>(
+  undefined
+);
 
 function useCarousel() {
   const context = React.useContext(CarouselContext);

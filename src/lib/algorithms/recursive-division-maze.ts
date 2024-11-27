@@ -1,6 +1,7 @@
-import { sleep } from '../utils';
 import { NodeType } from '@/components/grid/node-type.enum';
-import { type NodeMap } from '@/hooks/state/useGrid';
+import { type NodeMap } from '@/hooks';
+
+import { sleep } from '../utils';
 
 import { type INode } from './types';
 

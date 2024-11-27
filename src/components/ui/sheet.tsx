@@ -3,8 +3,9 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import { type VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 
-import { SrOnly } from '../sr-only.component';
 import { cn } from '@/lib/utils';
+
+import { SrOnly } from '../sr-only.component';
 
 const Sheet = SheetPrimitive.Root;
 

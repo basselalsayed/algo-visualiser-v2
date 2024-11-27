@@ -1,3 +1,3 @@
-export * from './deepMapKeys';
-export * from './mapKeysToCamel';
-export * from './mapKeysToSnake';
+export * from './deep-map-keys.fn';
+export * from './map-keys-to-camel.fn';
+export * from './map-keys-to-snake.fn';

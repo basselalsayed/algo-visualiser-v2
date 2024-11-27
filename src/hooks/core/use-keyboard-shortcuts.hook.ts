@@ -2,7 +2,6 @@ import { useMemo, useRef } from 'react';
 import { match } from 'ts-pattern';
 import { useEventCallback, useEventListener } from 'usehooks-ts';
 
-import { type NodeCoordinates, useCommand, useGrid, useRun } from '../state';
 import { NodeType } from '@/components/grid';
 import {
   EDIT_ALGORITHM,
@@ -28,7 +27,9 @@ import {
   type T_COMMAND_SEARCH_KEYS,
 } from '@/lib/constants';
 
-import { useDimensions } from './useDimensions';
+import { type NodeCoordinates, useCommand, useGrid, useRun } from '../state';
+
+import { useDimensions } from './use-dimensions.hook';
 
 type KeyboardMap<K extends string, V> = {
   [key in K]: V;

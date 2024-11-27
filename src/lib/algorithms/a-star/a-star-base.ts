@@ -16,7 +16,7 @@ export abstract class AStarBase extends PathFindingAlgorithm {
     );
     this.startNode.setHeuristic(this.findHeuristicTotal(this.startNode));
 
-    while (this.queue.length) {
+    while (this.queue.length > 0) {
       this.sortOpenHeuritsicUnvisited();
 
       const currentNode = this.queue.shift()!;
