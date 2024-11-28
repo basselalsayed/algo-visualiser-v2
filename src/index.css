@@ -8,6 +8,20 @@
 
 @layer base {
   :root {
+    --grad-bg-1: theme(colors.green.400);
+    --grad-bg-2: theme(colors.blue.400);
+
+    --grad-accent-1: theme(colors.purple.400);
+    --grad-accent-2: theme(colors.cyan.400);
+    --grad-accent-mix: color-mix(
+      in lab,
+      var(--grad-accent-1),
+      var(--grad-accent-2)
+    );
+    --grad-header-1: theme(colors.indigo.700);
+    --grad-header-2: theme(colors.purple.700);
+    --grad-header-3: theme(colors.blue.700);
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -35,6 +49,16 @@
     --radius: 0.5rem;
   }
   .dark {
+    --grad-bg-1: theme(colors.green.700);
+    --grad-bg-2: theme(colors.blue.700);
+
+    --grad-accent-1: theme(colors.purple.700);
+    --grad-accent-2: theme(colors.cyan.700);
+
+    --grad-header-1: theme(colors.indigo.700);
+    --grad-header-2: theme(colors.purple.700);
+    --grad-header-3: theme(colors.blue.700);
+
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -63,23 +87,85 @@
 }
 
 @layer base {
-  body {
-    @apply bg-gradient-to-br from-green-400 via-slate-400 to-yellow-400;
-    @apply via-blue-200 dark:bg-gradient-to-br dark:from-slate-800 dark:to-purple-700;
-  }
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
+    @apply text-foreground;
+  }
+
+  .grad-accent {
+    @apply bg-gradient-to-br from-grad-accent-1 to-grad-accent-2;
+  }
+  .grad-accent-vertical {
+    @apply bg-gradient-to-b from-grad-accent-1 to-grad-accent-2;
+  }
+
+  .grad-border {
+    border-image: linear-gradient(
+      to bottom right,
+      var(--grad-accent-1),
+      var(--grad-accent-2)
+    );
+    border-image-slice: 1;
+  }
+
+  .grad-border-rounded,
+  .grad-border-rounded-animate-hover {
+    --base-color: hsl(var(--background) / 0.8);
+
+    background:
+      linear-gradient(var(--base-color), var(--base-color)) padding-box,
+      linear-gradient(
+          to bottom right,
+          var(--grad-accent-1),
+          var(--grad-accent-2),
+          var(--grad-accent-1),
+          var(--grad-accent-2)
+        )
+        border-box;
+
+    background-size: 400% 400%;
+    border: 2px solid transparent;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .grad-border-rounded-animate-hover:hover {
+    animation: gradient 1.5s ease infinite;
+  }
+
+  .grad-grid {
+    @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
+  }
+
+  .grad-header {
+    @apply bg-gradient-to-br from-grad-header-1 via-grad-header-2 to-grad-header-3 bg-clip-text pr-1 text-transparent;
   }
 
   h1,
   h2,
   h3,
-  h4,
-  p {
-    @apply bg-gradient-to-br from-indigo-700 via-purple-700 to-blue-700 bg-clip-text pr-1 text-transparent;
+  h4 {
+    @apply grad-header;
+
+    @supports (-webkit-text-stroke: 1px hsl(var(--muted-foreground))) {
+      -webkit-text-stroke: 1px hsl(var(--muted-foreground));
+    }
   }
 
   h1 {
@@ -90,6 +176,5 @@
   }
   h3 {
     @apply text-lg;
-    @apply bg-gradient-to-br from-indigo-700 via-purple-700 to-blue-700 bg-clip-text pr-1 text-transparent;
   }
 }
