@@ -17,6 +17,7 @@ import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 import {
   DarkModeSwitch,
   MazeButton,
+  QuickSearchButton,
   RunButton,
   WallSwitch,
 } from './components';
@@ -39,6 +40,8 @@ export const MobileNav: FC = () => {
                 Choose your algorithm and change settings here
               </SheetDescription>
             </SheetHeader>
+
+            <QuickSearchButton />
 
             <DarkModeSwitch />
 
