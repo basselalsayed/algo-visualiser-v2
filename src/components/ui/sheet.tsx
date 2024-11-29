@@ -5,7 +5,9 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-import { SrOnly } from '../sr-only.component';
+import { SrOnly } from '..';
+
+import { Button } from './button';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -64,9 +66,14 @@ const SheetContent = React.forwardRef<
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >
-      <SheetPrimitive.Close className='sm:h-initial absolute bottom-8 right-4 h-10 w-10 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:bottom-0'>
-        <Cross2Icon className='h-4 w-4' />
-        <SrOnly tKey='sr.close' />
+      <SheetPrimitive.Close
+        className='absolute bottom-8 right-4 z-50 h-8 w-8 rounded-full p-5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:bottom-[initial] sm:top-4'
+        asChild
+      >
+        <Button>
+          <Cross2Icon className='h-4 w-4' />
+          <SrOnly tKey='sr.close' />
+        </Button>
       </SheetPrimitive.Close>
       {children}
     </SheetPrimitive.Content>

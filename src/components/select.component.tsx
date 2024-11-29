@@ -17,10 +17,10 @@ export const Select = <T extends string>({
   value,
 }: Props<T>) => (
   <S.Select onValueChange={onValueChange} value={value.value}>
-    <S.SelectTrigger className={cn('w-[180px]', className)}>
-      <S.SelectValue placeholder={value.label} />
+    <S.SelectTrigger className={cn('w-6/12 [&_span]:pe-1', className)}>
+      <S.SelectValue placeholder={value.label} className='' />
     </S.SelectTrigger>
-    <S.SelectContent>
+    <S.SelectContent className='grad-border-rounded'>
       {options.map((o) => (
         <S.SelectItem key={o.value} value={o.value}>
           {o.label}

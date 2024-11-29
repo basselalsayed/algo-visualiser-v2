@@ -60,7 +60,7 @@ export const MobileNav: FC = () => {
             </Accordian>
           </ul>
         </SheetContent>
-        <nav className='grid grid-flow-col items-center justify-between justify-items-stretch border-t bg-background p-4'>
+        <nav className='grad-border grid grid-flow-col items-center justify-between justify-items-stretch border-t-2 bg-background p-4'>
           <h3 className='col-span-4 text-left'>AV</h3>
           <MazeButton />
           <SheetTrigger asChild>

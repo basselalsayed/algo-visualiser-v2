@@ -97,17 +97,27 @@ export const Grid = memo(() => {
   return (
     <div
       id='nodeGrid'
-      className='h-full w-full flex flex-row p-4 px-2 sm:px-6 items-center justify-center '
+      className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pb-4 sm:pt-0'
       ref={gridRef}
     >
       {Array.from({ length: columnCount }).map((_, xIndex) => (
         <div
           key={`col-${xIndex}-${nodeSize}-${refreshKey}`}
-          className='flex flex-col flex-shrink'
+          className='flex flex-shrink flex-col'
         >
-          {Array.from({ length: rowCount }).map((_, yIndex) => (
+          {Array.from({ length: rowCount }).map((_, yIndex) => {
+            const firstColumn = xIndex === 0;
+            const lastColumn = xIndex === columnCount - 1;
+
+            return (
             <Node
               key={`node-${xIndex}-${yIndex}`}
+                className={cn(
+                  firstColumn &&
+                    'first-of-type:rounded-tl-sm last-of-type:rounded-bl-sm',
+                  lastColumn &&
+                    'first-of-type:rounded-tr-sm last-of-type:rounded-br-sm'
+                )}
               size={nodeSize}
               xIndex={xIndex}
               yIndex={yIndex}
@@ -116,7 +126,8 @@ export const Grid = memo(() => {
               onClick={handleNodeClick}
               onMouseOver={handleNodeMouseOver}
             />
-          ))}
+            );
+          })}
         </div>
       ))}
     </div>

@@ -48,24 +48,20 @@ export const DesktopNav: FC = () => {
   );
 
   return (
-    <>
-      <NavigationMenu className='row-start-1 grid w-full max-w-full grid-flow-col items-center justify-between justify-items-stretch'>
-        <h1 className='bg-gradient-to-br from-indigo-700 via-purple-700 to-blue-700 bg-clip-text pr-1 text-left text-transparent'>
-          {t('navbar.appName')}
-        </h1>
-        <NavigationMenuList className='gap-3'>
-          <Button>
-            <Kbd primaryKey={OPEN_COMMAND_KEY} />
-          </Button>
-          <DarkModeSwitch />
-          <WallSwitch />
-          {algoSection}
-          {settingsSection}
-          <ResetButton />
-          <MazeButton />
-          <RunButton />
-        </NavigationMenuList>
-      </NavigationMenu>
-    </>
+    <NavigationMenu className='grad-border row-start-1 grid w-full max-w-full grid-flow-col items-center justify-between justify-items-stretch border-b-2 bg-background px-4 py-3'>
+      <h1 className='pr-1 text-left'>{t('navbar.appName')}</h1>
+      <NavigationMenuList className='gap-3'>
+        <Button>
+          <Kbd primaryKey={OPEN_COMMAND_KEY} />
+        </Button>
+        <DarkModeSwitch />
+        <WallSwitch />
+        {algoSection}
+        {settingsSection}
+        <ResetButton />
+        <MazeButton />
+        <RunButton />
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };

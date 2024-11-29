@@ -20,7 +20,7 @@ export const StatsTable: FC<StatsProps> = ({ loading, results }) => {
   return (
     <Table className='relative'>
       <TableHeader>
-        <TableRow className='[&_th]:sticky [&_th]:top-0 [&_th]:bg-primary'>
+        <TableRow className='[&_th]:sticky [&_th]:top-0 [&_th]:bg-background'>
           <TableHead>#</TableHead>
           <TableHead>{t('stats.algorithm')}</TableHead>
           <TableHead>{t('stats.nodesProcessed')}</TableHead>

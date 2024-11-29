@@ -49,15 +49,15 @@
     --radius: 0.5rem;
   }
   .dark {
-    --grad-bg-1: theme(colors.green.700);
-    --grad-bg-2: theme(colors.blue.700);
+    --grad-bg-1: theme(colors.amber.800);
+    --grad-bg-2: theme(colors.yellow.800);
 
-    --grad-accent-1: theme(colors.purple.700);
-    --grad-accent-2: theme(colors.cyan.700);
+    --grad-accent-1: theme(colors.amber.400);
+    --grad-accent-2: theme(colors.red.400);
 
-    --grad-header-1: theme(colors.indigo.700);
-    --grad-header-2: theme(colors.purple.700);
-    --grad-header-3: theme(colors.blue.700);
+    --grad-header-1: theme(colors.amber.700);
+    --grad-header-2: theme(colors.orange.700);
+    --grad-header-3: theme(colors.red.700);
 
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -99,6 +99,9 @@
   .grad-accent {
     @apply bg-gradient-to-br from-grad-accent-1 to-grad-accent-2;
   }
+  .grad-accent-faded {
+    @apply from-grad-accent-1/70 to-grad-accent-2/70 bg-gradient-to-br;
+  }
   .grad-accent-vertical {
     @apply bg-gradient-to-b from-grad-accent-1 to-grad-accent-2;
   }
@@ -128,7 +131,8 @@
         border-box;
 
     background-size: 400% 400%;
-    border: 2px solid transparent;
+
+    @apply border-2 border-solid border-transparent dark:border;
   }
 
   @keyframes gradient {
