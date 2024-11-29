@@ -8,19 +8,18 @@
 
 @layer base {
   :root {
-    --grad-bg-1: theme(colors.green.400);
-    --grad-bg-2: theme(colors.blue.400);
-
-    --grad-accent-1: theme(colors.purple.400);
-    --grad-accent-2: theme(colors.cyan.400);
+    --grad-bg-1: 142 69% 58%; /* Tailwind Green 400 */
+    --grad-bg-2: 213 94% 68%; /* Tailwind Blue 400 */
+    --grad-accent-1: 270 95% 75%; /* Tailwind Purple 400 */
+    --grad-accent-2: 188 86% 53%; /* Tailwind Cyan 400 */
     --grad-accent-mix: color-mix(
       in lab,
-      var(--grad-accent-1),
-      var(--grad-accent-2)
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2))
     );
-    --grad-header-1: theme(colors.indigo.700);
-    --grad-header-2: theme(colors.purple.700);
-    --grad-header-3: theme(colors.blue.700);
+    --grad-header-1: 245 58% 51%; /* Tailwind Indigo 700 */
+    --grad-header-2: 272 72% 47%; /* Tailwind Purple 700 */
+    --grad-header-3: 224 76% 48%; /* Tailwind Blue 700 */
 
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -49,15 +48,13 @@
     --radius: 0.5rem;
   }
   .dark {
-    --grad-bg-1: theme(colors.amber.800);
-    --grad-bg-2: theme(colors.yellow.800);
-
-    --grad-accent-1: theme(colors.amber.400);
-    --grad-accent-2: theme(colors.red.400);
-
-    --grad-header-1: theme(colors.amber.700);
-    --grad-header-2: theme(colors.orange.700);
-    --grad-header-3: theme(colors.red.700);
+    --grad-bg-1: 23 83% 31%; /* Tailwind Amber 800 */
+    --grad-bg-2: 32 81% 29%; /* Tailwind Yellow 800 */
+    --grad-accent-1: 43 96% 56%; /* Tailwind Amber 400 */
+    --grad-accent-2: 0 91% 71%; /* Tailwind Red 400 */
+    --grad-header-1: 26 90% 37%; /* Tailwind Amber 700 */
+    --grad-header-2: 17 88% 40%; /* Tailwind Orange 700 */
+    --grad-header-3: 0 74% 42%; /* Tailwind Red 700 */
 
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -88,7 +85,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-grad-accent-mix;
   }
 
   body {
@@ -109,8 +106,8 @@
   .grad-border {
     border-image: linear-gradient(
       to bottom right,
-      var(--grad-accent-1),
-      var(--grad-accent-2)
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2))
     );
     border-image-slice: 1;
   }
@@ -123,10 +120,10 @@
       linear-gradient(var(--base-color), var(--base-color)) padding-box,
       linear-gradient(
           to bottom right,
-          var(--grad-accent-1),
-          var(--grad-accent-2),
-          var(--grad-accent-1),
-          var(--grad-accent-2)
+          hsl(var(--grad-accent-1)),
+          hsl(var(--grad-accent-2)),
+          hsl(var(--grad-accent-1)),
+          hsl(var(--grad-accent-2))
         )
         border-box;
 
@@ -166,14 +163,18 @@
   h3,
   h4 {
     @apply grad-header;
+    --stroke-width: 0.015rem;
+    --stroke-color: hsl(var(--grad-accent-1));
 
-    @supports (-webkit-text-stroke: 1px hsl(var(--muted-foreground))) {
-      -webkit-text-stroke: 1px hsl(var(--muted-foreground));
+    @supports (-webkit-text-stroke: var(--stroke-width) var(--stroke-color)) {
+      -webkit-text-stroke: var(--stroke-width) var(--stroke-color);
+      letter-spacing: calc(var(--stroke-width) * 2.2);
     }
   }
 
   h1 {
     @apply text-4xl;
+    --stroke-width: 0.05rem;
   }
   h2 {
     @apply text-2xl;
