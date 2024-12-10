@@ -6,7 +6,7 @@ import { SWRConfig } from 'swr';
 
 import { App } from './app/app-component.tsx';
 
-import './index.css';
+import './index.scss';
 import './i18n.ts';
 
 createRoot(document.querySelector('#root')!).render(
