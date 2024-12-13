@@ -106,6 +106,7 @@
     @apply bg-gradient-to-b from-grad-accent-1 to-grad-accent-2;
   }
 
+  // because of border image limitations, this class is only useful if you don't need a border radius
   .grad-border {
     border-image: linear-gradient(
       to bottom right,
@@ -166,6 +167,19 @@
     animation: gradient 1.5s ease infinite;
   }
 
+  .grad_text,
+  .grad_text--accent,
+  .grad_text--header {
+    @apply bg-gradient-to-br bg-clip-text text-transparent;
+  }
+
+  .grad_text--accent {
+    @apply grad-accent;
+  }
+
+  .grad_text--header {
+    @apply from-grad-header-1 via-grad-header-2 to-grad-header-3 pr-1;
+  }
 
   @keyframes gradient {
     0% {
@@ -181,23 +195,15 @@
     }
   }
 
-  .grad-border-rounded-animate-hover:hover {
-    animation: gradient 1.5s ease infinite;
-  }
-
   .grad-grid {
     @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
-  }
-
-  .grad-header {
-    @apply bg-gradient-to-br from-grad-header-1 via-grad-header-2 to-grad-header-3 bg-clip-text pr-1 text-transparent;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply grad-header;
+    @apply grad_text--header;
     --stroke-width: 0.015rem;
     --stroke-color: hsl(var(--grad-accent-1));
 
