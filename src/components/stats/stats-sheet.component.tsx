@@ -10,7 +10,13 @@ import { useDeviceQueries, useStats } from '@/hooks';
 import { elementIsFullyScrolled } from '@/lib/utils';
 
 import { Tabs } from '../tabs.component';
-import { ScrollArea, Sheet, SheetContent } from '../ui';
+import {
+  ScrollArea,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '../ui';
 
 import { StatsCards } from './stats-cards.component';
 import { StatsTable } from './stats-table.component';
@@ -53,7 +59,9 @@ export const StatsSheet: FC = () => {
   return (
     <Sheet open={statsOpen} onOpenChange={(v) => dispatch('statsOpen', v)}>
       <SheetContent className='flex flex-col gap-y-4 sm:w-7/12'>
-        <h1>{t('stats.title')}</h1>
+        <SheetHeader>
+          <SheetTitle className=''>{t('stats.title')}</SheetTitle>
+        </SheetHeader>
         <Tabs
           defaultValue='stats.local'
           value={resultsSource}
