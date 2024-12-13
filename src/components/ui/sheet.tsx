@@ -67,7 +67,7 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       <SheetPrimitive.Close
-        className='absolute bottom-8 right-4 z-50 h-8 w-8 rounded-full p-5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:bottom-[initial] sm:top-4'
+        className='fixed bottom-8 right-4 z-50 h-8 w-8 rounded-full p-5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:bottom-[initial] sm:top-4'
         asChild
       >
         <Button>
@@ -112,12 +112,15 @@ SheetFooter.displayName = 'SheetFooter';
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
->(({ className, ...props }, ref) => (
+>(({ children, className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn('text-lg font-semibold text-foreground', className)}
+    className={cn('text-2xl sm:text-4xl', className)}
+    asChild
     {...props}
-  />
+  >
+    <h1>{children}</h1>
+  </SheetPrimitive.Title>
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
