@@ -54,8 +54,8 @@ importers:
         specifier: ^1.1.3
         version: 1.1.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@supabase-cache-helpers/postgrest-swr':
-        specifier: ^1.10.3
-        version: 1.10.3(@supabase/postgrest-js@1.16.1)(@supabase/supabase-js@2.45.4)(react@18.3.1)(swr@2.2.5(react@18.3.1))
+        specifier: ^1.10.4
+        version: 1.10.4(@supabase/postgrest-js@1.16.1)(@supabase/supabase-js@2.45.4)(react@18.3.1)(swr@2.2.5(react@18.3.1))
       '@supabase/postgrest-js':
         specifier: 1.16.1
         version: 1.16.1
@@ -1275,8 +1275,8 @@ packages:
       '@supabase/postgrest-js': ^1.9.0
       '@supabase/supabase-js': ^2.0.0
 
-  '@supabase-cache-helpers/postgrest-swr@1.10.3':
-    resolution: {integrity: sha512-+p8ziUTha37ZG9b1/EQ93X9TDY8kPxRapB9bCKm1oVk+KlIDwCRnORegUyiz8/LifFI6Fa4KwTeMxjd+saiUOA==}
+  '@supabase-cache-helpers/postgrest-swr@1.10.4':
+    resolution: {integrity: sha512-vLTveQAL2CGCvJHR7P2WIQgoN3YbCrTAWhwgDiu5Yn+Dh2KzGOoVrRbVWLK/BcEYYj5APYLv28+uzdsXiOcytA==}
     peerDependencies:
       '@supabase/postgrest-js': ^1.9.0
       react: ^16.11.0 || ^17.0.0 || ^18.0.0
@@ -4207,7 +4207,7 @@ snapshots:
       merge-anything: 5.1.7
       xregexp: 5.1.1
 
-  '@supabase-cache-helpers/postgrest-swr@1.10.3(@supabase/postgrest-js@1.16.1)(@supabase/supabase-js@2.45.4)(react@18.3.1)(swr@2.2.5(react@18.3.1))':
+  '@supabase-cache-helpers/postgrest-swr@1.10.4(@supabase/postgrest-js@1.16.1)(@supabase/supabase-js@2.45.4)(react@18.3.1)(swr@2.2.5(react@18.3.1))':
     dependencies:
       '@supabase-cache-helpers/postgrest-core': 0.8.3(@supabase/postgrest-js@1.16.1)(@supabase/supabase-js@2.45.4)
       '@supabase/postgrest-js': 1.16.1
