@@ -88,6 +88,11 @@
     @apply border-grad-accent-mix;
   }
 
+  mjx-container {
+    svg {
+      color: hsl(var(--foreground));
+    }
+  }
   body {
     @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
     @apply text-foreground;
