@@ -2,6 +2,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 
+import { useSvgGradient } from '@/hooks/ui/use-svg-gradient.hook';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
@@ -19,15 +20,13 @@ const buttonVariants = cva(
         sm: 'h-8 rounded-md px-3 text-xs',
       },
       variant: {
-        default:
-          'grad-border-rounded-animate-hover text-primary-foreground shadow',
+        default: 'bg_grad_accent--outline--text animate_grad shadow',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        outline: 'shadow-sm grad-border-rounded-animate-hover',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+        outline: 'shadow-sm bg_grad_accent--outline--text animate_grad',
+        secondary: 'bg_grad_accent animate_grad shadow-sm border-0',
       },
     },
   }
@@ -40,12 +39,26 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, className, size, variant, ...props }, ref) => {
+  (
+    { asChild = false, className, size, variant = 'default', ...props },
+    ref
+  ) => {
     const Comp = asChild ? Slot : 'button';
+
+    const refCb = useSvgGradient();
+
     return (
       <Comp
         className={cn(buttonVariants({ className, size, variant }))}
-        ref={ref}
+        ref={(el) => {
+          if (variant === 'default') {
+            refCb(el);
+          }
+          if (ref) {
+            if (typeof ref == 'function') ref(el);
+            else ref.current = el;
+          }
+        }}
         {...props}
       />
     );

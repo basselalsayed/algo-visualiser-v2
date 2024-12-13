@@ -307,7 +307,7 @@ const CarouselDotButtons = React.forwardRef<
           onClick={() => onDotButtonClick(index)}
           className={cn(
             'transition-[border-width]',
-            index === selectedIndex && 'border-4',
+            index === selectedIndex && '!border-4',
             buttonClassName
           )}
         />
@@ -324,8 +324,7 @@ export const DotButton = React.forwardRef<
   <Button
     ref={ref}
     type='button'
-    variant='outline'
-    className={cn('grad-border-rounded h-6 w-6 rounded-full p-0', className)}
+    className={cn('h-6 w-6 rounded-full p-0', className)}
     {...rest}
   />
 ));

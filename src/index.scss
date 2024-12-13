@@ -112,25 +112,57 @@
     border-image-slice: 1;
   }
 
-  .grad-border-rounded,
-  .grad-border-rounded-animate-hover {
+  .bg_grad_accent {
+    background: linear-gradient(
+      to bottom right,
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2)),
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2))
+    );
+
+    @apply text-secondary;
+  }
+
+  .bg_grad_accent--outline,
+  .bg_grad_accent--outline--text {
     --base-color: hsl(var(--background) / 0.8);
+    --grad-1: hsl(var(--grad-accent-1));
+    --grad-2: hsl(var(--grad-accent-2));
+
+    --lg: linear-gradient(
+      to bottom right,
+      var(--grad-1),
+      var(--grad-2),
+      var(--grad-1),
+      var(--grad-2)
+    );
 
     background:
       linear-gradient(var(--base-color), var(--base-color)) padding-box,
-      linear-gradient(
-          to bottom right,
-          hsl(var(--grad-accent-1)),
-          hsl(var(--grad-accent-2)),
-          hsl(var(--grad-accent-1)),
-          hsl(var(--grad-accent-2))
-        )
-        border-box;
+      var(--lg) border-box;
+  }
 
+  .bg_grad_accent--outline--text {
+    background:
+      var(--lg) text,
+      linear-gradient(var(--base-color), var(--base-color)) padding-box,
+      var(--lg) border-box;
+
+    color: transparent !important;
+  }
+
+  .bg_grad_accent,
+  .bg_grad_accent--outline,
+  .bg_grad_accent--outline--text {
     background-size: 400% 400%;
-
     @apply border-2 border-solid border-transparent dark:border;
   }
+
+  .animate_grad:hover {
+    animation: gradient 1.5s ease infinite;
+  }
+
 
   @keyframes gradient {
     0% {

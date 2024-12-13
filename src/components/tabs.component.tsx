@@ -28,7 +28,10 @@ export const Tabs = <T extends TKey>({
       onValueChange={(v) => onValueChange(v as T)}
     >
       <T.TabsList
-        className={cn('grad-border-rounded grid w-full grid-cols-2', className)}
+        className={cn(
+          'bg_grad_accent--outline grid w-full grid-cols-2',
+          className
+        )}
       >
         {values.map((value) => (
           <T.TabsTrigger key={value} value={value}>
