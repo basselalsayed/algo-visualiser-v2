@@ -64,7 +64,7 @@ export const MobileNav: FC = () => {
           </ul>
         </SheetContent>
         <nav className='grad-border grid grid-flow-col items-center justify-between justify-items-stretch border-t-2 bg-background p-4'>
-          <h3 className='col-span-4 text-left'>AV</h3>
+          <h1 className='col-span-4 text-left'>AV</h1>
           <MazeButton />
           <SheetTrigger asChild>
             <Button
