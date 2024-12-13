@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
+import { SVGGradWrapper } from '@/components';
 import { Switch } from '@/components/ui';
 import { useDarkMode } from '@/hooks';
 
@@ -10,9 +11,14 @@ export const DarkModeSwitch = () => {
 
   return (
     <Switch
+      variant='icon'
       onCheckedChange={toggle}
       checked={isDarkMode}
-      thumbChildren={<IconComponent size={'0.75rem'} />}
+      thumbChildren={
+        <SVGGradWrapper>
+          <IconComponent size={'1.25rem'} />
+        </SVGGradWrapper>
+      }
       title={t(
         isDarkMode ? 'commandk.darkMode.disable' : 'commandk.darkMode.enable'
       )}
