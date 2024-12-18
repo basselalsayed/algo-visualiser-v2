@@ -14,7 +14,7 @@ function addLinearGradient(
 
   const gradientId = `gradient-${nanoid()}`;
 
-  if (defs.querySelector(`linear-gradient`)) {
+  if (defs.querySelector('linearGradient')) {
     return;
   }
 
