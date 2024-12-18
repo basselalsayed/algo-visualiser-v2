@@ -28,10 +28,12 @@ function addLinearGradient(
   gradient.setAttribute('x2', '100%');
   gradient.setAttribute('y2', '100%');
   gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
+  gradient.style.setProperty('--grad-1', color1);
+  gradient.style.setProperty('--grad-2', color2);
 
   const stops = [
-    { color: color1, offset: '0%' },
-    { color: color2, offset: '100%' },
+    { color: 'var(--grad-1)', offset: '0%' },
+    { color: 'var(--grad-2)', offset: '100%' },
   ];
 
   for (const { color, offset } of stops) {

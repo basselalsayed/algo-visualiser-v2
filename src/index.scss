@@ -168,8 +168,39 @@
     @apply border-2 border-solid border-transparent dark:border;
   }
 
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  // uses variables set by the useSVGGradient hook
+  @keyframes svg_gradient {
+    0%,
+    100% {
+      stop-color: var(--grad-2);
+    }
+    50% {
+      stop-color: var(--grad-1);
+    }
+  }
+
   .animate_grad:hover {
     animation: gradient 1.5s ease infinite;
+
+    svg {
+      stop {
+        animation: svg_gradient 1.5s ease infinite;
+      }
+    }
   }
 
   .grad_text,
@@ -184,20 +215,6 @@
 
   .grad_text--header {
     @apply from-grad-header-1 via-grad-header-2 to-grad-header-3 pr-1;
-  }
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-
-    50% {
-      background-position: 100% 50%;
-    }
-
-    100% {
-      background-position: 0% 50%;
-    }
   }
 
   .grad-grid {
