@@ -12,8 +12,6 @@ export const useHandleDarkMode = () => {
   useEffect(() => {
     const rootClasses = globalThis.document.documentElement.classList;
 
-    rootClasses.remove('dark', 'light');
-
-    rootClasses.add(isDarkMode ? 'dark' : 'light');
+    rootClasses.toggle('dark', isDarkMode);
   }, [isDarkMode]);
 };
