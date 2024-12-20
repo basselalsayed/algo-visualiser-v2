@@ -68,7 +68,6 @@ export const MobileNav: FC = () => {
           <MazeButton />
           <SheetTrigger asChild>
             <Button
-              variant='outline'
               disabled={algoRunning}
               className='border-1 border-primary bg-background shadow-lg'
             >
