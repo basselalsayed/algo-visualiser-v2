@@ -80,7 +80,6 @@ export const Grid = memo(() => {
             dispatch('endNode', [xIndex, yIndex]);
             return NodeType.end;
         })
-        .with({ type: NodeType.none }, () => NodeType.none)
         .with({ type: NodeType.start }, () => {
           dispatch('startNode', undefined);
           return NodeType.none;
