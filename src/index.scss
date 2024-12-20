@@ -201,10 +201,8 @@
   .animate_grad:hover {
     animation: gradient 1.5s ease infinite;
 
-    svg {
-      stop {
+    svg stop {
         animation: svg_gradient 1.5s ease infinite;
-      }
     }
   }
 
@@ -249,5 +247,9 @@
   }
   h3 {
     @apply text-lg;
+  }
+
+  .border_default {
+    @apply border-2 dark:border;
   }
 }
