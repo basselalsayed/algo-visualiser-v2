@@ -8,6 +8,8 @@
 
 @layer base {
   :root {
+    --white: 0 0% 100%;
+    --black: 240 10% 3.9%;
     --grad-bg-1: 142 69% 58%; /* Tailwind Green 400 */
     --grad-bg-2: 213 94% 68%; /* Tailwind Blue 400 */
     --grad-accent-1: 270 95% 75%; /* Tailwind Purple 400 */
@@ -21,14 +23,14 @@
     --grad-header-2: 272 72% 47%; /* Tailwind Purple 700 */
     --grad-header-3: 224 76% 48%; /* Tailwind Blue 700 */
 
-    --background: 0 0% 100%;
+    --background: 240 6% 90%; // zinc 200
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
+    --card: var(--background);
     --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
+    --popover: var(--background);
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
@@ -56,16 +58,16 @@
     --grad-header-2: 17 88% 40%; /* Tailwind Orange 700 */
     --grad-header-3: 0 74% 42%; /* Tailwind Red 700 */
 
-    --background: 240 10% 3.9%;
+    --background: 240 6% 10%; // zinc 900
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: var(--background);
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: var(--background);
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 240 5.9% 10%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
@@ -103,6 +105,9 @@
   }
   .bg_grad_accent\/70 {
     @apply bg-gradient-to-br from-grad-accent-1/70 to-grad-accent-2/70;
+  }
+  .bg_grad_accent\/10 {
+    @apply bg-gradient-to-br from-grad-accent-1/10 to-grad-accent-2/10;
   }
   .bg_grad_accent\/20 {
     @apply bg-gradient-to-br from-grad-accent-1/20 to-grad-accent-2/20;

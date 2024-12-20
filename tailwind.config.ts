@@ -14,6 +14,8 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        white: 'hsl(var(--white) / <alpha-value>)',
+        black: 'hsl(var(--black) / <alpha-value>)',
         'grad-accent-1': 'hsl(var(--grad-accent-1) / <alpha-value>)',
         'grad-accent-2': 'hsl(var(--grad-accent-2) / <alpha-value>)',
         'grad-accent-mix': 'var(--grad-accent-mix)',
