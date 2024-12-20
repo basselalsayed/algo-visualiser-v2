@@ -23,7 +23,7 @@
     --grad-header-2: 272 72% 47%; /* Tailwind Purple 700 */
     --grad-header-3: 224 76% 48%; /* Tailwind Blue 700 */
 
-    --background: 240 6% 90%; // zinc 200
+    --background: 240 6% 90%; /* zinc 200 */
     --foreground: 240 10% 3.9%;
     --card: var(--background);
     --card-foreground: 240 10% 3.9%;
@@ -58,7 +58,7 @@
     --grad-header-2: 17 88% 40%; /* Tailwind Orange 700 */
     --grad-header-3: 0 74% 42%; /* Tailwind Red 700 */
 
-    --background: 240 6% 10%; // zinc 900
+    --background: 240 6% 10%; /* zinc 900 */
     --foreground: 0 0% 98%;
     --card: var(--background);
     --card-foreground: 0 0% 98%;
@@ -116,7 +116,7 @@
     @apply bg-gradient-to-b from-grad-accent-1 to-grad-accent-2;
   }
 
-  // because of border image limitations, this class is only useful if you don't need a border radius
+  /* because of border image limitations, this class is only useful if you don't need a border radius */
   .grad-border {
     border-image: linear-gradient(
       to bottom right,
@@ -187,7 +187,7 @@
     }
   }
 
-  // uses variables set by the useSVGGradient hook
+  /* uses variables set by the useSVGGradient hook */
   @keyframes svg_gradient {
     0%,
     100% {
@@ -202,7 +202,7 @@
     animation: gradient 1.5s ease infinite;
 
     svg stop {
-        animation: svg_gradient 1.5s ease infinite;
+      animation: svg_gradient 1.5s ease infinite;
     }
   }
 
