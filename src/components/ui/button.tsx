@@ -20,7 +20,8 @@ const buttonVariants = cva(
         sm: 'h-8 rounded-md px-3 text-xs',
       },
       variant: {
-        default: 'bg_grad_accent--outline--text animate_grad shadow',
+        default:
+          'bg_grad_accent--outline--text [--base-color:hsl(var(--background))] animate_grad shadow',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
