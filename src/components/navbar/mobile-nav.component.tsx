@@ -1,7 +1,6 @@
 import { Settings2 } from 'lucide-react';
 import { type FC, useState } from 'react';
 
-import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 import {
   Button,
   Sheet,
@@ -11,11 +10,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui';
-import { useIsRunning } from '@/hooks/state/useRun';
+import { useIsRunning } from '@/hooks';
+
+import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 
 import {
   DarkModeSwitch,
   MazeButton,
+  QuickSearchButton,
   RunButton,
   WallSwitch,
 } from './components';
@@ -39,6 +41,8 @@ export const MobileNav: FC = () => {
               </SheetDescription>
             </SheetHeader>
 
+            <QuickSearchButton />
+
             <DarkModeSwitch />
 
             <Accordian type={'multiple'}>
@@ -59,12 +63,11 @@ export const MobileNav: FC = () => {
             </Accordian>
           </ul>
         </SheetContent>
-        <nav className='grid grid-flow-col items-center justify-between justify-items-stretch border-t bg-background p-4'>
-          <h3 className='col-span-4 text-left'>AV</h3>
+        <nav className='grad-border grid grid-flow-col items-center justify-between justify-items-stretch border-t-2 bg-background p-4'>
+          <h1 className='col-span-4 text-left'>AV</h1>
           <MazeButton />
           <SheetTrigger asChild>
             <Button
-              variant='outline'
               disabled={algoRunning}
               className='border-1 border-primary bg-background shadow-lg'
             >

@@ -20,7 +20,7 @@ export const StatsTable: FC<StatsProps> = ({ loading, results }) => {
   return (
     <Table className='relative'>
       <TableHeader>
-        <TableRow className='[&_th]:sticky [&_th]:top-0 [&_th]:bg-primary'>
+        <TableRow className='[&_th]:sticky [&_th]:top-0 [&_th]:bg-background'>
           <TableHead>#</TableHead>
           <TableHead>{t('stats.algorithm')}</TableHead>
           <TableHead>{t('stats.nodesProcessed')}</TableHead>
@@ -46,7 +46,7 @@ export const StatsTable: FC<StatsProps> = ({ loading, results }) => {
           )
         )}
         {loading &&
-          [...Array(DEDFAULT_SKELETON_COUNT)].map((_, index) => (
+          Array.from({ length: DEDFAULT_SKELETON_COUNT }).map((_, index) => (
             <SkeletonTableRow key={index} />
           ))}
       </TableBody>
@@ -58,7 +58,7 @@ const SkeletonTableRow: FC<{ columnCount?: number }> = ({
   columnCount = 6,
 }) => (
   <TableRow>
-    {[...Array(columnCount)].map((_, index) => (
+    {Array.from({ length: columnCount }).map((_, index) => (
       <TableCell key={index}>
         <Skeleton className='h-4' />
       </TableCell>

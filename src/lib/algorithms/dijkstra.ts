@@ -1,7 +1,6 @@
 import { sleep } from '../utils';
 
 import { PathFindingAlgorithm } from './path-finding-algorithm';
-import type { INode } from './types';
 
 export class Dijkstra extends PathFindingAlgorithm {
   name = 'Dijkstra';
@@ -26,7 +25,7 @@ export class Dijkstra extends PathFindingAlgorithm {
     // so make a check to be sure that it exists!!!
     const unvisitedNodes = [...this.grid.values()];
 
-    while (unvisitedNodes.length) {
+    while (unvisitedNodes.length > 0) {
       this.sortNodesByDistance(unvisitedNodes);
 
       const closestNode = unvisitedNodes.shift()!;

@@ -5,34 +5,43 @@ import { type T_SUPORTED_LOCALES } from '@/lib/constants';
 
 import { Select } from './select.component';
 
-const langs: { label: string; value: T_SUPORTED_LOCALES }[] = [
-  { label: '🇸🇦 العربية', value: 'ar' },
-  { label: '🇨🇿 Čeština', value: 'cs' },
-  { label: '🇩🇪 Deutsch', value: 'de' },
-  { label: '🇬🇷 Ελληνικά', value: 'el' },
-  { label: '🇬🇧 English', value: 'en' },
-  { label: '🇪🇸 Español', value: 'es' },
-  { label: '🇫🇷 Français', value: 'fr' },
-  { label: '🇮🇳 हिंदी', value: 'hi' },
-  { label: '🇮🇹 Italiano', value: 'it' },
-  { label: '🇯🇵 日本語', value: 'ja' },
-  { label: '🇰🇷 한국어', value: 'ko' },
-  { label: '🇳🇱 Nederlands', value: 'nl' },
-  { label: '🇵🇱 Polski', value: 'pl' },
-  { label: '🇵🇹 Português', value: 'pt' },
-  { label: '🇷🇺 Русский', value: 'ru' },
-  { label: '🇸🇪 Svenska', value: 'sv' },
-  { label: '🇹🇷 Türkçe', value: 'tr' },
-  { label: '🇨🇳 中文 (简体)', value: 'zh' },
+const langs: { flag: string; label: string; value: T_SUPORTED_LOCALES }[] = [
+  { flag: '🇸🇦', label: 'العربية', value: 'ar' },
+  { flag: '🇨🇿', label: 'Čeština', value: 'cs' },
+  { flag: '🇩🇪', label: 'Deutsch', value: 'de' },
+  { flag: '🇬🇷', label: 'Ελληνικά', value: 'el' },
+  { flag: '🇬🇧', label: 'English', value: 'en' },
+  { flag: '🇪🇸', label: 'Español', value: 'es' },
+  { flag: '🇫🇷', label: 'Français', value: 'fr' },
+  { flag: '🇮🇳', label: 'हिंदी', value: 'hi' },
+  { flag: '🇮🇹', label: 'Italiano', value: 'it' },
+  { flag: '🇯🇵', label: '日本語', value: 'ja' },
+  { flag: '🇰🇷', label: '한국어', value: 'ko' },
+  { flag: '🇳🇱', label: 'Nederlands', value: 'nl' },
+  { flag: '🇵🇱', label: 'Polski', value: 'pl' },
+  { flag: '🇵🇹', label: 'Português', value: 'pt' },
+  { flag: '🇷🇺', label: 'Русский', value: 'ru' },
+  { flag: '🇸🇪', label: 'Svenska', value: 'sv' },
+  { flag: '🇹🇷', label: 'Türkçe', value: 'tr' },
+  { flag: '🇨🇳', label: '中文 (简体)', value: 'zh' },
 ];
+
+const langOptions = langs.map(({ flag, label, value }) => ({
+  label: (
+    <>
+      <span className='[-webkit-text-fill-color:white]'>{flag}</span> {label}
+    </>
+  ),
+  value,
+}));
 
 export const LanguageSelect: FC = () => {
   const { i18n } = useTranslation();
 
   return (
     <Select
-      options={langs}
-      value={langs.find(({ value }) => value === i18n.language)!}
+      options={langOptions}
+      value={langOptions.find(({ value }) => value === i18n.language)!}
       onValueChange={i18n.changeLanguage}
     />
   );

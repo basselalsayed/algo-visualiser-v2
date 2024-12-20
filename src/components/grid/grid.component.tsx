@@ -1,17 +1,19 @@
 import { motion } from 'framer-motion';
 import { memo, useCallback, useEffect, useRef } from 'react';
+import { match } from 'ts-pattern';
 import { useBoolean, useEventListener } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useDimensions } from '@/hooks';
-import { useGrid } from '@/hooks/state/useGrid';
-import { useSettings } from '@/hooks/state/useSettings';
-import { useResizeObserver } from '@/hooks/util/useResizeObserver';
+import {
+  useDimensions,
+  useGrid,
+  useResizeObserver,
+  useSettings,
+} from '@/hooks';
 import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
 import { Node } from './node.component';
-import { type INode } from './node.interface';
 
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -67,28 +69,26 @@ export const Grid = memo(() => {
     ({ type, xIndex, yIndex }) => {
       const { dispatch, endNode, startNode, wallMode } = useGrid.getState();
 
-      switch (type) {
-        case 'none':
-          if (wallMode) return NodeType.wall;
-
-          if (!startNode) {
+      return match({ endNode, startNode, type, wallMode })
+        .returnType<NodeType>()
+        .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
+        .with({ startNode: undefined, type: NodeType.none }, () => {
             dispatch('startNode', [xIndex, yIndex]);
             return NodeType.start;
-          }
-          if (!endNode) {
+        })
+        .with({ endNode: undefined, type: NodeType.none }, () => {
             dispatch('endNode', [xIndex, yIndex]);
             return NodeType.end;
-          }
-          return NodeType.none;
-        case 'start':
+        })
+        .with({ type: NodeType.start }, () => {
           dispatch('startNode', undefined);
           return NodeType.none;
-        case 'end':
+        })
+        .with({ type: NodeType.end }, () => {
           dispatch('endNode', undefined);
           return NodeType.none;
-        default:
-          return NodeType.none;
-      }
+        })
+        .otherwise(() => NodeType.none);
     },
     []
   );
@@ -96,17 +96,27 @@ export const Grid = memo(() => {
   return (
     <div
       id='nodeGrid'
-      className='h-full w-full flex flex-row p-4 px-2 sm:px-6 items-center justify-center '
+      className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pb-4 sm:pt-0'
       ref={gridRef}
     >
-      {[...Array(columnCount)].map((_, xIndex) => (
+      {Array.from({ length: columnCount }).map((_, xIndex) => (
         <div
           key={`col-${xIndex}-${nodeSize}-${refreshKey}`}
-          className='flex flex-col flex-shrink'
+          className='flex flex-shrink flex-col'
         >
-          {[...Array(rowCount)].map((_, yIndex) => (
+          {Array.from({ length: rowCount }).map((_, yIndex) => {
+            const firstColumn = xIndex === 0;
+            const lastColumn = xIndex === columnCount - 1;
+
+            return (
             <Node
               key={`node-${xIndex}-${yIndex}`}
+                className={cn(
+                  firstColumn &&
+                    'first-of-type:rounded-tl-sm last-of-type:rounded-bl-sm',
+                  lastColumn &&
+                    'first-of-type:rounded-tr-sm last-of-type:rounded-br-sm'
+                )}
               size={nodeSize}
               xIndex={xIndex}
               yIndex={yIndex}
@@ -115,7 +125,8 @@ export const Grid = memo(() => {
               onClick={handleNodeClick}
               onMouseOver={handleNodeMouseOver}
             />
-          ))}
+            );
+          })}
         </div>
       ))}
     </div>

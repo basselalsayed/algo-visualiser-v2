@@ -7,20 +7,15 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants';
 import algoInfo from '@/locales/en/algoInfo.json';
 import translation from '@/locales/en/translation.json';
 
+export { default as i18n } from 'i18next';
 export const defaultNS = 'translation';
-export const resources = {
-  en: {
-    algoInfo,
-    translation,
-  },
-} as const;
 
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    debug: true,
+    debug: import.meta.env.DEV,
     defaultNS,
     detection: { order: ['navigator', 'htmlTag'] },
     fallbackLng: DEFAULT_LOCALE,
@@ -35,4 +30,9 @@ i18n.on('languageChanged', (lang) => {
   document.documentElement.lang = lang;
 });
 
-export { i18n };
+export const resources = {
+  en: {
+    algoInfo,
+    translation,
+  },
+} as const;

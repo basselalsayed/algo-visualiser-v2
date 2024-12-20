@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 
 import { Label, Switch } from '@/components/ui';
-import { useGrid } from '@/hooks/state/useGrid';
+import { useGrid } from '@/hooks';
 
 export const WallSwitch = () => {
   const { dispatch, wallMode } = useGrid(

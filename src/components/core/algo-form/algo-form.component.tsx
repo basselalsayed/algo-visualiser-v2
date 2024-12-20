@@ -3,7 +3,7 @@ import TexSVG from 'react-hook-mathjax';
 import { useTranslation } from 'react-i18next';
 
 import { Card, Carousel, CarouselItem } from '@/components';
-import { useSettings } from '@/hooks/state';
+import { useSettings } from '@/hooks';
 import { algoInfo } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 

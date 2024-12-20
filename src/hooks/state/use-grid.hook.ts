@@ -1,16 +1,13 @@
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
-import { type INode, type Node, NodeType } from '@/components';
+import { NodeType } from '@/components';
 import { ArrayKeyMap } from '@/lib';
 
 import { type DispatchFunction } from './types';
 
-export type NodeCoordinates = [x: number, y: number];
-export type NodeMap = ArrayKeyMap<NodeCoordinates, INode>;
-
 interface GridStore {
-  addRef: (x: number, y: number, el: Node | null) => void;
+  addRef: (x: number, y: number, el: INode | null) => void;
   dispatch: DispatchFunction<GridStore, 'refsMap' | 'addRef' | 'resetGrid'>;
   endNode?: NodeCoordinates;
   refreshKey: string;

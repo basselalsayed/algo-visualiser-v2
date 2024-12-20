@@ -1,6 +1,3 @@
-import { type INode } from '@/components/grid/node.interface';
-import { type NodeCoordinates, type NodeMap } from '@/hooks/state/useGrid';
-
 export interface RuntimeInfo {
   name: string;
   nodesProcessed: number;
@@ -8,8 +5,6 @@ export interface RuntimeInfo {
   runtime: number;
   shortestPath: number;
 }
-
-export type { INode };
 
 export interface IPathFindingAlgorithm {
   name: string;

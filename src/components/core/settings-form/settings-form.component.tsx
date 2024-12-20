@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { Card } from '../../card.component';
-import { Button } from '../../ui/button';
-import { useSettings } from '@/hooks/state/useSettings';
+import { Card } from '@/components';
+import { Button } from '@/components/ui';
+import { useSettings } from '@/hooks';
 
 import {
   AnimationSpeedSlider,

@@ -3,9 +3,10 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Command as CommandPrimitive } from 'cmdk';
 import * as React from 'react';
 
-import { Kbd } from '../kbd-component';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+
+import { Kbd } from '../kbd-component';
 
 import { ScrollArea } from './scroll-area';
 
@@ -40,7 +41,10 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
-  <div className='flex items-center border-b px-3' cmdk-input-wrapper=''>
+  <div
+    className='grad-border flex items-center border-b px-3'
+    cmdk-input-wrapper=''
+  >
     <MagnifyingGlassIcon className='mr-2 h-4 w-4 shrink-0 opacity-50' />
     <CommandPrimitive.Input
       ref={ref}
@@ -101,7 +105,7 @@ const CommandSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 h-px bg-border', className)}
+    className={cn('grad-accent -mx-1 h-px', className)}
     {...props}
   />
 ));

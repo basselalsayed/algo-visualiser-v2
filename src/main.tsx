@@ -4,12 +4,12 @@ import { createRoot } from 'react-dom/client';
 import { MathJaxProvider } from 'react-hook-mathjax';
 import { SWRConfig } from 'swr';
 
-import { App } from './app-component.tsx';
+import { App } from './app/app-component.tsx';
 
 import './index.css';
 import './i18n.ts';
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.querySelector('#root')!).render(
   <StrictMode>
     <SWRConfig
       value={{

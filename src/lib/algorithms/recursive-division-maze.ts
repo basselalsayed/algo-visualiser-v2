@@ -1,8 +1,6 @@
-import { sleep } from '../utils';
 import { NodeType } from '@/components/grid/node-type.enum';
-import { type NodeMap } from '@/hooks/state/useGrid';
 
-import { type INode } from './types';
+import { sleep } from '../utils';
 
 export class RecursiveDivisionMaze {
   constructor(

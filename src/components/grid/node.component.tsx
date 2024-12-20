@@ -3,7 +3,6 @@ import { PureComponent, type RefObject, createRef } from 'react';
 import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
-import { type INode } from './node.interface';
 
 interface Props {
   isLastColumn: boolean;

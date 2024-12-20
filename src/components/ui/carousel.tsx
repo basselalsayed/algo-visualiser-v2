@@ -4,9 +4,10 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react';
 import * as React from 'react';
 
-import { SrOnly } from '../sr-only.component';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
+import { SrOnly } from '../sr-only.component';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -30,7 +31,9 @@ type CarouselContextProps = {
   scrollPrev: () => void;
 } & CarouselProps;
 
-const CarouselContext = React.createContext<CarouselContextProps | null>(null);
+const CarouselContext = React.createContext<CarouselContextProps | undefined>(
+  undefined
+);
 
 function useCarousel() {
   const context = React.useContext(CarouselContext);
@@ -212,13 +215,12 @@ const CarouselControls: React.FC = () => (
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, size = 'icon', variant = 'outline', ...props }, ref) => {
+>(({ className, size = 'icon', ...props }, ref) => {
   const { canScrollPrev, orientation, scrollPrev } = useCarousel();
 
   return (
     <Button
       ref={ref}
-      variant={variant}
       size={size}
       className={cn(
         'h-8 w-8 rounded-full',
@@ -239,13 +241,12 @@ CarouselPrevious.displayName = 'CarouselPrevious';
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, size = 'icon', variant = 'outline', ...props }, ref) => {
+>(({ className, size = 'icon', ...props }, ref) => {
   const { canScrollNext, orientation, scrollNext } = useCarousel();
 
   return (
     <Button
       ref={ref}
-      variant={variant}
       size={size}
       className={cn(
         'h-8 w-8 rounded-full',
@@ -304,8 +305,10 @@ const CarouselDotButtons = React.forwardRef<
         <DotButton
           key={index}
           onClick={() => onDotButtonClick(index)}
-          className={(index === selectedIndex ? 'bg-transparent' : '').concat(
-            buttonClassName ?? ''
+          className={cn(
+            'transition-[border-width]',
+            index === selectedIndex && '!border-4',
+            buttonClassName
           )}
         />
       ))}
@@ -321,11 +324,7 @@ export const DotButton = React.forwardRef<
   <Button
     ref={ref}
     type='button'
-    variant='outline'
-    className={cn(
-      'h-6 w-6 rounded-full border border-primary-foreground p-0',
-      className
-    )}
+    className={cn('h-6 w-6 rounded-full p-0', className)}
     {...rest}
   />
 ));

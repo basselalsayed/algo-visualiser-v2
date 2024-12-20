@@ -1,6 +1,6 @@
-import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { INode } from '../types';
 import { sleep } from '@/lib/utils';
+
+import { PathFindingAlgorithm } from '../path-finding-algorithm';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): INode;
@@ -17,7 +17,7 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   }
 
   *traverse(this: this) {
-    while (this.queue.length) {
+    while (this.queue.length > 0) {
       const currentNode = this.getCurrentNode()!;
       if (currentNode.isWall) continue;
 

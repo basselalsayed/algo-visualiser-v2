@@ -1,1 +1,1 @@
-export * from './useMutation';
+export * from './use-mutation.hook';

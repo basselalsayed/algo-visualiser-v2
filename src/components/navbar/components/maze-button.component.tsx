@@ -3,7 +3,7 @@ import { type FC } from 'react';
 
 import { SrOnly } from '@/components';
 import { Button } from '@/components/ui';
-import { useRun } from '@/hooks/state/useRun';
+import { useRun } from '@/hooks';
 
 export const MazeButton: FC = () => {
   const { readyToRunMaze, runMaze } = useRun();

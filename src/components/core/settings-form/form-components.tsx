@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Slider } from '@/components/slider.component';
 import { Checkbox, Label } from '@/components/ui';
-import { useDimensions } from '@/hooks/core/useDimensions';
-import { useSettings } from '@/hooks/state/useSettings';
+import { useDimensions, useSettings } from '@/hooks';
 
 import { PERFORMANCE_NODE_SIZE_THRESHOLD } from './constants';
 
@@ -22,7 +21,7 @@ export const NodeSizeSlider: FC = () => {
       onValueChange={(v) => {
         if (v[0] <= PERFORMANCE_NODE_SIZE_THRESHOLD) {
           if (performanceMode) return dispatch('nodeSize', v[0]);
-          else if (window.confirm(t('settings.performanceCheck'))) {
+          else if (globalThis.confirm(t('settings.performanceCheck'))) {
             dispatch('performanceMode', true);
             dispatch('nodeSize', v[0]);
             return;

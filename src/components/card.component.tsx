@@ -1,6 +1,6 @@
 import { type FC, type PropsWithChildren, type ReactElement } from 'react';
 
-import { cn, typeIs } from '@/lib/utils';
+import { typeIs } from '@/lib/utils';
 
 import * as C from './ui/card';
 
@@ -17,7 +17,7 @@ export const Card: FC<Props> = ({
   description,
   title,
 }) => (
-  <C.Card className={cn('opacity-70', className)}>
+  <C.Card className={className}>
     <C.CardHeader>
       {typeIs(title, 'string') ? <C.CardTitle>{title}</C.CardTitle> : title}
       {description && <C.CardDescription>{description}</C.CardDescription>}

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 // from https://gist.github.com/tkrotoff/a6baf96eb6b61b445a9142e5555511a0
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
@@ -40,7 +41,8 @@ function _nullToUndefined<T>(obj: T): NullToUndefined<T> {
 
   if (isObject(obj)) {
     if (obj instanceof Map) {
-      obj.forEach((value, key) => obj.set(key, _nullToUndefined(value)));
+      for (const [key, value] of obj.entries())
+        obj.set(key, _nullToUndefined(value));
     } else {
       for (const key in obj) {
         obj[key] = _nullToUndefined(obj[key]) as any;
@@ -68,7 +70,8 @@ function _undefinedToNull<T>(obj: T): UndefinedToNull<T> {
 
   if (isObject(obj)) {
     if (obj instanceof Map) {
-      obj.forEach((value, key) => obj.set(key, _undefinedToNull(value)));
+      for (const [key, value] of obj.entries())
+        obj.set(key, _undefinedToNull(value));
     } else {
       for (const key in obj) {
         obj[key] = _undefinedToNull(obj[key]) as any;

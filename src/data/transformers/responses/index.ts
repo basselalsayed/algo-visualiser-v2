@@ -8,11 +8,11 @@ import {
 import {
   type NullToUndefined,
   type UndefinedToNull,
+  mapKeysToCamel,
+  mapKeysToSnake,
   nullToUndefined,
   undefinedToNull,
-} from '../nullToUndefined';
-import { mapKeysToCamel } from '../objects/mapKeysToCamel';
-import { mapKeysToSnake } from '../objects/mapKeysToSnake';
+} from '..';
 
 export const transformParams: <T>(
   arg: T

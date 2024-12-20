@@ -1,14 +1,15 @@
 import { useCallback, useMemo } from 'react';
+import { match } from 'ts-pattern';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useMutation } from '@/data/hooks/useMutation';
+import { useMutation } from '@/data/hooks/use-mutation.hook';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
 import { RecursiveDivisionMaze } from '@/lib/algorithms/recursive-division-maze';
 
 import { type DispatchFunction } from './types';
-import { useGrid } from './useGrid';
-import { useStats } from './useStats';
+import { useGrid } from './use-grid.hook';
+import { useStats } from './use-stats.hook';
 
 type RunState = 'idle' | 'running' | 'paused' | 'done';
 type MazeRunState = Exclude<RunState, 'paused'>;
@@ -63,26 +64,21 @@ export const useRun = (): useRunReturn => {
     dispatch('runState', 'done');
   }, []);
 
-  const run = useCallback(async () => {
-    switch (runState) {
-      case 'idle':
-      case 'paused': {
+  const run = useCallback(() => {
+    match(runState)
+      .with('idle', 'paused', () => {
         dispatch('runState', 'running');
         algoInstance?.run(onRunComplete);
-        break;
-      }
-      case 'running': {
+      })
+      .with('running', () => {
         dispatch('runState', 'paused');
         algoInstance?.pause();
-        break;
-      }
-      case 'done': {
+      })
+      .with('done', async () => {
         dispatch('runState', 'running');
         await algoInstance?.reset();
         algoInstance?.run(onRunCompleteReplay);
-        break;
-      }
-    }
+      });
   }, [algoInstance, dispatch, onRunComplete, onRunCompleteReplay, runState]);
 
   const readyToRun = useMemo(() => !!algoInstance, [algoInstance]);
@@ -107,19 +103,16 @@ export const useRun = (): useRunReturn => {
   }, [algoInstance, dispatch, resetGrid]);
 
   const runMaze = useCallback(() => {
-    switch (mazeRunState) {
-      case 'idle':
+    match(mazeRunState)
+      .with('idle', () => {
         maze.run();
         dispatch('mazeRunState', 'running');
-        break;
-      case 'running':
-        break;
-      case 'done':
+      })
+      .with('done', () => {
         resetWalls();
         dispatch('mazeRunState', 'running');
         maze.run();
-        break;
-    }
+      });
   }, [dispatch, maze, mazeRunState, resetWalls]);
 
   return {

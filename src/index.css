@@ -8,14 +8,29 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --white: 0 0% 100%;
+    --black: 240 10% 3.9%;
+    --grad-bg-1: 142 69% 58%; /* Tailwind Green 400 */
+    --grad-bg-2: 213 94% 68%; /* Tailwind Blue 400 */
+    --grad-accent-1: 270 95% 75%; /* Tailwind Purple 400 */
+    --grad-accent-2: 188 86% 53%; /* Tailwind Cyan 400 */
+    --grad-accent-mix: color-mix(
+      in lab,
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2))
+    );
+    --grad-header-1: 245 58% 51%; /* Tailwind Indigo 700 */
+    --grad-header-2: 272 72% 47%; /* Tailwind Purple 700 */
+    --grad-header-3: 224 76% 48%; /* Tailwind Blue 700 */
+
+    --background: 240 6% 90%; /* zinc 200 */
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
+    --card: var(--background);
     --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
+    --popover: var(--background);
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
@@ -35,16 +50,24 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 240 10% 3.9%;
+    --grad-bg-1: 23 83% 31%; /* Tailwind Amber 800 */
+    --grad-bg-2: 32 81% 29%; /* Tailwind Yellow 800 */
+    --grad-accent-1: 43 96% 56%; /* Tailwind Amber 400 */
+    --grad-accent-2: 0 91% 71%; /* Tailwind Red 400 */
+    --grad-header-1: 26 90% 37%; /* Tailwind Amber 700 */
+    --grad-header-2: 17 88% 40%; /* Tailwind Orange 700 */
+    --grad-header-3: 0 74% 42%; /* Tailwind Red 700 */
+
+    --background: 240 6% 10%; /* zinc 900 */
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: var(--background);
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: var(--background);
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 240 5.9% 10%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
@@ -64,19 +87,169 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-grad-accent-mix;
+  }
+
+  mjx-container {
+    svg {
+      color: hsl(var(--foreground));
+    }
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
+    @apply text-foreground;
+  }
+
+  .grad-accent {
+    @apply bg-gradient-to-br from-grad-accent-1 to-grad-accent-2;
+  }
+  .bg_grad_accent\/70 {
+    @apply bg-gradient-to-br from-grad-accent-1/70 to-grad-accent-2/70;
+  }
+  .bg_grad_accent\/10 {
+    @apply bg-gradient-to-br from-grad-accent-1/10 to-grad-accent-2/10;
+  }
+  .bg_grad_accent\/20 {
+    @apply bg-gradient-to-br from-grad-accent-1/20 to-grad-accent-2/20;
+  }
+  .grad-accent-vertical {
+    @apply bg-gradient-to-b from-grad-accent-1 to-grad-accent-2;
+  }
+
+  /* because of border image limitations, this class is only useful if you don't need a border radius */
+  .grad-border {
+    border-image: linear-gradient(
+      to bottom right,
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2))
+    );
+    border-image-slice: 1;
+  }
+
+  .bg_grad_accent {
+    background: linear-gradient(
+      to bottom right,
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2)),
+      hsl(var(--grad-accent-1)),
+      hsl(var(--grad-accent-2))
+    );
+
+    @apply text-secondary;
+  }
+
+  .bg_grad_accent--outline,
+  .bg_grad_accent--outline--text {
+    --base-color: hsl(var(--background) / 0.8);
+    --grad-1: hsl(var(--grad-accent-1));
+    --grad-2: hsl(var(--grad-accent-2));
+
+    --lg: linear-gradient(
+      to bottom right,
+      var(--grad-1),
+      var(--grad-2),
+      var(--grad-1),
+      var(--grad-2)
+    );
+
+    background:
+      linear-gradient(var(--base-color), var(--base-color)) padding-box,
+      var(--lg) border-box;
+  }
+
+  .bg_grad_accent--outline--text {
+    background:
+      var(--lg) text,
+      linear-gradient(var(--base-color), var(--base-color)) padding-box,
+      var(--lg) border-box;
+
+    color: transparent !important;
+  }
+
+  .bg_grad_accent,
+  .bg_grad_accent--outline,
+  .bg_grad_accent--outline--text {
+    background-size: 400% 400%;
+    @apply border-2 border-solid border-transparent dark:border;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* uses variables set by the useSVGGradient hook */
+  @keyframes svg_gradient {
+    0%,
+    100% {
+      stop-color: var(--grad-2);
+    }
+    50% {
+      stop-color: var(--grad-1);
+    }
+  }
+
+  .animate_grad:hover {
+    animation: gradient 1.5s ease infinite;
+
+    svg stop {
+      animation: svg_gradient 1.5s ease infinite;
+    }
+  }
+
+  .grad_text,
+  .grad_text--accent,
+  .grad_text--header {
+    @apply bg-gradient-to-br bg-clip-text text-transparent;
+  }
+
+  .grad_text--accent {
+    @apply grad-accent;
+  }
+
+  .grad_text--header {
+    @apply from-grad-header-1 via-grad-header-2 to-grad-header-3 pr-1;
+  }
+
+  .grad-grid {
+    @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply grad_text--header;
+    --stroke-width: 0.015rem;
+    --stroke-color: hsl(var(--grad-accent-1));
+
+    @supports (-webkit-text-stroke: var(--stroke-width) var(--stroke-color)) {
+      -webkit-text-stroke: var(--stroke-width) var(--stroke-color);
+      letter-spacing: calc(var(--stroke-width) * 2.2);
+    }
   }
 
   h1 {
     @apply text-4xl;
+    --stroke-width: 0.05rem;
   }
   h2 {
     @apply text-2xl;
   }
   h3 {
     @apply text-lg;
+  }
+
+  .border_default {
+    @apply border-2 dark:border;
   }
 }

@@ -4,7 +4,7 @@ import { match } from 'ts-pattern';
 
 import { SrOnly } from '@/components';
 import { Button } from '@/components/ui';
-import { useRun } from '@/hooks/state/useRun';
+import { useRun } from '@/hooks';
 
 export const RunButton: FC = () => {
   const { readyToRun, run, runState } = useRun();

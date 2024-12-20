@@ -32,7 +32,8 @@ export function useResizeObserver<T extends HTMLElement = HTMLElement>(
   useEffect(() => {
     if (!ref.current) return;
 
-    if (typeof window === 'undefined' || !('ResizeObserver' in window)) return;
+    if (typeof globalThis === 'undefined' || !('ResizeObserver' in globalThis))
+      return;
 
     const observer = new ResizeObserver(([entry]) => {
       const boxProp =

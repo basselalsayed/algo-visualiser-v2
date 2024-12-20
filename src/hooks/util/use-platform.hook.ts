@@ -39,11 +39,11 @@ function isLinux(userAgent: string): boolean {
 }
 
 function getOS(): OS {
-  if (typeof window === 'undefined') {
+  if (typeof globalThis === 'undefined') {
     return 'undetermined';
   }
 
-  const { userAgent } = window.navigator;
+  const { userAgent } = globalThis.navigator;
 
   if (isIOS(userAgent) || (isMacOS(userAgent) && 'ontouchend' in document)) {
     return 'ios';
