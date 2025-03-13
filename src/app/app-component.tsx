@@ -1,8 +1,14 @@
-import { type FC } from 'react';
+import { type FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import Shepherd, {
+  type Step,
+  type StepOptions,
+  type TourOptions,
+} from 'shepherd.js';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { CommandKComponent, Grid, Navbar, StatsSheet } from '@/components';
+import { useTour } from '@/contexts';
 import { useKeyboardShortcuts } from '@/hooks';
 
 import { useHandlleAlgoUpdates } from './use-handle-algo-updates.hook';
@@ -17,6 +23,12 @@ export const App: FC = () => {
   const { t } = useTranslation();
 
   useDocumentTitle(t('appName'));
+
+  const tour = useTour();
+
+  useEffect(() => {
+    tour.start();
+  }, [tour]);
 
   return (
     <>
