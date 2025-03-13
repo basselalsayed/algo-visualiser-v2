@@ -10,6 +10,7 @@ import {
   useResizeObserver,
   useSettings,
 } from '@/hooks';
+import { HTML_IDS } from '@/lib';
 import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
@@ -95,7 +96,7 @@ export const Grid = memo(() => {
 
   return (
     <div
-      id='nodeGrid'
+      id={HTML_IDS.components.grid}
       className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pb-4 sm:pt-0'
       ref={gridRef}
     >

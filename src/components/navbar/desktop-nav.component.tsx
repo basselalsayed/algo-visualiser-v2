@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useIsRunning } from '@/hooks';
+import { HTML_IDS } from '@/lib';
 
 import { AlgoForm, MazeButton, RunButton, SettingsForm } from '..';
 import {
@@ -32,7 +33,10 @@ export const DesktopNav: FC = () => {
         <WallSwitch />
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger disabled={algoRunning}>
+          <NavigationMenuTrigger
+            disabled={algoRunning}
+            id={HTML_IDS.buttons.algoFormTrigger}
+          >
             {t('navbar.algorithms')}
           </NavigationMenuTrigger>
 
@@ -44,7 +48,10 @@ export const DesktopNav: FC = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger disabled={algoRunning}>
+          <NavigationMenuTrigger
+            disabled={algoRunning}
+            id={HTML_IDS.buttons.settingsTrigger}
+          >
             {t('navbar.settings')}
           </NavigationMenuTrigger>
           <NavigationMenuContent>

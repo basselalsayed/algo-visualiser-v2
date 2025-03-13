@@ -5,6 +5,7 @@ import { match } from 'ts-pattern';
 import { SrOnly } from '@/components';
 import { Button } from '@/components/ui';
 import { useRun } from '@/hooks';
+import { HTML_IDS } from '@/lib';
 
 export const RunButton: FC = () => {
   const { readyToRun, run, runState } = useRun();
@@ -17,7 +18,7 @@ export const RunButton: FC = () => {
     .exhaustive();
 
   return (
-    <Button onClick={run} disabled={!readyToRun}>
+    <Button onClick={run} disabled={!readyToRun} id={HTML_IDS.buttons.run}>
       {icon}
       <SrOnly tKey={tKey} />
     </Button>
