@@ -37,7 +37,6 @@ export const StatsSheet: FC = () => {
     { pageSize: 25 }
   );
 
-
   const global = useMemo(() => mapKeysToCamel(data), [data]);
 
   const results = (isGlobal ? global : local) ?? [];

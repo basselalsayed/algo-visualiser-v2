@@ -1,6 +1,5 @@
 import { sleep } from '../../utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
-import type { INode } from '../types';
 
 export abstract class AStarBase extends PathFindingAlgorithm {
   override queue = [this.startNode];

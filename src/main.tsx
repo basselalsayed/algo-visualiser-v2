@@ -5,11 +5,11 @@ import { MathJaxProvider } from 'react-hook-mathjax';
 import { SWRConfig } from 'swr';
 
 import { App } from './app/app-component.tsx';
+import { TourProvider } from './contexts/tour.context.tsx';
 
 import './index.css';
 import './i18n.ts';
 import 'shepherd.js/dist/css/shepherd.css';
-import { TourProvider } from './contexts/tour.context.tsx';
 
 createRoot(document.querySelector('#root')!).render(
   <StrictMode>
@@ -26,7 +26,7 @@ createRoot(document.querySelector('#root')!).render(
           }}
         />
         <TourProvider>
-        <App />
+          <App />
         </TourProvider>
       </MotionConfig>
     </SWRConfig>

@@ -1,5 +1,3 @@
-import type { INode } from '../types';
-
 import { AStarBase } from './a-star-base';
 
 export class AStarEuclidean extends AStarBase {

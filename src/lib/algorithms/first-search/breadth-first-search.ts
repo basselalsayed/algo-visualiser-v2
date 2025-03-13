@@ -1,5 +1,3 @@
-import type { INode } from '../types';
-
 import { BaseFirstSearch } from './base-first-search';
 
 export class BreadthFirstSearch extends BaseFirstSearch {

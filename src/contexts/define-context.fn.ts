@@ -1,6 +1,13 @@
-import { createContext, useContext, useDebugValue } from 'react';
+import {
+  type Context as TContext,
+  createContext,
+  useContext,
+  useDebugValue,
+} from 'react';
 
-export function defineContext<T>(name: string) {
+export function defineContext<T>(
+  name: string
+): [TContext<T | undefined>, () => T] {
   const Context = createContext<T | undefined>(undefined);
 
   const useCreatedContext = () => {

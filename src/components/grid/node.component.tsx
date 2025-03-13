@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { PureComponent, type RefObject, createRef } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -119,7 +120,7 @@ export class Node extends PureComponent<Props, State> implements INode {
     return this.type === 'wall';
   }
   get domNode(): HTMLDivElement {
-    if (!this.ref.current) throw Error('Error mounting node');
+    if (!this.ref.current) throw new Error('Error mounting node');
 
     return this.ref.current;
   }
@@ -136,7 +137,7 @@ export class Node extends PureComponent<Props, State> implements INode {
 
   render() {
     const { className, id, isLastColumn, size, xIndex, yIndex } = this.props;
-    const { type, visited } = this.state;
+    const { type } = this.state;
 
     return (
       <motion.div
@@ -147,9 +148,9 @@ export class Node extends PureComponent<Props, State> implements INode {
                 borderWidth: '0px',
               }
             : {
-                rotate: 0,
                 borderStyle: 'solid',
                 borderWidth: '1px 0px 0px 1px',
+                rotate: 0,
               }
         }
         whileHover={
@@ -159,10 +160,10 @@ export class Node extends PureComponent<Props, State> implements INode {
                 borderWidth: '1px',
               }
             : {
-                rotate: 90,
-                scale: 1.8,
                 borderBottomWidth: '1px',
                 borderRightWidth: '1px',
+                rotate: 90,
+                scale: 1.8,
               }
         }
         transition={{
@@ -179,10 +180,7 @@ export class Node extends PureComponent<Props, State> implements INode {
           height: size,
           width: size,
         }}
-        className={cn(
-          isLastColumn && 'border-r',
-          className
-        )}
+        className={cn(isLastColumn && 'border-r', className)}
       />
     );
   }
