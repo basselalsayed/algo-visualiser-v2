@@ -115,12 +115,9 @@ export const Grid = memo(() => {
             const firstColumn = xIndex === 0;
             const lastColumn = xIndex === columnCount - 1;
 
-            const id = match({ xIndex, yIndex })
-              .returnType<string | undefined>()
-              .with({ xIndex: 0, yIndex: 0 }, () => HTML_IDS.tutorial.node)
+            const id =
+              xIndex === 0 && yIndex === 0 ? HTML_IDS.tutorial.node : undefined;
 
-              // eslint-disable-next-line unicorn/no-useless-undefined
-              .otherwise(() => undefined);
             return (
             <Node
               key={`node-${xIndex}-${yIndex}`}

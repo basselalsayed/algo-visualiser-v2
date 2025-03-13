@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants';
 import algoInfo from '@/locales/en/algoInfo.json';
+import tour from '@/locales/en/tour.json';
 import translation from '@/locales/en/translation.json';
 
 export { default as i18n } from 'i18next';
@@ -33,6 +34,7 @@ i18n.on('languageChanged', (lang) => {
 export const resources = {
   en: {
     algoInfo,
+    tour,
     translation,
   },
 } as const;

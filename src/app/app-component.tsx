@@ -1,10 +1,5 @@
-import { type FC, useEffect, useMemo } from 'react';
+import { type FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Shepherd, {
-  type Step,
-  type StepOptions,
-  type TourOptions,
-} from 'shepherd.js';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import { CommandKComponent, Grid, Navbar, StatsSheet } from '@/components';

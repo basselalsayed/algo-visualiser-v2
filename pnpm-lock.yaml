@@ -113,9 +113,6 @@ importers:
       react-i18next:
         specifier: ^15.2.0
         version: 15.2.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-shepherd:
-        specifier: ^6.1.6
-        version: 6.1.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2)
       shepherd.js:
         specifier: ^14.3.0
         version: 14.3.0
@@ -2848,13 +2845,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  react-shepherd@6.1.6:
-    resolution: {integrity: sha512-tAlrgFh7mTZ9zDXdE7gpIZZjFpimk4ad++g7BeoBSAS9x+nN5g1XQMH2fRZuGcFHAR9cQDCRgO6sbwJ1jmOLJA==}
-    peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      typescript: ^5.0.0
 
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
@@ -6011,13 +6001,6 @@ snapshots:
       use-sidecar: 1.1.3(@types/react@18.3.18)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.18
-
-  react-shepherd@6.1.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.2):
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      shepherd.js: 14.3.0
-      typescript: 5.7.2
 
   react-style-singleton@2.2.3(@types/react@18.3.18)(react@18.3.1):
     dependencies:
