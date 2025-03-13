@@ -1,4 +1,5 @@
 import { type FC, type ReactElement, cloneElement } from 'react';
+
 import { useSvgGradient } from '@/hooks/ui/use-svg-gradient.hook';
 
 export const SVGGradWrapper: FC<{

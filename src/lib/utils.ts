@@ -23,7 +23,7 @@ export function assert(value: unknown, type: T0): asserts value is T0 {
   const actualType = typeof value;
 
   if (type === 'object' && value === null) {
-      throw new TypeError(`Expected type '${type}', but received null`);
+    throw new TypeError(`Expected type '${type}', but received null`);
   }
 
   if (actualType !== type) {

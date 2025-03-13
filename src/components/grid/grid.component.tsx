@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
 import { useBoolean, useEventListener } from 'usehooks-ts';
@@ -74,16 +73,16 @@ export const Grid = memo(() => {
         .returnType<NodeType>()
         .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
         .with({ startNode: undefined, type: NodeType.none }, () => {
-            dispatch('startNode', [xIndex, yIndex]);
+          dispatch('startNode', [xIndex, yIndex]);
           eventEmitter.emit('startSelected');
 
-            return NodeType.start;
+          return NodeType.start;
         })
         .with({ endNode: undefined, type: NodeType.none }, () => {
-            dispatch('endNode', [xIndex, yIndex]);
+          dispatch('endNode', [xIndex, yIndex]);
           eventEmitter.emit('endSelected');
 
-            return NodeType.end;
+          return NodeType.end;
         })
         .with({ type: NodeType.start }, () => {
           dispatch('startNode', undefined);
@@ -119,23 +118,23 @@ export const Grid = memo(() => {
               xIndex === 0 && yIndex === 0 ? HTML_IDS.tutorial.node : undefined;
 
             return (
-            <Node
-              key={`node-${xIndex}-${yIndex}`}
+              <Node
+                key={`node-${xIndex}-${yIndex}`}
                 className={cn(
                   firstColumn &&
                     'first-of-type:rounded-tl-sm last-of-type:rounded-bl-sm',
                   lastColumn &&
                     'first-of-type:rounded-tr-sm last-of-type:rounded-br-sm'
                 )}
-              size={nodeSize}
-              xIndex={xIndex}
-              yIndex={yIndex}
-              isLastColumn={xIndex === columnCount - 1}
-              ref={(node) => addRef(xIndex, yIndex, node)}
-              onClick={handleNodeClick}
-              onMouseOver={handleNodeMouseOver}
+                size={nodeSize}
+                xIndex={xIndex}
+                yIndex={yIndex}
+                isLastColumn={xIndex === columnCount - 1}
+                ref={(node) => addRef(xIndex, yIndex, node)}
+                onClick={handleNodeClick}
+                onMouseOver={handleNodeMouseOver}
                 id={id}
-            />
+              />
             );
           })}
         </div>
