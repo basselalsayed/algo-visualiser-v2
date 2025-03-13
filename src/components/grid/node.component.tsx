@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils';
 import { NodeType } from './node-type.enum';
 
 interface Props {
+  className?: string;
+  id?: string;
   isLastColumn: boolean;
   onClick: (node: Node) => NodeType;
   onMouseOver: (node: Node) => NodeType;
@@ -133,11 +135,12 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
 
   render() {
-    const { isLastColumn, size, xIndex, yIndex } = this.props;
+    const { className, id, isLastColumn, size, xIndex, yIndex } = this.props;
     const { type, visited } = this.state;
 
     return (
       <motion.div
+        id={id}
         initial={
           this.state.visited
             ? {
@@ -177,8 +180,8 @@ export class Node extends PureComponent<Props, State> implements INode {
           width: size,
         }}
         className={cn(
-          `bg-secondary border-background border-t last:border-b border-l data-[type=none]:bg-blue-600 data-[type=wall]:bg-red-600 data-[type=start]:bg-green-600 data-[type=finish]:bg-orange-600 transition-colors `,
-          isLastColumn && 'border-r'
+          isLastColumn && 'border-r',
+          className
         )}
       />
     );

@@ -10,7 +10,7 @@ import {
   useResizeObserver,
   useSettings,
 } from '@/hooks';
-import { HTML_IDS } from '@/lib';
+import { HTML_IDS, eventEmitter } from '@/lib';
 import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
@@ -75,18 +75,24 @@ export const Grid = memo(() => {
         .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
         .with({ startNode: undefined, type: NodeType.none }, () => {
             dispatch('startNode', [xIndex, yIndex]);
+          eventEmitter.emit('startSelected');
+
             return NodeType.start;
         })
         .with({ endNode: undefined, type: NodeType.none }, () => {
             dispatch('endNode', [xIndex, yIndex]);
+          eventEmitter.emit('endSelected');
+
             return NodeType.end;
         })
         .with({ type: NodeType.start }, () => {
           dispatch('startNode', undefined);
+
           return NodeType.none;
         })
         .with({ type: NodeType.end }, () => {
           dispatch('endNode', undefined);
+
           return NodeType.none;
         })
         .otherwise(() => NodeType.none);
@@ -109,6 +115,12 @@ export const Grid = memo(() => {
             const firstColumn = xIndex === 0;
             const lastColumn = xIndex === columnCount - 1;
 
+            const id = match({ xIndex, yIndex })
+              .returnType<string | undefined>()
+              .with({ xIndex: 0, yIndex: 0 }, () => HTML_IDS.tutorial.node)
+
+              // eslint-disable-next-line unicorn/no-useless-undefined
+              .otherwise(() => undefined);
             return (
             <Node
               key={`node-${xIndex}-${yIndex}`}
@@ -125,6 +137,7 @@ export const Grid = memo(() => {
               ref={(node) => addRef(xIndex, yIndex, node)}
               onClick={handleNodeClick}
               onMouseOver={handleNodeMouseOver}
+                id={id}
             />
             );
           })}

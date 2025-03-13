@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
 import { useMutation } from '@/data/hooks/use-mutation.hook';
+import { eventEmitter } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
 import { RecursiveDivisionMaze } from '@/lib/algorithms/recursive-division-maze';
 
@@ -52,7 +53,7 @@ export const useRun = (): useRunReturn => {
       const { addResult } = useStats.getState();
       const { dispatch } = useRunStore.getState();
       dispatch('runState', 'done');
-
+      eventEmitter.emit('runComplete');
       trigger([result]);
       addResult(result);
     },
@@ -89,9 +90,10 @@ export const useRun = (): useRunReturn => {
 
   const maze = useMemo(
     () =>
-      new RecursiveDivisionMaze(refsMap, () =>
-        dispatch('mazeRunState', 'done')
-      ),
+      new RecursiveDivisionMaze(refsMap, () => {
+        dispatch('mazeRunState', 'done');
+        eventEmitter.emit('mazeComplete');
+      }),
     [dispatch, refsMap]
   );
 
