@@ -1,6 +1,6 @@
 import { animate } from 'framer-motion/dom';
 
-import { assert, sleep } from '../utils';
+import { assert, convertToSeconds, sleep } from '../utils';
 
 import type {
   IPathFindingAlgorithm,

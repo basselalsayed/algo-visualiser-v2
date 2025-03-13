@@ -19,11 +19,11 @@ export const App: FC = () => {
 
   useDocumentTitle(t('appName'));
 
-  const tour = useTour();
+  const { tour, tourComplete } = useTour();
 
   useEffect(() => {
-    tour.start();
-  }, [tour]);
+    if (!tourComplete) tour.start();
+  }, [tour, tourComplete]);
 
   return (
     <>

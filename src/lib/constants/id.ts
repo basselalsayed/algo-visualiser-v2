@@ -6,6 +6,7 @@ export const HTML_IDS = {
     run: 'runBtn',
     search: 'searchBtn',
     settingsTrigger: 'deskSettings',
+    sheetTrigger: 'mobileSettings',
   },
   components: {
     grid: 'nodeGrid',

@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from '@/components/ui';
 import { useIsRunning } from '@/hooks';
+import { HTML_IDS } from '@/lib';
 
 import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
 
@@ -70,6 +71,7 @@ export const MobileNav: FC = () => {
             <Button
               disabled={algoRunning}
               className='border-1 border-primary bg-background shadow-lg'
+              id={HTML_IDS.buttons.sheetTrigger}
             >
               <Settings2 absoluteStrokeWidth />
               <SrOnly tKey='sr.toggleMenu' />
