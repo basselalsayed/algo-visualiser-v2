@@ -137,11 +137,12 @@ export class Node extends PureComponent<Props, State> implements INode {
 
   render() {
     const { className, id, isLastColumn, size, xIndex, yIndex } = this.props;
-    const { type } = this.state;
+    const { type, visited } = this.state;
 
     return (
       <motion.div
         id={id}
+        tabIndex={-1}
         initial={
           this.state.visited
             ? {
@@ -149,26 +150,46 @@ export class Node extends PureComponent<Props, State> implements INode {
               }
             : {
                 borderStyle: 'solid',
-                borderWidth: '1px 0px 0px 1px',
                 rotate: 0,
+
+                x: -(this.xIndex * 100),
+                y: -(this.yIndex * 100),
               }
         }
         whileHover={
-          this.state.visited
+          visited
             ? {
                 borderStyle: 'solid',
                 borderWidth: '1px',
               }
             : {
                 borderBottomWidth: '1px',
+                borderColor: 'black',
                 borderRightWidth: '1px',
-                rotate: 90,
-                scale: 1.8,
+                scale: 1.05,
               }
         }
+        whileFocus={
+          visited
+            ? {
+                borderStyle: 'solid',
+                borderWidth: '1px',
+              }
+            : {
+                borderBottomWidth: '1px',
+                borderColor: 'white',
+                borderRightWidth: '1px',
+                scale: 4.05,
+              }
+        }
+        animate={{
+          x: 0,
+          y: 0,
+        }}
         transition={{
-          duration: 0.3,
+          duration: 0.1 * (this.xIndex + this.yIndex),
           ease: 'easeInOut',
+          type: 'spring',
         }}
         onClick={this.handleClick}
         onMouseOver={this.handleMouseOver}
@@ -180,7 +201,12 @@ export class Node extends PureComponent<Props, State> implements INode {
           height: size,
           width: size,
         }}
-        className={cn(isLastColumn && 'border-r', className)}
+        className={cn(
+          `border-l border-t border-background bg-secondary transition-colors last:border-b data-[type=finish]:bg-orange-600 data-[type=none]:bg-transparent data-[type=start]:bg-green-600 data-[type=wall]:bg-red-600`,
+          'data-[type=wall]:bg-gradient-to-br data-[type=wall]:from-red-400 data-[type=wall]:to-orange-400',
+          isLastColumn && 'border-r',
+          className
+        )}
       />
     );
   }
