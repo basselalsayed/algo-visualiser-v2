@@ -1,0 +1,47 @@
+{
+  "buttons": {
+    "cancel": "No thanks",
+    "next": "Continue"
+  },
+  "intro": "Welcome to the Algorithm Visualiser! Would you like to take a brief tour?",
+  "description": "This project showcases how various path finding algorithms work. It's built with react, typescript, shadcdn and zustand",
+  "complete": "Thanks for completing the tour! Enjoy!",
+  "steps": {
+    "grid": {
+      "header": "This is the grid",
+      "content": "It's comprised of square nodes."
+    },
+    "node": {
+      "header": "This is a node",
+      "content": "It can be a starting point, finishing point or a wall."
+    },
+    "maze": {
+      "header": "Click the maze button to generate a recursive division maze"
+    },
+    "startNode": {
+      "header": "Click any node to set a start point"
+    },
+    "endNode": {
+      "header": "Click any node to set a finishing point"
+    },
+    "algoForm": {
+      "header": "Optionally choose an algorithm here"
+    },
+    "settings": {
+      "header": "Optionally change settings here"
+    },
+    "search": {
+      "header": "Explore more options here"
+    },
+    "run": {
+      "header": "Click the run button to visualise the shortest path"
+    },
+    "kbd": {
+      "header": "Enable keyboard navigation of the grid with CMD+Shift+G",
+      "content": "Or Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Click to reset the grid"
+    }
+  }
+}

@@ -10,6 +10,7 @@ import {
   useResizeObserver,
   useSettings,
 } from '@/hooks';
+import { HTML_IDS, eventEmitter } from '@/lib';
 import { cn } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
@@ -74,18 +75,24 @@ export const Grid = memo(() => {
         .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
         .with({ startNode: undefined, type: NodeType.none }, () => {
             dispatch('startNode', [xIndex, yIndex]);
+          eventEmitter.emit('startSelected');
+
             return NodeType.start;
         })
         .with({ endNode: undefined, type: NodeType.none }, () => {
             dispatch('endNode', [xIndex, yIndex]);
+          eventEmitter.emit('endSelected');
+
             return NodeType.end;
         })
         .with({ type: NodeType.start }, () => {
           dispatch('startNode', undefined);
+
           return NodeType.none;
         })
         .with({ type: NodeType.end }, () => {
           dispatch('endNode', undefined);
+
           return NodeType.none;
         })
         .otherwise(() => NodeType.none);
@@ -95,7 +102,7 @@ export const Grid = memo(() => {
 
   return (
     <div
-      id='nodeGrid'
+      id={HTML_IDS.components.grid}
       className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pb-4 sm:pt-0'
       ref={gridRef}
     >
@@ -107,6 +114,9 @@ export const Grid = memo(() => {
           {Array.from({ length: rowCount }).map((_, yIndex) => {
             const firstColumn = xIndex === 0;
             const lastColumn = xIndex === columnCount - 1;
+
+            const id =
+              xIndex === 0 && yIndex === 0 ? HTML_IDS.tutorial.node : undefined;
 
             return (
             <Node
@@ -124,6 +134,7 @@ export const Grid = memo(() => {
               ref={(node) => addRef(xIndex, yIndex, node)}
               onClick={handleNodeClick}
               onMouseOver={handleNodeMouseOver}
+                id={id}
             />
             );
           })}
