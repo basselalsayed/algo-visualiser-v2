@@ -22,7 +22,7 @@ export const App: FC = () => {
   const { tour, tourComplete } = useTour();
 
   useEffect(() => {
-    if (!tourComplete) tour.start();
+    if (!tour.isActive() && !tourComplete) tour.start();
   }, [tour, tourComplete]);
 
   return (

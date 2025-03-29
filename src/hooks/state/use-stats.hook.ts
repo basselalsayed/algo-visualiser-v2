@@ -10,7 +10,7 @@ import { type DispatchFunction } from './types';
 export type ResultsSource = 'stats.local' | 'stats.global';
 
 interface StatsStore {
-  addResult: (result: RuntimeInfo) => void;
+  addResult: (result: RuntimeInfo, openStats: boolean) => void;
   dispatch: DispatchFunction<StatsStore, 'dispatch' | 'addResult' | 'results'>;
   results: RuntimeInfo[];
   resultsSource: ResultsSource;
@@ -20,11 +20,13 @@ interface StatsStore {
 export const useStats = create(
   persist<StatsStore>(
     (set, get) => ({
-      addResult: async (result) => {
+      addResult: async (result, openStats) => {
         const draft = createDraft(get());
         draft.results.push(result);
         await sleep(300);
-        draft.statsOpen = true;
+        if (openStats) {
+          draft.statsOpen = true;
+        }
 
         return set(finishDraft(draft));
       },
@@ -36,7 +38,7 @@ export const useStats = create(
         ),
       results: [],
       resultsSource: 'stats.local',
-      statsOpen: true,
+      statsOpen: false,
     }),
     {
       name: 'statsStorage',

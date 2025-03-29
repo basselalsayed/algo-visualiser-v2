@@ -252,4 +252,40 @@
   .border_default {
     @apply border-2 dark:border;
   }
+  :root {
+    .shepherd-footer {
+      @apply gap-2;
+    }
+
+    .shepherd-content {
+      @apply bg_grad_accent--outline--text;
+    }
+    .shepherd-arrow:before {
+      @apply bg_grad_accent--outline;
+    }
+
+    .shepherd-element,
+    .shepherd-header {
+      background: none !important;
+    }
+
+    .shepherd-header {
+      @apply justify-start;
+
+      &:has(+ .shepherd-text) {
+        @apply border-b-2 border-grad-accent-mix;
+      }
+
+      h3 {
+        --stroke-color: var(--grad-accent-mix);
+        --stroke-width: 0.04rem;
+        @apply text-2xl text-primary;
+      }
+    }
+
+    .shepherd-text {
+      @apply text-xl text-transparent;
+      letter-spacing: 0.075rem;
+    }
+  }
 }

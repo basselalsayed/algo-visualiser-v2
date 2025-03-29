@@ -3,6 +3,7 @@ import { match } from 'ts-pattern';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useTour } from '@/contexts';
 import { useMutation } from '@/data/hooks/use-mutation.hook';
 import { eventEmitter } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
@@ -48,6 +49,8 @@ export const useRun = (): useRunReturn => {
 
   const trigger = useMutation({ tableName: 'algo_result' });
 
+  const { tour } = useTour();
+
   const onRunComplete = useCallback(
     (result: RuntimeInfo) => {
       const { addResult } = useStats.getState();
@@ -55,9 +58,9 @@ export const useRun = (): useRunReturn => {
       dispatch('runState', 'done');
       eventEmitter.emit('runComplete');
       trigger([result]);
-      addResult(result);
+      addResult(result, !tour.isActive());
     },
-    [trigger]
+    [tour, trigger]
   );
 
   const onRunCompleteReplay = useCallback(() => {
