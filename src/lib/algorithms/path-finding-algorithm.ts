@@ -138,7 +138,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     assert(this.executionStart, 'number');
     assert(this.executionEnd, 'number');
 
-    return (this.executionEnd - this.executionStart) / 1000;
+    return convertToSeconds(this.executionStart, this.executionEnd);
   }
 
   async run(
