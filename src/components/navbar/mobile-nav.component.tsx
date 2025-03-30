@@ -19,6 +19,7 @@ import {
   DarkModeSwitch,
   MazeButton,
   QuickSearchButton,
+  ResetButton,
   RunButton,
   WallSwitch,
 } from './components';
@@ -66,17 +67,14 @@ export const MobileNav: FC = () => {
         </SheetContent>
         <nav className='grad-border grid grid-flow-col items-center justify-between justify-items-stretch border-t-2 bg-background p-4'>
           <h1 className='col-span-4 text-left'>AV</h1>
-          <MazeButton />
           <SheetTrigger asChild>
-            <Button
-              disabled={algoRunning}
-              className='border-1 border-primary bg-background shadow-lg'
-              id={HTML_IDS.buttons.sheetTrigger}
-            >
+            <Button disabled={algoRunning} id={HTML_IDS.buttons.sheetTrigger}>
               <Settings2 absoluteStrokeWidth />
               <SrOnly tKey='sr.toggleMenu' />
             </Button>
           </SheetTrigger>
+          <ResetButton />
+          <MazeButton />
           <RunButton />
         </nav>
       </Sheet>
