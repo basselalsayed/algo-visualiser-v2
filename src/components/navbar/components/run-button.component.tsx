@@ -18,7 +18,12 @@ export const RunButton: FC = () => {
     .exhaustive();
 
   return (
-    <Button onClick={run} disabled={!readyToRun} id={HTML_IDS.buttons.run}>
+    <Button
+      onClick={run}
+      disabled={!readyToRun}
+      id={HTML_IDS.buttons.run}
+      variant='secondary'
+    >
       {icon}
       <SrOnly tKey={tKey} />
     </Button>
