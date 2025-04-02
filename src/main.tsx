@@ -5,6 +5,7 @@ import { MathJaxProvider } from 'react-hook-mathjax';
 import { SWRConfig } from 'swr';
 
 import { App } from './app/app-component.tsx';
+import { Toaster } from './components/ui';
 import { TourProvider } from './contexts/tour.context.tsx';
 
 import './index.css';
@@ -13,6 +14,7 @@ import 'shepherd.js/dist/css/shepherd.css';
 
 createRoot(document.querySelector('#root')!).render(
   <StrictMode>
+    <Toaster />
     <SWRConfig
       value={{
         revalidateIfStale: false,
