@@ -6,6 +6,7 @@ export * from './accordian.component';
 export * from './card.component';
 export * from './carousel.component';
 export * from './kbd-component';
+export * from './kbd-key.component';
 export * from './language-select.component';
 export * from './select.component';
 export * from './slider.component';

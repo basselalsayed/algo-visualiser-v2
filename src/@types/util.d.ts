@@ -18,7 +18,11 @@ declare global {
   }
 
   // translation
-  declare type TKey<T = DefaultNamespace> = ParseKeys<T>;
+  declare type TKey<T = DefaultNamespace, Prefix = undefined> = ParseKeys<
+    T,
+    undefined,
+    Prefix
+  >;
 
   declare interface TProp<T = DefaultNamespace> {
     tKey: TKey<T>;

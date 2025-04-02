@@ -69,5 +69,14 @@
     "runtime": "Runtime",
     "shortestPath": "Shortest path",
     "title": "Run History"
+  },
+  "gridNav": {
+    "header": "Keyboard Controls",
+    "navigation": "Navigation",
+    "nodeCycle": "Cycle node type",
+    "setNodeEnd": "Mark node as end",
+    "setNodeNone": "Clear node type",
+    "setNodeStart": "Mark node as start",
+    "setNodeWall": "Mark node as wall"
   }
 }
