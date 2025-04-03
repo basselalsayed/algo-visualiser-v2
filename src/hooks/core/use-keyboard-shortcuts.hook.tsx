@@ -109,8 +109,8 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
     const cycleType = () => {
       const nodeTypes = Object.values(NodeType);
       const currentIndex = nodeTypes.indexOf(currentNode!.type);
-        const nextIndex = (currentIndex + 1) % nodeTypes.length;
-        const nextType = nodeTypes[nextIndex];
+      const nextIndex = (currentIndex + 1) % nodeTypes.length;
+      const nextType = nodeTypes[nextIndex];
       currentNode!.setType(nextType);
       if (nextType === 'start') dispatch('startNode', [x, y]);
       if (nextType === 'end') dispatch('endNode', [x, y]);
