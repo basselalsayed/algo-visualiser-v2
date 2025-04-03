@@ -34,6 +34,19 @@ jobs:
     
     - name: Install dependencies
       run: pnpm install
-    - run: pnpm lint
-    - run: pnpm typecheck
-    - run: pnpm build
+
+    - name: ESLint cache
+      uses: actions/cache@v3
+      with:
+        path: .eslintcache
+        key: |
+          ${{ runner.os }}-eslint-${{ hashFiles('eslint.config.js') }}
+        restore-keys: |
+          ${{ runner.os }}-eslint-
+
+    - name: Run ESLint
+      run: pnpm lint --cache-strategy content --debug
+    - name: Run Typescript
+      run: pnpm typecheck
+    - name: Vite compile
+      run: pnpm build
