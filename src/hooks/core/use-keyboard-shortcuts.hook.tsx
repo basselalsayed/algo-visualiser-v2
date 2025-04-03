@@ -1,8 +1,9 @@
 import { useMemo, useRef } from 'react';
+import { toast } from 'sonner';
 import { match } from 'ts-pattern';
 import { useEventCallback, useEventListener } from 'usehooks-ts';
 
-import { NodeType } from '@/components/grid';
+import { KeyboardControls, NodeType } from '@/components/grid';
 import {
   EDIT_ALGORITHM,
   EDIT_ANIMATION_SPEED,
@@ -74,6 +75,7 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
 
   const gridNavigationOn = useRef<boolean>(false);
   const focusedNode = useRef<NodeCoordinates>([0, 0]);
+  const toastId = useRef<string | number>();
 
   const onGridNavigationToggle = useEventCallback((e: KeyboardEvent) => {
     e.preventDefault();
@@ -83,8 +85,13 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
 
     if (gridNavigationOn.current) {
       currentNode?.blur();
+      toast.dismiss(toastId.current);
     } else {
       currentNode?.focus();
+      toastId.current = toast(<KeyboardControls />, {
+        dismissible: true,
+        duration: 200_000,
+      });
     }
 
     gridNavigationOn.current = !gridNavigationOn.current;
@@ -102,8 +109,8 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
     const cycleType = () => {
       const nodeTypes = Object.values(NodeType);
       const currentIndex = nodeTypes.indexOf(currentNode!.type);
-      const nextIndex = (currentIndex + 1) % nodeTypes.length;
-      const nextType = nodeTypes[nextIndex];
+        const nextIndex = (currentIndex + 1) % nodeTypes.length;
+        const nextType = nodeTypes[nextIndex];
       currentNode!.setType(nextType);
       if (nextType === 'start') dispatch('startNode', [x, y]);
       if (nextType === 'end') dispatch('endNode', [x, y]);

@@ -38,13 +38,15 @@ export const AlgoForm: FC<{ className?: string }> = ({ className }) => {
             contentClassName='text-background text-left flex flex-col gap-2'
           >
             <div className='flex items-center gap-1 text-base'>
-              <p>{t('algoForm.runtime')}</p>
+              <p className='text-foreground'>{t('algoForm.runtime')}</p>
               <TexSVG display='inline' id='math-svg' latex={runTime} />
             </div>
             {t(description, { ns: 'algoInfo' })
               .split('\n')
               .map((s) => (
-                <p key={s}>{s}</p>
+                <p className='text-foreground' key={s}>
+                  {s}
+                </p>
               ))}
           </Card>
         </CarouselItem>

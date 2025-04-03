@@ -1,4 +1,4 @@
-import { type FC, type PropsWithChildren, useMemo } from 'react';
+import { type FC, type PropsWithChildren, memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Shepherd, {
   type StepOptions,
@@ -8,7 +8,8 @@ import Shepherd, {
 } from 'shepherd.js';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { useDeviceQueries } from '@/hooks';
+import { buttonVariants } from '@/components/ui';
+import { useDeviceQueries, useMutationObserver } from '@/hooks';
 import { HTML_SELECTORS, customEventKeys } from '@/lib';
 
 import { defineContext } from './define-context.fn';
@@ -19,7 +20,7 @@ export const [TourContext, useTour] = defineContext<{
   tourComplete: boolean;
 }>('Tour');
 
-export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
+export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   const { t } = useTranslation('tour');
   const { isMobile } = useDeviceQueries();
   const [tourComplete, setTourComplete] = useLocalStorage<boolean>(
@@ -32,6 +33,8 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
       action(this) {
         this.cancel();
       },
+      classes: buttonVariants({ size: 'lg', variant: 'outline' }),
+      secondary: true,
       text: t('buttons.cancel'),
     }),
     [t]
@@ -42,6 +45,7 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
       action(this) {
         this.next();
       },
+      classes: buttonVariants({ size: 'lg', variant: 'secondary' }),
       text: t('buttons.next'),
     }),
     [t]
@@ -84,7 +88,7 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
               on: 'auto',
             },
             buttons: undefined,
-            title: t('steps.maze.header'),
+            text: t('steps.maze.header'),
           },
           {
             advanceOn: {
@@ -96,7 +100,7 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
               on: 'auto',
             },
             buttons: undefined,
-            title: t('steps.startNode.header'),
+            text: t('steps.startNode.header'),
           },
           {
             advanceOn: {
@@ -108,21 +112,21 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
               on: 'auto',
             },
             buttons: undefined,
-            title: t('steps.endNode.header'),
+            text: t('steps.endNode.header'),
           },
           !isMobile && {
             attachTo: {
               element: HTML_SELECTORS.buttons.algoFormTrigger,
               on: 'auto',
             },
-            title: t('steps.algoForm.header'),
+            text: t('steps.algoForm.header'),
           },
           !isMobile && {
             attachTo: {
               element: HTML_SELECTORS.buttons.settingsTrigger,
               on: 'auto',
             },
-            title: t('steps.settings.header'),
+            text: t('steps.settings.header'),
           },
           {
             attachTo: {
@@ -131,7 +135,7 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
                 : HTML_SELECTORS.buttons.search,
               on: 'auto',
             },
-            title: t('steps.search.header'),
+            text: t('steps.search.header'),
           },
           !isMobile && {
             attachTo: {
@@ -151,7 +155,7 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
               on: 'auto',
             },
             buttons: undefined,
-            title: t('steps.run.header'),
+            text: t('steps.run.header'),
           },
 
           {
@@ -164,7 +168,7 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
               on: 'auto',
             },
             buttons: undefined,
-            title: t('steps.reset.header'),
+            text: t('steps.reset.header'),
           },
           {
             buttons: [shepherdNextButton],
@@ -196,9 +200,30 @@ export const TourProvider: FC<PropsWithChildren> = ({ children }) => {
     return tourInstance;
   }, [options, steps]);
 
+  useMutationObserver({
+    callback: () => {
+      for (const className of [
+        'shepherd-button',
+        'shepherd-button-secondary',
+        'shepherd-title',
+      ]) {
+        for (const el of document.querySelectorAll(`.${className}`)) {
+          el.classList.remove(className);
+        }
+      }
+    },
+    cleanup: true,
+    options: {
+      attributeFilter: ['class'],
+      attributes: true,
+      childList: true,
+      subtree: true,
+    },
+  });
+
   return (
     <TourContext.Provider value={{ tour, tourComplete }}>
       {children}
     </TourContext.Provider>
   );
-};
+});
