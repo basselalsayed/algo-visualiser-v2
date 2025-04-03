@@ -23,6 +23,13 @@
     --grad-header-2: 272 72% 47%; /* Tailwind Purple 700 */
     --grad-header-3: 224 76% 48%; /* Tailwind Blue 700 */
 
+    --grad-node-start-1: 0 91% 71%; /* red 400 */
+    --grad-node-start-2: 27 96% 61%; /* orange 400 */
+    --grad-node-end-1: 0 91% 71%; /* red 400 */
+    --grad-node-end-2: 27 96% 61%; /* orange 400 */
+    --grad-node-wall-1: 0 91% 71%; /* red 400 */
+    --grad-node-wall-2: 27 96% 61%; /* orange 400 */
+
     --background: 240 6% 90%; /* zinc 200 */
     --foreground: 240 10% 3.9%;
     --card: var(--background);
