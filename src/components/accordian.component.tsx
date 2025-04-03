@@ -10,10 +10,10 @@ export const Accordian: FC<Props> = ({ children, type }) => (
   <A.Accordion type={type}>{children}</A.Accordion>
 );
 
-export const AccordianItem: FC<{ children: ReactElement; title: string }> = ({
-  children,
-  title,
-}) => (
+export const AccordianItem: FC<{
+  children: ReactElement;
+  title: string;
+}> = ({ children, title }) => (
   <A.AccordionItem value={title}>
     <A.AccordionTrigger>{title}</A.AccordionTrigger>
     <A.AccordionContent>{children}</A.AccordionContent>

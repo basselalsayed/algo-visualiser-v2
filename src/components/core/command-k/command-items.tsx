@@ -8,13 +8,7 @@ import {
   Repeat1,
   RotateCcw,
 } from 'lucide-react';
-import {
-  type ComponentPropsWithoutRef,
-  type ElementRef,
-  type FC,
-  type ReactElement,
-  forwardRef,
-} from 'react';
+import { type ComponentPropsWithRef, type FC, type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 import { useShallow } from 'zustand/react/shallow';
@@ -24,50 +18,45 @@ import { CommandItem, CommandShortcut } from '@/components/ui';
 import { useCommand, useDarkMode, useGrid, useRun, useStats } from '@/hooks';
 import { RUN_ALGO_KEY, RUN_MAZE_KEY } from '@/lib';
 
-export const CommandKItem = forwardRef<
-  ElementRef<typeof CommandItem>,
-  ComponentPropsWithoutRef<typeof CommandItem> & {
-    closeOnSelect?: boolean;
-    icon: ReactElement;
-    shortcut?: string;
-    tKey?: TKey;
-  }
->(
-  (
-    {
-      children,
-      closeOnSelect = false,
-      icon,
-      onSelect,
-      shortcut,
-      tKey,
-      ...props
-    },
-    ref
-  ) => {
-    const dispatch = useCommand((state) => state.dispatch);
+interface Props extends ComponentPropsWithRef<typeof CommandItem> {
+  closeOnSelect?: boolean;
+  icon: ReactElement;
+  shortcut?: string;
+  tKey?: TKey;
+}
 
-    const { t } = useTranslation();
+export const CommandKItem: FC<Props> = ({
+  children,
+  closeOnSelect = false,
+  icon,
+  onSelect,
+  ref,
+  shortcut,
+  tKey,
+  ...props
+}) => {
+  const dispatch = useCommand((state) => state.dispatch);
 
-    return (
-      <CommandItem
-        {...props}
-        ref={ref}
-        onSelect={(v) => {
-          onSelect?.(v);
-          if (closeOnSelect) {
-            dispatch('open', false);
-          }
-        }}
-      >
-        {icon}
-        {tKey && <span>{t(tKey)}</span>}
-        {children && children}
-        {shortcut && <CommandShortcut primaryKey={shortcut} />}
-      </CommandItem>
-    );
-  }
-);
+  const { t } = useTranslation();
+
+  return (
+    <CommandItem
+      {...props}
+      ref={ref}
+      onSelect={(v) => {
+        onSelect?.(v);
+        if (closeOnSelect) {
+          dispatch('open', false);
+        }
+      }}
+    >
+      {icon}
+      {tKey && <span>{t(tKey)}</span>}
+      {children && children}
+      {shortcut && <CommandShortcut primaryKey={shortcut} />}
+    </CommandItem>
+  );
+};
 
 // Actions
 export const RunCommandItem: FC = () => {

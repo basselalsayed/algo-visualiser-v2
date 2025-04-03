@@ -44,7 +44,7 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setVisited = this.setVisited.bind(this);
   }
 
-  private ref: RefObject<HTMLDivElement>;
+  private ref: RefObject<HTMLDivElement | null>;
   readonly xIndex: number;
   readonly yIndex: number;
 

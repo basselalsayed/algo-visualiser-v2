@@ -130,7 +130,9 @@ export const Grid = memo(() => {
                 xIndex={xIndex}
                 yIndex={yIndex}
                 isLastColumn={xIndex === columnCount - 1}
-                ref={(node) => addRef(xIndex, yIndex, node)}
+                ref={(node) => {
+                  addRef(xIndex, yIndex, node);
+                }}
                 onClick={handleNodeClick}
                 onMouseOver={handleNodeMouseOver}
                 id={id}

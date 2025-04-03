@@ -10,7 +10,7 @@ type Size = {
 type UseResizeObserverOptions<T extends HTMLElement = HTMLElement> = {
   box?: 'border-box' | 'content-box' | 'device-pixel-content-box';
   onResize?: (size: Size) => void;
-  ref: React.RefObject<T>;
+  ref: React.RefObject<T | null>;
   throttleDelay?: number;
 };
 

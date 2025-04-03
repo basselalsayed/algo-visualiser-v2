@@ -1,5 +1,5 @@
 import { type VariantProps, cva } from 'class-variance-authority';
-import { type HTMLAttributes, forwardRef } from 'react';
+import { type ComponentPropsWithRef } from 'react';
 
 import { usePlatform } from '@/hooks';
 import { cn } from '@/lib';
@@ -21,29 +21,34 @@ const kbdKeyVariants = cva(
 );
 
 interface Props
-  extends HTMLAttributes<HTMLElement>,
+  extends ComponentPropsWithRef<'kbd'>,
     VariantProps<typeof kbdKeyVariants> {
   ctrlKey?: boolean;
   primaryKey: string;
 }
 
-export const KbdKey = forwardRef<HTMLElement, Props>(
-  ({ className, ctrlKey = true, primaryKey, size, ...rest }, ref) => {
-    const { ctrlKeySymbol, ctrlKeyTitle } = usePlatform();
+export const KbdKey = ({
+  className,
+  ctrlKey = true,
+  primaryKey,
+  ref,
+  size,
+  ...rest
+}: Props) => {
+  const { ctrlKeySymbol, ctrlKeyTitle } = usePlatform();
 
-    return (
-      <kbd
-        className={cn(kbdKeyVariants({ className, size }), className)}
-        ref={ref}
-        {...rest}
-      >
-        {ctrlKey && (
-          <abbr title={ctrlKeyTitle} className='no-underline'>
-            {ctrlKeySymbol}
-          </abbr>
-        )}
-        {primaryKey.toUpperCase()}
-      </kbd>
-    );
-  }
-);
+  return (
+    <kbd
+      className={cn(kbdKeyVariants({ className, size }), className)}
+      ref={ref}
+      {...rest}
+    >
+      {ctrlKey && (
+        <abbr title={ctrlKeyTitle} className='no-underline'>
+          {ctrlKeySymbol}
+        </abbr>
+      )}
+      {primaryKey.toUpperCase()}
+    </kbd>
+  );
+};

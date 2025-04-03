@@ -75,7 +75,7 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
 
   const gridNavigationOn = useRef<boolean>(false);
   const focusedNode = useRef<NodeCoordinates>([0, 0]);
-  const toastId = useRef<string | number>();
+  const toastId = useRef<string | number>(undefined);
 
   const onGridNavigationToggle = useEventCallback((e: KeyboardEvent) => {
     e.preventDefault();
