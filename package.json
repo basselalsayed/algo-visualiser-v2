@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --cache",
     "preview": "vite preview",
-    "update-index-ts": "cd src && for f in *; do pnpm dlx create-ts-index create ./$f -w -b; done"
+    "update-index-ts": "cd src && for f in *; do pnpm dlx create-ts-index create ./$f -w -b; done",
+    "typecheck": "tsc --project tsconfig.app.json"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
