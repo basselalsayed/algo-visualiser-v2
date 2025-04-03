@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
             ${{ runner.os }}-eslint-
 
       - name: Run ESLint
-        run: pnpm lint --cache-strategy content --debug
+        run: pnpm lint --cache-strategy content
       - name: Run Typescript
         run: pnpm typecheck
       - name: Vite compile
