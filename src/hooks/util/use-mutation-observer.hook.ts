@@ -4,7 +4,7 @@ interface Params {
   callback: MutationCallback;
   cleanup?: boolean;
   options?: MutationObserverInit;
-  target?: RefObject<HTMLElement> | HTMLElement;
+  target?: RefObject<HTMLElement | undefined> | HTMLElement;
 }
 
 export function useMutationObserver({
@@ -13,7 +13,7 @@ export function useMutationObserver({
   options,
   target,
 }: Params): VoidFunction {
-  const observer = useRef<MutationObserver | undefined>();
+  const observer = useRef<MutationObserver | undefined>(undefined);
 
   const stop = useCallback(() => {
     observer.current?.disconnect();

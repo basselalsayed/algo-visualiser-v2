@@ -6,10 +6,11 @@ import { cn } from '@/lib/utils';
 
 import { Button } from './button';
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
+const Checkbox = ({
+  className,
+  ref,
+  ...props
+}: React.ComponentPropsWithRef<typeof CheckboxPrimitive.Root>) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
@@ -27,7 +28,7 @@ const Checkbox = React.forwardRef<
       </CheckboxPrimitive.Indicator>
     </Button>
   </CheckboxPrimitive.Root>
-));
+);
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
 export { Checkbox };

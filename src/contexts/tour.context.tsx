@@ -221,9 +221,5 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     },
   });
 
-  return (
-    <TourContext.Provider value={{ tour, tourComplete }}>
-      {children}
-    </TourContext.Provider>
-  );
+  return <TourContext value={{ tour, tourComplete }}>{children}</TourContext>;
 });

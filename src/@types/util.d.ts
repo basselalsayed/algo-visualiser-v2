@@ -28,3 +28,13 @@ declare global {
     tKey: TKey<T>;
   }
 }
+
+declare module 'react/jsx-runtime' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'my-element': {
+        myElementProps: string;
+      };
+    }
+  }
+}

@@ -1,10 +1,11 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
-import { useBoolean, useEventListener } from 'usehooks-ts';
+import { useBoolean } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
   useDimensions,
+  useEventListener,
   useGrid,
   useResizeObserver,
   useSettings,
@@ -130,7 +131,9 @@ export const Grid = memo(() => {
                 xIndex={xIndex}
                 yIndex={yIndex}
                 isLastColumn={xIndex === columnCount - 1}
-                ref={(node) => addRef(xIndex, yIndex, node)}
+                ref={(node) => {
+                  addRef(xIndex, yIndex, node);
+                }}
                 onClick={handleNodeClick}
                 onMouseOver={handleNodeMouseOver}
                 id={id}
