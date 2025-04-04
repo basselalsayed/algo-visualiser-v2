@@ -1,10 +1,11 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
-import { useBoolean, useEventListener } from 'usehooks-ts';
+import { useBoolean } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
   useDimensions,
+  useEventListener,
   useGrid,
   useResizeObserver,
   useSettings,
