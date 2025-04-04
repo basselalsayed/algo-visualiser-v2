@@ -61,7 +61,7 @@ export default config(
         { allowConstantExport: true },
       ],
       'sort/export-members': 'off',
-      'sort/exports': 'off',
+      'sort/exports': 'error',
       'sort/import-members': 'off',
       'sort/imports': 'off',
       'sort/type-properties': 'error',
