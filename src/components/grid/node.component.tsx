@@ -202,7 +202,7 @@ export class Node extends PureComponent<Props, State> implements INode {
           width: size,
         }}
         className={cn(
-          'border-l border-t border-background transition-colors last:border-b [&:not([data-type=none])]:bg-gradient-to-br',
+          'border-background border-t border-l transition-colors last:border-b [&:not([data-type=none])]:bg-radial',
           'data-[type=none]:bg-transparent',
           'data-[type=end]:from-orange-600 data-[type=end]:to-red-600',
           'data-[type=start]:from-green-600 data-[type=start]:to-cyan-600',
