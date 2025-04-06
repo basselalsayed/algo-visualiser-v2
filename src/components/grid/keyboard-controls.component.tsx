@@ -27,7 +27,7 @@ export const KeyboardControls: FC = () => {
           typeof navigationActionSymbols
         >
       ).map(([info, key]) => (
-        <li className='flex items-center gap-1 text-lg text-muted-foreground'>
+        <li className='text-muted-foreground flex items-center gap-1 text-lg'>
           <KbdKey primaryKey={key} ctrlKey={false} /> - {t(`gridNav.${info}`)}
         </li>
       ))}
