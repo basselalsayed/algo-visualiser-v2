@@ -14,7 +14,7 @@ const Checkbox = ({
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'peer h-4 w-4 shrink-0 rounded-sm p-2 shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+      'peer focus-visible:ring-ring h-4 w-4 shrink-0 rounded-sm p-2 shadow-sm focus-visible:ring-1 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
       className
     )}
     asChild

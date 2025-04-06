@@ -25,7 +25,7 @@ export const DesktopNav: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <NavigationMenu className='grad-border row-start-1 grid w-full max-w-full grid-flow-col items-center justify-between justify-items-stretch border-b-2 bg-background px-4 py-3'>
+    <NavigationMenu className='grad-border bg-background row-start-1 grid w-full max-w-full grid-flow-col items-center justify-between justify-items-stretch border-b-2 px-4 py-3'>
       <h1 className='pr-1 text-left'>{t('navbar.appName')}</h1>
       <NavigationMenuList className='gap-3'>
         <QuickSearchButton />

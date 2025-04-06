@@ -308,7 +308,7 @@ const CarouselDotButtons = ({
           onClick={() => onDotButtonClick(index)}
           className={cn(
             'transition-[border-width]',
-            index === selectedIndex && '!border-4',
+            index === selectedIndex && 'border-4!',
             buttonClassName
           )}
         />

@@ -1,9 +1,115 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
-* {
-  box-sizing: border-box;
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --color-white: hsl(var(--white));
+  --color-black: hsl(var(--black));
+  --color-grad-accent-1: hsl(var(--grad-accent-1));
+  --color-grad-accent-2: hsl(var(--grad-accent-2));
+  --color-grad-accent-mix: var(--grad-accent-mix);
+  --color-grad-bg-1: hsl(var(--grad-bg-1));
+  --color-grad-bg-2: hsl(var(--grad-bg-2));
+  --color-grad-header-1: hsl(var(--grad-header-1));
+  --color-grad-header-2: hsl(var(--grad-header-2));
+  --color-grad-header-3: hsl(var(--grad-header-3));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-grad-node-start-1: var(--color-red-400); /* red 400 */
+  --color-grad-node-start-2: var(--color-orange-400); /* orange 400 */
+  --color-grad-node-end-1: var(--color-red-400); /* red 400 */
+  --color-grad-node-end-2: var(--color-orange-400); /* orange 400 */
+  --color-grad-node-wall-1: var(--color-red-400); /* red 400 */
+  --color-grad-node-wall-2: var(--color-orange-400); /* orange 400 */
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  --font-mono:
+    bangers, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  --font-sans:
+    bangers, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif:
+    bangers, ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer utilities {
+  * {
+    box-sizing: border-box;
+  }
 }
 
 @layer base {
@@ -92,7 +198,62 @@
   }
 }
 
+@utility grad-accent {
+  @apply from-grad-accent-1 to-grad-accent-2 bg-linear-to-br;
+}
+
+@utility bg_grad_accent {
+  @apply text-secondary border-2 border-solid border-transparent dark:border;
+
+  --base-color: hsl(var(--background) / 0.8);
+  --grad-1: hsl(var(--grad-accent-1));
+  --grad-2: hsl(var(--grad-accent-2));
+  --lg: linear-gradient(
+    to bottom right,
+    var(--grad-1),
+    var(--grad-2),
+    var(--grad-1),
+    var(--grad-2)
+  );
+  background: var(--lg);
+  background-size: 400% 400% !important;
+}
+
+@utility bg_grad_accent--outline {
+  @apply bg_grad_accent;
+
+  background:
+    linear-gradient(var(--base-color), var(--base-color)) padding-box,
+    var(--lg) border-box;
+}
+
+@utility bg_grad_accent--outline--text {
+  @apply bg_grad_accent--outline text-transparent!;
+
+  background:
+    var(--lg) text,
+    linear-gradient(var(--base-color), var(--base-color)) padding-box,
+    var(--lg) border-box;
+}
+
+@utility grad_text {
+  @apply bg-linear-to-br bg-clip-text text-transparent;
+}
+
+@utility grad_text--accent {
+  @apply grad_text grad-accent;
+}
+
+@utility grad_text--header {
+  @apply grad_text from-grad-header-1 via-grad-header-2 to-grad-header-3 pr-1;
+}
+
 @layer base {
+  /* button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  } */
+
   * {
     @apply border-grad-accent-mix;
   }
@@ -102,25 +263,22 @@
       color: hsl(var(--foreground));
     }
   }
-  body {
-    @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
-    @apply text-foreground;
-  }
 
   .grad-accent {
-    @apply bg-gradient-to-br from-grad-accent-1 to-grad-accent-2;
+    @apply from-grad-accent-1 to-grad-accent-2 bg-linear-to-br;
   }
+
   .bg_grad_accent\/70 {
-    @apply bg-gradient-to-br from-grad-accent-1/70 to-grad-accent-2/70;
+    @apply from-grad-accent-1/70 to-grad-accent-2/70 bg-linear-to-br;
   }
   .bg_grad_accent\/10 {
-    @apply bg-gradient-to-br from-grad-accent-1/10 to-grad-accent-2/10;
+    @apply from-grad-accent-1/10 to-grad-accent-2/10 bg-linear-to-br;
   }
   .bg_grad_accent\/20 {
-    @apply bg-gradient-to-br from-grad-accent-1/20 to-grad-accent-2/20;
+    @apply from-grad-accent-1/20 to-grad-accent-2/20 bg-linear-to-br;
   }
   .grad-accent-vertical {
-    @apply bg-gradient-to-b from-grad-accent-1 to-grad-accent-2;
+    @apply from-grad-accent-1 to-grad-accent-2 bg-linear-to-b;
   }
 
   /* because of border image limitations, this class is only useful if you don't need a border radius */
@@ -132,54 +290,6 @@
     );
     border-image-slice: 1;
   }
-
-  .bg_grad_accent {
-    background: linear-gradient(
-      to bottom right,
-      hsl(var(--grad-accent-1)),
-      hsl(var(--grad-accent-2)),
-      hsl(var(--grad-accent-1)),
-      hsl(var(--grad-accent-2))
-    );
-
-    @apply text-secondary;
-  }
-
-  .bg_grad_accent--outline,
-  .bg_grad_accent--outline--text {
-    --base-color: hsl(var(--background) / 0.8);
-    --grad-1: hsl(var(--grad-accent-1));
-    --grad-2: hsl(var(--grad-accent-2));
-
-    --lg: linear-gradient(
-      to bottom right,
-      var(--grad-1),
-      var(--grad-2),
-      var(--grad-1),
-      var(--grad-2)
-    );
-
-    background:
-      linear-gradient(var(--base-color), var(--base-color)) padding-box,
-      var(--lg) border-box;
-  }
-
-  .bg_grad_accent--outline--text {
-    background:
-      var(--lg) text,
-      linear-gradient(var(--base-color), var(--base-color)) padding-box,
-      var(--lg) border-box;
-
-    color: transparent !important;
-  }
-
-  .bg_grad_accent,
-  .bg_grad_accent--outline,
-  .bg_grad_accent--outline--text {
-    background-size: 400% 400%;
-    @apply border-2 border-solid border-transparent dark:border;
-  }
-
   @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -213,22 +323,8 @@
     }
   }
 
-  .grad_text,
-  .grad_text--accent,
-  .grad_text--header {
-    @apply bg-gradient-to-br bg-clip-text text-transparent;
-  }
-
-  .grad_text--accent {
-    @apply grad-accent;
-  }
-
-  .grad_text--header {
-    @apply from-grad-header-1 via-grad-header-2 to-grad-header-3 pr-1;
-  }
-
   .grad-grid {
-    @apply bg-gradient-to-br from-grad-bg-1 to-grad-bg-2;
+    @apply from-grad-bg-1 to-grad-bg-2 bg-linear-to-br;
   }
 
   h1,
@@ -280,13 +376,13 @@
       @apply justify-start;
 
       &:has(+ .shepherd-text) {
-        @apply border-b-2 border-grad-accent-mix;
+        @apply border-grad-accent-mix border-b-2;
       }
 
       h3 {
         --stroke-color: var(--grad-accent-mix);
         --stroke-width: 0.04rem;
-        @apply text-2xl text-primary;
+        @apply text-primary text-2xl;
       }
     }
 

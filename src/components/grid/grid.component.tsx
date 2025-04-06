@@ -103,13 +103,13 @@ export const Grid = memo(() => {
   return (
     <div
       id={HTML_IDS.components.grid}
-      className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pb-4 sm:pt-0'
+      className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
       ref={gridRef}
     >
       {Array.from({ length: columnCount }).map((_, xIndex) => (
         <div
           key={`col-${xIndex}-${nodeSize}-${refreshKey}`}
-          className='flex flex-shrink flex-col'
+          className='flex shrink flex-col'
         >
           {Array.from({ length: rowCount }).map((_, yIndex) => {
             const firstColumn = xIndex === 0;
