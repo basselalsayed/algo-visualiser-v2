@@ -10,6 +10,7 @@ export const HTML_IDS = {
   },
   components: {
     grid: 'nodeGrid',
+    shortestPath: 'shortestPathSvg',
   },
   tutorial: {
     node: 'exampleNode',
