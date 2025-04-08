@@ -1,4 +1,4 @@
-import { animate } from 'framer-motion/dom';
+import { animate } from 'motion';
 
 import { assert, convertToSeconds, sleep } from '../utils';
 
