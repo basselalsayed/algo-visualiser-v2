@@ -1,4 +1,6 @@
+import { type TFunction } from 'i18next';
 import { type FC, type PropsWithChildren, memo, useMemo } from 'react';
+import { createRoot } from 'react-dom/client';
 import { useTranslation } from 'react-i18next';
 import Shepherd, {
   type StepOptions,
@@ -8,6 +10,7 @@ import Shepherd, {
 } from 'shepherd.js';
 import { useLocalStorage } from 'usehooks-ts';
 
+import { LanguageSelect } from '@/components';
 import { buttonVariants } from '@/components/ui';
 import { useDeviceQueries, useMutationObserver } from '@/hooks';
 import { HTML_SELECTORS, customEventKeys } from '@/lib';
@@ -18,7 +21,21 @@ import { defineContext } from './define-context.fn';
 export const [TourContext, useTour] = defineContext<{
   tour: Tour;
   tourComplete: boolean;
+  tourDismissed: boolean;
 }>('Tour');
+
+function renderLanguageSelectStep(t: TFunction<'tour'>) {
+  const container = document.createElement('div');
+
+  createRoot(container).render(
+    <div className='flex flex-col gap-3'>
+      <p>{t('steps.intro.content')}</p>
+      <LanguageSelect />
+    </div>
+  );
+
+  return container;
+}
 
 export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   const { t } = useTranslation('tour');
@@ -27,17 +44,22 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     'av-tour-complete',
     false
   );
+  const [tourDismissed, setTourDismissed] = useLocalStorage<boolean>(
+    'av-tour-dismissed',
+    false
+  );
 
   const shepherdCancelButton = useMemo<StepOptionsButton>(
     () => ({
       action(this) {
         this.cancel();
+        setTourDismissed(true);
       },
       classes: buttonVariants({ size: 'lg', variant: 'outline' }),
       secondary: true,
       text: t('buttons.cancel'),
     }),
-    [t]
+    [setTourDismissed, t]
   );
 
   const shepherdNextButton = useMemo<StepOptionsButton>(
@@ -55,6 +77,10 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     () =>
       (
         [
+          {
+            text: () => renderLanguageSelectStep(t),
+            title: t('steps.intro.header'),
+          },
           {
             buttons: [shepherdCancelButton, shepherdNextButton],
             text: t('intro'),
@@ -188,11 +214,13 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
         arrow: true,
         buttons: [shepherdNextButton],
       },
+      exitOnEsc: false,
     }),
     [shepherdNextButton]
   );
 
   const tour = useMemo(() => {
+    Shepherd.activeTour?.cancel();
     const tourInstance = new Shepherd.Tour(options);
 
     tourInstance.addSteps(steps);
@@ -221,5 +249,9 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     },
   });
 
-  return <TourContext value={{ tour, tourComplete }}>{children}</TourContext>;
+  return (
+    <TourContext value={{ tour, tourComplete, tourDismissed }}>
+      {children}
+    </TourContext>
+  );
 });

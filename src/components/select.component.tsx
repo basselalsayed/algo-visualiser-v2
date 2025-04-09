@@ -22,7 +22,7 @@ export const Select = <T extends string>({
     <S.SelectTrigger className={cn('w-6/12 [&_span]:pe-1', className)}>
       <S.SelectValue placeholder={value.label} />
     </S.SelectTrigger>
-    <S.SelectContent className='bg_grad_accent--outline'>
+    <S.SelectContent className='bg_grad_accent--outline z-[99999]'>
       {options.map((o) => (
         <S.SelectItem key={o.value} value={o.value}>
           {o.label}
