@@ -22,12 +22,14 @@ export class ShortestPath {
   drawShortestPath = (): SVGSVGElement => {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('id', HTML_IDS.components.shortestPath);
-    svg.setAttribute('width', String(globalThis.innerWidth));
-    svg.setAttribute('height', String(globalThis.innerHeight));
-    svg.style.position = 'absolute';
-    svg.style.top = '0';
-    svg.style.left = '0';
-    svg.style.pointerEvents = 'none';
+    svg.classList.add(
+      'w-full',
+      'h-full',
+      'absolute',
+      'top-0',
+      'left-0',
+      'pointer-events-none'
+    );
 
     for (const [i, { domNode }] of this.path.entries()) {
       if (i === this.path.length - 1) continue;
