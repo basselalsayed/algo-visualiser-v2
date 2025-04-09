@@ -2,6 +2,7 @@ import { animate } from 'motion';
 
 import { assert, convertToSeconds, sleep } from '../utils';
 
+import { ShortestPath } from './shortest-path';
 import type {
   IPathFindingAlgorithm,
   RuntimeInfo,
@@ -96,24 +97,6 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     );
   }
 
-  *animateShortestPath(this: this) {
-    for (const node of this.shortestPath) {
-      animate(
-        node.domNode!,
-        {
-          backgroundColor: ['#3434eb', '#eb9834', '#34eb4f'],
-          scale: [0.8, 1.2, 1],
-        },
-        {
-          duration: 0.15,
-          ease: 'easeInOut',
-        }
-      );
-
-      yield sleep(10);
-    }
-  }
-
   abstract traverse(this: this): TraverseGenerator;
 
   private accessor traverseGenerator: TraverseGenerator | undefined;
@@ -159,7 +142,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
 
-      this.shortestPathGenerator ??= this.animateShortestPath();
+      this.shortestPathGenerator ??= new ShortestPath(this.shortestPath).run();
 
       await this.executeGenerator(this.shortestPathGenerator);
 

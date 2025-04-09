@@ -1,13 +1,15 @@
 import { animate } from 'motion';
 
-import { HTML_IDS, HTML_SELECTORS } from '..';
+import { HTML_IDS, HTML_SELECTORS, secondsToMilliseconds, sleep } from '..';
 
 export class ShortestPath {
   static reset() {
     document.querySelector(HTML_SELECTORS.components.shortestPath)?.remove();
   }
 
-  constructor(private readonly path: INode[]) {}
+  constructor(private readonly path: INode[]) {
+    this.run = this.run.bind(this);
+  }
 
   getNodeCenter = (el: Element) => {
     const rect = el.getBoundingClientRect();
@@ -58,29 +60,29 @@ export class ShortestPath {
     return svg;
   };
 
-  animate = async (svg: SVGSVGElement) => {
-    const duration = 0.025;
-
-    await animate(
-      [...svg.querySelectorAll('path')],
-      {
-        strokeDashoffset: 0,
-      },
-      {
-        delay: (i) => i * duration,
-        duration,
-        ease: 'easeInOut',
-      }
-    );
-  };
-
-  run = async () => {
+  *run(this: this) {
     ShortestPath.reset();
 
     const newSvg = this.drawShortestPath();
 
     document.body.append(newSvg);
 
+    const duration = 0.025;
+
+    for (const path of newSvg.querySelectorAll('path')) {
+      animate(
+        path,
+        {
+          strokeDashoffset: 0,
+        },
+        {
+          duration,
+          ease: 'easeInOut',
+        }
+      );
+
+      yield sleep(secondsToMilliseconds(duration));
+    }
     await this.animate(newSvg);
   };
 
