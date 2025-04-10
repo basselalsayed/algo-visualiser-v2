@@ -2,7 +2,13 @@ import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { CommandKComponent, Grid, Navbar, StatsSheet } from '@/components';
+import {
+  CommandKComponent,
+  Grid,
+  Navbar,
+  ShortestPathContainer,
+  StatsSheet,
+} from '@/components';
 import { useKeyboardShortcuts } from '@/hooks';
 
 import { useHandlleAlgoUpdates } from './use-handle-algo-updates.hook';
@@ -27,6 +33,7 @@ export const App: FC = () => {
         <Grid />
         <Navbar />
       </main>
+      <ShortestPathContainer />
     </>
   );
 };

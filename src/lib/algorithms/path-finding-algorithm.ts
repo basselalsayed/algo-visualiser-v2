@@ -124,6 +124,8 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     return convertToSeconds(this.executionStart, this.executionEnd);
   }
 
+  static accessor shortestPath: ShortestPath | undefined;
+
   async run(
     this: this,
     onDone?: (results: RuntimeInfo) => unknown
@@ -141,8 +143,12 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
-
-      this.shortestPathGenerator ??= new ShortestPath(this.shortestPath).run();
+      PathFindingAlgorithm.shortestPath ??= new ShortestPath(
+        this.name,
+        this.shortestPath
+      );
+      PathFindingAlgorithm.shortestPath.addPath(this.name, this.shortestPath);
+      this.shortestPathGenerator ??= PathFindingAlgorithm.shortestPath.run();
 
       await this.executeGenerator(this.shortestPathGenerator);
 
