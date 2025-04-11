@@ -136,6 +136,13 @@
     --grad-node-wall-1: 0 91% 71%; /* red 400 */
     --grad-node-wall-2: 27 96% 61%; /* orange 400 */
 
+    --shortest-path-start: var(--color-violet-500);
+    --shortest-path-end-DIJ: var(--color-fuchsia-500);
+    --shortest-path-end-ASE: var(--color-amber-500);
+    --shortest-path-end-ASM: var(--color-rose-500);
+    --shortest-path-end-DFS: var(--color-red-500);
+    --shortest-path-end-BFS: var(--color-blue-500);
+
     --background: 240 6% 90%; /* zinc 200 */
     --foreground: 240 10% 3.9%;
     --card: var(--background);
@@ -161,6 +168,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --node-size: 32;
+    --shortest-path-width: calc(var(--node-size) / 10);
   }
   .dark {
     --grad-bg-1: 23 83% 31%; /* Tailwind Amber 800 */
@@ -170,6 +180,13 @@
     --grad-header-1: 26 90% 37%; /* Tailwind Amber 700 */
     --grad-header-2: 17 88% 40%; /* Tailwind Orange 700 */
     --grad-header-3: 0 74% 42%; /* Tailwind Red 700 */
+
+    --shortest-path-start: var(--color-green-600);
+    --shortest-path-end-DIJ: var(--color-orange-600);
+    --shortest-path-end-ASE: var(--color-emerald-400);
+    --shortest-path-end-ASM: var(--color-fuchsia-400);
+    --shortest-path-end-DFS: var(--color-purple-400);
+    --shortest-path-end-BFS: var(--color-rose-400);
 
     --background: 240 6% 10%; /* zinc 900 */
     --foreground: 0 0% 98%;

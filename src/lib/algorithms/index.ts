@@ -3,4 +3,5 @@ export * from './dijkstra';
 export * from './first-search';
 export * from './path-finding-algorithm';
 export * from './recursive-division-maze';
+export * from './shortest-path';
 export * from './types';

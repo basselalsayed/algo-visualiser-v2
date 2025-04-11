@@ -25,3 +25,5 @@ export type TraverseGenerator = Generator<
   void | Promise<void>,
   RuntimeInfo['nodesProcessed']
 >;
+
+export type AlgoName = 'ASE' | 'ASM' | 'BFS' | 'DFS' | 'DIJ';

@@ -2,11 +2,16 @@ import { animate } from 'motion';
 
 import { toSnake } from '@/data';
 
-import { HTML_SELECTORS, secondsToMilliseconds, sleep } from '..';
+import {
+  type AlgoName,
+  HTML_SELECTORS,
+  secondsToMilliseconds,
+  sleep,
+} from '..';
 
 export class ShortestPath {
-  private readonly pathMap: Map<string, INode[]>;
-  addPath = (name: string, path: INode[]) => {
+  private readonly pathMap: Map<AlgoName, INode[]>;
+  addPath = (name: AlgoName, path: INode[]) => {
     this.pathMap.set(name, path);
   };
 
@@ -20,8 +25,8 @@ export class ShortestPath {
       ?.replaceChildren();
   }
 
-  constructor(name: string, path: INode[]) {
-    this.pathMap = new Map<'string', INode[]>();
+  constructor(name: AlgoName, path: INode[]) {
+    this.pathMap = new Map<AlgoName, INode[]>();
     this.pathMap.set(name, path);
 
     this.run = this.run.bind(this);
@@ -72,9 +77,9 @@ export class ShortestPath {
 
       path.setAttribute('id', toSnake(name));
       path.setAttribute('d', d);
-      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-width', 'var(--shortest-path-width)');
       path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', this.getPathColor(i, totalPathLength));
+      path.setAttribute('stroke', this.getPathColor(i, totalPathLength, name));
 
       const length = path.getTotalLength();
       path.setAttribute('stroke-dasharray', String(length));
@@ -106,13 +111,21 @@ export class ShortestPath {
 
       yield sleep(secondsToMilliseconds(duration));
     }
-    await this.animate(newSvg);
-  };
+  }
 
-  private getPathColor = (i: number, length: number) => {
+  private colors = Object.fromEntries(
+    ['ASE', 'ASM', 'BFS', 'DFS', 'DIJ'].map((name) => [
+      name,
+      ['var(--shortest-path-start)', `var(--shortest-path-end-${name})`],
+    ])
+  );
+
+  private getPathColor = (i: number, length: number, name: AlgoName) => {
     const ratio = (i + 1) / length;
     const endPercent = Math.floor(ratio * 100);
 
-    return `color-mix(in oklch, var(--color-green-600), var(--color-orange-600) ${endPercent}%)`;
+    const [startColor, endColor] = this.colors[name];
+
+    return `color-mix(in oklch, ${startColor}, ${endColor} ${endPercent}%)`;
   };
 }
