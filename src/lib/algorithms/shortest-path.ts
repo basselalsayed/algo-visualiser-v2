@@ -9,13 +9,13 @@ import {
   sleep,
 } from '..';
 
-export class ShortestPath {
+class _ShortestPath {
   private readonly pathMap: Map<AlgoName, INode[]>;
   addPath = (name: AlgoName, path: INode[]) => {
     this.pathMap.set(name, path);
   };
 
-  static reset() {
+  reset = () => {
     document
       .querySelector(HTML_SELECTORS.components.shortestPathSvg)
       ?.replaceChildren();
@@ -23,11 +23,12 @@ export class ShortestPath {
     document
       .querySelector(HTML_SELECTORS.components.shortestPathTooltip)
       ?.replaceChildren();
-  }
 
-  constructor(name: AlgoName, path: INode[]) {
+    this.pathMap.clear();
+  };
+
+  constructor() {
     this.pathMap = new Map<AlgoName, INode[]>();
-    this.pathMap.set(name, path);
 
     this.run = this.run.bind(this);
   }
@@ -62,13 +63,14 @@ export class ShortestPath {
     for (const [i, { domNode }] of shortestPath.entries()) {
       if (i === totalPathLength - 1) continue;
 
-      const p1 = this.getNodeCenter(domNode);
-      const p2 = this.getNodeCenter(shortestPath[i + 1].domNode);
-
       const path = document.createElementNS(
         'http://www.w3.org/2000/svg',
         'path'
       );
+
+      const p1 = this.getNodeCenter(domNode);
+      const p2 = this.getNodeCenter(shortestPath[i + 1].domNode);
+
       const d = [
         `M ${p1.x} ${p1.y}`,
         `L ${p2.x} ${p1.y}`,
@@ -129,3 +131,5 @@ export class ShortestPath {
     return `color-mix(in oklch, ${startColor}, ${endColor} ${endPercent}%)`;
   };
 }
+
+export const ShortestPath = new _ShortestPath();

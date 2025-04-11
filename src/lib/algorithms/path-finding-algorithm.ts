@@ -4,13 +4,14 @@ import { assert, convertToSeconds, sleep } from '../utils';
 
 import { ShortestPath } from './shortest-path';
 import type {
+  AlgoName,
   IPathFindingAlgorithm,
   RuntimeInfo,
   TraverseGenerator,
 } from './types';
 
 export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
-  abstract name: string;
+  abstract name: AlgoName;
 
   constructor(
     public grid: NodeMap,
@@ -124,8 +125,6 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     return convertToSeconds(this.executionStart, this.executionEnd);
   }
 
-  static accessor shortestPath: ShortestPath | undefined;
-
   async run(
     this: this,
     onDone?: (results: RuntimeInfo) => unknown
@@ -143,12 +142,8 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
-      PathFindingAlgorithm.shortestPath ??= new ShortestPath(
-        this.name,
-        this.shortestPath
-      );
-      PathFindingAlgorithm.shortestPath.addPath(this.name, this.shortestPath);
-      this.shortestPathGenerator ??= PathFindingAlgorithm.shortestPath.run();
+      ShortestPath.addPath(this.name, this.shortestPath);
+      this.shortestPathGenerator ??= ShortestPath.run();
 
       await this.executeGenerator(this.shortestPathGenerator);
 
