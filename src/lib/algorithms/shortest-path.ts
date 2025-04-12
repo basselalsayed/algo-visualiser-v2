@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { animate } from 'motion';
 
 import { toSnake } from '@/data';
@@ -116,7 +117,7 @@ class _ShortestPath {
   }
 
   private colors = Object.fromEntries(
-    ['ASE', 'ASM', 'BFS', 'DFS', 'DIJ'].map((name) => [
+    ['dijkstra', 'aStarE', 'aStarM', 'dfs', 'bfs'].map((name) => [
       name,
       ['var(--shortest-path-start)', `var(--shortest-path-end-${name})`],
     ])

@@ -1,3 +1,5 @@
+import type tAlgoInfo from '@/locales/en/algoInfo.json';
+
 export interface RuntimeInfo {
   name: string;
   nodesProcessed: number;
@@ -26,4 +28,4 @@ export type TraverseGenerator = Generator<
   RuntimeInfo['nodesProcessed']
 >;
 
-export type AlgoName = 'ASE' | 'ASM' | 'BFS' | 'DFS' | 'DIJ';
+export type AlgoName = keyof typeof tAlgoInfo;

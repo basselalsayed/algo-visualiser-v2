@@ -1,7 +1,7 @@
 import { AStarBase } from './a-star-base';
 
 export class AStarEuclidean extends AStarBase {
-  name = 'A* Euclidean';
+  readonly name = 'aStarE';
 
   findManhatten(this: this, node: INode, endNode: INode) {
     const manhatten =

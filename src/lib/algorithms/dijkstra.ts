@@ -3,7 +3,7 @@ import { sleep } from '../utils';
 import { PathFindingAlgorithm } from './path-finding-algorithm';
 
 export class Dijkstra extends PathFindingAlgorithm {
-  name = 'Dijkstra';
+  readonly name = 'dijkstra';
 
   updateUnvisitedNeighbors(this: this, node: INode): void {
     const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
