@@ -24,13 +24,20 @@ interface SettingsStore {
 export const useSettings = create<SettingsStore>((set) => ({
   animationSpeed: 0,
   currentAlgo: algoInfo[0],
-  dispatch: (type, payload) =>
+  dispatch: (key, payload) =>
     set(
       produce<SettingsStore>((state) => {
-        if (type === 'drawSquare') {
+        if (key === 'drawSquare') {
           state.gridWidth = payload as number;
           state.gridHeight = payload as number;
-        } else state[type] = payload;
+        } else state[key] = payload;
+
+        if (key === 'nodeSize') {
+          document.documentElement.style.setProperty(
+            '--node-size',
+            String(payload)
+          );
+        }
       })
     ),
   drawSquare: 0,

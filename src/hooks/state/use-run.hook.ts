@@ -7,7 +7,7 @@ import { useTour } from '@/contexts';
 import { useMutation } from '@/data/hooks/use-mutation.hook';
 import { eventEmitter } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
-import { RecursiveDivisionMaze } from '@/lib/algorithms/recursive-division-maze';
+import { RecursiveDivisionMaze, ShortestPath } from '@/lib/algorithms';
 
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
@@ -105,6 +105,7 @@ export const useRun = (): useRunReturn => {
     resetGrid();
     dispatch('runState', 'idle');
     dispatch('mazeRunState', 'idle');
+    ShortestPath.reset();
   }, [algoInstance, dispatch, resetGrid]);
 
   const runMaze = useCallback(() => {

@@ -1,7 +1,7 @@
 import { AStarBase } from './a-star-base';
 
 export class AStarManhatten extends AStarBase {
-  name = 'A* Manhatten';
+  readonly name = 'aStarM';
 
   findManhatten(this: this, node: INode, endNode: INode) {
     const manhatten =

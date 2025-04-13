@@ -1,3 +1,5 @@
+import { isPlainObject, mapValues } from 'lodash-es';
+
 export const HTML_IDS = {
   buttons: {
     algoFormTrigger: 'deskAlgoForm',
@@ -10,20 +12,26 @@ export const HTML_IDS = {
   },
   components: {
     grid: 'nodeGrid',
+    shortestPathContainer: 'shortestPathContainer',
+    shortestPathSvg: 'shortestPathSvg',
+    shortestPathTooltip: 'shortestPathTooltip',
   },
   tutorial: {
     node: 'exampleNode',
   },
+} as const;
+
+interface IID {
+  [k: string]: string | IID;
+}
+
+type Selectorify<T> = {
+  [K in keyof T]: T[K] extends string ? `#${T[K]}` : Selectorify<T[K]>;
 };
 
-export const HTML_SELECTORS = Object.fromEntries(
-  Object.entries(HTML_IDS).map(([category, ids]) => [
-    category,
-    Object.fromEntries(
-      (Object.keys(ids) as (keyof typeof ids)[]).map((key) => [
-        key,
-        `#${ids[key]}`,
-      ])
-    ),
-  ])
-) as typeof HTML_IDS;
+const mapIdsToSelectors = <T extends IID>(obj: T): Selectorify<T> =>
+  mapValues(obj, (val) =>
+    isPlainObject(val) ? mapIdsToSelectors(val as IID) : `#${val as string}`
+  ) as Selectorify<T>;
+
+export const HTML_SELECTORS = mapIdsToSelectors(HTML_IDS);

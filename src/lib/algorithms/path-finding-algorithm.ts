@@ -1,15 +1,17 @@
-import { animate } from 'framer-motion/dom';
+import { animate } from 'motion';
 
-import { assert, convertToSeconds, sleep } from '../utils';
+import { assert, convertToSeconds } from '../utils';
 
+import { ShortestPath } from './shortest-path';
 import type {
+  AlgoName,
   IPathFindingAlgorithm,
   RuntimeInfo,
   TraverseGenerator,
 } from './types';
 
 export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
-  abstract name: string;
+  abstract name: AlgoName;
 
   constructor(
     public grid: NodeMap,
@@ -96,24 +98,6 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     );
   }
 
-  *animateShortestPath(this: this) {
-    for (const node of this.shortestPath) {
-      animate(
-        node.domNode!,
-        {
-          backgroundColor: ['#3434eb', '#eb9834', '#34eb4f'],
-          scale: [0.8, 1.2, 1],
-        },
-        {
-          duration: 0.15,
-          ease: 'easeInOut',
-        }
-      );
-
-      yield sleep(10);
-    }
-  }
-
   abstract traverse(this: this): TraverseGenerator;
 
   private accessor traverseGenerator: TraverseGenerator | undefined;
@@ -158,8 +142,8 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
-
-      this.shortestPathGenerator ??= this.animateShortestPath();
+      ShortestPath.addPath(this.name, this.shortestPath);
+      this.shortestPathGenerator ??= ShortestPath.run();
 
       await this.executeGenerator(this.shortestPathGenerator);
 

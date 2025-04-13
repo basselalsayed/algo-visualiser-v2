@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -7,10 +7,12 @@ import { NodeType } from './node-type.enum';
 
 interface Props {
   className?: string;
+  columnCount: number;
   id?: string;
   isLastColumn: boolean;
   onClick: (node: Node) => NodeType;
   onMouseOver: (node: Node) => NodeType;
+  rowCount: number;
   size: number;
   xIndex: number;
   yIndex: number;
@@ -48,11 +50,14 @@ export class Node extends PureComponent<Props, State> implements INode {
   readonly xIndex: number;
   readonly yIndex: number;
 
+  get coordinates(): NodeCoordinates {
+    return [this.xIndex, this.yIndex];
+  }
+
   private _pastNode?: Node | undefined;
   get pastNode() {
     return this._pastNode;
   }
-
   setPastNode(value?: Node) {
     this._pastNode = value;
   }
@@ -135,9 +140,47 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setState({ type: onMouseOver(this) });
   }
 
+  private get shadowOffset(): { x: number; y: number } {
+    const { columnCount, rowCount } = this.props;
+
+    return {
+      x: 0.4 * (1 - 2 * (this.xIndex / columnCount)),
+      y: 0.4 * (1 - 2 * (this.yIndex / rowCount)),
+    };
+  }
+
+  private get hoverFocusStyles(): TargetAndTransition {
+    const colorPrimary = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue('--primary');
+
+    const { visited } = this.state;
+
+    return visited
+      ? {
+          borderWidth: '1px',
+          transition: {
+            duration: 0.01,
+            ease: 'easeInOut',
+          },
+        }
+      : {
+          backdropFilter: 'blur(10px)',
+          backgroundColor: `hsl(${colorPrimary} / 0.1)`,
+          borderWidth: '1px',
+          boxShadow: `${this.shadowOffset.x}rem ${this.shadowOffset.y}rem 0.5rem 0.2rem var(--color-primary-foreground)`,
+          scale: 1.1,
+          transition: {
+            duration: 0.1,
+            ease: 'easeInOut',
+          },
+          zIndex: 9999,
+        };
+  }
+
   render() {
     const { className, id, isLastColumn, size, xIndex, yIndex } = this.props;
-    const { type, visited } = this.state;
+    const { type } = this.state;
 
     return (
       <motion.div
@@ -150,38 +193,12 @@ export class Node extends PureComponent<Props, State> implements INode {
               }
             : {
                 borderStyle: 'solid',
-                rotate: 0,
-
                 x: -(this.xIndex * 100),
                 y: -(this.yIndex * 100),
               }
         }
-        whileHover={
-          visited
-            ? {
-                borderStyle: 'solid',
-                borderWidth: '1px',
-              }
-            : {
-                borderBottomWidth: '1px',
-                borderColor: 'black',
-                borderRightWidth: '1px',
-                scale: 1.05,
-              }
-        }
-        whileFocus={
-          visited
-            ? {
-                borderStyle: 'solid',
-                borderWidth: '1px',
-              }
-            : {
-                borderBottomWidth: '1px',
-                borderColor: 'white',
-                borderRightWidth: '1px',
-                scale: 4.05,
-              }
-        }
+        whileHover={this.hoverFocusStyles}
+        whileFocus={this.hoverFocusStyles}
         animate={{
           x: 0,
           y: 0,
@@ -202,8 +219,9 @@ export class Node extends PureComponent<Props, State> implements INode {
           width: size,
         }}
         className={cn(
-          'border-background border-t border-l transition-colors last:border-b [&:not([data-type=none])]:bg-radial',
-          'data-[type=none]:bg-transparent',
+          'border-background border-t border-l bg-radial transition-colors last:border-b',
+          // 'data-[type=none]:bg-transparent',
+          'from-transparent to-transparent',
           'data-[type=end]:from-orange-600 data-[type=end]:to-red-600',
           'data-[type=start]:from-green-600 data-[type=start]:to-cyan-600',
           'data-[type=wall]:from-grad-node-wall-1 data-[type=wall]:to-grad-node-wall-2',
