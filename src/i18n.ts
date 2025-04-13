@@ -29,6 +29,9 @@ i18n
 
 i18n.on('languageChanged', (lang) => {
   document.documentElement.lang = lang;
+  for (const el of document.querySelectorAll<HTMLElement>('[data-t-key]')) {
+    el.textContent = i18n.t(el.dataset.tKey as TKey);
+  }
 });
 
 export const resources = {

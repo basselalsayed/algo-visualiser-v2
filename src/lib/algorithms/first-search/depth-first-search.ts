@@ -1,7 +1,7 @@
 import { BaseFirstSearch } from './base-first-search';
 
 export class DepthFirstSearch extends BaseFirstSearch {
-  name = 'DFS';
+  readonly name = 'dfs';
 
   getCurrentNode(): INode {
     return this.queue.pop()!;

@@ -1,3 +1,5 @@
+import type tAlgoInfo from '@/locales/en/algoInfo.json';
+
 export interface RuntimeInfo {
   name: string;
   nodesProcessed: number;
@@ -25,3 +27,5 @@ export type TraverseGenerator = Generator<
   void | Promise<void>,
   RuntimeInfo['nodesProcessed']
 >;
+
+export type AlgoName = keyof typeof tAlgoInfo;

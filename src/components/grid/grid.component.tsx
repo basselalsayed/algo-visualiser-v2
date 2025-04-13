@@ -128,6 +128,8 @@ export const Grid = memo(() => {
                     'first-of-type:rounded-tr-sm last-of-type:rounded-br-sm'
                 )}
                 size={nodeSize}
+                columnCount={columnCount}
+                rowCount={rowCount}
                 xIndex={xIndex}
                 yIndex={yIndex}
                 isLastColumn={xIndex === columnCount - 1}

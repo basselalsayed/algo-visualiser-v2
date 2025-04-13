@@ -20,12 +20,12 @@
   --color-grad-header-3: hsl(var(--grad-header-3));
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
-  --color-grad-node-start-1: var(--color-red-400); /* red 400 */
-  --color-grad-node-start-2: var(--color-orange-400); /* orange 400 */
-  --color-grad-node-end-1: var(--color-red-400); /* red 400 */
-  --color-grad-node-end-2: var(--color-orange-400); /* orange 400 */
-  --color-grad-node-wall-1: var(--color-red-400); /* red 400 */
-  --color-grad-node-wall-2: var(--color-orange-400); /* orange 400 */
+  --color-grad-node-start-1: var(--grad-node-start-1);
+  --color-grad-node-start-2: var(--grad-node-start-2);
+  --color-grad-node-end-1: var(--color-red-400);
+  --color-grad-node-end-2: var(--color-orange-400);
+  --color-grad-node-wall-1: var(--color-red-400);
+  --color-grad-node-wall-2: var(--color-orange-400);
 
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
@@ -129,12 +129,19 @@
     --grad-header-2: 272 72% 47%; /* Tailwind Purple 700 */
     --grad-header-3: 224 76% 48%; /* Tailwind Blue 700 */
 
-    --grad-node-start-1: 0 91% 71%; /* red 400 */
-    --grad-node-start-2: 27 96% 61%; /* orange 400 */
+    --grad-node-start-1: var(--color-purple-700);
+    --grad-node-start-2: var(--color-blue-700);
     --grad-node-end-1: 0 91% 71%; /* red 400 */
     --grad-node-end-2: 27 96% 61%; /* orange 400 */
     --grad-node-wall-1: 0 91% 71%; /* red 400 */
     --grad-node-wall-2: 27 96% 61%; /* orange 400 */
+
+    --shortest-path-start: var(--color-violet-500);
+    --shortest-path-end-dijkstra: var(--color-fuchsia-500);
+    --shortest-path-end-aStarE: var(--color-amber-500);
+    --shortest-path-end-aStarM: var(--color-rose-500);
+    --shortest-path-end-dfs: var(--color-red-500);
+    --shortest-path-end-bfs: var(--color-blue-500);
 
     --background: 240 6% 90%; /* zinc 200 */
     --foreground: 240 10% 3.9%;
@@ -161,6 +168,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --node-size: 32;
+    --shortest-path-width: calc(var(--node-size) / 10);
   }
   .dark {
     --grad-bg-1: 23 83% 31%; /* Tailwind Amber 800 */
@@ -170,6 +180,16 @@
     --grad-header-1: 26 90% 37%; /* Tailwind Amber 700 */
     --grad-header-2: 17 88% 40%; /* Tailwind Orange 700 */
     --grad-header-3: 0 74% 42%; /* Tailwind Red 700 */
+
+    --grad-node-start-1: var(--color-green-600);
+    --grad-node-start-2: var(--color-cyan-600);
+
+    --shortest-path-start: var(--color-green-600);
+    --shortest-path-end-DIJ: var(--color-orange-600);
+    --shortest-path-end-ASE: var(--color-emerald-400);
+    --shortest-path-end-ASM: var(--color-fuchsia-400);
+    --shortest-path-end-DFS: var(--color-purple-400);
+    --shortest-path-end-BFS: var(--color-rose-400);
 
     --background: 240 6% 10%; /* zinc 900 */
     --foreground: 0 0% 98%;
