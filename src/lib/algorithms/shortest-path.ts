@@ -9,12 +9,7 @@ import {
 import { t } from 'i18next';
 import { animate } from 'motion';
 
-import {
-  type AlgoName,
-  HTML_SELECTORS,
-  secondsToMilliseconds,
-  sleep,
-} from '..';
+import { type AlgoName, HTML_SELECTORS, sleep } from '..';
 
 class _ShortestPath {
   private readonly pathMap: Map<AlgoName, INode[]>;
@@ -112,7 +107,7 @@ class _ShortestPath {
   *run(this: this) {
     this.drawShortestPath();
 
-    const duration = 0.025;
+    const duration = 250;
     const [name] = this.mostRecentPath;
 
     for (const path of this.svg.querySelectorAll<SVGPathElement>(
@@ -134,7 +129,7 @@ class _ShortestPath {
         }
       );
 
-      yield sleep(secondsToMilliseconds(duration));
+      yield sleep(duration);
     }
   }
 

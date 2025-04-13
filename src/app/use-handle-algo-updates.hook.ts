@@ -10,7 +10,6 @@ export const useHandlleAlgoUpdates = () => {
   const { algoInstance, dispatch } = useRunStore();
 
   const {
-    animationSpeed,
     currentAlgo,
     drawSquare,
     gridHeight,

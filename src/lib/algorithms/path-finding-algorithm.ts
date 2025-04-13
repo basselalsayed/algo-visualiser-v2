@@ -1,6 +1,6 @@
 import { animate } from 'motion';
 
-import { assert, convertToSeconds, sleep } from '../utils';
+import { assert, convertToSeconds } from '../utils';
 
 import { ShortestPath } from './shortest-path';
 import type {
