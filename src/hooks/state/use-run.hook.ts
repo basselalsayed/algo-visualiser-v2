@@ -7,7 +7,7 @@ import { useTour } from '@/contexts';
 import { useMutation } from '@/data/hooks/use-mutation.hook';
 import { eventEmitter } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
-import { RecursiveDivisionMaze, ShortestPath } from '@/lib/algorithms';
+import { Maze, ShortestPath } from '@/lib/algorithms';
 
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
@@ -32,7 +32,7 @@ export const useRunStore = create<RunStore>((set) => ({
 
 interface useRunReturn {
   algoRunning: boolean;
-  maze: RecursiveDivisionMaze;
+  maze: Maze;
   mazeRunning: boolean;
   readyToRun: boolean;
   readyToRunMaze: boolean;
@@ -93,7 +93,7 @@ export const useRun = (): useRunReturn => {
 
   const maze = useMemo(
     () =>
-      new RecursiveDivisionMaze(refsMap, () => {
+      new Maze(refsMap, () => {
         dispatch('mazeRunState', 'done');
         eventEmitter.emit('mazeComplete');
       }),

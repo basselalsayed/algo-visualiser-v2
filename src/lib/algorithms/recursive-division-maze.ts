@@ -2,7 +2,7 @@ import { NodeType } from '@/components/grid/node-type.enum';
 
 import { sleep } from '../utils';
 
-export class RecursiveDivisionMaze {
+export class Maze {
   constructor(
     public readonly grid: NodeMap,
     readonly onDone?: VoidFunction
@@ -22,7 +22,7 @@ export class RecursiveDivisionMaze {
 
   async run(this: this) {
     await this.wallBorders();
-    this.recursiveDivision(2, 2, this.cols - 2, this.rows - 2);
+    this.divide(2, 2, this.cols - 2, this.rows - 2);
   }
 
   randomiseValue(this: this, value: number): number {
@@ -54,7 +54,7 @@ export class RecursiveDivisionMaze {
     return this.grid.get([x, y])!;
   }
 
-  async recursiveDivision(
+  async divide(
     this: this,
     x: number,
     y: number,
@@ -92,11 +92,11 @@ export class RecursiveDivisionMaze {
       : this.getNodeFromPosition(wallX, wallY + passageIndex);
     passageNode.setType(NodeType.none);
     if (horizontal) {
-      this.recursiveDivision(x, y, width, wallY - y); // upper part
-      this.recursiveDivision(x, wallY + 2, width, y + height - wallY - 2); // lower part
+      this.divide(x, y, width, wallY - y); // upper part
+      this.divide(x, wallY + 2, width, y + height - wallY - 2); // lower part
     } else {
-      this.recursiveDivision(x, y, wallX - x, height); // left part
-      this.recursiveDivision(wallX + 2, y, x + width - wallX - 2, height); // right part
+      this.divide(x, y, wallX - x, height); // left part
+      this.divide(wallX + 2, y, x + width - wallX - 2, height); // right part
     }
   }
 
