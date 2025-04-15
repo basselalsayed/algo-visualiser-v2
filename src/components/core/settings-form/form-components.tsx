@@ -89,8 +89,11 @@ export const AnimationSpeedSlider: FC = () => {
   return (
     <Slider
       label={t('settings.animationSpeed')}
-      defaultValue={[animationSpeed]}
-      onValueChange={(v) => dispatch('animationSpeed', v[0])}
+      min={-200}
+      max={-1}
+      step={-1}
+      defaultValue={[-animationSpeed]}
+      onValueChange={(v) => dispatch('animationSpeed', Math.abs(v[0]))}
     />
   );
 };

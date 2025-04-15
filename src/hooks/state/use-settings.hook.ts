@@ -7,9 +7,10 @@ import { type AlgoInfo, algoInfo } from '@/lib/constants';
 import { type DispatchFunction } from './types';
 
 const DEFAULT_NODE_SIZE = 32;
+const DEFAULT_ANIMATION_SPEED = 50;
 
 interface SettingsStore {
-  animationSpeed: number;
+  animationSpeed: number; // in ms
   currentAlgo: AlgoInfo;
   dispatch: DispatchFunction<SettingsStore, 'dispatch' | 'reset'>;
   drawSquare: number;
@@ -23,7 +24,7 @@ interface SettingsStore {
 }
 
 export const useSettings = create<SettingsStore>((set) => ({
-  animationSpeed: 0,
+  animationSpeed: DEFAULT_ANIMATION_SPEED,
   currentAlgo: algoInfo[0],
   dispatch: (key, payload) =>
     set(
@@ -48,7 +49,7 @@ export const useSettings = create<SettingsStore>((set) => ({
   reset: () =>
     set(
       produce((state) => ({
-        animationSpeed: 0,
+        animationSpeed: DEFAULT_ANIMATION_SPEED,
         drawSquare: 0,
         gridHeight: state.maxGridHeight,
         gridWidth: state.maxGridWidth,

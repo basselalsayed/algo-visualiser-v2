@@ -15,7 +15,7 @@ import {
   type AlgoName,
   HTML_SELECTORS,
   getCSSVariable,
-  secondsToMilliseconds,
+  millisecondsToSeconds,
   sleep,
 } from '..';
 
@@ -217,10 +217,10 @@ class _ShortestPath {
     return mix(startColor, endColor)(ratio);
   };
 
-  *run(this: this) {
+  *run(this: this, animationSpeed: number) {
     this.drawShortestPath();
 
-    const duration = 0.025;
+    const duration = millisecondsToSeconds(animationSpeed);
     const [name] = this.mostRecentPath;
 
     for (const path of this.svg.querySelectorAll<SVGPathElement>(
@@ -242,7 +242,7 @@ class _ShortestPath {
         }
       );
 
-      yield sleep(secondsToMilliseconds(duration));
+      yield sleep(animationSpeed);
     }
   }
 }

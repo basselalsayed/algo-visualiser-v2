@@ -10,6 +10,7 @@ export const useHandlleAlgoUpdates = () => {
   const { algoInstance, dispatch } = useRunStore();
 
   const {
+    animationSpeed,
     currentAlgo,
     drawSquare,
     gridHeight,
@@ -42,9 +43,16 @@ export const useHandlleAlgoUpdates = () => {
     dispatch(
       'algoInstance',
       startNode && endNode
-        ? new currentAlgo.class(refsMap, startNode, endNode)
+        ? new currentAlgo.class(refsMap, startNode, endNode, animationSpeed)
         : undefined
     );
     dispatch('runState', 'idle');
-  }, [currentAlgo.class, dispatch, endNode, refsMap, startNode]);
+  }, [
+    animationSpeed,
+    currentAlgo.class,
+    dispatch,
+    endNode,
+    refsMap,
+    startNode,
+  ]);
 };

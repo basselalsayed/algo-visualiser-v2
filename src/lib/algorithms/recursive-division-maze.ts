@@ -4,7 +4,8 @@ import { sleep } from '../utils';
 
 export class Maze {
   constructor(
-    public readonly grid: NodeMap,
+    private readonly grid: NodeMap,
+    private readonly animationSpeed: number,
     readonly onDone?: VoidFunction
   ) {
     this.cols = Math.max(...[...this.grid.keys()].map(([x]) => x)) + 1;
@@ -80,9 +81,7 @@ export class Maze {
         ? this.getNodeFromPosition(wallX + i, wallY)
         : this.getNodeFromPosition(wallX, wallY + i);
 
-      this.animateWall(node);
-
-      await sleep(10);
+      await this.animateWall(node);
     }
 
     const passageIndex = this.randomiseValue(wallLength - 1);
@@ -100,8 +99,13 @@ export class Maze {
     }
   }
 
-  async animateWall(this: this, node: INode, ms = 10): Promise<void> {
+  async animateWall(
+    this: this,
+    node: INode,
+    ms = this.animationSpeed
+  ): Promise<void> {
     node.setType(NodeType.wall);
+
     await sleep(ms);
   }
 

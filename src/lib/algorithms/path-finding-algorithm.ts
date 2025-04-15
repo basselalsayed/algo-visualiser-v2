@@ -152,7 +152,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
       ShortestPath.addPath(this.name, this.shortestPath);
-      this.shortestPathGenerator ??= ShortestPath.run();
+      this.shortestPathGenerator ??= ShortestPath.run(this.animationSpeed);
 
       await this.executeGenerator(this.shortestPathGenerator);
 
