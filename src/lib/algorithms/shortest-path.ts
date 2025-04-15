@@ -9,10 +9,12 @@ import {
 import { t } from 'i18next';
 import { animate, mix } from 'motion';
 
+import { useSettings } from '@/hooks';
 
 import {
   type AlgoName,
   HTML_SELECTORS,
+  getCSSVariable,
   secondsToMilliseconds,
   sleep,
 } from '..';
@@ -24,20 +26,18 @@ class _ShortestPath {
   };
 
   private readonly cleanupArray: VoidFunction[];
-  addCleanup = (cleanup: VoidFunction) => {
+  private addCleanup = (cleanup: VoidFunction) => {
     this.cleanupArray.push(cleanup);
   };
 
   reset = () => {
-    document
-      .querySelector(HTML_SELECTORS.components.shortestPathSvg)
-      ?.replaceChildren();
+    const { shortestPathSvg, shortestPathTooltip } = HTML_SELECTORS.components;
 
-    document
-      .querySelector(HTML_SELECTORS.components.shortestPathTooltip)
-      ?.replaceChildren();
+    document.querySelector(shortestPathSvg)?.replaceChildren();
+    document.querySelector(shortestPathTooltip)?.replaceChildren();
 
     this.pathMap.clear();
+
     for (const cleanup of this.cleanupArray) cleanup();
   };
 
@@ -48,98 +48,90 @@ class _ShortestPath {
     this.run = this.run.bind(this);
   }
 
-  getNodeCenter = (el: Element) => {
+  private getNodeCenter = (el: Element) => {
     const rect = el.getBoundingClientRect();
+
     return {
       x: rect.left + rect.width / 2,
       y: rect.top + rect.height / 2,
     };
   };
 
-  get svg() {
+  private get svg() {
     return document.querySelector<SVGSVGElement>(
       HTML_SELECTORS.components.shortestPathSvg
     )!;
   }
-  get tooltipContainer() {
+  private get tooltipContainer() {
     return document.querySelector<HTMLDivElement>(
       HTML_SELECTORS.components.shortestPathTooltip
     )!;
   }
 
-  get mostRecentPath() {
+  private get mostRecentPath() {
     return [...this.pathMap.entries()].at(-1)!;
   }
 
-  drawShortestPath = () => {
-    const [name, shortestPath] = this.mostRecentPath;
+  private createPathElement(
+    d: string,
+    name: AlgoName,
+    totalPathLength: number,
+    i: number
+  ) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
+    path.setAttribute('id', name);
+    path.setAttribute('d', d);
+    path.setAttribute('stroke-width', 'var(--shortest-path-width)');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', this.getPathColor(i, totalPathLength, name));
+
+    const length = String(path.getTotalLength());
+    path.setAttribute('stroke-dasharray', length);
+    path.setAttribute('stroke-dashoffset', length);
+
+    return path;
+  }
+
+  private drawShortestPath = () => {
+    const [name, shortestPath] = this.mostRecentPath;
     const totalPathLength = shortestPath.length;
+    const { nodeSize } = useSettings.getState();
+    const sections = Math.floor(nodeSize / 5);
+
     for (const [i, { domNode }] of shortestPath.entries()) {
       if (i === totalPathLength - 1) continue;
-
-      const path = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'path'
-      );
 
       const p1 = this.getNodeCenter(domNode);
       const p2 = this.getNodeCenter(shortestPath[i + 1].domNode);
 
-      const d = [
-        `M ${p1.x} ${p1.y}`,
-        `L ${p2.x} ${p1.y}`,
-        `L ${p2.x} ${p2.y}`,
-      ].join(' ');
+      const mixer = mix(p1, p2);
 
-      path.setAttribute('id', name);
-      path.setAttribute('d', d);
-      path.setAttribute('stroke-width', 'var(--shortest-path-width)');
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', this.getPathColor(i, totalPathLength, name));
+      let start = p1;
 
-      const length = path.getTotalLength();
-      path.setAttribute('stroke-dasharray', String(length));
-      path.setAttribute('stroke-dashoffset', String(length));
+      for (let s = 1; s <= sections; s++) {
+        const mixRatio = s / sections;
+        const end = mixer(mixRatio);
 
-      this.svg.append(path);
+        const path = this.createPathElement(
+          `M ${start.x} ${start.y} L ${end.x} ${end.y}`,
+          name,
+          totalPathLength,
+          i + mixRatio
+        );
 
-      if (i === Math.floor(totalPathLength / 4)) {
-        path.dataset.tooltipTarget = 'true';
+        if (i === Math.floor(totalPathLength / 4) && s === sections) {
+          path.dataset.tooltipTarget = 'true';
+        }
+
+        this.svg.append(path);
+
+        start = { ...end };
       }
     }
   };
 
-  *run(this: this) {
-    this.drawShortestPath();
-
-    const duration = 0.025;
-    const [name] = this.mostRecentPath;
-
-    for (const path of this.svg.querySelectorAll<SVGPathElement>(
-      `path#${name}`
-    )) {
-      animate(
-        path,
-        {
-          strokeDashoffset: 0,
-        },
-        {
-          duration,
-          ease: 'easeInOut',
-          onComplete: () => {
-            if (path.dataset.tooltipTarget) {
-              this.createToolTip(name, path);
-            }
-          },
-        }
-      );
-
-      yield sleep(secondsToMilliseconds(duration));
-    }
-  }
-
-  createToolTip = (name: AlgoName, path: SVGPathElement) => {
+  private createToolTip = (name: AlgoName, path: SVGPathElement) => {
     const tooltip = document.createElement('div');
     tooltip.classList.add(
       'bg_grad_accent--outline--text',
@@ -224,6 +216,35 @@ class _ShortestPath {
 
     return mix(startColor, endColor)(ratio);
   };
+
+  *run(this: this) {
+    this.drawShortestPath();
+
+    const duration = 0.025;
+    const [name] = this.mostRecentPath;
+
+    for (const path of this.svg.querySelectorAll<SVGPathElement>(
+      `path#${name}`
+    )) {
+      animate(
+        path,
+        {
+          strokeDashoffset: 0,
+        },
+        {
+          duration,
+          ease: 'linear',
+          onComplete: () => {
+            if (path.dataset.tooltipTarget) {
+              this.createToolTip(name, path);
+            }
+          },
+        }
+      );
+
+      yield sleep(secondsToMilliseconds(duration));
+    }
+  }
 }
 
 export const ShortestPath = new _ShortestPath();
