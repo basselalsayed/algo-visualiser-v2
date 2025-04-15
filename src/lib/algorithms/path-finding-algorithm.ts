@@ -1,6 +1,10 @@
 import { animate } from 'motion';
 
-import { assert, convertToSeconds } from '../utils';
+import {
+  assert,
+  convertToSeconds,
+  sleep,
+} from '../utils';
 
 import { ShortestPath } from './shortest-path';
 import type {
@@ -14,9 +18,10 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
   abstract name: AlgoName;
 
   constructor(
-    public grid: NodeMap,
-    public start: NodeCoordinates,
-    public end: NodeCoordinates
+    protected readonly grid: NodeMap,
+    protected readonly start: NodeCoordinates,
+    protected readonly end: NodeCoordinates,
+    protected readonly animationSpeed: number
   ) {
     this.run = this.run.bind(this);
     this.pause = this.pause.bind(this);
@@ -78,7 +83,11 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     return shortestPath;
   }
 
-  async visitNode(this: this, node: INode): Promise<void> {
+  protected async sleep() {
+    await sleep(this.animationSpeed);
+  }
+
+  protected visitNode(this: this, node: INode): void {
     this.visitedNodes.push(node);
 
     node.setVisited(true);

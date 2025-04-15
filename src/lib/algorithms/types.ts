@@ -19,7 +19,8 @@ export interface IPathFindingAlgorithmConstructor {
   new (
     grid: NodeMap,
     start: NodeCoordinates,
-    end: NodeCoordinates
+    end: NodeCoordinates,
+    animationSpeed: number
   ): IPathFindingAlgorithm;
 }
 

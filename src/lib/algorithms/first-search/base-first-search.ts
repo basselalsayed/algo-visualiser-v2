@@ -5,8 +5,6 @@ import { PathFindingAlgorithm } from '../path-finding-algorithm';
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): INode;
 
-  override queue = [this.startNode];
-
   updateUnvisitedNeighbors(this: this, node: INode): void {
     const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
 
@@ -17,6 +15,8 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   }
 
   *traverse(this: this) {
+    this.queue = [this.startNode];
+
     while (this.queue.length > 0) {
       const currentNode = this.getCurrentNode()!;
       if (currentNode.isWall) continue;
@@ -28,14 +28,9 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
         this.updateUnvisitedNeighbors(currentNode);
       }
 
-      yield sleep(10);
+      yield this.sleep();
     }
 
     return this.visitedNodes.length;
-  }
-
-  override reset(this: this): void {
-    super.reset();
-    this.queue = [this.startNode];
   }
 }
