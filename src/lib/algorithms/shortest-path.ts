@@ -7,7 +7,8 @@ import {
   shift,
 } from '@floating-ui/dom';
 import { t } from 'i18next';
-import { animate } from 'motion';
+import { animate, mix } from 'motion';
+
 
 import {
   type AlgoName,
@@ -213,17 +214,15 @@ class _ShortestPath {
   private colors = Object.fromEntries(
     ['dijkstra', 'aStarE', 'aStarM', 'dfs', 'bfs'].map((name) => [
       name,
-      ['var(--shortest-path-start)', `var(--shortest-path-end-${name})`],
+      ['--shortest-path-start', `--shortest-path-end-${name}`],
     ])
   );
 
   private getPathColor = (i: number, length: number, name: AlgoName) => {
     const ratio = (i + 1) / length;
-    const endPercent = Math.floor(ratio * 100);
+    const [startColor, endColor] = this.colors[name].map(getCSSVariable);
 
-    const [startColor, endColor] = this.colors[name];
-
-    return `color-mix(in oklch, ${startColor}, ${endColor} ${endPercent}%)`;
+    return mix(startColor, endColor)(ratio);
   };
 }
 
