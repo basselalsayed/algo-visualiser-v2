@@ -132,7 +132,7 @@ export const Grid = memo(() => {
                 rowCount={rowCount}
                 xIndex={xIndex}
                 yIndex={yIndex}
-                isLastColumn={xIndex === columnCount - 1}
+                isLastColumn={lastColumn}
                 ref={(node) => {
                   addRef(xIndex, yIndex, node);
                 }}

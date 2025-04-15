@@ -69,3 +69,11 @@ export function elementIsFullyScrolled(element: HTMLElement): boolean {
     Math.floor(element.clientHeight)
   );
 }
+
+export function getCSSVariable(name: string) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name);
+}
+
+export function setCSSVariable(name: string, value: string | number) {
+  document.documentElement.style.setProperty(name, String(value));
+}

@@ -1,7 +1,7 @@
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn, getCSSVariable } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
 
@@ -150,9 +150,7 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
 
   private get hoverFocusStyles(): TargetAndTransition {
-    const colorPrimary = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue('--primary');
+    const colorPrimary = getCSSVariable('--primary');
 
     const { visited } = this.state;
 
@@ -217,13 +215,14 @@ export class Node extends PureComponent<Props, State> implements INode {
         style={{
           height: size,
           width: size,
+          zIndex: this.isStart || this.isEnd ? 2 : undefined,
         }}
         className={cn(
           'border-background border-t border-l bg-radial transition-colors last:border-b',
           // 'data-[type=none]:bg-transparent',
           'from-transparent to-transparent',
           'data-[type=end]:from-orange-600 data-[type=end]:to-red-600',
-          'data-[type=start]:from-green-600 data-[type=start]:to-cyan-600',
+          'data-[type=start]:from-grad-node-start-1 data-[type=start]:to-grad-node-start-2',
           'data-[type=wall]:from-grad-node-wall-1 data-[type=wall]:to-grad-node-wall-2',
           isLastColumn && 'border-r',
           className

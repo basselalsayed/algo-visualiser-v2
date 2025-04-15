@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
+import { setCSSVariable } from '@/lib';
 import { type AlgoInfo, algoInfo } from '@/lib/constants';
 
 import { type DispatchFunction } from './types';
@@ -33,10 +34,7 @@ export const useSettings = create<SettingsStore>((set) => ({
         } else state[key] = payload;
 
         if (key === 'nodeSize') {
-          document.documentElement.style.setProperty(
-            '--node-size',
-            String(payload)
-          );
+          setCSSVariable('--node-size', payload as number);
         }
       })
     ),
