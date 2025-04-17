@@ -52,8 +52,8 @@ export const Grid = memo(() => {
 
   const { setFalse, setTrue, value: mouseDown } = useBoolean(false);
 
-  useEventListener('mousedown', setTrue, gridRef);
-  useEventListener('mouseup', setFalse, gridRef);
+  useEventListener('pointerdown', setTrue, gridRef);
+  useEventListener('pointerup', setFalse, gridRef);
 
   const handleNodeMouseOver = useCallback<(node: INode) => NodeType>(
     (node) => {
@@ -73,6 +73,7 @@ export const Grid = memo(() => {
       return match({ endNode, startNode, type, wallMode })
         .returnType<NodeType>()
         .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
+        .with({ type: NodeType.wall, wallMode: true }, () => NodeType.none)
         .with({ startNode: undefined, type: NodeType.none }, () => {
           dispatch('startNode', [xIndex, yIndex]);
           eventEmitter.emit('startSelected');
@@ -95,7 +96,7 @@ export const Grid = memo(() => {
 
           return NodeType.none;
         })
-        .otherwise(() => NodeType.none);
+        .otherwise(() => type);
     },
     []
   );

@@ -8,8 +8,10 @@ export interface RuntimeInfo {
   shortestPath: number;
 }
 
+export type AlgoName = keyof typeof tAlgoInfo;
+
 export interface IPathFindingAlgorithm {
-  name: string;
+  name: AlgoName;
   pause(): void;
   reset(): void | Promise<void>;
   run(onDone?: (results: RuntimeInfo) => unknown): Promise<void>;
@@ -28,5 +30,3 @@ export type TraverseGenerator = Generator<
   void | Promise<void>,
   RuntimeInfo['nodesProcessed']
 >;
-
-export type AlgoName = keyof typeof tAlgoInfo;

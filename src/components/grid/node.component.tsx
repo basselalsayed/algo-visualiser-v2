@@ -207,6 +207,7 @@ export class Node extends PureComponent<Props, State> implements INode {
           type: 'spring',
         }}
         onClick={this.handleClick}
+        onMouseDown={this.handleMouseOver}
         onMouseOver={this.handleMouseOver}
         data-type={type}
         data-x-index={xIndex}
