@@ -11,6 +11,7 @@ import { Maze, ShortestPath } from '@/lib/algorithms';
 
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
+import { useSettings } from './use-settings.hook';
 import { useStats } from './use-stats.hook';
 
 type RunState = 'idle' | 'running' | 'paused' | 'done';
@@ -46,6 +47,8 @@ export const useRun = (): useRunReturn => {
   const { algoInstance, dispatch, mazeRunState, runState } = useRunStore();
 
   const { refsMap, resetGrid, resetWalls } = useGrid();
+
+  const animationSpeed = useSettings((settings) => settings.animationSpeed);
 
   const trigger = useMutation({ tableName: 'algo_result' });
 
@@ -93,11 +96,11 @@ export const useRun = (): useRunReturn => {
 
   const maze = useMemo(
     () =>
-      new Maze(refsMap, () => {
+      new Maze(refsMap, animationSpeed, () => {
         dispatch('mazeRunState', 'done');
         eventEmitter.emit('mazeComplete');
       }),
-    [dispatch, refsMap]
+    [animationSpeed, dispatch, refsMap]
   );
 
   const reset = useCallback(() => {

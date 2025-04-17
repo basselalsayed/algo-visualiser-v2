@@ -1,5 +1,6 @@
 import { Settings2 } from 'lucide-react';
 import { type FC, useState } from 'react';
+import { useBoolean } from 'usehooks-ts';
 
 import {
   Button,
@@ -25,12 +26,12 @@ import {
 } from './components';
 
 export const MobileNav: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { algoRunning } = useIsRunning();
+  const { toggle, value } = useBoolean(false);
+  const { algoRunning, mazeRunning } = useIsRunning();
 
   return (
     <div className='row-start-2'>
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <Sheet open={value} onOpenChange={toggle}>
         <SheetContent
           side='bottom'
           className='h-[80vh] gap-3 overflow-y-scroll py-3'
@@ -68,7 +69,10 @@ export const MobileNav: FC = () => {
         <nav className='grad-border bg-background grid grid-flow-col items-center justify-between justify-items-stretch border-t-2 p-4'>
           <h1 className='col-span-4 text-left'>AV</h1>
           <SheetTrigger asChild>
-            <Button disabled={algoRunning} id={HTML_IDS.buttons.sheetTrigger}>
+            <Button
+              disabled={algoRunning || mazeRunning}
+              id={HTML_IDS.buttons.sheetTrigger}
+            >
               <Settings2 absoluteStrokeWidth />
               <SrOnly tKey='sr.toggleMenu' />
             </Button>

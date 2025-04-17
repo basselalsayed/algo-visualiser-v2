@@ -220,7 +220,7 @@ class _ShortestPath {
   *run(this: this, animationSpeed: number) {
     this.drawShortestPath();
 
-    const duration = millisecondsToSeconds(animationSpeed);
+    const duration = millisecondsToSeconds(animationSpeed) / 5;
     const [name] = this.mostRecentPath;
 
     for (const path of this.svg.querySelectorAll<SVGPathElement>(
@@ -242,7 +242,7 @@ class _ShortestPath {
         }
       );
 
-      yield sleep(animationSpeed);
+      yield sleep(animationSpeed / 5);
     }
   }
 }
