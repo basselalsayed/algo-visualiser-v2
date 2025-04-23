@@ -1,5 +1,3 @@
-import { animate } from 'motion';
-
 import {
   assert,
   convertToSeconds,
@@ -88,39 +86,18 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     await sleep(this.animationSpeed);
   }
 
+  protected visitWall(this: this, node: INode): void {
+    node.setVisited(true);
+  }
+
   protected get animationDuration() {
     return Math.max(millisecondsToSeconds(this.animationSpeed) * 5, 0.3);
   }
 
   protected visitNode(this: this, node: INode): void {
     this.visitedNodes.push(node);
-
     node.setVisited(true);
-
     if (node.isStart || node.isEnd) return;
-
-    animate([
-      [
-        node.domNode,
-        {
-          backdropFilter: ['blur(10px)', 'blur(5px)', 'blur(0px)'],
-          background: [
-            `hsl(var(--primary) / 0.7)`,
-            `hsl(var(--primary) / 0.4)`,
-            `hsl(var(--primary) / 0.1)`,
-            `hsl(var(--primary) / 0)`,
-          ],
-
-          borderWidth: [0.7, 0.4, 0.1, 0],
-          scale: [1.4, 0],
-        },
-        {
-          duration: this.animationDuration,
-          ease: 'easeIn',
-        },
-      ],
-      [node.domNode, { scale: 1 }, { delay: this.animationDuration + 1 }],
-    ]);
   }
 
   abstract traverse(this: this): TraverseGenerator;

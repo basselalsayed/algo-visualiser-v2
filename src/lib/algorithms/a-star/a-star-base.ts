@@ -49,8 +49,12 @@ export abstract class AStarBase extends PathFindingAlgorithm {
   }
 
   addNeighboursToOpen(this: this, node: INode) {
-    const notWallNeighbours = this.getUnvisitedNeighbors(node, false);
-    for (const neighbour of notWallNeighbours) {
+    const neighbours = this.getUnvisitedNeighbors(node);
+    for (const neighbour of neighbours) {
+      if (neighbour.isWall) {
+        this.visitWall(neighbour);
+        continue;
+      }
       neighbour.setDistance(node.distance + 1);
       neighbour.setManhatten(this.findManhatten(neighbour, this.endNode));
       this.maybeUpdateHeuristic(neighbour);

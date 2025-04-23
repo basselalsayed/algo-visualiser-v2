@@ -28,7 +28,11 @@ export class Dijkstra extends PathFindingAlgorithm {
 
       const closestNode = unvisitedNodes.shift()!;
 
-      if (closestNode.isWall) continue;
+      if (closestNode.isWall) {
+        this.visitWall(closestNode);
+        yield this.sleep();
+        continue;
+      }
       if (closestNode.distance === Infinity) break;
 
       this.visitNode(closestNode);

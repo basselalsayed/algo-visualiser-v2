@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@property --border-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
 @theme {
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -84,6 +90,48 @@
     }
     to {
       height: 0;
+    }
+  }
+
+  --animate-node-visited: node-visited var(--node-animation-duration) ease-in;
+
+  @keyframes node-visited {
+    from {
+      --tw-gradient-from: hsl(var(--primary) / 0.2);
+      --tw-gradient-to: hsl(var(--primary) / 0.2);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-width: 1px;
+      transform: scale(1.4);
+      z-index: 4;
+    }
+    to {
+      --border-width: 0px;
+      --tw-gradient-from: hsl(var(--primary) / 0);
+      --tw-gradient-to: hsl(var(--primary) / 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      border-width: 0px;
+      transform: scale(0);
+      z-index: 4;
+    }
+  }
+
+  --animate-node-visited-wall: node-visited-wall var(--node-animation-duration)
+    ease-in;
+
+  @keyframes node-visited-wall {
+    0% {
+      --tw-gradient-from: var(--color-grad-node-wall-1);
+      --tw-gradient-to: var(--color-grad-node-wall-2);
+    }
+    50% {
+      --tw-gradient-from: var(--color-red-800);
+      --tw-gradient-to: var(--color-red-600);
+    }
+    100% {
+      --tw-gradient-from: var(--color-grad-node-wall-1);
+      --tw-gradient-to: var(--color-grad-node-wall-2);
     }
   }
 }
@@ -171,6 +219,11 @@
 
     --node-size: 32;
     --shortest-path-width: calc(var(--node-size) / 10);
+    --node-animation-duration: clamp(
+      200ms,
+      calc(var(--node-size) * 15ms),
+      800ms
+    );
   }
   .dark {
     --grad-bg-1: 23 83% 31%; /* Tailwind Amber 800 */
@@ -216,6 +269,21 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+}
+
+@utility transition-node {
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color,
+    fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to,
+    --border-width;
+  transition-timing-function: var(
+    --tw-ease,
+    var(--default-transition-timing-function) /* cubic-bezier(0.4, 0, 0.2, 1) */
+  );
+  transition-duration: var(
+    --node-animation-duration,
+    var(--default-transition-duration) /* 150ms */
+  );
 }
 
 @utility grad-accent {

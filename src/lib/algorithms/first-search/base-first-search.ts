@@ -1,5 +1,3 @@
-import { sleep } from '@/lib/utils';
-
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
 
 export abstract class BaseFirstSearch extends PathFindingAlgorithm {
@@ -19,7 +17,12 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
 
     while (this.queue.length > 0) {
       const currentNode = this.getCurrentNode()!;
-      if (currentNode.isWall) continue;
+
+      if (currentNode.isWall) {
+        this.visitWall(currentNode);
+        yield this.sleep();
+        continue;
+      }
 
       if (currentNode.isEnd) break;
 
