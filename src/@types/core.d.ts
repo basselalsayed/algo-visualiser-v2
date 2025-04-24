@@ -20,7 +20,6 @@ declare global {
     setPastNode(pastNode?: INode): void;
     setType(type: NodeType): void;
     setVisited(visited: boolean): void;
-    toggleWall(): void;
     type: NodeType;
     visited: boolean;
     xIndex: number;

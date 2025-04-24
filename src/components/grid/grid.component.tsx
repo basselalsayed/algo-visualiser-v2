@@ -26,18 +26,14 @@ export const Grid = memo(() => {
     }))
   );
 
-  const { addRef, refreshKey, resetGrid, setPointerDown, setPointerUp } =
-    useGrid(
-      useShallow(
-        ({ addRef, refreshKey, resetGrid, setPointerDown, setPointerUp }) => ({
-          addRef,
-          refreshKey,
-          resetGrid,
-          setPointerDown,
-          setPointerUp,
-        })
-      )
-    );
+  const { addRef, dispatch, refreshKey, resetGrid } = useGrid(
+    useShallow(({ addRef, dispatch, refreshKey, resetGrid }) => ({
+      addRef,
+      dispatch,
+      refreshKey,
+      resetGrid,
+    }))
+  );
 
   const { height = 0, width = 0 } = useResizeObserver({
     ref: gridRef,
@@ -54,42 +50,48 @@ export const Grid = memo(() => {
 
   const { columnCount, rowCount } = useDimensions();
 
-  useEventListener('pointerdown', setPointerDown, gridRef);
-  useEventListener('pointerup', setPointerUp, gridRef);
+  const onPointerDown = useEventCallback((e: PointerEvent) => {
+    dispatch('pointerDown', true);
+    const node = e.target as HTMLDivElement | undefined;
 
-  const onTouch = useEventCallback((e: TouchEvent) => {
-    const { wallMode } = useGrid.getState();
-
-    if (wallMode) {
-      e.preventDefault();
-      const { clientX, clientY } = e.touches[0];
-
-      const node = document.elementFromPoint(clientX, clientY) as
-        | HTMLDivElement
-        | undefined;
-
-      if (node) {
-        const { xIndex, yIndex } = node.dataset;
-        const instance = useGrid
-          .getState()
-          .refsMap.get([Number(xIndex), Number(yIndex)]);
-
-        instance?.toggleWall();
-      }
+    if (node && node.hasPointerCapture(e.pointerId)) {
+      node.releasePointerCapture(e.pointerId);
     }
   });
 
-  useEventListener('touchstart', onTouch, gridRef, { passive: false });
-  useEventListener('touchmove', onTouch, gridRef, { passive: false });
+  useEventListener('pointerdown', onPointerDown, gridRef);
 
-  const handleNodeMouseOver = useCallback<(node: INode) => NodeType>((node) => {
+  const toggledRecentlyRef = useRef(new Set<string>());
+
+  const onPointerMove = useEventCallback((e: PointerEvent) => {
+    const node = e.target as HTMLDivElement;
     const { pointerDown, wallMode } = useGrid.getState();
-    if (wallMode && pointerDown) {
-      if (node.type === 'none') return NodeType.wall;
-      if (node.type === 'wall') return NodeType.none;
-    }
-    return node.type;
-  }, []);
+
+    if (!pointerDown || !wallMode || !node) return;
+
+    const { type, xIndex, yIndex } = node.dataset;
+    const key = String([xIndex, yIndex]);
+    const toggledRecently = toggledRecentlyRef.current;
+
+    if (toggledRecently.has(key)) return;
+
+    toggledRecently.add(key);
+    setTimeout(() => toggledRecently.delete(key), 300);
+
+    node.dataset.type = match(type as NodeType)
+      .with(NodeType.wall, () => NodeType.none)
+      .with(NodeType.none, () => NodeType.wall)
+      .otherwise(() => type);
+  });
+
+  useEventListener('pointermove', onPointerMove, gridRef);
+
+  const onPointerUp = useEventCallback(() => {
+    toggledRecentlyRef.current.clear();
+    dispatch('pointerDown', false);
+  });
+
+  useEventListener('pointerup', onPointerUp, gridRef);
 
   const handleNodeClick = useCallback<(node: INode) => NodeType>(
     ({ type, xIndex, yIndex }) => {
@@ -129,7 +131,7 @@ export const Grid = memo(() => {
   return (
     <div
       id={HTML_IDS.components.grid}
-      className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
+      className='flex h-full w-full touch-none flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
       ref={gridRef}
     >
       {Array.from({ length: columnCount }).map((_, xIndex) => (
@@ -163,7 +165,6 @@ export const Grid = memo(() => {
                   addRef(xIndex, yIndex, node);
                 }}
                 onClick={handleNodeClick}
-                onMouseOver={handleNodeMouseOver}
                 id={id}
               />
             );

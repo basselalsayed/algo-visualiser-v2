@@ -12,7 +12,6 @@ interface Props {
   id?: string;
   isLastColumn: boolean;
   onClick: (node: Node) => NodeType;
-  onMouseOver: (node: Node) => NodeType;
   rowCount: number;
   size: number;
   xIndex: number;
@@ -36,13 +35,40 @@ export class Node extends PureComponent<Props, State> implements INode {
 
     this.ref = createRef();
     this.handleClick = this.handleClick.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
     this.setPastNode = this.setPastNode.bind(this);
     this.setHeuristic = this.setHeuristic.bind(this);
     this.setManhatten = this.setManhatten.bind(this);
     this.setDistance = this.setDistance.bind(this);
     this.setType = this.setType.bind(this);
     this.setVisited = this.setVisited.bind(this);
+  }
+  observer: MutationObserver | undefined;
+
+  componentDidMount(): void {
+    this.observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'data-type'
+        ) {
+          const { type } = (mutation.target as HTMLDivElement).dataset;
+          if (
+            type !== this.type &&
+            Object.values(NodeType).includes(type as NodeType)
+          ) {
+            this.setType(type as NodeType);
+          }
+        }
+      }
+    });
+
+    this.observer.observe(this.domNode, {
+      attributeFilter: ['data-type'],
+    });
+  }
+
+  componentWillUnmount(): void {
+    this.observer?.disconnect();
   }
 
   private ref: RefObject<HTMLDivElement | null>;
@@ -105,12 +131,6 @@ export class Node extends PureComponent<Props, State> implements INode {
     }
   }
 
-  toggleWall() {
-    match(this.type)
-      .with(NodeType.wall, () => this.setType(NodeType.none))
-      .with(NodeType.none, () => this.setType(NodeType.wall));
-  }
-
   reset(this: this, resetType: boolean | NodeType[]) {
     this.setPastNode(undefined);
     this.setHeuristic(Infinity);
@@ -148,11 +168,6 @@ export class Node extends PureComponent<Props, State> implements INode {
   private handleClick() {
     const { onClick } = this.props;
     this.setState({ type: onClick(this) });
-  }
-
-  private handleMouseOver() {
-    const { onMouseOver } = this.props;
-    this.setState({ type: onMouseOver(this) });
   }
 
   private get shadowOffset(): { x: number; y: number } {
@@ -212,7 +227,6 @@ export class Node extends PureComponent<Props, State> implements INode {
         whileHover={this.hoverFocusStyles}
         whileFocus={this.hoverFocusStyles}
         onClick={this.handleClick}
-        onMouseOver={this.handleMouseOver}
         style={{
           height: size,
           width: size,

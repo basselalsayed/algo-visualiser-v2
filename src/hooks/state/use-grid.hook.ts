@@ -15,8 +15,6 @@ interface GridStore {
   refsMap: NodeMap;
   resetGrid: VoidFunction;
   resetWalls: VoidFunction;
-  setPointerDown: VoidFunction;
-  setPointerUp: VoidFunction;
   startNode?: NodeCoordinates;
   wallMode: boolean;
 }
@@ -54,16 +52,6 @@ export const useGrid = create<GridStore>((set, get) => ({
       if (node.isWall) node.setType(NodeType.none);
     }
   },
-  setPointerDown: () =>
-    set((state) => ({
-      ...state,
-      pointerDown: true,
-    })),
-  setPointerUp: () =>
-    set((state) => ({
-      ...state,
-      pointerDown: false,
-    })),
   startNode: undefined,
   wallMode: false,
 }));
