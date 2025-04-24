@@ -1,5 +1,6 @@
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
+import { match } from 'ts-pattern';
 
 import { cn, getCSSVariable } from '@/lib/utils';
 
@@ -104,6 +105,12 @@ export class Node extends PureComponent<Props, State> implements INode {
     }
   }
 
+  toggleWall() {
+    match(this.type)
+      .with(NodeType.wall, () => this.setType(NodeType.none))
+      .with(NodeType.none, () => this.setType(NodeType.wall));
+  }
+
   reset(this: this, resetType: boolean | NodeType[]) {
     this.setPastNode(undefined);
     this.setHeuristic(Infinity);
@@ -128,6 +135,9 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
   get isWall() {
     return this.type === 'wall';
+  }
+  get isNone() {
+    return this.type === 'none';
   }
   get domNode(): HTMLDivElement {
     if (!this.ref.current) throw new Error('Error mounting node');

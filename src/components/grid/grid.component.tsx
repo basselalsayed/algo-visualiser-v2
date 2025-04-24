@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
-import { useBoolean } from 'usehooks-ts';
+import { useEventCallback } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
@@ -19,21 +19,25 @@ import { Node } from './node.component';
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const { dispatch, nodeSize } = useSettings(
+  const { nodeSize, settingsDispatch } = useSettings(
     useShallow(({ dispatch, nodeSize }) => ({
-      dispatch,
       nodeSize,
+      settingsDispatch: dispatch,
     }))
   );
 
-  const { addRef, refreshKey, resetGrid, wallMode } = useGrid(
-    useShallow(({ addRef, refreshKey, resetGrid, wallMode }) => ({
-      addRef,
-      refreshKey,
-      resetGrid,
-      wallMode,
-    }))
-  );
+  const { addRef, refreshKey, resetGrid, setPointerDown, setPointerUp } =
+    useGrid(
+      useShallow(
+        ({ addRef, refreshKey, resetGrid, setPointerDown, setPointerUp }) => ({
+          addRef,
+          refreshKey,
+          resetGrid,
+          setPointerDown,
+          setPointerUp,
+        })
+      )
+    );
 
   const { height = 0, width = 0 } = useResizeObserver({
     ref: gridRef,
@@ -41,30 +45,51 @@ export const Grid = memo(() => {
   });
 
   useEffect(() => {
-    dispatch('gridHeight', height);
-    dispatch('maxGridHeight', height);
-    dispatch('gridWidth', width);
-    dispatch('maxGridWidth', width);
+    settingsDispatch('gridHeight', height);
+    settingsDispatch('maxGridHeight', height);
+    settingsDispatch('gridWidth', width);
+    settingsDispatch('maxGridWidth', width);
     resetGrid();
-  }, [dispatch, height, resetGrid, width]);
+  }, [settingsDispatch, height, resetGrid, width]);
 
   const { columnCount, rowCount } = useDimensions();
 
-  const { setFalse, setTrue, value: mouseDown } = useBoolean(false);
+  useEventListener('pointerdown', setPointerDown, gridRef);
+  useEventListener('pointerup', setPointerUp, gridRef);
 
-  useEventListener('pointerdown', setTrue, gridRef);
-  useEventListener('pointerup', setFalse, gridRef);
+  const onTouch = useEventCallback((e: TouchEvent) => {
+    const { wallMode } = useGrid.getState();
 
-  const handleNodeMouseOver = useCallback<(node: INode) => NodeType>(
-    (node) => {
-      if (wallMode && mouseDown) {
-        if (node.type === 'none') return NodeType.wall;
-        if (node.type === 'wall') return NodeType.none;
+    if (wallMode) {
+      e.preventDefault();
+      const { clientX, clientY } = e.touches[0];
+
+      const node = document.elementFromPoint(clientX, clientY) as
+        | HTMLDivElement
+        | undefined;
+
+      if (node) {
+        const { xIndex, yIndex } = node.dataset;
+        const instance = useGrid
+          .getState()
+          .refsMap.get([Number(xIndex), Number(yIndex)]);
+
+        instance?.toggleWall();
       }
-      return node.type;
-    },
-    [mouseDown, wallMode]
-  );
+    }
+  });
+
+  useEventListener('touchstart', onTouch, gridRef, { passive: false });
+  useEventListener('touchmove', onTouch, gridRef, { passive: false });
+
+  const handleNodeMouseOver = useCallback<(node: INode) => NodeType>((node) => {
+    const { pointerDown, wallMode } = useGrid.getState();
+    if (wallMode && pointerDown) {
+      if (node.type === 'none') return NodeType.wall;
+      if (node.type === 'wall') return NodeType.none;
+    }
+    return node.type;
+  }, []);
 
   const handleNodeClick = useCallback<(node: INode) => NodeType>(
     ({ type, xIndex, yIndex }) => {

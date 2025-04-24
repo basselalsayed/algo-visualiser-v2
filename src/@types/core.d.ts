@@ -8,6 +8,7 @@ declare global {
     domNode: HTMLDivElement;
     heuristic: number;
     isEnd: boolean;
+    isNone: boolean;
     isStart: boolean;
     isWall: boolean;
     manhatten: number;
@@ -19,6 +20,7 @@ declare global {
     setPastNode(pastNode?: INode): void;
     setType(type: NodeType): void;
     setVisited(visited: boolean): void;
+    toggleWall(): void;
     type: NodeType;
     visited: boolean;
     xIndex: number;
