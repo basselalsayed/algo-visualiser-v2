@@ -72,7 +72,7 @@ class _ShortestPath {
             }
           },
         }
-      );
+      ).finished;
     }
   }
 

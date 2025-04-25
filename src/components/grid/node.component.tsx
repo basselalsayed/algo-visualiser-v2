@@ -1,6 +1,5 @@
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
-import { match } from 'ts-pattern';
 
 import { cn, getCSSVariable } from '@/lib/utils';
 
