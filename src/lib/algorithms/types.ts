@@ -9,6 +9,7 @@ export interface RuntimeInfo {
 }
 
 export type AlgoName = keyof typeof tAlgoInfo;
+export const ALGO_NAMES = Object.keys(tAlgoInfo) as AlgoName[];
 
 export interface IPathFindingAlgorithm {
   name: AlgoName;
@@ -22,7 +23,7 @@ export interface IPathFindingAlgorithmConstructor {
     grid: NodeMap,
     start: NodeCoordinates,
     end: NodeCoordinates,
-    animationSpeed: number
+    animationSpeed: Duration
   ): IPathFindingAlgorithm;
 }
 

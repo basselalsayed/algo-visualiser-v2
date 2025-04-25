@@ -12,23 +12,69 @@ import { animate, mix } from 'motion';
 import { useSettings } from '@/hooks';
 
 import {
+  ALGO_NAMES,
   type AlgoName,
+  type Duration,
   HTML_SELECTORS,
   getCSSVariable,
-  millisecondsToSeconds,
-  sleep,
 } from '..';
 
 class _ShortestPath {
-  private readonly pathMap: Map<AlgoName, INode[]>;
   addPath = (name: AlgoName, path: INode[]) => {
     this.pathMap.set(name, path);
   };
 
-  private readonly cleanupArray: VoidFunction[];
-  private addCleanup = (cleanup: VoidFunction) => {
-    this.cleanupArray.push(cleanup);
+  reverse = async (name: AlgoName) => {
+    const animations = this.getGroupPaths(name)
+      .reverse()
+      .map((path, i) =>
+        animate(
+          path,
+          { pathLength: 0 },
+          {
+            delay: i * this.animationDuration.inSeconds,
+            duration: this.animationDuration.inSeconds,
+            onComplete: async () => {
+              if (path.dataset.tooltipTarget) {
+                await this.animateTooltip(name, 'out')?.finished;
+
+                this.getTooltip(name)?.remove();
+              }
+            },
+          }
+        )
+      );
+
+    await Promise.all(animations.map((a) => a.finished));
+
+    this.getGroup(name)?.remove();
+    this.pathMap.delete(name);
   };
+
+  *run(this: this, animationSpeed: Duration) {
+    this.drawShortestPath();
+    this._animationSpeed = animationSpeed;
+
+    const [name] = this.mostRecentPath;
+
+    for (const path of this.getGroupPaths(name)) {
+      yield animate(
+        path,
+        {
+          pathLength: 1,
+        },
+        {
+          duration: this.animationDuration.inSeconds,
+          ease: 'linear',
+          onComplete: () => {
+            if (path.dataset.tooltipTarget) {
+              this.animateTooltip(name, 'in');
+            }
+          },
+        }
+      );
+    }
+  }
 
   reset = () => {
     const { shortestPathSvg, shortestPathTooltip } = HTML_SELECTORS.components;
@@ -48,14 +94,30 @@ class _ShortestPath {
     this.run = this.run.bind(this);
   }
 
-  private getNodeCenter = (el: Element) => {
-    const rect = el.getBoundingClientRect();
+  private static getGroupID = (name: string) => `g-${name}`;
+  private static getTooltipID = (name: string) => `tooltip-${name}`;
+  private static getGroupSelector = (name: string) =>
+    `#${_ShortestPath.getGroupID(name)}`;
+  private static getTooltipSelector = (name: string) =>
+    `#${_ShortestPath.getTooltipID(name)}`;
 
-    return {
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-    };
-  };
+  private readonly pathMap: Map<AlgoName, INode[]>;
+  private readonly cleanupArray: VoidFunction[];
+  private readonly colors = Object.fromEntries(
+    ['dijkstra', 'aStarE', 'aStarM', 'dfs', 'bfs'].map((name) => [
+      name,
+      ['--shortest-path-start', `--shortest-path-end-${name}`],
+    ])
+  );
+  private _animationSpeed: Duration | undefined;
+  private _pathSegments: number = 6;
+
+  private get animationDuration() {
+    return this._animationSpeed!.divide(this._pathSegments, {
+      max: 300,
+      min: 10,
+    });
+  }
 
   private get svg() {
     return document.querySelector<SVGSVGElement>(
@@ -72,6 +134,31 @@ class _ShortestPath {
     return [...this.pathMap.entries()].at(-1)!;
   }
 
+  private addCleanup = (cleanup: VoidFunction) => {
+    this.cleanupArray.push(cleanup);
+  };
+
+  private getNodeCenter = (el: Element) => {
+    const rect = el.getBoundingClientRect();
+
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+  };
+
+  private getGroup = (name: AlgoName) =>
+    this.svg?.querySelector<SVGGElement>(_ShortestPath.getGroupSelector(name));
+
+  private getGroupPaths = (name: AlgoName) => [
+    ...(this.getGroup(name)?.querySelectorAll<SVGPathElement>('path') ?? []),
+  ];
+
+  private getTooltip = (name: AlgoName) =>
+    this.tooltipContainer?.querySelector<HTMLDivElement>(
+      _ShortestPath.getTooltipSelector(name)
+    );
+
   private createPathElement(
     d: string,
     name: AlgoName,
@@ -80,7 +167,6 @@ class _ShortestPath {
   ) {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
-    path.setAttribute('id', name);
     path.setAttribute('d', d);
     path.setAttribute('stroke-width', 'var(--shortest-path-width)');
     path.setAttribute('fill', 'none');
@@ -97,7 +183,13 @@ class _ShortestPath {
     const [name, shortestPath] = this.mostRecentPath;
     const totalPathLength = shortestPath.length;
     const { nodeSize } = useSettings.getState();
-    const sections = Math.floor(nodeSize / 5);
+    this._pathSegments = Math.floor(nodeSize / 5);
+
+    const groupElement = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'g'
+    );
+    groupElement.id = _ShortestPath.getGroupID(name);
 
     for (const [i, { domNode }] of shortestPath.entries()) {
       if (i === totalPathLength - 1) continue;
@@ -109,8 +201,8 @@ class _ShortestPath {
 
       let start = p1;
 
-      for (let s = 1; s <= sections; s++) {
-        const mixRatio = s / sections;
+      for (let s = 1; s <= this._pathSegments; s++) {
+        const mixRatio = s / this._pathSegments;
         const end = mixer(mixRatio);
 
         const path = this.createPathElement(
@@ -120,19 +212,22 @@ class _ShortestPath {
           i + mixRatio
         );
 
-        if (i === Math.floor(totalPathLength / 4) && s === sections) {
+        if (this.isTooltipTarget(i, totalPathLength, name, s)) {
           path.dataset.tooltipTarget = 'true';
+          this.createToolTip(name, path);
         }
 
-        this.svg.append(path);
+        groupElement.append(path);
 
         start = { ...end };
       }
     }
+    this.svg.append(groupElement);
   };
 
   private createToolTip = (name: AlgoName, path: SVGPathElement) => {
     const tooltip = document.createElement('div');
+    tooltip.id = _ShortestPath.getTooltipID(name);
     tooltip.classList.add(
       'bg_grad_accent--outline--text',
       'absolute',
@@ -140,9 +235,11 @@ class _ShortestPath {
       'py-4',
       'rounded-md',
       'text-sm',
-      'z-[9999]',
+      'z-2',
       'pointer-events-none'
     );
+    tooltip.style.opacity = '0';
+    tooltip.style.transform = 'scale(0)';
 
     const tKey = `algoInfo:${name}.name` as const;
     tooltip.textContent = t(tKey);
@@ -201,14 +298,9 @@ class _ShortestPath {
     });
 
     this.addCleanup(cleanup);
-  };
 
-  private colors = Object.fromEntries(
-    ['dijkstra', 'aStarE', 'aStarM', 'dfs', 'bfs'].map((name) => [
-      name,
-      ['--shortest-path-start', `--shortest-path-end-${name}`],
-    ])
-  );
+    return tooltip;
+  };
 
   private getPathColor = (i: number, length: number, name: AlgoName) => {
     const ratio = (i + 1) / length;
@@ -217,33 +309,35 @@ class _ShortestPath {
     return mix(startColor, endColor)(ratio);
   };
 
-  *run(this: this, animationSpeed: number) {
-    this.drawShortestPath();
+  private isTooltipTarget = (
+    i: number,
+    totalPathLength: number,
+    name: AlgoName,
+    s: number
+  ) => {
+    const slotIndex = ALGO_NAMES.indexOf(name) + 1;
 
-    const duration = millisecondsToSeconds(animationSpeed) / 5;
-    const [name] = this.mostRecentPath;
+    return (
+      i ===
+        Math.floor((slotIndex * totalPathLength) / (ALGO_NAMES.length * 1.5)) &&
+      s === this._pathSegments
+    );
+  };
 
-    for (const path of this.svg.querySelectorAll<SVGPathElement>(
-      `path#${name}`
-    )) {
-      animate(
-        path,
-        {
-          strokeDashoffset: 0,
-        },
-        {
-          duration,
-          ease: 'linear',
-          onComplete: () => {
-            if (path.dataset.tooltipTarget) {
-              this.createToolTip(name, path);
-            }
-          },
-        }
-      );
+  private animateTooltip(name: AlgoName, direction: 'in' | 'out') {
+    const keyframes = [
+      { opacity: 0, transform: 'scale(0)' },
+      { opacity: 1, transform: 'scale(1)' },
+    ];
 
-      yield sleep(animationSpeed / 5);
-    }
+    return this.getTooltip(name)?.animate(
+      direction === 'in' ? keyframes : keyframes.reverse(),
+      {
+        duration: 300,
+        easing: 'ease-out',
+        fill: 'forwards',
+      }
+    );
   }
 }
 
