@@ -1,9 +1,5 @@
-import {
-  assert,
-  convertToSeconds,
-  millisecondsToSeconds,
-  sleep,
-} from '../utils';
+import { type Duration } from '../duration';
+import { assert, convertToSeconds, sleep } from '../utils';
 
 import { ShortestPath } from './shortest-path';
 import type {
@@ -20,7 +16,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     protected readonly grid: NodeMap,
     protected readonly start: NodeCoordinates,
     protected readonly end: NodeCoordinates,
-    protected readonly animationSpeed: number
+    protected readonly animationSpeed: Duration
   ) {
     this.run = this.run.bind(this);
     this.pause = this.pause.bind(this);
@@ -83,7 +79,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
   }
 
   protected async sleep() {
-    await sleep(this.animationSpeed);
+    await sleep(this.animationDuration.inMillis);
   }
 
   protected visitWall(this: this, node: INode): void {
@@ -91,7 +87,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
   }
 
   protected get animationDuration() {
-    return Math.max(millisecondsToSeconds(this.animationSpeed) * 5, 0.3);
+    return this.animationSpeed.multiply(5, { max: 300 });
   }
 
   protected visitNode(this: this, node: INode): void {

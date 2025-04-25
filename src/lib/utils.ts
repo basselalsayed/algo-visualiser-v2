@@ -42,19 +42,6 @@ export function typeIs(value: unknown, type: T0): value is T0 {
   }
 }
 
-export const secondsToMilliseconds = (seconds: number): number =>
-  seconds * 1000;
-
-export const millisecondsToSeconds = (ms: number): number => ms / 1000;
-
-export function convertToMilliseconds(
-  start: DOMHighResTimeStamp,
-  end: DOMHighResTimeStamp
-) {
-  const milliseconds = end - start;
-  return Math.floor(milliseconds * 1000) / 1000;
-}
-
 export function convertToSeconds(
   start: DOMHighResTimeStamp,
   end: DOMHighResTimeStamp

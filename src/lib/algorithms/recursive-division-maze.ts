@@ -1,11 +1,10 @@
 import { NodeType } from '@/components/grid/node-type.enum';
-
-import { sleep } from '../utils';
+import { type Duration, sleep } from '@/lib';
 
 export class Maze {
   constructor(
     private readonly grid: NodeMap,
-    private readonly animationSpeed: number,
+    private readonly animationSpeed: Duration,
     readonly onDone?: VoidFunction
   ) {
     this.cols = Math.max(...[...this.grid.keys()].map(([x]) => x)) + 1;
@@ -31,21 +30,28 @@ export class Maze {
   }
 
   async wallBorders(this: this) {
+    const duration = this.animationSpeed.divide(6);
     //top
     for (let i = 0; i < this.cols; i++) {
-      await this.animateWall(this.getNodeFromPosition(i, 0), 5);
+      await this.animateWall(this.getNodeFromPosition(i, 0), duration);
     }
     //right
     for (let i = 0; i < this.rows; i++) {
-      await this.animateWall(this.getNodeFromPosition(this.cols - 1, i), 5);
+      await this.animateWall(
+        this.getNodeFromPosition(this.cols - 1, i),
+        duration
+      );
     }
     //bottom
     for (let i = this.cols - 1; i >= 0; i--) {
-      await this.animateWall(this.getNodeFromPosition(i, this.rows - 1), 5);
+      await this.animateWall(
+        this.getNodeFromPosition(i, this.rows - 1),
+        duration
+      );
     }
     // left
     for (let i = this.rows - 1; i >= 0; i--) {
-      await this.animateWall(this.getNodeFromPosition(0, i), 5);
+      await this.animateWall(this.getNodeFromPosition(0, i), duration);
     }
   }
 
@@ -102,11 +108,11 @@ export class Maze {
   async animateWall(
     this: this,
     node: INode,
-    ms = this.animationSpeed
+    duration = this.animationSpeed
   ): Promise<void> {
-    node.setType(NodeType.wall);
+    if (node.isNone) node.setType(NodeType.wall);
 
-    await sleep(ms);
+    await sleep(duration.inMillis);
   }
 
   getNotWallNeighbors(this: this, node: INode): number {

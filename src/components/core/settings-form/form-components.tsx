@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Slider } from '@/components/slider.component';
 import { Checkbox, Label } from '@/components/ui';
 import { useDimensions, useSettings } from '@/hooks';
+import { Duration } from '@/lib';
 
 import { PERFORMANCE_NODE_SIZE_THRESHOLD } from './constants';
 
@@ -93,7 +94,9 @@ export const AnimationSpeedSlider: FC = () => {
       max={-1}
       step={-1}
       defaultValue={[-animationSpeed]}
-      onValueChange={(v) => dispatch('animationSpeed', Math.abs(v[0]))}
+      onValueChange={(v) =>
+        dispatch('animationSpeed', Duration.fromMillis(Math.abs(v[0])))
+      }
     />
   );
 };
