@@ -1,6 +1,6 @@
 import tAlgoInfo from '@/locales/en/algoInfo.json';
 
-import { type Duration } from '../duration';
+import { type Duration } from '../classes/duration';
 
 export interface RuntimeInfo {
   name: string;
