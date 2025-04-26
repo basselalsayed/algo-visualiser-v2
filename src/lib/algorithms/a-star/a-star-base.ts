@@ -1,9 +1,6 @@
-import { sleep } from '../../utils';
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
 
 export abstract class AStarBase extends PathFindingAlgorithm {
-  override queue = [this.startNode];
-
   abstract findManhatten(this: this, node: INode, endNode: INode): number;
 
   *traverse(this: this) {
@@ -28,7 +25,7 @@ export abstract class AStarBase extends PathFindingAlgorithm {
 
       this.addNeighboursToOpen(currentNode);
 
-      yield sleep(10);
+      yield this.sleep();
     }
 
     return this.visitedNodes.length;
@@ -52,8 +49,12 @@ export abstract class AStarBase extends PathFindingAlgorithm {
   }
 
   addNeighboursToOpen(this: this, node: INode) {
-    const notWallNeighbours = this.getUnvisitedNeighbors(node, false);
-    for (const neighbour of notWallNeighbours) {
+    const neighbours = this.getUnvisitedNeighbors(node);
+    for (const neighbour of neighbours) {
+      if (neighbour.isWall) {
+        this.visitWall(neighbour);
+        continue;
+      }
       neighbour.setDistance(node.distance + 1);
       neighbour.setManhatten(this.findManhatten(neighbour, this.endNode));
       this.maybeUpdateHeuristic(neighbour);
@@ -62,10 +63,5 @@ export abstract class AStarBase extends PathFindingAlgorithm {
         this.queue.push(neighbour);
       }
     }
-  }
-
-  override reset(this: this): void {
-    super.reset();
-    this.queue = [this.startNode];
   }
 }

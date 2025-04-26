@@ -1,6 +1,5 @@
-import { animate } from 'motion';
-
-import { assert, convertToSeconds } from '../utils';
+import { type Duration } from '../classes/duration';
+import { assert, convertToSeconds, sleep } from '../utils';
 
 import { ShortestPath } from './shortest-path';
 import type {
@@ -14,9 +13,10 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
   abstract name: AlgoName;
 
   constructor(
-    public grid: NodeMap,
-    public start: NodeCoordinates,
-    public end: NodeCoordinates
+    protected readonly grid: NodeMap,
+    protected readonly start: NodeCoordinates,
+    protected readonly end: NodeCoordinates,
+    protected readonly animationSpeed: Duration
   ) {
     this.run = this.run.bind(this);
     this.pause = this.pause.bind(this);
@@ -78,31 +78,29 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     return shortestPath;
   }
 
-  async visitNode(this: this, node: INode): Promise<void> {
-    this.visitedNodes.push(node);
+  protected async sleep() {
+    await sleep(this.animationDuration.inMillis);
+  }
 
+  protected visitWall(this: this, node: INode): void {
     node.setVisited(true);
+  }
 
-    animate(
-      node.domNode!,
-      {
-        // backgroundColor: ['#eb9834', '#34eb4f', '#3434eb', 'rgba(0, 0, 0, 0)'],
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        borderWidth: [0.7, 0.4, 0.1, 0],
-        scale: [0.8, 1.2, 1],
-      },
-      {
-        duration: 0.3,
-        ease: 'easeInOut',
-      }
-    );
+  protected get animationDuration() {
+    return this.animationSpeed.multiply(5, { max: 300 });
+  }
+
+  protected visitNode(this: this, node: INode): void {
+    this.visitedNodes.push(node);
+    node.setVisited(true);
+    if (node.isStart || node.isEnd) return;
   }
 
   abstract traverse(this: this): TraverseGenerator;
 
   private accessor traverseGenerator: TraverseGenerator | undefined;
   private accessor shortestPathGenerator:
-    | Generator<Promise<void>, void>
+    | Generator<Promise<unknown>, void>
     | undefined;
 
   async executeGenerator(gen: Generator) {
@@ -143,7 +141,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
       ShortestPath.addPath(this.name, this.shortestPath);
-      this.shortestPathGenerator ??= ShortestPath.run();
+      this.shortestPathGenerator ??= ShortestPath.run(this.animationSpeed);
 
       await this.executeGenerator(this.shortestPathGenerator);
 

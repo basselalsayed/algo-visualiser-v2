@@ -3,10 +3,12 @@ import { type ArrayKeyMap } from '@/lib';
 
 declare global {
   declare interface INode {
+    coordinates: NodeCoordinates;
     distance: number;
     domNode: HTMLDivElement;
     heuristic: number;
     isEnd: boolean;
+    isNone: boolean;
     isStart: boolean;
     isWall: boolean;
     manhatten: number;

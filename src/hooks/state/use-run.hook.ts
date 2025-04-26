@@ -7,10 +7,11 @@ import { useTour } from '@/contexts';
 import { useMutation } from '@/data/hooks/use-mutation.hook';
 import { eventEmitter } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
-import { RecursiveDivisionMaze, ShortestPath } from '@/lib/algorithms';
+import { Maze, ShortestPath } from '@/lib/algorithms';
 
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
+import { useSettings } from './use-settings.hook';
 import { useStats } from './use-stats.hook';
 
 type RunState = 'idle' | 'running' | 'paused' | 'done';
@@ -32,7 +33,7 @@ export const useRunStore = create<RunStore>((set) => ({
 
 interface useRunReturn {
   algoRunning: boolean;
-  maze: RecursiveDivisionMaze;
+  maze: Maze;
   mazeRunning: boolean;
   readyToRun: boolean;
   readyToRunMaze: boolean;
@@ -46,6 +47,8 @@ export const useRun = (): useRunReturn => {
   const { algoInstance, dispatch, mazeRunState, runState } = useRunStore();
 
   const { refsMap, resetGrid, resetWalls } = useGrid();
+
+  const animationSpeed = useSettings((settings) => settings.animationSpeed);
 
   const trigger = useMutation({ tableName: 'algo_result' });
 
@@ -80,7 +83,8 @@ export const useRun = (): useRunReturn => {
       })
       .with('done', async () => {
         dispatch('runState', 'running');
-        await algoInstance?.reset();
+        algoInstance?.reset();
+        await ShortestPath.reverse(algoInstance!.name);
         algoInstance?.run(onRunCompleteReplay);
       });
   }, [algoInstance, dispatch, onRunComplete, onRunCompleteReplay, runState]);
@@ -93,11 +97,11 @@ export const useRun = (): useRunReturn => {
 
   const maze = useMemo(
     () =>
-      new RecursiveDivisionMaze(refsMap, () => {
+      new Maze(refsMap, animationSpeed, () => {
         dispatch('mazeRunState', 'done');
         eventEmitter.emit('mazeComplete');
       }),
-    [dispatch, refsMap]
+    [animationSpeed, dispatch, refsMap]
   );
 
   const reset = useCallback(() => {

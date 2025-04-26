@@ -1,4 +1,6 @@
-import type tAlgoInfo from '@/locales/en/algoInfo.json';
+import tAlgoInfo from '@/locales/en/algoInfo.json';
+
+import { type Duration } from '../classes/duration';
 
 export interface RuntimeInfo {
   name: string;
@@ -8,8 +10,11 @@ export interface RuntimeInfo {
   shortestPath: number;
 }
 
+export type AlgoName = keyof typeof tAlgoInfo;
+export const ALGO_NAMES = Object.keys(tAlgoInfo) as AlgoName[];
+
 export interface IPathFindingAlgorithm {
-  name: string;
+  name: AlgoName;
   pause(): void;
   reset(): void | Promise<void>;
   run(onDone?: (results: RuntimeInfo) => unknown): Promise<void>;
@@ -19,7 +24,8 @@ export interface IPathFindingAlgorithmConstructor {
   new (
     grid: NodeMap,
     start: NodeCoordinates,
-    end: NodeCoordinates
+    end: NodeCoordinates,
+    animationSpeed: Duration
   ): IPathFindingAlgorithm;
 }
 
@@ -27,5 +33,3 @@ export type TraverseGenerator = Generator<
   void | Promise<void>,
   RuntimeInfo['nodesProcessed']
 >;
-
-export type AlgoName = keyof typeof tAlgoInfo;

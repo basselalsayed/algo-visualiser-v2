@@ -1,5 +1,3 @@
-import { sleep } from '../utils';
-
 import { PathFindingAlgorithm } from './path-finding-algorithm';
 
 export class Dijkstra extends PathFindingAlgorithm {
@@ -30,15 +28,18 @@ export class Dijkstra extends PathFindingAlgorithm {
 
       const closestNode = unvisitedNodes.shift()!;
 
-      if (closestNode.isWall) continue;
+      if (closestNode.isWall) {
+        this.visitWall(closestNode);
+        yield this.sleep();
+        continue;
+      }
       if (closestNode.distance === Infinity) break;
 
       this.visitNode(closestNode);
-      // change this to be  closestNode.isEnd
       if (closestNode.isEnd) break;
       this.updateUnvisitedNeighbors(closestNode);
 
-      yield sleep(5);
+      yield this.sleep();
     }
 
     return this.visitedNodes.length;

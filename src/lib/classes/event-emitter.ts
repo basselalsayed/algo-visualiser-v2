@@ -1,4 +1,4 @@
-import { HTML_SELECTORS } from './constants';
+import { HTML_SELECTORS } from '../constants';
 
 export const customEventKeys = {
   endSelected: 'endSelected',

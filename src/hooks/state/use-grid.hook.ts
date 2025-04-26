@@ -10,6 +10,7 @@ interface GridStore {
   addRef: (x: number, y: number, el: INode | null) => void;
   dispatch: DispatchFunction<GridStore, 'refsMap' | 'addRef' | 'resetGrid'>;
   endNode?: NodeCoordinates;
+  pointerDown: boolean;
   refreshKey: string;
   refsMap: NodeMap;
   resetGrid: VoidFunction;
@@ -36,6 +37,7 @@ export const useGrid = create<GridStore>((set, get) => ({
       [key]: value,
     })),
   endNode: undefined,
+  pointerDown: false,
   refreshKey: nanoid(),
   refsMap: new ArrayKeyMap<NodeCoordinates, INode>(),
   resetGrid: () =>

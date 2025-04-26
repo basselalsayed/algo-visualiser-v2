@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
-import { useBoolean } from 'usehooks-ts';
+import { useEventCallback } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
@@ -19,19 +19,19 @@ import { Node } from './node.component';
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const { dispatch, nodeSize } = useSettings(
+  const { nodeSize, settingsDispatch } = useSettings(
     useShallow(({ dispatch, nodeSize }) => ({
-      dispatch,
       nodeSize,
+      settingsDispatch: dispatch,
     }))
   );
 
-  const { addRef, refreshKey, resetGrid, wallMode } = useGrid(
-    useShallow(({ addRef, refreshKey, resetGrid, wallMode }) => ({
+  const { addRef, dispatch, refreshKey, resetGrid } = useGrid(
+    useShallow(({ addRef, dispatch, refreshKey, resetGrid }) => ({
       addRef,
+      dispatch,
       refreshKey,
       resetGrid,
-      wallMode,
     }))
   );
 
@@ -41,30 +41,57 @@ export const Grid = memo(() => {
   });
 
   useEffect(() => {
-    dispatch('gridHeight', height);
-    dispatch('maxGridHeight', height);
-    dispatch('gridWidth', width);
-    dispatch('maxGridWidth', width);
+    settingsDispatch('gridHeight', height);
+    settingsDispatch('maxGridHeight', height);
+    settingsDispatch('gridWidth', width);
+    settingsDispatch('maxGridWidth', width);
     resetGrid();
-  }, [dispatch, height, resetGrid, width]);
+  }, [settingsDispatch, height, resetGrid, width]);
 
   const { columnCount, rowCount } = useDimensions();
 
-  const { setFalse, setTrue, value: mouseDown } = useBoolean(false);
+  const onPointerDown = useEventCallback((e: PointerEvent) => {
+    dispatch('pointerDown', true);
+    const node = e.target as HTMLDivElement | undefined;
 
-  useEventListener('mousedown', setTrue, gridRef);
-  useEventListener('mouseup', setFalse, gridRef);
+    if (node && node.hasPointerCapture(e.pointerId)) {
+      node.releasePointerCapture(e.pointerId);
+    }
+  });
 
-  const handleNodeMouseOver = useCallback<(node: INode) => NodeType>(
-    (node) => {
-      if (wallMode && mouseDown) {
-        if (node.type === 'none') return NodeType.wall;
-        if (node.type === 'wall') return NodeType.none;
-      }
-      return node.type;
-    },
-    [mouseDown, wallMode]
-  );
+  useEventListener('pointerdown', onPointerDown, gridRef);
+
+  const toggledRecentlyRef = useRef(new Set<string>());
+
+  const onPointerMove = useEventCallback((e: PointerEvent) => {
+    const node = e.target as HTMLDivElement;
+    const { pointerDown, wallMode } = useGrid.getState();
+
+    if (!pointerDown || !wallMode || !node) return;
+
+    const { type, xIndex, yIndex } = node.dataset;
+    const key = String([xIndex, yIndex]);
+    const toggledRecently = toggledRecentlyRef.current;
+
+    if (toggledRecently.has(key)) return;
+
+    toggledRecently.add(key);
+    setTimeout(() => toggledRecently.delete(key), 300);
+
+    node.dataset.type = match(type as NodeType)
+      .with(NodeType.wall, () => NodeType.none)
+      .with(NodeType.none, () => NodeType.wall)
+      .otherwise(() => type);
+  });
+
+  useEventListener('pointermove', onPointerMove, gridRef);
+
+  const onPointerUp = useEventCallback(() => {
+    toggledRecentlyRef.current.clear();
+    dispatch('pointerDown', false);
+  });
+
+  useEventListener('pointerup', onPointerUp, gridRef);
 
   const handleNodeClick = useCallback<(node: INode) => NodeType>(
     ({ type, xIndex, yIndex }) => {
@@ -73,6 +100,7 @@ export const Grid = memo(() => {
       return match({ endNode, startNode, type, wallMode })
         .returnType<NodeType>()
         .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
+        .with({ type: NodeType.wall, wallMode: true }, () => NodeType.none)
         .with({ startNode: undefined, type: NodeType.none }, () => {
           dispatch('startNode', [xIndex, yIndex]);
           eventEmitter.emit('startSelected');
@@ -95,7 +123,7 @@ export const Grid = memo(() => {
 
           return NodeType.none;
         })
-        .otherwise(() => NodeType.none);
+        .otherwise(() => type);
     },
     []
   );
@@ -103,7 +131,7 @@ export const Grid = memo(() => {
   return (
     <div
       id={HTML_IDS.components.grid}
-      className='flex h-full w-full flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
+      className='flex h-full w-full touch-none flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
       ref={gridRef}
     >
       {Array.from({ length: columnCount }).map((_, xIndex) => (
@@ -132,12 +160,11 @@ export const Grid = memo(() => {
                 rowCount={rowCount}
                 xIndex={xIndex}
                 yIndex={yIndex}
-                isLastColumn={xIndex === columnCount - 1}
+                isLastColumn={lastColumn}
                 ref={(node) => {
                   addRef(xIndex, yIndex, node);
                 }}
                 onClick={handleNodeClick}
-                onMouseOver={handleNodeMouseOver}
                 id={id}
               />
             );

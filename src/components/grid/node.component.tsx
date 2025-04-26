@@ -1,7 +1,7 @@
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn, getCSSVariable } from '@/lib/utils';
 
 import { NodeType } from './node-type.enum';
 
@@ -11,7 +11,6 @@ interface Props {
   id?: string;
   isLastColumn: boolean;
   onClick: (node: Node) => NodeType;
-  onMouseOver: (node: Node) => NodeType;
   rowCount: number;
   size: number;
   xIndex: number;
@@ -20,7 +19,6 @@ interface Props {
 
 interface State {
   type: NodeType;
-  visited: boolean;
 }
 
 export class Node extends PureComponent<Props, State> implements INode {
@@ -29,7 +27,6 @@ export class Node extends PureComponent<Props, State> implements INode {
 
     this.state = {
       type: NodeType.none,
-      visited: false,
     };
 
     this.xIndex = props.xIndex;
@@ -37,13 +34,40 @@ export class Node extends PureComponent<Props, State> implements INode {
 
     this.ref = createRef();
     this.handleClick = this.handleClick.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
     this.setPastNode = this.setPastNode.bind(this);
     this.setHeuristic = this.setHeuristic.bind(this);
     this.setManhatten = this.setManhatten.bind(this);
     this.setDistance = this.setDistance.bind(this);
     this.setType = this.setType.bind(this);
     this.setVisited = this.setVisited.bind(this);
+  }
+  observer: MutationObserver | undefined;
+
+  componentDidMount(): void {
+    this.observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'data-type'
+        ) {
+          const { type } = (mutation.target as HTMLDivElement).dataset;
+          if (
+            type !== this.type &&
+            Object.values(NodeType).includes(type as NodeType)
+          ) {
+            this.setType(type as NodeType);
+          }
+        }
+      }
+    });
+
+    this.observer.observe(this.domNode, {
+      attributeFilter: ['data-type'],
+    });
+  }
+
+  componentWillUnmount(): void {
+    this.observer?.disconnect();
   }
 
   private ref: RefObject<HTMLDivElement | null>;
@@ -93,11 +117,17 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setState({ type });
   }
 
+  private _visited: boolean = false;
   get visited() {
-    return this.state.visited;
+    return this._visited;
   }
   setVisited(visited: boolean) {
-    this.setState({ visited });
+    this._visited = visited;
+    if (this.isWall) {
+      this.domNode.toggleAttribute('data-visited-wall', visited);
+    } else {
+      this.domNode.toggleAttribute('data-visited', visited);
+    }
   }
 
   reset(this: this, resetType: boolean | NodeType[]) {
@@ -105,6 +135,7 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setHeuristic(Infinity);
     this.setManhatten(Infinity);
     this.setDistance(Infinity);
+    this.setVisited(false);
 
     let newType = this.type;
 
@@ -112,7 +143,7 @@ export class Node extends PureComponent<Props, State> implements INode {
     else if (Array.isArray(resetType) && resetType.includes(this.type))
       newType = NodeType.none;
 
-    this.setState({ type: newType, visited: false });
+    this.setType(newType);
   }
 
   get isStart() {
@@ -123,6 +154,9 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
   get isWall() {
     return this.type === 'wall';
+  }
+  get isNone() {
+    return this.type === 'none';
   }
   get domNode(): HTMLDivElement {
     if (!this.ref.current) throw new Error('Error mounting node');
@@ -135,11 +169,6 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setState({ type: onClick(this) });
   }
 
-  private handleMouseOver() {
-    const { onMouseOver } = this.props;
-    this.setState({ type: onMouseOver(this) });
-  }
-
   private get shadowOffset(): { x: number; y: number } {
     const { columnCount, rowCount } = this.props;
 
@@ -150,32 +179,26 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
 
   private get hoverFocusStyles(): TargetAndTransition {
-    const colorPrimary = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue('--primary');
+    const colorPrimary = getCSSVariable('--primary');
 
-    const { visited } = this.state;
+    const { columnCount, rowCount } = this.props;
 
-    return visited
-      ? {
-          borderWidth: '1px',
-          transition: {
-            duration: 0.01,
-            ease: 'easeInOut',
-          },
-        }
-      : {
-          backdropFilter: 'blur(10px)',
-          backgroundColor: `hsl(${colorPrimary} / 0.1)`,
-          borderWidth: '1px',
-          boxShadow: `${this.shadowOffset.x}rem ${this.shadowOffset.y}rem 0.5rem 0.2rem var(--color-primary-foreground)`,
-          scale: 1.1,
-          transition: {
-            duration: 0.1,
-            ease: 'easeInOut',
-          },
-          zIndex: 9999,
-        };
+    const x = -(1 - 2 * (this.xIndex / columnCount));
+    const y = -(1 - 2 * (this.yIndex / rowCount));
+
+    return {
+      backdropFilter: 'blur(10px)',
+      backgroundColor: `hsl(${colorPrimary} / 0.1)`,
+      boxShadow: `${this.shadowOffset.x}rem ${this.shadowOffset.y}rem 0.5rem 0.2rem var(--color-primary-foreground)`,
+      scale: 1.1,
+      transition: {
+        duration: 0.01,
+        ease: 'easeInOut',
+      },
+      x,
+      y,
+      zIndex: 4,
+    };
   }
 
   render() {
@@ -186,46 +209,44 @@ export class Node extends PureComponent<Props, State> implements INode {
       <motion.div
         id={id}
         tabIndex={-1}
-        initial={
-          this.state.visited
-            ? {
-                borderWidth: '0px',
-              }
-            : {
-                borderStyle: 'solid',
-                x: -(this.xIndex * 100),
-                y: -(this.yIndex * 100),
-              }
-        }
-        whileHover={this.hoverFocusStyles}
-        whileFocus={this.hoverFocusStyles}
+        ref={this.ref}
+        initial={{
+          x: -(xIndex * 100),
+          y: -(yIndex * 100),
+        }}
         animate={{
+          transition: {
+            duration: 0.1 * (this.xIndex + this.yIndex),
+            ease: 'easeInOut',
+            type: 'spring',
+          },
           x: 0,
           y: 0,
         }}
-        transition={{
-          duration: 0.1 * (this.xIndex + this.yIndex),
-          ease: 'easeInOut',
-          type: 'spring',
-        }}
+        whileHover={this.hoverFocusStyles}
+        whileFocus={this.hoverFocusStyles}
         onClick={this.handleClick}
-        onMouseOver={this.handleMouseOver}
-        data-type={type}
-        data-x-index={xIndex}
-        data-y-index={yIndex}
-        ref={this.ref}
         style={{
           height: size,
           width: size,
+          zIndex: this.isStart || this.isEnd ? 2 : undefined,
         }}
+        data-type={type}
+        data-x-index={xIndex}
+        data-y-index={yIndex}
         className={cn(
-          'border-background border-t border-l bg-radial transition-colors last:border-b',
-          // 'data-[type=none]:bg-transparent',
-          'from-transparent to-transparent',
+          // general
+          'transition-node bg-radial from-transparent to-transparent duration-700 [will-change:transform,backdrop-filter,--border-width,border-width]',
+          // border
+          'border-background border-t-(length:--border-width) border-l-(length:--border-width) [--border-width:1px] last:border-b-(length:--border-width)',
+          isLastColumn && 'border-r-(length:--border-width)',
+          // visited state
+          'data-visited:animate-node-visited data-visited:z-2 data-visited:scale-100 data-visited:[--border-width:0px]',
+          'data-visited-wall:animate-node-visited-wall',
+          // type colours
           'data-[type=end]:from-orange-600 data-[type=end]:to-red-600',
-          'data-[type=start]:from-green-600 data-[type=start]:to-cyan-600',
+          'data-[type=start]:from-grad-node-start-1 data-[type=start]:to-grad-node-start-2',
           'data-[type=wall]:from-grad-node-wall-1 data-[type=wall]:to-grad-node-wall-2',
-          isLastColumn && 'border-r',
           className
         )}
       />

@@ -21,7 +21,7 @@ import {
 } from './components';
 
 export const DesktopNav: FC = () => {
-  const { algoRunning } = useIsRunning();
+  const { algoRunning, mazeRunning } = useIsRunning();
   const { t } = useTranslation();
 
   return (
@@ -49,7 +49,7 @@ export const DesktopNav: FC = () => {
 
         <NavigationMenuItem>
           <NavigationMenuTrigger
-            disabled={algoRunning}
+            disabled={algoRunning || mazeRunning}
             id={HTML_IDS.buttons.settingsTrigger}
           >
             {t('navbar.settings')}

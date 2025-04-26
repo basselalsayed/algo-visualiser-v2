@@ -1,10 +1,10 @@
 import { NodeType } from '@/components/grid/node-type.enum';
+import { type Duration, sleep } from '@/lib';
 
-import { sleep } from '../utils';
-
-export class RecursiveDivisionMaze {
+export class Maze {
   constructor(
-    public readonly grid: NodeMap,
+    private readonly grid: NodeMap,
+    private readonly animationSpeed: Duration,
     readonly onDone?: VoidFunction
   ) {
     this.cols = Math.max(...[...this.grid.keys()].map(([x]) => x)) + 1;
@@ -22,7 +22,7 @@ export class RecursiveDivisionMaze {
 
   async run(this: this) {
     await this.wallBorders();
-    this.recursiveDivision(2, 2, this.cols - 2, this.rows - 2);
+    this.divide(2, 2, this.cols - 2, this.rows - 2);
   }
 
   randomiseValue(this: this, value: number): number {
@@ -30,21 +30,28 @@ export class RecursiveDivisionMaze {
   }
 
   async wallBorders(this: this) {
+    const duration = this.animationSpeed.divide(6);
     //top
     for (let i = 0; i < this.cols; i++) {
-      await this.animateWall(this.getNodeFromPosition(i, 0), 5);
+      await this.animateWall(this.getNodeFromPosition(i, 0), duration);
     }
     //right
     for (let i = 0; i < this.rows; i++) {
-      await this.animateWall(this.getNodeFromPosition(this.cols - 1, i), 5);
+      await this.animateWall(
+        this.getNodeFromPosition(this.cols - 1, i),
+        duration
+      );
     }
     //bottom
     for (let i = this.cols - 1; i >= 0; i--) {
-      await this.animateWall(this.getNodeFromPosition(i, this.rows - 1), 5);
+      await this.animateWall(
+        this.getNodeFromPosition(i, this.rows - 1),
+        duration
+      );
     }
     // left
     for (let i = this.rows - 1; i >= 0; i--) {
-      await this.animateWall(this.getNodeFromPosition(0, i), 5);
+      await this.animateWall(this.getNodeFromPosition(0, i), duration);
     }
   }
 
@@ -54,7 +61,7 @@ export class RecursiveDivisionMaze {
     return this.grid.get([x, y])!;
   }
 
-  async recursiveDivision(
+  async divide(
     this: this,
     x: number,
     y: number,
@@ -80,9 +87,7 @@ export class RecursiveDivisionMaze {
         ? this.getNodeFromPosition(wallX + i, wallY)
         : this.getNodeFromPosition(wallX, wallY + i);
 
-      this.animateWall(node);
-
-      await sleep(10);
+      await this.animateWall(node);
     }
 
     const passageIndex = this.randomiseValue(wallLength - 1);
@@ -92,17 +97,22 @@ export class RecursiveDivisionMaze {
       : this.getNodeFromPosition(wallX, wallY + passageIndex);
     passageNode.setType(NodeType.none);
     if (horizontal) {
-      this.recursiveDivision(x, y, width, wallY - y); // upper part
-      this.recursiveDivision(x, wallY + 2, width, y + height - wallY - 2); // lower part
+      this.divide(x, y, width, wallY - y); // upper part
+      this.divide(x, wallY + 2, width, y + height - wallY - 2); // lower part
     } else {
-      this.recursiveDivision(x, y, wallX - x, height); // left part
-      this.recursiveDivision(wallX + 2, y, x + width - wallX - 2, height); // right part
+      this.divide(x, y, wallX - x, height); // left part
+      this.divide(wallX + 2, y, x + width - wallX - 2, height); // right part
     }
   }
 
-  async animateWall(this: this, node: INode, ms = 10): Promise<void> {
-    node.setType(NodeType.wall);
-    await sleep(ms);
+  async animateWall(
+    this: this,
+    node: INode,
+    duration = this.animationSpeed
+  ): Promise<void> {
+    if (node.isNone) node.setType(NodeType.wall);
+
+    await sleep(duration.inMillis);
   }
 
   getNotWallNeighbors(this: this, node: INode): number {

@@ -1,14 +1,16 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
+import { Duration, setCSSVariable } from '@/lib';
 import { type AlgoInfo, algoInfo } from '@/lib/constants';
 
 import { type DispatchFunction } from './types';
 
 const DEFAULT_NODE_SIZE = 32;
+const DEFAULT_ANIMATION_SPEED = 50;
 
 interface SettingsStore {
-  animationSpeed: number;
+  animationSpeed: Duration;
   currentAlgo: AlgoInfo;
   dispatch: DispatchFunction<SettingsStore, 'dispatch' | 'reset'>;
   drawSquare: number;
@@ -22,7 +24,7 @@ interface SettingsStore {
 }
 
 export const useSettings = create<SettingsStore>((set) => ({
-  animationSpeed: 0,
+  animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
   currentAlgo: algoInfo[0],
   dispatch: (key, payload) =>
     set(
@@ -33,10 +35,7 @@ export const useSettings = create<SettingsStore>((set) => ({
         } else state[key] = payload;
 
         if (key === 'nodeSize') {
-          document.documentElement.style.setProperty(
-            '--node-size',
-            String(payload)
-          );
+          setCSSVariable('--node-size', payload as number);
         }
       })
     ),
@@ -47,14 +46,17 @@ export const useSettings = create<SettingsStore>((set) => ({
   maxGridWidth: 0,
   nodeSize: DEFAULT_NODE_SIZE,
   performanceMode: false,
-  reset: () =>
-    set(
+  reset: () => {
+    setCSSVariable('--node-size', DEFAULT_NODE_SIZE);
+
+    return set(
       produce((state) => ({
-        animationSpeed: 0,
+        animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
         drawSquare: 0,
         gridHeight: state.maxGridHeight,
         gridWidth: state.maxGridWidth,
         nodeSize: DEFAULT_NODE_SIZE,
       }))
-    ),
+    );
+  },
 }));
