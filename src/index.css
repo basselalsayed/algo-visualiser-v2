@@ -3,6 +3,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@custom-variant mobile-landscape {
+  @media only screen and ((
+ (max-height: 62rem) and (max-width: 35rem)
+    ) or
+    (
+      (max-height: 35rem) and (max-width: 62rem)
+    )) and (orientation: landscape) {
+    @slot;
+  }
+}
+@custom-variant mobile-portrait {
+  @media only screen and ((
+ (max-height: 62rem) and (max-width: 35rem)
+    ) or
+    (
+      (max-height: 35rem) and (max-width: 62rem)
+    )) and (orientation: portrait) {
+    @slot;
+  }
+}
+
 @property --border-width {
   syntax: '<length>';
   inherits: false;

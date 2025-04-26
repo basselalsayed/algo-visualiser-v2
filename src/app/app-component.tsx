@@ -29,7 +29,7 @@ export const App: FC = () => {
     <>
       <CommandKComponent />
       <StatsSheet />
-      <main className='grid h-[100svh] w-full grid-flow-row grid-cols-[100%] grid-rows-[1fr_auto] gap-4 sm:grid-rows-[auto_1fr]'>
+      <main className='mobile-landscape:grid-cols-[1fr_auto] mobile-landscape:grid-rows-[100%] grid h-[100svh] w-full grid-flow-row grid-cols-[100%] grid-rows-[1fr_auto] gap-4 sm:grid-rows-[auto_1fr]'>
         <Grid />
         <Navbar />
       </main>
