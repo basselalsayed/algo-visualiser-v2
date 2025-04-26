@@ -41,7 +41,8 @@
     "gridWidth": "Grid width",
     "nodeSize": "Node size",
     "performance": "Performance mode",
-    "performanceCheck": "This size is only recommended for faster devices, are you sure?",
+    "performanceCheck": "This size is only recommended for faster devices",
+    "performanceCheckTitle": "Are you sure?",
     "reset": "Reset",
     "title": "Settings"
   },
@@ -78,5 +79,9 @@
     "setNodeNone": "Clear node type",
     "setNodeStart": "Mark node as start",
     "setNodeWall": "Mark node as wall"
+  },
+  "buttons": {
+    "cancel": "No thanks",
+    "next": "Continue"
   }
 }

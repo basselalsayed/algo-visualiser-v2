@@ -20,6 +20,7 @@ interface SettingsStore {
   maxGridWidth: number;
   nodeSize: number;
   performanceMode: boolean;
+  performanceModeDialogOpen: boolean;
   reset: VoidFunction;
 }
 
@@ -46,6 +47,7 @@ export const useSettings = create<SettingsStore>((set) => ({
   maxGridWidth: 0,
   nodeSize: DEFAULT_NODE_SIZE,
   performanceMode: false,
+  performanceModeDialogOpen: false,
   reset: () => {
     setCSSVariable('--node-size', DEFAULT_NODE_SIZE);
 

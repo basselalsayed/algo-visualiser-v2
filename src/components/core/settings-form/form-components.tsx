@@ -6,30 +6,21 @@ import { Checkbox, Label } from '@/components/ui';
 import { useDimensions, useSettings } from '@/hooks';
 import { Duration } from '@/lib';
 
-import { PERFORMANCE_NODE_SIZE_THRESHOLD } from './constants';
+import { MAX_NODE_SIZE, MIN_NODE_SIZE } from './constants';
+import { updateNodeSize } from './utils';
 
 export const NodeSizeSlider: FC = () => {
-  const { dispatch, nodeSize, performanceMode } = useSettings();
+  const { nodeSize } = useSettings();
   const { t } = useTranslation();
 
   return (
     <Slider
       label={t('settings.nodeSize')}
       value={[nodeSize]}
-      min={10}
-      max={200}
+      min={MIN_NODE_SIZE}
+      max={MAX_NODE_SIZE}
       step={10}
-      onValueChange={(v) => {
-        if (v[0] <= PERFORMANCE_NODE_SIZE_THRESHOLD) {
-          if (performanceMode) return dispatch('nodeSize', v[0]);
-          else if (globalThis.confirm(t('settings.performanceCheck'))) {
-            dispatch('performanceMode', true);
-            dispatch('nodeSize', v[0]);
-            return;
-          }
-        }
-        dispatch('nodeSize', v[0]);
-      }}
+      onValueChange={(v) => updateNodeSize(v[0])}
     />
   );
 };
