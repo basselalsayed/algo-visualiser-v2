@@ -1,11 +1,14 @@
 import { Search } from 'lucide-react';
+import { type FC } from 'react';
 
 import { Kbd } from '@/components/kbd-component';
 import { Button } from '@/components/ui';
 import { useCommand } from '@/hooks';
 import { HTML_IDS, OPEN_COMMAND_KEY } from '@/lib';
 
-export const QuickSearchButton = () => {
+export const QuickSearchButton: FC<{ showKbd?: boolean }> = ({
+  showKbd = true,
+}) => {
   const { dispatch, open } = useCommand();
 
   return (
@@ -15,7 +18,7 @@ export const QuickSearchButton = () => {
     >
       <Search />
 
-      <Kbd primaryKey={OPEN_COMMAND_KEY} />
+      {showKbd && <Kbd primaryKey={OPEN_COMMAND_KEY} />}
     </Button>
   );
 };

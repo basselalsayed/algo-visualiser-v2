@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui';
-import { useIsRunning } from '@/hooks';
+import { useDeviceQueries, useIsRunning } from '@/hooks';
 import { HTML_IDS } from '@/lib';
 
 import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
@@ -29,8 +29,10 @@ export const MobileNav: FC = () => {
   const { toggle, value } = useBoolean(false);
   const { algoRunning, mazeRunning } = useIsRunning();
 
+  const { isMobileLandscape } = useDeviceQueries();
+
   return (
-    <div className='row-start-2'>
+    <div className='mobile-landscape:col-start-2 mobile-portrait:row-start-2'>
       <Sheet open={value} onOpenChange={toggle}>
         <SheetContent
           side='bottom'
@@ -66,8 +68,11 @@ export const MobileNav: FC = () => {
             </Accordian>
           </ul>
         </SheetContent>
-        <nav className='grad-border bg-background grid grid-flow-col items-center justify-between justify-items-stretch border-t-2 p-4'>
-          <h1 className='col-span-4 text-left'>AV</h1>
+        <nav className='mobile-landscape:h-full mobile-landscape:mobile-landscape:pr-[env(safe-area-inset-right)] grad-border bg-background mobile-landscape:grid-flow-row mobile-portrait:border-t-2 mobile-landscape:border-l-2 grid grid-flow-col items-center justify-between justify-items-stretch p-4'>
+          <h1 className='mobile-landscape:justify-self-center mobile-landscape:row-span-4 mobile-landscape:self-start mobile-portrait:col-span-4 text-left'>
+            AV
+          </h1>
+          {isMobileLandscape && <QuickSearchButton showKbd={false} />}
           <SheetTrigger asChild>
             <Button
               disabled={algoRunning || mazeRunning}
