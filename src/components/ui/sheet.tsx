@@ -71,7 +71,7 @@ const SheetContent = ({
       {...props}
     >
       <SheetPrimitive.Close
-        className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary fixed right-4 bottom-8 z-50 h-8 w-8 rounded-full p-5 opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none sm:top-4 sm:bottom-[initial]'
+        className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary fixed right-[calc(calc(var(--spacing)*4)+env(safe-area-inset-right))] bottom-8 z-50 h-8 w-8 rounded-full p-5 opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none sm:top-4 sm:bottom-[initial]'
         asChild
       >
         <Button>

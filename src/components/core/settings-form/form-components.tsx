@@ -6,7 +6,7 @@ import { Checkbox, Label } from '@/components/ui';
 import { useDimensions, useSettings } from '@/hooks';
 import { Duration } from '@/lib';
 
-import { MAX_NODE_SIZE, MIN_NODE_SIZE } from './constants';
+import { MAX_NODE_SIZE, MIN_NODE_SIZE, NODE_SIZE_STEP } from './constants';
 import { updateNodeSize } from './utils';
 
 export const NodeSizeSlider: FC = () => {
@@ -19,7 +19,7 @@ export const NodeSizeSlider: FC = () => {
       value={[nodeSize]}
       min={MIN_NODE_SIZE}
       max={MAX_NODE_SIZE}
-      step={10}
+      step={NODE_SIZE_STEP}
       onValueChange={(v) => updateNodeSize(v[0])}
     />
   );
