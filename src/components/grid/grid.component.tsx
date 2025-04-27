@@ -1,6 +1,5 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
-import { useEventCallback } from 'usehooks-ts';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
@@ -10,11 +9,18 @@ import {
   useResizeObserver,
   useSettings,
 } from '@/hooks';
-import { HTML_IDS, eventEmitter } from '@/lib';
+import { HTML_IDS } from '@/lib';
 import { cn } from '@/lib/utils';
+
+import {
+  NODE_SIZE_STEP,
+  PERFORMANCE_NODE_SIZE_THRESHOLD,
+  updateNodeSize,
+} from '../core';
 
 import { NodeType } from './node-type.enum';
 import { Node } from './node.component';
+import { getDistance, handleNodeClick } from './util';
 
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -50,88 +56,112 @@ export const Grid = memo(() => {
 
   const { columnCount, rowCount } = useDimensions();
 
-  const onPointerDown = useEventCallback((e: PointerEvent) => {
-    dispatch('pointerDown', true);
-    const node = e.target as HTMLDivElement | undefined;
+  const pointersRef = useRef<PointerEvent[]>([]);
+  const initialPinchDistanceRef = useRef<number>(0);
 
-    if (node && node.hasPointerCapture(e.pointerId)) {
-      node.releasePointerCapture(e.pointerId);
-    }
-  });
+  const onPointerDown = useCallback(
+    (e: PointerEvent) => {
+      const { wallMode } = useGrid.getState();
+      if (wallMode) {
+        dispatch('pointerDown', true);
+        const node = e.target as HTMLDivElement | undefined;
+
+        if (node && node.hasPointerCapture(e.pointerId)) {
+          node.releasePointerCapture(e.pointerId);
+        }
+      } else {
+        const pointers = pointersRef.current;
+
+        pointers.push(e);
+        if (pointers.length === 2) {
+          initialPinchDistanceRef.current = getDistance(
+            pointers[0],
+            pointers[1]
+          );
+        }
+      }
+    },
+    [dispatch]
+  );
 
   useEventListener('pointerdown', onPointerDown, gridRef);
 
   const toggledRecentlyRef = useRef(new Set<string>());
 
-  const onPointerMove = useEventCallback((e: PointerEvent) => {
-    const node = e.target as HTMLDivElement;
-    const { pointerDown, wallMode } = useGrid.getState();
+  const onPointerMove = useCallback((e: PointerEvent) => {
+    const { wallMode } = useGrid.getState();
 
-    if (!pointerDown || !wallMode || !node) return;
+    if (wallMode) {
+      const node = e.target as HTMLDivElement;
+      const { pointerDown, wallMode } = useGrid.getState();
 
-    const { type, xIndex, yIndex } = node.dataset;
-    const key = String([xIndex, yIndex]);
-    const toggledRecently = toggledRecentlyRef.current;
+      if (!pointerDown || !wallMode || !node) return;
 
-    if (toggledRecently.has(key)) return;
+      const { type, xIndex, yIndex } = node.dataset;
+      const key = String([xIndex, yIndex]);
+      const toggledRecently = toggledRecentlyRef.current;
 
-    toggledRecently.add(key);
-    setTimeout(() => toggledRecently.delete(key), 300);
+      if (toggledRecently.has(key)) return;
 
-    node.dataset.type = match(type as NodeType)
-      .with(NodeType.wall, () => NodeType.none)
-      .with(NodeType.none, () => NodeType.wall)
-      .otherwise(() => type);
-  });
+      toggledRecently.add(key);
+      setTimeout(() => toggledRecently.delete(key), 300);
+
+      node.dataset.type = match(type as NodeType)
+        .with(NodeType.wall, () => NodeType.none)
+        .with(NodeType.none, () => NodeType.wall)
+        .otherwise(() => type);
+    } else {
+      const { nodeSize, performanceMode } = useSettings.getState();
+
+      const pointers = pointersRef.current;
+      const initialDistance = initialPinchDistanceRef.current;
+
+      const index = pointers.findIndex((p) => p.pointerId === e.pointerId);
+      if (index !== -1) pointers[index] = e;
+
+      if (pointers.length === 2) {
+        const currentDistance = getDistance(pointers[0], pointers[1]);
+        const delta = currentDistance - initialDistance;
+
+        if (Math.abs(delta) > 10) {
+          const sizeChange = delta > 0 ? NODE_SIZE_STEP : -NODE_SIZE_STEP;
+          const newSize = nodeSize + sizeChange;
+
+          if (
+            sizeChange < 0 &&
+            newSize <= PERFORMANCE_NODE_SIZE_THRESHOLD &&
+            !performanceMode
+          ) {
+            pointersRef.current = [];
+          }
+
+          updateNodeSize(newSize);
+          initialPinchDistanceRef.current = currentDistance;
+        }
+      }
+    }
+  }, []);
 
   useEventListener('pointermove', onPointerMove, gridRef);
 
-  const onPointerUp = useEventCallback(() => {
-    toggledRecentlyRef.current.clear();
-    dispatch('pointerDown', false);
-  });
-
-  useEventListener('pointerup', onPointerUp, gridRef);
-
-  const handleNodeClick = useCallback<(node: INode) => NodeType>(
-    ({ type, xIndex, yIndex }) => {
-      const { dispatch, endNode, startNode, wallMode } = useGrid.getState();
-
-      return match({ endNode, startNode, type, wallMode })
-        .returnType<NodeType>()
-        .with({ type: NodeType.none, wallMode: true }, () => NodeType.wall)
-        .with({ type: NodeType.wall, wallMode: true }, () => NodeType.none)
-        .with({ startNode: undefined, type: NodeType.none }, () => {
-          dispatch('startNode', [xIndex, yIndex]);
-          eventEmitter.emit('startSelected');
-
-          return NodeType.start;
-        })
-        .with({ endNode: undefined, type: NodeType.none }, () => {
-          dispatch('endNode', [xIndex, yIndex]);
-          eventEmitter.emit('endSelected');
-
-          return NodeType.end;
-        })
-        .with({ type: NodeType.start }, () => {
-          dispatch('startNode', undefined);
-
-          return NodeType.none;
-        })
-        .with({ type: NodeType.end }, () => {
-          dispatch('endNode', undefined);
-
-          return NodeType.none;
-        })
-        .otherwise(() => type);
+  const onPointerUpOrCancel = useCallback(
+    (e: PointerEvent) => {
+      toggledRecentlyRef.current.clear();
+      dispatch('pointerDown', false);
+      pointersRef.current = pointersRef.current.filter(
+        (p) => p.pointerId !== e.pointerId
+      );
     },
-    []
+    [dispatch]
   );
+
+  useEventListener('pointerup', onPointerUpOrCancel, gridRef);
+  useEventListener('pointercancel', onPointerUpOrCancel, gridRef);
 
   return (
     <div
       id={HTML_IDS.components.grid}
-      className='mobile-landscape:pb-[env(safe-area-inset-bottom)] mobile-landscape:pr-0 mobile-landscape:pt-2 mobile-landscape:pl-[env(safe-area-inset-left)] flex h-full w-full touch-none flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
+      className='mobile-landscape:pb-safe mobile-landscape:pr-0 mobile-landscape:pt-2 mobile-landscape:pl-safe flex h-full w-full touch-none flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
       ref={gridRef}
     >
       {Array.from({ length: columnCount }).map((_, xIndex) => (

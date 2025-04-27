@@ -6,6 +6,7 @@ import {
   CommandKComponent,
   Grid,
   Navbar,
+  PerformanceAlertDialog,
   ShortestPathContainer,
   StatsSheet,
 } from '@/components';
@@ -34,6 +35,7 @@ export const App: FC = () => {
         <Navbar />
       </main>
       <ShortestPathContainer />
+      <PerformanceAlertDialog />
     </>
   );
 };

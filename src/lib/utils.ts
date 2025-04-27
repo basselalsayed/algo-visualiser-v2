@@ -57,10 +57,17 @@ export function elementIsFullyScrolled(element: HTMLElement): boolean {
   );
 }
 
-export function getCSSVariable(name: string) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name);
+export function getCSSVariable(
+  name: string,
+  element: HTMLElement | SVGElement = document.documentElement
+) {
+  return getComputedStyle(element).getPropertyValue(name);
 }
 
-export function setCSSVariable(name: string, value: string | number) {
-  document.documentElement.style.setProperty(name, String(value));
+export function setCSSVariable(
+  name: string,
+  value: string | number,
+  element: HTMLElement | SVGElement = document.documentElement
+) {
+  element.style.setProperty(name, String(value));
 }
