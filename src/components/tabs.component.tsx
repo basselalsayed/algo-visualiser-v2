@@ -30,7 +30,7 @@ export const Tabs = <T extends TKey>({
     >
       <T.TabsList
         className={cn(
-          'bg_grad_accent--outline grid w-full grid-cols-2',
+          'grid w-full grid-cols-2 bg_grad_accent--outline',
           className
         )}
       >

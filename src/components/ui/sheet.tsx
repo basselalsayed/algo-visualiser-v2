@@ -24,7 +24,7 @@ const SheetOverlay = ({
 }: React.ComponentPropsWithRef<typeof SheetPrimitive.Overlay>) => (
   <SheetPrimitive.Overlay
     className={cn(
-      'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80',
+      'fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
       className
     )}
     {...props}
@@ -34,7 +34,7 @@ const SheetOverlay = ({
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out',
+  'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=open]:duration-500',
   {
     defaultVariants: {
       side: 'right',
@@ -71,7 +71,7 @@ const SheetContent = ({
       {...props}
     >
       <SheetPrimitive.Close
-        className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary fixed right-[calc(calc(var(--spacing)*4)+env(safe-area-inset-right))] bottom-8 z-50 h-8 w-8 rounded-full p-5 opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none sm:top-4 sm:bottom-[initial]'
+        className='fixed right-[calc(calc(var(--spacing)*4)+env(safe-area-inset-right))] bottom-8 z-50 h-8 w-8 rounded-full p-5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary sm:top-4 sm:bottom-[initial]'
         asChild
       >
         <Button>
@@ -137,7 +137,7 @@ const SheetDescription = ({
 }: React.ComponentPropsWithRef<typeof SheetPrimitive.Description>) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('text-sm text-muted-foreground', className)}
     {...props}
   />
 );

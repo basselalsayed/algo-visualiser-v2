@@ -5,7 +5,7 @@ import { usePlatform } from '@/hooks';
 import { cn } from '@/lib';
 
 const kbdKeyVariants = cva(
-  'bg_grad_accent--outline--text rounded-lg p-2 px-3 text-3xl shadow-xs shadow-primary',
+  'rounded-lg bg_grad_accent--outline--text p-2 px-3 text-3xl shadow-xs shadow-primary',
   {
     defaultVariants: {
       size: 'lg',

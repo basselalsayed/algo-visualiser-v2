@@ -161,7 +161,7 @@ export const Grid = memo(() => {
   return (
     <div
       id={HTML_IDS.components.grid}
-      className='mobile-landscape:pb-safe mobile-landscape:pr-0 mobile-landscape:pt-2 mobile-landscape:pl-safe flex h-full w-full touch-none flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4'
+      className='flex h-full w-full touch-none flex-row items-center justify-center p-4 pb-0 sm:pt-0 sm:pb-4 mobile-landscape:pt-2 mobile-landscape:pr-0 mobile-landscape:pb-safe mobile-landscape:pl-safe'
       ref={gridRef}
     >
       {Array.from({ length: columnCount }).map((_, xIndex) => (

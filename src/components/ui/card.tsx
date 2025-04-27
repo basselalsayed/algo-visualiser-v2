@@ -10,7 +10,7 @@ const Card = ({
   <div
     ref={ref}
     className={cn(
-      'bg_grad_accent/10 bg_grad_accent--outline border_default bg-card text-card-foreground rounded-xl shadow-sm',
+      'bg_grad_accent/10 border_default rounded-xl bg_grad_accent--outline bg-card text-card-foreground shadow-sm',
       className
     )}
     {...props}
@@ -51,7 +51,7 @@ const CardDescription = ({
 }: React.ComponentPropsWithRef<'p'>) => (
   <p
     ref={ref}
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('text-sm text-muted-foreground', className)}
     {...props}
   />
 );

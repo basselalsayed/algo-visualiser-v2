@@ -17,9 +17,9 @@ const Slider = ({
     {...props}
   >
     <SliderPrimitive.Track className='bg_grad_accent/20 relative h-1.5 w-full grow overflow-hidden rounded-full'>
-      <SliderPrimitive.Range className='grad-accent absolute h-full' />
+      <SliderPrimitive.Range className='absolute h-full grad-accent' />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className='border-grad-accent-mix bg-background focus-visible:ring-ring block h-4 w-4 rounded-full border shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50' />
+    <SliderPrimitive.Thumb className='block h-4 w-4 rounded-full border border-grad-accent-mix bg-background shadow-sm transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50' />
   </SliderPrimitive.Root>
 );
 Slider.displayName = SliderPrimitive.Root.displayName;
