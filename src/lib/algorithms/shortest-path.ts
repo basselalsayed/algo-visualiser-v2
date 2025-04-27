@@ -304,7 +304,9 @@ class _ShortestPath {
 
   private getPathColor = (i: number, length: number, name: AlgoName) => {
     const ratio = (i + 1) / length;
-    const [startColor, endColor] = this.colors[name].map(getCSSVariable);
+    const [startColor, endColor] = this.colors[name].map((name) =>
+      getCSSVariable(name)
+    );
 
     return mix(startColor, endColor)(ratio);
   };
