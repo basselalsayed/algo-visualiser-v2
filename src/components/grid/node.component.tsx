@@ -236,12 +236,12 @@ export class Node extends PureComponent<Props, State> implements INode {
         data-y-index={yIndex}
         className={cn(
           // general
-          'transition-node bg-radial from-transparent to-transparent duration-700 [will-change:transform,backdrop-filter,--border-width,border-width]',
+          'bg-radial from-transparent to-transparent transition-node duration-700 [will-change:transform,backdrop-filter,--border-width,border-width]',
           // border
-          'border-background border-t-(length:--border-width) border-l-(length:--border-width) [--border-width:1px] last:border-b-(length:--border-width)',
+          'border-t-(length:--border-width) border-l-(length:--border-width) border-background [--border-width:1px] last:border-b-(length:--border-width)',
           isLastColumn && 'border-r-(length:--border-width)',
           // visited state
-          'data-visited:animate-node-visited data-visited:z-2 data-visited:scale-100 data-visited:[--border-width:0px]',
+          'data-visited:z-2 data-visited:scale-100 data-visited:animate-node-visited data-visited:[--border-width:0px]',
           'data-visited-wall:animate-node-visited-wall',
           // type colours
           'data-[type=end]:from-orange-600 data-[type=end]:to-red-600',

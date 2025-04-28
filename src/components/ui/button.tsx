@@ -6,7 +6,7 @@ import { useSvgGradient } from '@/hooks/ui/use-svg-gradient.hook';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-base font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 rounded-md text-base font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     defaultVariants: {
       size: 'default',
@@ -21,13 +21,13 @@ const buttonVariants = cva(
       },
       variant: {
         default:
-          'bg_grad_accent--outline--text [--base-color:hsl(var(--background))] animate_grad shadow-sm',
+          'animate_grad bg_grad_accent--outline--text shadow-sm [--base-color:hsl(var(--background))]',
         destructive:
           'bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        outline: 'shadow-xs bg_grad_accent--outline--text animate_grad',
-        secondary: 'bg_grad_accent animate_grad shadow-xs border-0',
+        outline: 'animate_grad bg_grad_accent--outline--text shadow-xs',
+        secondary: 'animate_grad bg_grad_accent border-0 shadow-xs',
       },
     },
   }
