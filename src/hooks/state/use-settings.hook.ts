@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
-import { Duration, setCSSVariable } from '@/lib';
+import { Duration, eventEmitter, setCSSVariable } from '@/lib';
 import { type AlgoInfo, algoInfo } from '@/lib/constants';
 
 import { type DispatchFunction } from './types';
@@ -37,6 +37,10 @@ export const useSettings = create<SettingsStore>((set) => ({
 
         if (key === 'nodeSize') {
           setCSSVariable('--node-size', payload as number);
+        }
+
+        if (key === 'currentAlgo') {
+          eventEmitter.emit('algoChanged');
         }
       })
     ),

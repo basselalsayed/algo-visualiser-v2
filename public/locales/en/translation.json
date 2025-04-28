@@ -26,7 +26,8 @@
     "wallMode": {
       "disable": "Disable wall mode",
       "enable": "Enable wall mode"
-    }
+    },
+    "tour": "Start tour"
   },
   "navbar": {
     "algorithms": "Algorithms",

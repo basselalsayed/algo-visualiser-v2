@@ -25,7 +25,10 @@ export const AlgoForm: FC<{ className?: string }> = ({ className }) => {
         startIndex: startIndex.current,
       }}
       onItemSelect={(api) => {
-        if (api?.selectedScrollSnap) {
+        if (
+          api?.selectedScrollSnap &&
+          api.selectedScrollSnap() !== startIndex.current
+        ) {
           dispatch('currentAlgo', algoInfo[api.selectedScrollSnap()]);
         }
       }}

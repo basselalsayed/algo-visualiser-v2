@@ -46,6 +46,7 @@ import {
   ResetGridCommandItem,
   RunCommandItem,
   ShowStatsCommandItem,
+  StartTourCommandItem,
   WallModeCommandItem,
 } from './command-items';
 
@@ -117,6 +118,7 @@ export const CommandKComponent: FC = () => {
 
           <CommandGroup heading={t('commandk.headings.misc')}>
             <RandomiseWallsCommandItem />
+            <StartTourCommandItem />
           </CommandGroup>
         </CommandGroup>
       </CommandList>
