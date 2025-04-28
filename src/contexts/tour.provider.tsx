@@ -10,6 +10,7 @@ import { createRoot } from 'react-dom/client';
 import { useTranslation } from 'react-i18next';
 import Shepherd, {
   type StepOptions,
+  type StepOptionsAdvanceOn,
   type StepOptionsButton,
   type TourOptions,
 } from 'shepherd.js';
@@ -34,6 +35,13 @@ function renderLanguageSelectStep(t: TFunction<'tour'>) {
 
   return container;
 }
+
+const advanceOnCustomEvent = (
+  eventKey: keyof typeof customEventKeys
+): StepOptionsAdvanceOn => ({
+  event: eventKey,
+  selector: HTML_SELECTORS.components.grid,
+});
 
 export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   const { t } = useTranslation('tour');
@@ -104,10 +112,7 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
             title: t('steps.node.header'),
           },
           {
-            advanceOn: {
-              event: customEventKeys.mazeComplete,
-              selector: HTML_SELECTORS.components.grid,
-            },
+            advanceOn: advanceOnCustomEvent('mazeComplete'),
             attachTo: {
               element: HTML_SELECTORS.buttons.maze,
               on: 'auto',
@@ -128,10 +133,7 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
             text: t('steps.startNode.header'),
           },
           {
-            advanceOn: {
-              event: customEventKeys.endSelected,
-              selector: HTML_SELECTORS.components.grid,
-            },
+            advanceOn: advanceOnCustomEvent('endSelected'),
             attachTo: {
               element: HTML_SELECTORS.components.grid,
               on: 'auto',
@@ -139,12 +141,34 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
             buttons: undefined,
             text: t('steps.endNode.header'),
           },
-          !isMobile && {
+          {
+            advanceOn: advanceOnCustomEvent('runComplete'),
             attachTo: {
-              element: HTML_SELECTORS.buttons.algoFormTrigger,
+              element: HTML_SELECTORS.buttons.run,
               on: 'auto',
             },
-            text: t('steps.algoForm.header'),
+            buttons: undefined,
+            text: t('steps.run.header'),
+          },
+          {
+            advanceOn: advanceOnCustomEvent('algoChanged'),
+            attachTo: {
+              element: isMobile
+                ? HTML_SELECTORS.buttons.sheetTrigger
+                : HTML_SELECTORS.buttons.algoFormTrigger,
+              on: 'auto',
+            },
+            buttons: undefined,
+            text: t('steps.algoChange.header'),
+          },
+          {
+            advanceOn: advanceOnCustomEvent('runComplete'),
+            attachTo: {
+              element: HTML_SELECTORS.buttons.run,
+              on: 'auto',
+            },
+            buttons: undefined,
+            text: t('steps.run2.header'),
           },
           !isMobile && {
             attachTo: {
@@ -170,19 +194,6 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
             text: t('steps.kbd.content'),
             title: t('steps.kbd.header'),
           },
-          {
-            advanceOn: {
-              event: customEventKeys.runComplete,
-              selector: HTML_SELECTORS.components.grid,
-            },
-            attachTo: {
-              element: HTML_SELECTORS.buttons.run,
-              on: 'auto',
-            },
-            buttons: undefined,
-            text: t('steps.run.header'),
-          },
-
           {
             advanceOn: {
               event: 'click',

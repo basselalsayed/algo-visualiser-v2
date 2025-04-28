@@ -26,13 +26,13 @@
       "header": "Click the maze button to generate a recursive division maze"
     },
     "startNode": {
-      "header": "Click any node to set a start point"
+      "header": "Click any blank node to set a start point"
     },
     "endNode": {
-      "header": "Click any node to set a finishing point"
+      "header": "Click any blank node to set a finishing point"
     },
-    "algoForm": {
-      "header": "Optionally choose an algorithm here"
+    "algoChange": {
+      "header": "Select another algorithm here"
     },
     "settings": {
       "header": "Optionally change settings here"
@@ -42,6 +42,9 @@
     },
     "run": {
       "header": "Click the run button to visualise the shortest path"
+    },
+    "run2": {
+      "header": "Click the run button to compare with the previous algorithm"
     },
     "kbd": {
       "header": "Enable keyboard navigation of the grid with CMD+Shift+G",
