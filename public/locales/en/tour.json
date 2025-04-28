@@ -46,6 +46,9 @@
     "run2": {
       "header": "Click the run button to compare with the previous algorithm"
     },
+    "pinch": {
+      "header": "Pinch to zoom to update node size"
+    },
     "kbd": {
       "header": "Enable keyboard navigation of the grid with CMD+Shift+G",
       "content": "Or Ctrl+Shift+G"

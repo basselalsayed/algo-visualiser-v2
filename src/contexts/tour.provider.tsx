@@ -186,13 +186,19 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
             },
             text: t('steps.search.header'),
           },
-          !isMobile && {
+          {
             attachTo: {
               element: HTML_SELECTORS.components.grid,
               on: 'auto',
             },
-            text: t('steps.kbd.content'),
-            title: t('steps.kbd.header'),
+            ...(isMobile
+              ? {
+                  title: t('steps.pinch.header'),
+                }
+              : {
+                  text: t('steps.kbd.content'),
+                  title: t('steps.kbd.header'),
+                }),
           },
           {
             advanceOn: {
