@@ -3,6 +3,7 @@ import { match } from 'ts-pattern';
 import { useShallow } from 'zustand/react/shallow';
 
 import {
+  isRunningService,
   useDimensions,
   useEventListener,
   useGrid,
@@ -54,6 +55,10 @@ export const Grid = memo(() => {
     resetGrid();
   }, [settingsDispatch, height, resetGrid, width]);
 
+  useEffect(() => {
+    resetGrid();
+  }, [resetGrid, nodeSize]);
+
   const { columnCount, rowCount } = useDimensions();
 
   const pointersRef = useRef<PointerEvent[]>([]);
@@ -70,14 +75,18 @@ export const Grid = memo(() => {
           node.releasePointerCapture(e.pointerId);
         }
       } else {
-        const pointers = pointersRef.current;
+        const { idle } = isRunningService();
 
-        pointers.push(e);
-        if (pointers.length === 2) {
-          initialPinchDistanceRef.current = getDistance(
-            pointers[0],
-            pointers[1]
-          );
+        if (idle) {
+          const pointers = pointersRef.current;
+
+          pointers.push(e);
+          if (pointers.length === 2) {
+            initialPinchDistanceRef.current = getDistance(
+              pointers[0],
+              pointers[1]
+            );
+          }
         }
       }
     },
