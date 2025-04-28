@@ -194,8 +194,8 @@ class _ShortestPath {
     for (const [i, { domNode }] of shortestPath.entries()) {
       if (i === totalPathLength - 1) continue;
 
-      const p1 = this.getNodeCenter(domNode);
-      const p2 = this.getNodeCenter(shortestPath[i + 1].domNode);
+      const p1 = this.getNodeCenter(domNode!);
+      const p2 = this.getNodeCenter(shortestPath[i + 1].domNode!);
 
       const mixer = mix(p1, p2);
 
