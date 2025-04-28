@@ -138,10 +138,13 @@ export const useRun = (): useRunReturn => {
   };
 };
 
-export const useIsRunning = (): Pick<
-  useRunReturn,
-  'algoRunning' | 'mazeRunning'
-> => {
+interface isRunningReturn
+  extends Pick<useRunReturn, 'algoRunning' | 'mazeRunning'> {
+  anyRunning: boolean;
+  idle: boolean;
+}
+
+export const useIsRunning = (): isRunningReturn => {
   const { mazeRunState, runState } = useRunStore(
     useShallow(({ mazeRunState, runState }) => ({
       mazeRunState,
@@ -151,6 +154,19 @@ export const useIsRunning = (): Pick<
 
   return {
     algoRunning: runState === 'running',
+    anyRunning: runState === 'running' || mazeRunState === 'running',
+    idle: runState !== 'running' && mazeRunState !== 'running',
     mazeRunning: mazeRunState === 'running',
   };
 };
+
+export function isRunningService(): isRunningReturn {
+  const { mazeRunState, runState } = useRunStore.getState();
+
+  return {
+    algoRunning: runState === 'running',
+    anyRunning: runState === 'running' || mazeRunState === 'running',
+    idle: runState !== 'running' && mazeRunState !== 'running',
+    mazeRunning: mazeRunState === 'running',
+  };
+}
