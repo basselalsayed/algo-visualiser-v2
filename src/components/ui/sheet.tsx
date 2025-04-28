@@ -24,7 +24,7 @@ const SheetOverlay = ({
 }: React.ComponentPropsWithRef<typeof SheetPrimitive.Overlay>) => (
   <SheetPrimitive.Overlay
     className={cn(
-      'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80',
+      'fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
       className
     )}
     {...props}
@@ -71,7 +71,7 @@ const SheetContent = ({
       {...props}
     >
       <SheetPrimitive.Close
-        className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary mobile-landscape:right-safe fixed right-4 bottom-8 z-50 size-8 rounded-full p-5 opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none sm:top-4 sm:bottom-[initial]'
+        className='fixed right-4 bottom-8 z-50 size-8 rounded-full p-5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary sm:top-4 sm:bottom-[initial] mobile-landscape:right-safe'
         asChild
       >
         <Button>
@@ -137,7 +137,7 @@ const SheetDescription = ({
 }: React.ComponentPropsWithRef<typeof SheetPrimitive.Description>) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('text-sm text-muted-foreground', className)}
     {...props}
   />
 );
