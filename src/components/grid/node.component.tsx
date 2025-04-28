@@ -61,7 +61,7 @@ export class Node extends PureComponent<Props, State> implements INode {
       }
     });
 
-    this.observer.observe(this.domNode, {
+    this.observer.observe(this.domNode!, {
       attributeFilter: ['data-type'],
     });
   }
@@ -124,9 +124,9 @@ export class Node extends PureComponent<Props, State> implements INode {
   setVisited(visited: boolean) {
     this._visited = visited;
     if (this.isWall) {
-      this.domNode.toggleAttribute('data-visited-wall', visited);
+      this.domNode?.toggleAttribute('data-visited-wall', visited);
     } else {
-      this.domNode.toggleAttribute('data-visited', visited);
+      this.domNode?.toggleAttribute('data-visited', visited);
     }
   }
 
@@ -158,10 +158,8 @@ export class Node extends PureComponent<Props, State> implements INode {
   get isNone() {
     return this.type === 'none';
   }
-  get domNode(): HTMLDivElement {
-    if (!this.ref.current) throw new Error('Error mounting node');
-
-    return this.ref.current;
+  get domNode() {
+    return this.ref.current ?? undefined;
   }
 
   private handleClick() {

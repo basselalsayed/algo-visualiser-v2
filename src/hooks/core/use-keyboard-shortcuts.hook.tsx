@@ -117,7 +117,7 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
     };
 
     const focusUpdateNode = () =>
-      refsMap.get(focusedNode.current)?.domNode.focus();
+      refsMap.get(focusedNode.current)?.domNode?.focus();
 
     match(key)
       .with(NODE_TYPE_CYCLE, cycleType)
@@ -152,7 +152,7 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
         focusUpdateNode();
       })
       .with('Escape', () => {
-        currentNode?.domNode.blur();
+        currentNode?.domNode?.blur();
       });
   });
 
