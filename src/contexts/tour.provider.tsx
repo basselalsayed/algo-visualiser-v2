@@ -1,5 +1,11 @@
 import { type TFunction } from 'i18next';
-import { type FC, type PropsWithChildren, memo, useMemo } from 'react';
+import {
+  type FC,
+  type PropsWithChildren,
+  memo,
+  useCallback,
+  useMemo,
+} from 'react';
 import { createRoot } from 'react-dom/client';
 import { useTranslation } from 'react-i18next';
 import Shepherd, {
@@ -241,8 +247,12 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     },
   });
 
+  const startTour = useCallback(() => {
+    if (!tour.isActive()) tour.start();
+  }, [tour]);
+
   return (
-    <TourContext value={{ tour, tourComplete, tourDismissed }}>
+    <TourContext value={{ startTour, tour, tourComplete, tourDismissed }}>
       {children}
     </TourContext>
   );

@@ -3,22 +3,24 @@ import {
   ChartNoAxesColumn,
   Dices,
   Fence,
+  Map,
   PauseIcon,
   PlayIcon,
   Repeat1,
   RotateCcw,
 } from 'lucide-react';
-import { type ComponentPropsWithRef, type FC, type ReactElement } from 'react';
+import { type ComponentProps, type FC, type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 import { useShallow } from 'zustand/react/shallow';
 
 import { NodeType } from '@/components/grid';
 import { CommandItem, CommandShortcut } from '@/components/ui';
+import { useTour } from '@/contexts';
 import { useCommand, useDarkMode, useGrid, useRun, useStats } from '@/hooks';
 import { RUN_ALGO_KEY, RUN_MAZE_KEY } from '@/lib';
 
-interface Props extends ComponentPropsWithRef<typeof CommandItem> {
+interface Props extends ComponentProps<typeof CommandItem> {
   closeOnSelect?: boolean;
   icon: ReactElement;
   shortcut?: string;
@@ -181,6 +183,19 @@ export const RandomiseWallsCommandItem: FC = () => {
       icon={<Dices />}
       closeOnSelect
       tKey='commandk.randomWalls'
+    />
+  );
+};
+
+export const StartTourCommandItem: FC = () => {
+  const { startTour } = useTour();
+
+  return (
+    <CommandKItem
+      onSelect={startTour}
+      icon={<Map />}
+      closeOnSelect
+      tKey='commandk.tour'
     />
   );
 };
