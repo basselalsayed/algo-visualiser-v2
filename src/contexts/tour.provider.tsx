@@ -81,7 +81,8 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
           },
           {
             buttons: [shepherdCancelButton, shepherdNextButton],
-            text: t('intro'),
+            text: t('steps.tourConfirm.content'),
+            title: t('steps.tourConfirm.header'),
           },
           {
             text: t('description'),

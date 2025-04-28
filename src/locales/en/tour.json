@@ -3,13 +3,16 @@
     "cancel": "No thanks",
     "next": "Continue"
   },
-  "intro": "Would you like to take a brief tour?",
   "description": "This project showcases how various path finding algorithms work. It's built with react, typescript, shadcdn and zustand",
   "complete": "Thanks for completing the tour! Enjoy!",
   "steps": {
     "intro": {
       "header": "Welcome to the Algorithm Visualiser!",
       "content": "Please select a language"
+    },
+    "tourConfirm": {
+      "header": "Would you like to take a brief tour?",
+      "content": "Tour can be restarted anytime via the quick search menu"
     },
     "grid": {
       "header": "This is the grid",
