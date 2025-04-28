@@ -6,7 +6,7 @@ import { SWRConfig } from 'swr';
 
 import { App } from './app/app-component.tsx';
 import { Toaster } from './components/ui';
-import { TourProvider } from './contexts/tour.context.tsx';
+import { TourProvider } from './contexts';
 
 import './index.css';
 import './i18n.ts';

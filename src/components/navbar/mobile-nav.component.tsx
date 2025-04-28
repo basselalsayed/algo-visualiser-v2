@@ -36,7 +36,7 @@ export const MobileNav: FC = () => {
       <Sheet open={value} onOpenChange={toggle}>
         <SheetContent
           side='bottom'
-          className='h-[80vh] gap-3 overflow-y-scroll py-3 mobile-landscape:px-safe'
+          className='h-[80vh] gap-3 overflow-y-scroll py-3 mobile-landscape:h-full mobile-landscape:px-safe'
         >
           <ul className='grid grid-cols-1 gap-3'>
             <SheetHeader>
@@ -69,7 +69,7 @@ export const MobileNav: FC = () => {
           </ul>
         </SheetContent>
         <nav className='grad-border grid grid-flow-col items-center justify-between justify-items-stretch bg-background p-4 mobile-landscape:h-full mobile-landscape:grid-flow-row mobile-landscape:border-l-2 mobile-landscape:pr-safe mobile-portrait:border-t-2'>
-          <h1 className='text-left mobile-landscape:row-span-4 mobile-landscape:self-start mobile-landscape:justify-self-center mobile-portrait:col-span-4'>
+          <h1 className='text-left mobile-landscape:self-start mobile-landscape:justify-self-center mobile-portrait:col-span-4'>
             AV
           </h1>
           {isMobileLandscape && <QuickSearchButton showKbd={false} />}

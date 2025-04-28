@@ -245,6 +245,10 @@
       calc(var(--node-size) * 15ms),
       800ms
     );
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
   }
   .dark {
     --grad-bg-1: 23 83% 31%; /* Tailwind Amber 800 */
@@ -346,31 +350,43 @@
 }
 
 @utility p-safe {
-  padding-top: env(safe-area-inset-top);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
+  padding-top: var(--safe-top);
+  padding-right: var(--safe-right);
+  padding-bottom: var(--safe-bottom);
+  padding-left: var(--safe-left);
 }
 
 @utility pt-safe {
-  padding-top: env(safe-area-inset-top);
+  padding-top: var(--safe-top);
 }
 @utility pb-safe {
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: var(--safe-bottom);
 }
 @utility pr-safe {
-  padding-right: env(safe-area-inset-right);
+  padding-right: var(--safe-right);
 }
 @utility pl-safe {
-  padding-left: env(safe-area-inset-left);
+  padding-left: var(--safe-left);
 }
 @utility px-safe {
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
 }
 @utility py-safe {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+@utility top-safe {
+  top: var(--safe-top);
+}
+@utility bottom-safe {
+  bottom: var(--safe-bottom);
+}
+@utility right-safe {
+  right: var(--safe-right);
+}
+@utility left-safe {
+  left: var(--safe-left);
 }
 
 @utility grad_text {
