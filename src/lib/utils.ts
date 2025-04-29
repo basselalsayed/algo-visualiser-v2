@@ -71,3 +71,7 @@ export function setCSSVariable(
 ) {
   element.style.setProperty(name, String(value));
 }
+
+export function noOp() {
+  return;
+}

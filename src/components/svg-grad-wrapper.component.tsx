@@ -3,7 +3,7 @@ import { type FC, type ReactElement, type Ref, cloneElement } from 'react';
 import { useSvgGradient } from '@/hooks/ui/use-svg-gradient.hook';
 
 export const SVGGradWrapper: FC<{
-  children: ReactElement<unknown & { ref: Ref<Element> }>;
+  children: ReactElement<{ ref: Ref<Element> }>;
   color1?: string;
   color2?: string;
 }> = ({ children, color1, color2 }) => {

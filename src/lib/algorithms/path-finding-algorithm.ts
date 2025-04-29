@@ -103,7 +103,9 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     | Generator<Promise<unknown>, void>
     | undefined;
 
-  async executeGenerator(gen: Generator) {
+  async executeGenerator<T = unknown, TReturn = unknown, TNext = unknown>(
+    gen: Generator<T, TReturn, TNext>
+  ) {
     let result = gen.next();
     while (!result.done && !this.paused) {
       await result.value;
@@ -114,7 +116,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
   private accessor executionStart: number | undefined;
   private accessor executionEnd: number | undefined;
-  private accessor nodesProcessed: number = 0;
+  private accessor nodesProcessed = 0;
 
   get runtime(): number {
     assert(this.executionStart, 'number');
@@ -136,7 +138,8 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     }
 
     this.traverseGenerator ??= this.traverse();
-    this.nodesProcessed = await this.executeGenerator(this.traverseGenerator);
+    this.nodesProcessed =
+      (await this.executeGenerator(this.traverseGenerator)) ?? 0;
 
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
@@ -157,7 +160,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     }
   }
 
-  protected accessor paused: boolean = false;
+  protected accessor paused = false;
   pause(this: this): void {
     this.paused = true;
   }

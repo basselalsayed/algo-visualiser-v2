@@ -71,7 +71,7 @@ export const Grid = memo(() => {
         dispatch('pointerDown', true);
         const node = e.target as HTMLDivElement | undefined;
 
-        if (node && node.hasPointerCapture(e.pointerId)) {
+        if (node?.hasPointerCapture(e.pointerId)) {
           node.releasePointerCapture(e.pointerId);
         }
       } else {

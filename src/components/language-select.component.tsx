@@ -42,7 +42,7 @@ export const LanguageSelect: FC = () => {
     <Select
       options={langOptions}
       value={langOptions.find(({ value }) => value === i18n.language)!}
-      onValueChange={i18n.changeLanguage}
+      onValueChange={(v) => void i18n.changeLanguage(v)}
     />
   );
 };

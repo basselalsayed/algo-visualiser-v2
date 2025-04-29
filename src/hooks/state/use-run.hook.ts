@@ -5,7 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useTour } from '@/contexts';
 import { useMutation } from '@/data/hooks/use-mutation.hook';
-import { eventEmitter } from '@/lib';
+import { eventEmitter, noOp } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
 import { Maze, ShortestPath } from '@/lib/algorithms';
 
@@ -60,8 +60,8 @@ export const useRun = (): useRunReturn => {
       const { dispatch } = useRunStore.getState();
       dispatch('runState', 'done');
       eventEmitter.emit('runComplete');
-      trigger([result]);
-      addResult(result, !tour.isActive());
+      trigger([result]).catch(noOp);
+      void addResult(result, !tour.isActive());
     },
     [tour, trigger]
   );
@@ -75,7 +75,7 @@ export const useRun = (): useRunReturn => {
     match(runState)
       .with('idle', 'paused', () => {
         dispatch('runState', 'running');
-        algoInstance?.run(onRunComplete);
+        void algoInstance?.run(onRunComplete);
       })
       .with('running', () => {
         dispatch('runState', 'paused');
@@ -85,7 +85,7 @@ export const useRun = (): useRunReturn => {
         dispatch('runState', 'running');
         algoInstance?.reset();
         await ShortestPath.reverse(algoInstance!.name);
-        algoInstance?.run(onRunCompleteReplay);
+        void algoInstance?.run(onRunCompleteReplay);
       });
   }, [algoInstance, dispatch, onRunComplete, onRunCompleteReplay, runState]);
 
@@ -115,13 +115,13 @@ export const useRun = (): useRunReturn => {
   const runMaze = useCallback(() => {
     match(mazeRunState)
       .with('idle', () => {
-        maze.run();
+        void maze.run();
         dispatch('mazeRunState', 'running');
       })
       .with('done', () => {
         resetWalls();
         dispatch('mazeRunState', 'running');
-        maze.run();
+        void maze.run();
       });
   }, [dispatch, maze, mazeRunState, resetWalls]);
 

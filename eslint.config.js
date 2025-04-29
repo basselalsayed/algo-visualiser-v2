@@ -1,9 +1,7 @@
 import js from '@eslint/js';
-// eslint-disable-next-line import/default
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-// eslint-disable-next-line import/default
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import sort from 'eslint-plugin-sort';
@@ -16,15 +14,21 @@ export default config(
   {
     extends: [
       js.configs.recommended,
-      ...configs.recommended,
+      ...configs.recommendedTypeChecked,
+      ...configs.stylisticTypeChecked,
       importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
       sort.configs['flat/recommended'],
-      eslintPluginUnicorn.configs['flat/recommended'],
+      eslintPluginUnicorn.configs.recommended,
     ],
     files: ['**/*.{js,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: {
       'react-hooks': reactHooks,

@@ -22,7 +22,7 @@ export class Maze {
 
   async run(this: this) {
     await this.wallBorders();
-    this.divide(2, 2, this.cols - 2, this.rows - 2);
+    void this.divide(2, 2, this.cols - 2, this.rows - 2);
   }
 
   randomiseValue(this: this, value: number): number {
@@ -97,11 +97,11 @@ export class Maze {
       : this.getNodeFromPosition(wallX, wallY + passageIndex);
     passageNode.setType(NodeType.none);
     if (horizontal) {
-      this.divide(x, y, width, wallY - y); // upper part
-      this.divide(x, wallY + 2, width, y + height - wallY - 2); // lower part
+      void this.divide(x, y, width, wallY - y); // upper part
+      void this.divide(x, wallY + 2, width, y + height - wallY - 2); // lower part
     } else {
-      this.divide(x, y, wallX - x, height); // left part
-      this.divide(wallX + 2, y, x + width - wallX - 2, height); // right part
+      void this.divide(x, y, wallX - x, height); // left part
+      void this.divide(wallX + 2, y, x + width - wallX - 2, height); // right part
     }
   }
 

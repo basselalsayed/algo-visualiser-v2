@@ -3,5 +3,5 @@ export const capitaliseFirstLetter = <S extends string>(
 ): Capitalize<S> => {
   const [firstLetter, ...rest] = input;
 
-  return <Capitalize<S>>`${firstLetter.toUpperCase()}${rest.join('')}`;
+  return `${firstLetter.toUpperCase()}${rest.join('')}` as Capitalize<S>;
 };

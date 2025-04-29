@@ -16,7 +16,7 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
     this.queue = [this.startNode];
 
     while (this.queue.length > 0) {
-      const currentNode = this.getCurrentNode()!;
+      const currentNode = this.getCurrentNode();
 
       if (currentNode.isWall) {
         this.visitWall(currentNode);

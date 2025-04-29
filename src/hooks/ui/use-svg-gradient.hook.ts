@@ -7,7 +7,7 @@ function addLinearGradient(
   color2: string
 ) {
   const defs =
-    svgElement.querySelector('defs') ||
+    svgElement.querySelector('defs') ??
     document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 
   if (!svgElement.contains(defs)) svgElement.append(defs);

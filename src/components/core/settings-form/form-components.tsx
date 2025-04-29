@@ -84,7 +84,7 @@ export const AnimationSpeedSlider: FC = () => {
       min={-200}
       max={-1}
       step={-1}
-      defaultValue={[-animationSpeed]}
+      defaultValue={[-animationSpeed.inMillis]}
       onValueChange={(v) =>
         dispatch('animationSpeed', Duration.fromMillis(Math.abs(v[0])))
       }

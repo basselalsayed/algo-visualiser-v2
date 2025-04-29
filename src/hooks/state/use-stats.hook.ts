@@ -10,7 +10,7 @@ import { type DispatchFunction } from './types';
 export type ResultsSource = 'stats.local' | 'stats.global';
 
 interface StatsStore {
-  addResult: (result: RuntimeInfo, openStats: boolean) => void;
+  addResult: (result: RuntimeInfo, openStats: boolean) => Promise<void>;
   dispatch: DispatchFunction<StatsStore, 'dispatch' | 'addResult' | 'results'>;
   results: RuntimeInfo[];
   resultsSource: ResultsSource;

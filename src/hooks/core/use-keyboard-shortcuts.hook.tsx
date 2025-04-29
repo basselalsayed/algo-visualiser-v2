@@ -32,9 +32,7 @@ import { useCommand, useGrid, useRun } from '../state';
 
 import { useDimensions } from './use-dimensions.hook';
 
-type KeyboardMap<K extends string, V> = {
-  [key in K]: V;
-};
+type KeyboardMap<K extends string, V> = Record<K, V>;
 
 const searchMap: KeyboardMap<T_COMMAND_SEARCH_KEYS, string> = {
   [EDIT_ALGORITHM]: 'algorithm',
@@ -112,8 +110,8 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
       const nextIndex = (currentIndex + 1) % nodeTypes.length;
       const nextType = nodeTypes[nextIndex];
       currentNode!.setType(nextType);
-      if (nextType === 'start') dispatch('startNode', [x, y]);
-      if (nextType === 'end') dispatch('endNode', [x, y]);
+      if (nextType === NodeType.start) dispatch('startNode', [x, y]);
+      if (nextType === NodeType.end) dispatch('endNode', [x, y]);
     };
 
     const focusUpdateNode = () =>

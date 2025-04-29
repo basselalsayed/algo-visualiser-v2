@@ -7,14 +7,14 @@ import {
   type IPathFindingAlgorithmConstructor,
 } from '../algorithms';
 
-export type AlgoInfo = {
+export interface AlgoInfo {
   class: IPathFindingAlgorithmConstructor;
   description: TKey<'algoInfo'>;
   header: TKey<'algoInfo'>;
   id: string;
   name: TKey<'algoInfo'>;
   runTime: string;
-};
+}
 
 export const algoInfo: AlgoInfo[] = [
   {

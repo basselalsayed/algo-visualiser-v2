@@ -2,17 +2,17 @@ import { throttle } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-type Size = {
+interface Size {
   height: number | undefined;
   width: number | undefined;
-};
+}
 
-type UseResizeObserverOptions<T extends HTMLElement = HTMLElement> = {
+interface UseResizeObserverOptions<T extends HTMLElement = HTMLElement> {
   box?: 'border-box' | 'content-box' | 'device-pixel-content-box';
   onResize?: (size: Size) => void;
   ref: React.RefObject<T | null>;
   throttleDelay?: number;
-};
+}
 
 const initialSize: Size = {
   height: undefined,
@@ -93,8 +93,10 @@ function extractSize(
     return undefined;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return Array.isArray(entry[box])
-    ? entry[box][0][sizeType]
+    ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      entry[box][0][sizeType]
     : // @ts-expect-error Support Firefox's non-standard behavior
       (entry[box][sizeType] as number);
 }

@@ -17,6 +17,7 @@ import {
   type Duration,
   HTML_SELECTORS,
   getCSSVariable,
+  noOp,
 } from '..';
 
 class _ShortestPath {
@@ -34,11 +35,11 @@ class _ShortestPath {
           {
             delay: i * this.animationDuration.inSeconds,
             duration: this.animationDuration.inSeconds,
-            onComplete: async () => {
+            onComplete: () => {
               if (path.dataset.tooltipTarget) {
-                await this.animateTooltip(name, 'out')?.finished;
-
-                this.getTooltip(name)?.remove();
+                this.animateTooltip(name, 'out')?.finished.then(() => {
+                  this.getTooltip(name)?.remove();
+                }, noOp);
               }
             },
           }
@@ -110,7 +111,7 @@ class _ShortestPath {
     ])
   );
   private _animationSpeed: Duration | undefined;
-  private _pathSegments: number = 6;
+  private _pathSegments = 6;
 
   private get animationDuration() {
     return this._animationSpeed!.divide(this._pathSegments, {
@@ -294,7 +295,7 @@ class _ShortestPath {
           top: arrowY == undefined ? '' : `${arrowY}px`,
           ...(staticSide ? { [staticSide]: '-4px' } : {}),
         });
-      });
+      }, noOp);
     });
 
     this.addCleanup(cleanup);
