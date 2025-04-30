@@ -121,13 +121,10 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     await sleep(this.animationDuration.inMillis);
   }
 
-  protected visitWall(this: this, node: INode): void {
-    node.setVisited(true);
-  }
-
   protected visitNode(this: this, node: INode): void {
-    this.visitedNodes.push(node);
     node.setVisited(true);
+    if (node.isWall) return;
+    this.visitedNodes.push(node);
     if (node.isStart || node.isEnd) return;
   }
 

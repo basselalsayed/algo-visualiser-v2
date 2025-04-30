@@ -59,6 +59,11 @@ export default config(
             'public-method',
 
             'constructor',
+            'protected-static-field',
+            'protected-static-accessor',
+            'protected-static-get',
+            'protected-static-method',
+
             'private-static-field',
             'private-static-get',
             'private-static-accessor',
@@ -76,6 +81,7 @@ export default config(
           ],
         },
       ],
+      'class-methods-use-this': 'error',
       'import/order': [
         'error',
         {

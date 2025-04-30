@@ -4,9 +4,7 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
   abstract getCurrentNode(): INode;
 
   updateUnvisitedNeighbors(this: this, node: INode): void {
-    const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
-
-    for (const neighbour of unvisitedNeighbors) {
+    for (const neighbour of this.getUnvisitedNeighbors(node)) {
       neighbour.setPastNode(node);
       this.queue.push(neighbour);
     }
@@ -19,7 +17,7 @@ export abstract class BaseFirstSearch extends PathFindingAlgorithm {
       const currentNode = this.getCurrentNode();
 
       if (currentNode.isWall) {
-        this.visitWall(currentNode);
+        this.visitNode(currentNode);
         yield this.sleep();
         continue;
       }

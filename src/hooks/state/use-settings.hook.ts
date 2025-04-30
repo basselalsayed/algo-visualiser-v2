@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
-import { Duration, eventEmitter, setCSSVariable } from '@/lib';
+import { Duration, emitCustomEvent, setCSSVariable } from '@/lib';
 import { type AlgoInfo, algoInfo } from '@/lib/constants';
 
 import { type DispatchFunction } from './types';
@@ -40,7 +40,7 @@ export const useSettings = create<SettingsStore>((set) => ({
         }
 
         if (key === 'currentAlgo') {
-          eventEmitter.emit('algoChanged');
+          emitCustomEvent('algoChanged');
         }
       })
     ),

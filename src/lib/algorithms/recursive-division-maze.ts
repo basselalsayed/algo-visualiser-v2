@@ -12,22 +12,27 @@ export class Maze {
     private readonly animationSpeed: Duration,
     readonly onDone?: VoidFunction
   ) {
-    this.cols = Math.max(...[...this.grid.keys()].map(([x]) => x)) + 1;
-    this.rows = Math.max(...[...this.grid.keys()].map(([, y]) => y)) + 1;
+    for (const [x, y] of this.grid.keys()) {
+      if (x > this.cols) this.cols = x;
+      if (y > this.rows) this.rows = y;
+    }
+
+    this.cols = this.cols + 1;
+    this.rows = this.rows + 1;
 
     this.run = this.run.bind(this);
   }
 
-  private cols: number;
-  private rows: number;
-
-  private wallIsHorizontal(this: this, width: number, height: number): boolean {
+  private static wallIsHorizontal(width: number, height: number): boolean {
     return height > width;
   }
 
-  private randomiseValue(this: this, value: number): number {
+  private static randomiseValue(value: number): number {
     return Math.floor(Math.random() * value);
   }
+
+  private accessor cols = 0;
+  private accessor rows = 0;
 
   private async animateWall(
     this: this,
@@ -84,13 +89,13 @@ export class Maze {
       return;
     }
 
-    const horizontal = this.wallIsHorizontal(width, height);
+    const horizontal = Maze.wallIsHorizontal(width, height);
 
     const wallLength = horizontal ? width : height;
 
     // Wall starting point
-    const wallX = horizontal ? x : x + this.randomiseValue(width - 2);
-    const wallY = horizontal ? y + this.randomiseValue(height - 2) : y;
+    const wallX = horizontal ? x : x + Maze.randomiseValue(width - 2);
+    const wallY = horizontal ? y + Maze.randomiseValue(height - 2) : y;
 
     for (let i = 0; i < wallLength; i++) {
       const node = horizontal
@@ -100,7 +105,7 @@ export class Maze {
       await this.animateWall(node);
     }
 
-    const passageIndex = this.randomiseValue(wallLength - 1);
+    const passageIndex = Maze.randomiseValue(wallLength - 1);
 
     const passageNode = horizontal
       ? this.getNodeFromPosition(wallX + passageIndex, wallY)

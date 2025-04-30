@@ -5,7 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useTour } from '@/contexts';
 import { useMutation } from '@/data/hooks/use-mutation.hook';
-import { eventEmitter, noOp } from '@/lib';
+import { emitCustomEvent, noOp } from '@/lib';
 import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
 import { Maze, ShortestPath } from '@/lib/algorithms';
 
@@ -59,7 +59,7 @@ export const useRun = (): useRunReturn => {
       const { addResult } = useStats.getState();
       const { dispatch } = useRunStore.getState();
       dispatch('runState', 'done');
-      eventEmitter.emit('runComplete');
+      emitCustomEvent('runComplete');
       trigger([result]).catch(noOp);
       void addResult(result, !tour.isActive());
     },
@@ -99,7 +99,7 @@ export const useRun = (): useRunReturn => {
     () =>
       new Maze(refsMap, animationSpeed, () => {
         dispatch('mazeRunState', 'done');
-        eventEmitter.emit('mazeComplete');
+        emitCustomEvent('mazeComplete');
       }),
     [animationSpeed, dispatch, refsMap]
   );

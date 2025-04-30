@@ -10,7 +10,7 @@ export abstract class AStarBase extends PathFindingAlgorithm {
     this.startNode.setManhatten(
       this.findManhatten(this.startNode, this.endNode)
     );
-    this.startNode.setHeuristic(this.findHeuristicTotal(this.startNode));
+    this.startNode.setHeuristic(AStarBase.findHeuristicTotal(this.startNode));
 
     while (this.queue.length > 0) {
       this.sortOpenHeuritsicUnvisited();
@@ -31,33 +31,31 @@ export abstract class AStarBase extends PathFindingAlgorithm {
     return this.visitedNodes.length;
   }
 
-  findHeuristicTotal(this: this, node: INode) {
+  protected static findHeuristicTotal(node: INode) {
     return node.distance + node.manhatten;
   }
-
-  sortOpenHeuritsicUnvisited(this: this) {
-    this.queue = this.queue
-      .sort((a, b) => a.heuristic - b.heuristic)
-      .filter((nodes) => !nodes.visited);
-  }
-
-  maybeUpdateHeuristic(this: this, node: INode) {
+  protected static maybeUpdateHeuristic(node: INode) {
     const heuristicTotal = node.distance + node.manhatten;
     if (node.heuristic > heuristicTotal) {
       node.setHeuristic(heuristicTotal);
     }
   }
 
-  addNeighboursToOpen(this: this, node: INode) {
-    const neighbours = this.getUnvisitedNeighbors(node);
-    for (const neighbour of neighbours) {
+  private sortOpenHeuritsicUnvisited(this: this) {
+    this.queue = this.queue
+      .sort((a, b) => a.heuristic - b.heuristic)
+      .filter((nodes) => !nodes.visited);
+  }
+
+  private addNeighboursToOpen(this: this, node: INode) {
+    for (const neighbour of this.getUnvisitedNeighbors(node)) {
       if (neighbour.isWall) {
-        this.visitWall(neighbour);
+        this.visitNode(neighbour);
         continue;
       }
       neighbour.setDistance(node.distance + 1);
       neighbour.setManhatten(this.findManhatten(neighbour, this.endNode));
-      this.maybeUpdateHeuristic(neighbour);
+      AStarBase.maybeUpdateHeuristic(neighbour);
       neighbour.setPastNode(node);
       if (!this.queue.includes(neighbour)) {
         this.queue.push(neighbour);
