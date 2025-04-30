@@ -19,8 +19,6 @@ export class Duration {
 
   add(other: Duration, clampParams?: ClampParams): Duration {
     const millis = Duration.handleClamp(this._ms + other._ms, clampParams);
-    console.log('🚀 ~ Duration ~ add ~ millis:', millis);
-    console.log('🚀 ~ Duration ~ add ~ clampParams:', clampParams);
 
     return new Duration({ millis });
   }
