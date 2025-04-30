@@ -44,6 +44,38 @@ export default config(
           prefer: 'type-imports',
         },
       ],
+      '@typescript-eslint/member-ordering': [
+        'error',
+        {
+          classes: [
+            'public-static-field',
+            'public-static-accessor',
+            'public-static-get',
+            'public-static-method',
+
+            'public-field',
+            'public-accessor',
+            'public-get',
+            'public-method',
+
+            'constructor',
+            'private-static-field',
+            'private-static-get',
+            'private-static-accessor',
+            'private-static-method',
+
+            'protected-field',
+            'protected-accessor',
+            'protected-get',
+            'protected-method',
+
+            'private-field',
+            'private-accessor',
+            'private-get',
+            'private-method',
+          ],
+        },
+      ],
       'import/order': [
         'error',
         {

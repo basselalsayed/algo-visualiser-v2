@@ -9,28 +9,6 @@ interface ClampParams {
 export class Duration {
   static fromMillis = (millis: number) => new Duration({ millis });
 
-  private static handleClamp = (num: number, clampParams?: ClampParams) =>
-    match(clampParams)
-      .with(undefined, () => num)
-      .with({ max: P.number, min: P.number }, ({ max, min }) =>
-        clamp(num, min, max)
-      )
-      .with({ min: P.number }, ({ min }) => clamp(num, min, num))
-      .with({ max: P.number }, ({ max }) => clamp(num, num, max))
-      .otherwise(() => num);
-
-  private readonly _ms: number;
-
-  constructor({
-    millis = 0,
-    seconds = 0,
-  }: {
-    millis?: number;
-    seconds?: number;
-  }) {
-    this._ms = seconds * 1000 + millis;
-  }
-
   get inMillis(): number {
     return this._ms;
   }
@@ -66,4 +44,26 @@ export class Duration {
   toString(): string {
     return String(this._ms);
   }
+
+  constructor({
+    millis = 0,
+    seconds = 0,
+  }: {
+    millis?: number;
+    seconds?: number;
+  }) {
+    this._ms = seconds * 1000 + millis;
+  }
+
+  private static handleClamp = (num: number, clampParams?: ClampParams) =>
+    match(clampParams)
+      .with(undefined, () => num)
+      .with({ max: P.number, min: P.number }, ({ max, min }) =>
+        clamp(num, min, max)
+      )
+      .with({ min: P.number }, ({ min }) => clamp(num, min, num))
+      .with({ max: P.number }, ({ max }) => clamp(num, num, max))
+      .otherwise(() => num);
+
+  private readonly _ms: number;
 }

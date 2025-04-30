@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
 
@@ -78,11 +79,11 @@ export class Node extends PureComponent<Props, State> implements INode {
     return [this.xIndex, this.yIndex];
   }
 
-  private _pastNode?: Node | undefined;
+  private _pastNode?: INode | undefined;
   get pastNode() {
     return this._pastNode;
   }
-  setPastNode(value?: Node) {
+  setPastNode(value?: INode) {
     this._pastNode = value;
   }
 
