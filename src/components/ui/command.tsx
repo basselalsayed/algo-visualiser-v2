@@ -45,6 +45,7 @@ const CommandInput = ({
 }: React.ComponentPropsWithRef<typeof CommandPrimitive.Input>) => (
   <div
     className='grad-border flex items-center border-b px-3'
+    // eslint-disable-next-line react/no-unknown-property
     cmdk-input-wrapper=''
   >
     <MagnifyingGlassIcon className='mr-2 h-4 w-4 shrink-0 opacity-50' />

@@ -64,12 +64,14 @@ export const CommandKItem: FC<Props> = ({
 export const RunCommandItem: FC = () => {
   const { algoRunning, readyToRun, run, runState } = useRun();
 
+  /*  eslint-disable react/jsx-key */
   const [icon, tKey] = match(runState)
     .returnType<[ReactElement, TKey]>()
     .with('idle', 'paused', () => [<PlayIcon />, 'commandk.play'])
     .with('running', () => [<PauseIcon />, 'commandk.pause'])
     .with('done', () => [<Repeat1 />, 'commandk.replay'])
     .exhaustive();
+  /*  eslint-enable react/jsx-key */
 
   return (
     <CommandKItem

@@ -275,3 +275,5 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     </TourContext>
   );
 });
+
+TourProvider.displayName = 'TourProvider';

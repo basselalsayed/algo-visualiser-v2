@@ -9,13 +9,14 @@ import { HTML_IDS } from '@/lib';
 
 export const RunButton: FC = () => {
   const { readyToRun, run, runState } = useRun();
-
+  /*  eslint-disable react/jsx-key */
   const [icon, tKey] = match(runState)
     .returnType<[ReactElement, TKey]>()
     .with('idle', 'paused', () => [<PlayIcon />, 'sr.play'])
     .with('running', () => [<PauseIcon />, 'sr.pause'])
     .with('done', () => [<Repeat1 />, 'sr.replay'])
     .exhaustive();
+  /*  eslint-enable react/jsx-key */
 
   return (
     <Button

@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import sort from 'eslint-plugin-sort';
@@ -31,10 +32,13 @@ export default config(
       },
     },
     plugins: {
+      react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     rules: {
+      ...react.configs.recommended.rules,
+      ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -99,6 +103,18 @@ export default config(
           ],
         },
       ],
+      'react/jsx-fragments': ['error', 'syntax'],
+      'react/jsx-key': ['error', { checkFragmentShorthand: true }],
+      'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
+      'react/prop-types': 'off',
+      'react/require-render-return': 'error',
+      'react/self-closing-comp': [
+        'error',
+        {
+          component: true,
+          html: true,
+        },
+      ],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
@@ -120,6 +136,7 @@ export default config(
           alwaysTryTypes: true,
         },
       },
+      react: { version: 'detect' },
     },
   },
   eslintPluginPrettierRecommended,
