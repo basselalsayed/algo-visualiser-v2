@@ -154,6 +154,14 @@ export default config(
     },
   },
   ...DIRECTORIES.map((dir) => createImportBoundary(dir)),
+  {
+    files: ['**/*.test.{js,ts,tsx}'],
+    rules: {
+      '@typescript-eslint/await-thenable': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      'unicorn/no-null': 'off',
+    },
+  },
   eslintPluginPrettierRecommended,
   eslintConfigPrettier
 );
