@@ -19,6 +19,8 @@ export class Duration {
 
   add(other: Duration, clampParams?: ClampParams): Duration {
     const millis = Duration.handleClamp(this._ms + other._ms, clampParams);
+    console.log('🚀 ~ Duration ~ add ~ millis:', millis);
+    console.log('🚀 ~ Duration ~ add ~ clampParams:', clampParams);
 
     return new Duration({ millis });
   }
@@ -62,7 +64,7 @@ export class Duration {
         clamp(num, min, max)
       )
       .with({ min: P.number }, ({ min }) => clamp(num, min, num))
-      .with({ max: P.number }, ({ max }) => clamp(num, num, max))
+      .with({ max: P.number }, ({ max }) => clamp(num, max))
       .otherwise(() => num);
 
   private readonly _ms: number;

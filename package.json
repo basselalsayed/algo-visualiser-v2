@@ -8,8 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --cache",
     "preview": "vite preview",
-    "update-index-ts": "cd src && for f in *; do pnpm dlx create-ts-index create ./$f -w -b; done",
-    "typecheck": "tsc --project tsconfig.app.json"
+    "test": "vitest",
+    "typecheck": "tsc --project tsconfig.app.json",
+    "update-index-ts": "cd src && for f in *; do pnpm dlx create-ts-index create ./$f -w -b; done"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.13",
@@ -87,6 +88,7 @@
     "tw-animate-css": "^1.2.8",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
-    "vite": "^6.3.3"
+    "vite": "^6.3.3",
+    "vitest": "^3.1.2"
   }
 }
