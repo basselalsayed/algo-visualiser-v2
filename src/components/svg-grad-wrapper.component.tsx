@@ -7,7 +7,7 @@ export const SVGGradWrapper: FC<{
   color1?: string;
   color2?: string;
 }> = ({ children, color1, color2 }) => {
-  const svgRef = useSvgGradient<Element>({ color1, color2 });
+  const ref = useSvgGradient<Element>({ color1, color2 });
 
-  return cloneElement(children, { ref: svgRef });
+  return cloneElement(children, { ref });
 };

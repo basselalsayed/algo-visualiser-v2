@@ -55,14 +55,12 @@ export const useSettings = create<SettingsStore>((set) => ({
   reset: () => {
     setCSSVariable('--node-size', DEFAULT_NODE_SIZE);
 
-    return set(
-      produce((state) => ({
-        animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
-        drawSquare: 0,
-        gridHeight: state.maxGridHeight,
-        gridWidth: state.maxGridWidth,
-        nodeSize: DEFAULT_NODE_SIZE,
-      }))
-    );
+    return set((state) => ({
+      animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
+      drawSquare: 0,
+      gridHeight: state.maxGridHeight,
+      gridWidth: state.maxGridWidth,
+      nodeSize: DEFAULT_NODE_SIZE,
+    }));
   },
 }));

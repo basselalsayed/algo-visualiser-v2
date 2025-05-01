@@ -16,7 +16,7 @@ export const DarkModeSwitch = () => {
       checked={isDarkMode}
       thumbChildren={
         <SVGGradWrapper>
-          <IconComponent size={'1.25rem'} />
+          <IconComponent size='1.25rem' />
         </SVGGradWrapper>
       }
       title={t(

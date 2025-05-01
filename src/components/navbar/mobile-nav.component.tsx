@@ -50,7 +50,7 @@ export const MobileNav: FC = () => {
 
             <DarkModeSwitch />
 
-            <Accordian type={'multiple'}>
+            <Accordian type='multiple'>
               <AccordianItem title='Algorithms'>
                 <AlgoForm className='w-full' />
               </AccordianItem>

@@ -103,6 +103,15 @@ export default config(
           ],
         },
       ],
+      'no-console': 'error',
+      'react/jsx-curly-brace-presence': [
+        'error',
+        {
+          children: 'never',
+          propElementValues: 'always',
+          props: 'never',
+        },
+      ],
       'react/jsx-fragments': ['error', 'syntax'],
       'react/jsx-key': ['error', { checkFragmentShorthand: true }],
       'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
