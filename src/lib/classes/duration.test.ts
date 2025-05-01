@@ -1,5 +1,3 @@
-import { describe, expect, it } from 'vitest';
-
 import { Duration } from './duration';
 
 describe('Duration', () => {

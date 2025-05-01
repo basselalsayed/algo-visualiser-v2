@@ -1,7 +1,3 @@
-// @vitest-environment jsdom
-
-import { describe, expect, it, vi } from 'vitest';
-
 import {
   assert,
   convertToSeconds,
@@ -43,6 +39,11 @@ describe('utils', () => {
       expect(() => assert(null, 'object')).toThrowError(
         "Expected type 'object', but received null"
       );
+    });
+    it('type narrows successfully', () => {
+      const value: unknown = 'hello';
+      assert(value, 'string');
+      expectTypeOf(value).toBeString();
     });
   });
 

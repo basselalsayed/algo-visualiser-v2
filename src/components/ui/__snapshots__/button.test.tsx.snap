@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Button.component > looks the same 1`] = `
+<DocumentFragment>
+  <button
+    class="inline-flex items-center justify-center gap-2 rounded-md text-base font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-4 py-2 animate_grad bg_grad_accent--outline--text shadow-sm [--base-color:hsl(var(--background))]"
+  />
+</DocumentFragment>
+`;
+
+exports[`Button.component > looks the same 2`] = `
+<DocumentFragment>
+  <button
+    class="inline-flex items-center justify-center gap-2 rounded-md text-base font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-4 py-2 animate_grad bg_grad_accent border-0 shadow-xs"
+  />
+</DocumentFragment>
+`;

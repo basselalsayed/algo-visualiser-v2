@@ -1,0 +1,74 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NavigationMenu.component > looks the same 1`] = `
+<DocumentFragment>
+  <nav
+    aria-label="Main"
+    class="relative z-10 flex max-w-max flex-1 items-center justify-center"
+    data-orientation="horizontal"
+    dir="ltr"
+  >
+    <div
+      style="position: relative;"
+    >
+      <ul
+        class="group flex flex-1 list-none items-center justify-center space-x-1"
+        data-orientation="horizontal"
+        dir="ltr"
+      >
+        <li>
+          <button
+            aria-controls="radix-«r0»-content-radix-«r1»"
+            aria-expanded="false"
+            class="gap-2 whitespace-nowrap focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 animate_grad bg_grad_accent--outline--text shadow-sm [--base-color:hsl(var(--background))] group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-active:bg-accent/50 data-[state=open]:bg-accent/50 group"
+            data-radix-collection-item=""
+            data-state="closed"
+            id="radix-«r0»-trigger-radix-«r1»"
+          >
+            <svg
+              aria-hidden="true"
+              class="relative h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+              fill="none"
+              height="15"
+              viewBox="0 0 15 15"
+              width="15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+                stroke="url(#gradient-sVnBjCeMY2eSwZoLjIe9Z)"
+              />
+              <defs>
+                <lineargradient
+                  gradientUnits="userSpaceOnUse"
+                  id="gradient-sVnBjCeMY2eSwZoLjIe9Z"
+                  style="--grad-1: hsl(var(--grad-accent-1)); --grad-2: hsl(var(--grad-accent-2));"
+                  x1="0%"
+                  x2="100%"
+                  y1="0%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: var(--grad-1);"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: var(--grad-2);"
+                  />
+                </lineargradient>
+              </defs>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="absolute top-full right-0 flex justify-center"
+    />
+  </nav>
+</DocumentFragment>
+`;
