@@ -133,6 +133,7 @@ export default config(
       'sort/import-members': 'off',
       'sort/imports': 'off',
       'sort/type-properties': 'error',
+      'unicorn/consistent-destructuring': 'error',
       'unicorn/no-useless-undefined': ['error', { checkArguments: false }],
       'unicorn/prevent-abbreviations': 'off',
     },
