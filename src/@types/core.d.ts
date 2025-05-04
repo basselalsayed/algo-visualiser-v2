@@ -1,5 +1,4 @@
-import { type NodeType } from '@/components';
-import { type ArrayKeyMap } from '@/lib';
+import { type ArrayKeyMap, type NodeType } from '@/lib';
 
 declare global {
   declare interface INode {

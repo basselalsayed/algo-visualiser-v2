@@ -4,10 +4,9 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react';
 import * as React from 'react';
 
+import { SrOnly } from '@/components/sr-only.component';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-
-import { SrOnly } from '../sr-only.component';
+import { cn } from '@/lib';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

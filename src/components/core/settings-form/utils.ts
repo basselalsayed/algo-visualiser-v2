@@ -1,6 +1,6 @@
 import { clamp } from 'lodash-es';
 
-import { useSettings } from '@/hooks';
+import { useSettings } from '@/store';
 
 import {
   MAX_NODE_SIZE,

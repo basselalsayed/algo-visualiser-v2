@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type T_SUPORTED_LOCALES } from '@/lib/constants';
+import { type T_SUPORTED_LOCALES } from '@/lib';
 
 import { Select } from './select.component';
 

@@ -10,6 +10,9 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import { config, configs } from 'typescript-eslint';
 
+import { DIRECTORIES } from './utils/constants.js';
+import { createImportBoundary } from './utils/create-import-boundary.fn.js';
+
 export default config(
   { ignores: ['dist'] },
   {
@@ -86,6 +89,7 @@ export default config(
         },
       ],
       'class-methods-use-this': 'error',
+      'import/no-cycle': 'error',
       'import/order': [
         'error',
         {
@@ -149,6 +153,7 @@ export default config(
       react: { version: 'detect' },
     },
   },
+  ...DIRECTORIES.map((dir) => createImportBoundary(dir)),
   eslintPluginPrettierRecommended,
   eslintConfigPrettier
 );

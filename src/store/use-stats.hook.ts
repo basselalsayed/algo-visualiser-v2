@@ -2,8 +2,8 @@ import { createDraft, finishDraft, produce } from 'immer';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { type RuntimeInfo } from '@/lib/algorithms';
-import { sleep } from '@/lib/utils';
+import { type RuntimeInfo } from '@/algorithms';
+import { sleep } from '@/lib';
 
 import { type DispatchFunction } from './types';
 

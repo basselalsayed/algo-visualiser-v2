@@ -4,7 +4,7 @@ import { Command as CommandPrimitive } from 'cmdk';
 import * as React from 'react';
 
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 import { Kbd } from '../kbd-component';
 

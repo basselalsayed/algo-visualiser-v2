@@ -16,12 +16,11 @@ import Shepherd, {
 } from 'shepherd.js';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { LanguageSelect } from '@/components';
-import { buttonVariants } from '@/components/ui';
+import { LanguageSelect } from '@/components/language-select.component';
+import { buttonVariants } from '@/components/ui/button';
+import { TourContext } from '@/contexts';
 import { useDeviceQueries, useMutationObserver } from '@/hooks';
 import { HTML_SELECTORS, customEventKeys } from '@/lib';
-
-import { TourContext } from './tour.context';
 
 function renderLanguageSelectStep(t: TFunction<'tour'>) {
   const container = document.createElement('div');

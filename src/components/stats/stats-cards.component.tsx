@@ -1,9 +1,11 @@
 import { type FC, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Card } from '@/components';
-import { Separator, Skeleton } from '@/components/ui';
-import { type RuntimeInfo } from '@/lib/algorithms';
+import { type RuntimeInfo } from '@/algorithms';
+
+import { Card } from '../card.component';
+import { Separator } from '../ui/separator';
+import { Skeleton } from '../ui/skeleton';
 
 import { DEDFAULT_SKELETON_COUNT } from './constants';
 import { type StatsProps } from './types';

@@ -1,6 +1,6 @@
 import { type FC, type ReactElement, type Ref, cloneElement } from 'react';
 
-import { useSvgGradient } from '@/hooks/ui/use-svg-gradient.hook';
+import { useSvgGradient } from '@/hooks';
 
 export const SVGGradWrapper: FC<{
   children: ReactElement<{ ref: Ref<Element> }>;

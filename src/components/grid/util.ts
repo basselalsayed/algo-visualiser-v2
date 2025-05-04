@@ -1,9 +1,7 @@
 import { match } from 'ts-pattern';
 
-import { useGrid } from '@/hooks';
-import { emitCustomEvent } from '@/lib';
-
-import { NodeType } from './node-type.enum';
+import { NodeType, emitCustomEvent } from '@/lib';
+import { useGrid } from '@/store';
 
 export function handleNodeClick({ type, xIndex, yIndex }: INode) {
   const { dispatch, endNode, startNode, wallMode } = useGrid.getState();

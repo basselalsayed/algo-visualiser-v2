@@ -1,7 +1,7 @@
 import { type JSX } from 'react/jsx-runtime';
 import { useTranslation } from 'react-i18next';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 import * as T from './ui/tabs';
 

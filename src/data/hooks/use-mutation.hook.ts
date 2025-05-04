@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { type CamelCasedPropertiesDeep } from 'type-fest';
 
 import { apiClient } from '../client';
-import { mapKeysToSnake } from '../transformers';
+import { mapKeysToSnake } from '../transformers/objects/map-keys-to-snake.fn';
 import { type Database } from '../types';
 
 interface useMutationParams {

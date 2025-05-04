@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useSettings } from '../state';
+import { useSettings } from '@/store';
 
 interface useDimensionsReturn {
   columnCount: number;
@@ -9,6 +9,7 @@ interface useDimensionsReturn {
   maxSquareSize: number;
   rowCount: number;
 }
+
 export const useDimensions = (): useDimensionsReturn => {
   const { gridHeight, gridWidth, maxGridHeight, maxGridWidth, nodeSize } =
     useSettings();

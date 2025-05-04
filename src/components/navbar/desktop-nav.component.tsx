@@ -1,22 +1,25 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useIsRunning } from '@/hooks';
 import { HTML_IDS } from '@/lib';
+import { useIsRunning } from '@/store';
 
-import { AlgoForm, MazeButton, RunButton, SettingsForm } from '..';
+import { AlgoForm } from '../core/algo-form/algo-form.component';
+import { SettingsForm } from '../core/settings-form/settings-form.component';
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '../ui';
+} from '../ui/navigation-menu';
 
 import {
   DarkModeSwitch,
+  MazeButton,
   QuickSearchButton,
   ResetButton,
+  RunButton,
   WallSwitch,
 } from './components';
 

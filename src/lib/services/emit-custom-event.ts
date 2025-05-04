@@ -1,4 +1,4 @@
-import { HTML_SELECTORS } from '../constants';
+import { HTML_SELECTORS } from '@/lib/constants/id';
 
 export const customEventKeys = {
   algoChanged: 'algoChanged',

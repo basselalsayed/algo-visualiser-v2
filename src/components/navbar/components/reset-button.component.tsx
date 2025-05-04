@@ -1,9 +1,9 @@
 import { RotateCcw } from 'lucide-react';
 
-import { SrOnly } from '@/components';
-import { Button } from '@/components/ui';
-import { useRun } from '@/hooks';
+import { SrOnly } from '@/components/sr-only.component';
+import { Button } from '@/components/ui/button';
 import { HTML_IDS } from '@/lib';
+import { useRun } from '@/store';
 
 export const ResetButton = () => {
   const { reset } = useRun();

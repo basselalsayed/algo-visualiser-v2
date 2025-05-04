@@ -2,9 +2,11 @@ import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Slider } from '@/components/slider.component';
-import { Checkbox, Label } from '@/components/ui';
-import { useDimensions, useSettings } from '@/hooks';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { useDimensions } from '@/hooks';
 import { Duration } from '@/lib';
+import { useSettings } from '@/store';
 
 import { MAX_NODE_SIZE, MIN_NODE_SIZE, NODE_SIZE_STEP } from './constants';
 import { updateNodeSize } from './utils';

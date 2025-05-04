@@ -1,8 +1,8 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
+import { type AlgoInfo, algoInfo } from '@/algorithms';
 import { Duration, emitCustomEvent, setCSSVariable } from '@/lib';
-import { type AlgoInfo, algoInfo } from '@/lib/constants';
 
 import { type DispatchFunction } from './types';
 

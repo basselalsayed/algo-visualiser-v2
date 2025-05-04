@@ -9,16 +9,9 @@ import {
 import { t } from 'i18next';
 import { animate, mix } from 'motion';
 
-import { useSettings } from '@/hooks';
+import { type Duration, HTML_SELECTORS, getCSSVariable, noOp } from '@/lib';
 
-import {
-  ALGO_NAMES,
-  type AlgoName,
-  type Duration,
-  HTML_SELECTORS,
-  getCSSVariable,
-  noOp,
-} from '..';
+import { ALGO_NAMES, type AlgoName } from './types';
 
 class _ShortestPath {
   addPath = (name: AlgoName, path: INode[]) => {
@@ -209,7 +202,8 @@ class _ShortestPath {
   private drawShortestPath = () => {
     const [name, shortestPath] = this.mostRecentPath;
     const totalPathLength = shortestPath.length;
-    const { nodeSize } = useSettings.getState();
+    const nodeSize = Number(getCSSVariable('--node-size'));
+
     this._pathSegments = Math.floor(nodeSize / 5);
 
     const groupElement = document.createElementNS(

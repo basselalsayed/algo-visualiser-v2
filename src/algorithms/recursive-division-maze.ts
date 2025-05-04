@@ -1,5 +1,4 @@
-import { NodeType } from '@/components/grid/node-type.enum';
-import { type Duration, sleep } from '@/lib';
+import { type Duration, NodeType, sleep } from '@/lib';
 
 export class Maze {
   async run(this: this) {

@@ -1,5 +1,4 @@
-import { type Duration } from '../classes/duration';
-import { assert, convertToSeconds, sleep } from '../utils';
+import { type Duration, assert, convertToSeconds, sleep } from '@/lib';
 
 import { ShortestPath } from './shortest-path';
 import type {

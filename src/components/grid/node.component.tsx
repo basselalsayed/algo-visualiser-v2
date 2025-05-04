@@ -2,9 +2,7 @@
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
 
-import { cn, getCSSVariable } from '@/lib/utils';
-
-import { NodeType } from './node-type.enum';
+import { NodeType, cn, getCSSVariable } from '@/lib';
 
 interface Props {
   className?: string;

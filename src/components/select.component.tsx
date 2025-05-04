@@ -1,7 +1,8 @@
 import { type ReactElement } from 'react';
 
-import * as S from '@/components/ui/select';
 import { cn } from '@/lib';
+
+import * as S from './ui/select';
 
 interface Option<T extends string> {
   label: string | ReactElement;

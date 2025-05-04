@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/components/ui';
-import { useSettings } from '@/hooks';
-import { algoInfo } from '@/lib/constants';
+import { algoInfo } from '@/algorithms';
+import { Button } from '@/components/ui/button';
+import { useSettings } from '@/store';
 
 export const AlgoFormMini = () => {
   const { currentAlgo, dispatch } = useSettings();

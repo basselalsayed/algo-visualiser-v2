@@ -1,11 +1,7 @@
-import {
-  AStarEuclidean,
-  AStarManhatten,
-  BreadthFirstSearch,
-  DepthFirstSearch,
-  Dijkstra,
-  type IPathFindingAlgorithmConstructor,
-} from '../algorithms';
+import { AStarEuclidean, AStarManhatten } from './a-star';
+import { Dijkstra } from './dijkstra';
+import { BreadthFirstSearch, DepthFirstSearch } from './first-search';
+import { type IPathFindingAlgorithmConstructor } from './types';
 
 export interface AlgoInfo {
   class: IPathFindingAlgorithmConstructor;

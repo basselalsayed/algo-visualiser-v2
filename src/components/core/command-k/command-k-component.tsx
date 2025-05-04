@@ -9,15 +9,7 @@ import {
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  AlgoFormMini,
-  AnimationSpeedSlider,
-  DrawSquareSlider,
-  GridHeightSlider,
-  GridWidthSlider,
-  LanguageSelect,
-  NodeSizeSlider,
-} from '@/components';
+import { LanguageSelect } from '@/components/language-select.component';
 import {
   CommandDialog,
   CommandEmpty,
@@ -27,8 +19,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from '@/components/ui';
-import { useCommand } from '@/hooks';
+} from '@/components/ui/command';
 import {
   EDIT_ALGORITHM,
   EDIT_ANIMATION_SPEED,
@@ -36,7 +27,17 @@ import {
   EDIT_GRID_HEIGHT,
   EDIT_GRID_WIDTH,
   EDIT_NODE_SIZE,
-} from '@/lib/constants';
+} from '@/lib';
+import { useCommand } from '@/store';
+
+import { AlgoFormMini } from '../algo-form/algo-form-mini.component';
+import {
+  AnimationSpeedSlider,
+  DrawSquareSlider,
+  GridHeightSlider,
+  GridWidthSlider,
+  NodeSizeSlider,
+} from '../settings-form/form-components';
 
 import {
   CommandKItem,

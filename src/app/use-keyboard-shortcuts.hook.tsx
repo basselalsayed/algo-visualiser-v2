@@ -3,7 +3,8 @@ import { toast } from 'sonner';
 import { match } from 'ts-pattern';
 import { useEventCallback, useEventListener } from 'usehooks-ts';
 
-import { KeyboardControls, NodeType } from '@/components/grid';
+import { KeyboardControls } from '@/components/grid/keyboard-controls.component';
+import { useDimensions } from '@/hooks';
 import {
   EDIT_ALGORITHM,
   EDIT_ANIMATION_SPEED,
@@ -21,16 +22,14 @@ import {
   NODE_TYPE_NONE,
   NODE_TYPE_START,
   NODE_TYPE_WALL,
+  NodeType,
   OPEN_COMMAND_KEY,
   RUN_ALGO_KEY,
   RUN_MAZE_KEY,
   type T_ACTION_KEYS,
   type T_COMMAND_SEARCH_KEYS,
-} from '@/lib/constants';
-
-import { useCommand, useGrid, useRun } from '../state';
-
-import { useDimensions } from './use-dimensions.hook';
+} from '@/lib';
+import { useCommand, useGrid, useRun } from '@/store';
 
 type KeyboardMap<K extends string, V> = Record<K, V>;
 
