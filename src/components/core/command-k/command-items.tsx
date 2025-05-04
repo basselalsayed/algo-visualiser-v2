@@ -14,11 +14,11 @@ import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
 import { useShallow } from 'zustand/react/shallow';
 
-import { NodeType } from '@/components/grid';
-import { CommandItem, CommandShortcut } from '@/components/ui';
+import { CommandItem, CommandShortcut } from '@/components/ui/command';
 import { useTour } from '@/contexts';
-import { useCommand, useDarkMode, useGrid, useRun, useStats } from '@/hooks';
-import { RUN_ALGO_KEY, RUN_MAZE_KEY } from '@/lib';
+import { useDarkMode } from '@/hooks';
+import { NodeType, RUN_ALGO_KEY, RUN_MAZE_KEY, RunState } from '@/lib';
+import { useCommand, useGrid, useRun, useStats } from '@/store';
 
 interface Props extends ComponentProps<typeof CommandItem> {
   closeOnSelect?: boolean;
@@ -64,12 +64,14 @@ export const CommandKItem: FC<Props> = ({
 export const RunCommandItem: FC = () => {
   const { algoRunning, readyToRun, run, runState } = useRun();
 
+  /*  eslint-disable react/jsx-key */
   const [icon, tKey] = match(runState)
     .returnType<[ReactElement, TKey]>()
-    .with('idle', 'paused', () => [<PlayIcon />, 'commandk.play'])
-    .with('running', () => [<PauseIcon />, 'commandk.pause'])
-    .with('done', () => [<Repeat1 />, 'commandk.replay'])
+    .with(RunState.idle, RunState.paused, () => [<PlayIcon />, 'commandk.play'])
+    .with(RunState.running, () => [<PauseIcon />, 'commandk.pause'])
+    .with(RunState.done, () => [<Repeat1 />, 'commandk.replay'])
     .exhaustive();
+  /*  eslint-enable react/jsx-key */
 
   return (
     <CommandKItem

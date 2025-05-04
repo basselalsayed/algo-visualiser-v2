@@ -16,12 +16,11 @@ import Shepherd, {
 } from 'shepherd.js';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { LanguageSelect } from '@/components';
-import { buttonVariants } from '@/components/ui';
+import { LanguageSelect } from '@/components/language-select.component';
+import { buttonVariants } from '@/components/ui/button';
+import { TourContext } from '@/contexts';
 import { useDeviceQueries, useMutationObserver } from '@/hooks';
 import { HTML_SELECTORS, customEventKeys } from '@/lib';
-
-import { TourContext } from './tour.context';
 
 function renderLanguageSelectStep(t: TFunction<'tour'>) {
   const container = document.createElement('div');
@@ -58,7 +57,7 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   const shepherdCancelButton = useMemo<StepOptionsButton>(
     () => ({
       action(this) {
-        this.cancel();
+        void this.cancel();
         setTourDismissed(true);
       },
       classes: buttonVariants({ size: 'lg', variant: 'outline' }),
@@ -236,7 +235,7 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   );
 
   const tour = useMemo(() => {
-    Shepherd.activeTour?.cancel();
+    void Shepherd.activeTour?.cancel();
     const tourInstance = new Shepherd.Tour(options);
 
     tourInstance.addSteps(steps);
@@ -266,7 +265,7 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   });
 
   const startTour = useCallback(() => {
-    if (!tour.isActive()) tour.start();
+    if (!tour.isActive()) void tour.start();
   }, [tour]);
 
   return (
@@ -275,3 +274,5 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
     </TourContext>
   );
 });
+
+TourProvider.displayName = 'TourProvider';

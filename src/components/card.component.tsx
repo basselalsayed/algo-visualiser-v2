@@ -1,6 +1,6 @@
 import { type FC, type PropsWithChildren, type ReactElement } from 'react';
 
-import { typeIs } from '@/lib/utils';
+import { typeIs } from '@/lib';
 
 import * as C from './ui/card';
 

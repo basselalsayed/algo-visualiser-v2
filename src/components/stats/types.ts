@@ -1,4 +1,4 @@
-import { type RuntimeInfo } from '@/lib/algorithms';
+import { type RuntimeInfo } from '@/algorithms';
 
 export interface StatsProps {
   loading: boolean;

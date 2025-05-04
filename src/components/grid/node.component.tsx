@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { type TargetAndTransition, motion } from 'motion/react';
 import { PureComponent, type RefObject, createRef } from 'react';
 
-import { cn, getCSSVariable } from '@/lib/utils';
-
-import { NodeType } from './node-type.enum';
+import { NodeType, cn, getCSSVariable } from '@/lib';
 
 interface Props {
   className?: string;
@@ -78,11 +77,11 @@ export class Node extends PureComponent<Props, State> implements INode {
     return [this.xIndex, this.yIndex];
   }
 
-  private _pastNode?: Node | undefined;
+  private _pastNode?: INode | undefined;
   get pastNode() {
     return this._pastNode;
   }
-  setPastNode(value?: Node) {
+  setPastNode(value?: INode) {
     this._pastNode = value;
   }
 
@@ -117,7 +116,7 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setState({ type });
   }
 
-  private _visited: boolean = false;
+  private _visited = false;
   get visited() {
     return this._visited;
   }
@@ -147,16 +146,16 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
 
   get isStart() {
-    return this.type === 'start';
+    return this.type === NodeType.start;
   }
   get isEnd() {
-    return this.type === 'end';
+    return this.type === NodeType.end;
   }
   get isWall() {
-    return this.type === 'wall';
+    return this.type === NodeType.wall;
   }
   get isNone() {
-    return this.type === 'none';
+    return this.type === NodeType.none;
   }
   get domNode() {
     return this.ref.current ?? undefined;
@@ -223,6 +222,7 @@ export class Node extends PureComponent<Props, State> implements INode {
         }}
         whileHover={this.hoverFocusStyles}
         whileFocus={this.hoverFocusStyles}
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         onClick={this.handleClick}
         style={{
           height: size,

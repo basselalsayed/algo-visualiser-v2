@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
-import { NodeType } from '@/components';
-import { ArrayKeyMap } from '@/lib';
+import { ArrayKeyMap, NodeType } from '@/lib';
 
 import { type DispatchFunction } from './types';
 

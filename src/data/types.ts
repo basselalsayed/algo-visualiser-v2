@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 export type Json =
   | string
   | number
@@ -6,14 +7,10 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export type Database = {
+export interface Database {
   graphql_public: {
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-    Enums: {
-      [_ in never]: never;
-    };
+    CompositeTypes: Record<never, never>;
+    Enums: Record<never, never>;
     Functions: {
       graphql: {
         Args: {
@@ -25,23 +22,13 @@ export type Database = {
         Returns: Json;
       };
     };
-    Tables: {
-      [_ in never]: never;
-    };
-    Views: {
-      [_ in never]: never;
-    };
+    Tables: Record<never, never>;
+    Views: Record<never, never>;
   };
   public: {
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    Functions: {
-      [_ in never]: never;
-    };
+    CompositeTypes: Record<never, never>;
+    Enums: Record<never, never>;
+    Functions: Record<never, never>;
     Tables: {
       algo_result: {
         Insert: {
@@ -74,11 +61,9 @@ export type Database = {
         };
       };
     };
-    Views: {
-      [_ in never]: never;
-    };
+    Views: Record<never, never>;
   };
-};
+}
 
 type DefaultSchema = Database[Extract<keyof Database, 'public'>];
 

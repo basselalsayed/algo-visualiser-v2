@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable unicorn/no-null */
 // from https://gist.github.com/tkrotoff/a6baf96eb6b61b445a9142e5555511a0
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -10,8 +11,8 @@ export type NullToUndefined<T> = T extends null
   ? undefined
   : T extends Primitive | Function | Date | RegExp
     ? T
-    : T extends Array<infer U>
-      ? Array<NullToUndefined<U>>
+    : T extends (infer U)[]
+      ? NullToUndefined<U>[]
       : T extends Map<infer K, infer V>
         ? Map<K, NullToUndefined<V>>
         : T extends Set<infer U>
@@ -24,8 +25,8 @@ export type UndefinedToNull<T> = T extends undefined
   ? null
   : T extends Primitive | Function | Date | RegExp
     ? T
-    : T extends Array<infer U>
-      ? Array<UndefinedToNull<U>>
+    : T extends (infer U)[]
+      ? UndefinedToNull<U>[]
       : T extends Map<infer K, infer V>
         ? Map<K, UndefinedToNull<V>>
         : T extends Set<infer U>

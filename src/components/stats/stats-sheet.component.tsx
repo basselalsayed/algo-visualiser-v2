@@ -4,19 +4,14 @@ import { type FC, type UIEvent, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEventCallback } from 'usehooks-ts';
 
-import { apiClient } from '@/data/client';
-import { mapKeysToCamel } from '@/data/transformers';
-import { useDeviceQueries, useStats } from '@/hooks';
-import { elementIsFullyScrolled } from '@/lib/utils';
+import { apiClient, mapKeysToCamel } from '@/data';
+import { useDeviceQueries } from '@/hooks';
+import { elementIsFullyScrolled } from '@/lib';
+import { useStats } from '@/store';
 
 import { Tabs } from '../tabs.component';
-import {
-  ScrollArea,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from '../ui';
+import { ScrollArea } from '../ui/scroll-area';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet';
 
 import { StatsCards } from './stats-cards.component';
 import { StatsTable } from './stats-table.component';

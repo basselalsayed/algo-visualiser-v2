@@ -9,8 +9,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui';
-import { useSettings } from '@/hooks';
+} from '@/components/ui/alert-dialog';
+import { useSettings } from '@/store';
 
 export const PerformanceAlertDialog = () => {
   const { dispatch, performanceModeDialogOpen } = useSettings();

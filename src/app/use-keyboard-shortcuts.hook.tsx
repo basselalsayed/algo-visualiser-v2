@@ -3,7 +3,8 @@ import { toast } from 'sonner';
 import { match } from 'ts-pattern';
 import { useEventCallback, useEventListener } from 'usehooks-ts';
 
-import { KeyboardControls, NodeType } from '@/components/grid';
+import { KeyboardControls } from '@/components/grid/keyboard-controls.component';
+import { useDimensions } from '@/hooks';
 import {
   EDIT_ALGORITHM,
   EDIT_ANIMATION_SPEED,
@@ -21,20 +22,16 @@ import {
   NODE_TYPE_NONE,
   NODE_TYPE_START,
   NODE_TYPE_WALL,
+  NodeType,
   OPEN_COMMAND_KEY,
   RUN_ALGO_KEY,
   RUN_MAZE_KEY,
   type T_ACTION_KEYS,
   type T_COMMAND_SEARCH_KEYS,
-} from '@/lib/constants';
+} from '@/lib';
+import { useCommand, useGrid, useRun } from '@/store';
 
-import { useCommand, useGrid, useRun } from '../state';
-
-import { useDimensions } from './use-dimensions.hook';
-
-type KeyboardMap<K extends string, V> = {
-  [key in K]: V;
-};
+type KeyboardMap<K extends string, V> = Record<K, V>;
 
 const searchMap: KeyboardMap<T_COMMAND_SEARCH_KEYS, string> = {
   [EDIT_ALGORITHM]: 'algorithm',
@@ -112,8 +109,8 @@ export const useKeyboardShortcuts = (): ((e: KeyboardEvent) => void) => {
       const nextIndex = (currentIndex + 1) % nodeTypes.length;
       const nextType = nodeTypes[nextIndex];
       currentNode!.setType(nextType);
-      if (nextType === 'start') dispatch('startNode', [x, y]);
-      if (nextType === 'end') dispatch('endNode', [x, y]);
+      if (nextType === NodeType.start) dispatch('startNode', [x, y]);
+      if (nextType === NodeType.end) dispatch('endNode', [x, y]);
     };
 
     const focusUpdateNode = () =>

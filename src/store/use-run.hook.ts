@@ -3,19 +3,20 @@ import { match } from 'ts-pattern';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 
+import {
+  type IPathFindingAlgorithm,
+  Maze,
+  type RuntimeInfo,
+  ShortestPath,
+} from '@/algorithms';
 import { useTour } from '@/contexts';
-import { useMutation } from '@/data/hooks/use-mutation.hook';
-import { eventEmitter } from '@/lib';
-import { type IPathFindingAlgorithm, type RuntimeInfo } from '@/lib/algorithms';
-import { Maze, ShortestPath } from '@/lib/algorithms';
+import { useMutation } from '@/data';
+import { MazeRunState, RunState, emitCustomEvent, noOp } from '@/lib';
 
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
 import { useSettings } from './use-settings.hook';
 import { useStats } from './use-stats.hook';
-
-type RunState = 'idle' | 'running' | 'paused' | 'done';
-type MazeRunState = Exclude<RunState, 'paused'>;
 
 interface RunStore {
   algoInstance?: IPathFindingAlgorithm;
@@ -27,8 +28,8 @@ interface RunStore {
 export const useRunStore = create<RunStore>((set) => ({
   algoInstance: undefined,
   dispatch: (key, value) => set((state) => ({ ...state, [key]: value })),
-  mazeRunState: 'idle',
-  runState: 'idle',
+  mazeRunState: MazeRunState.idle,
+  runState: RunState.idle,
 }));
 
 interface useRunReturn {
@@ -58,48 +59,48 @@ export const useRun = (): useRunReturn => {
     (result: RuntimeInfo) => {
       const { addResult } = useStats.getState();
       const { dispatch } = useRunStore.getState();
-      dispatch('runState', 'done');
-      eventEmitter.emit('runComplete');
-      trigger([result]);
-      addResult(result, !tour.isActive());
+      dispatch('runState', RunState.done);
+      emitCustomEvent('runComplete');
+      trigger([result]).catch(noOp);
+      void addResult(result, !tour.isActive());
     },
     [tour, trigger]
   );
 
   const onRunCompleteReplay = useCallback(() => {
     const { dispatch } = useRunStore.getState();
-    dispatch('runState', 'done');
+    dispatch('runState', RunState.done);
   }, []);
 
   const run = useCallback(() => {
     match(runState)
-      .with('idle', 'paused', () => {
-        dispatch('runState', 'running');
-        algoInstance?.run(onRunComplete);
+      .with(RunState.idle, RunState.paused, () => {
+        dispatch('runState', RunState.running);
+        void algoInstance?.run(onRunComplete);
       })
-      .with('running', () => {
-        dispatch('runState', 'paused');
+      .with(RunState.running, () => {
+        dispatch('runState', RunState.paused);
         algoInstance?.pause();
       })
-      .with('done', async () => {
-        dispatch('runState', 'running');
+      .with(RunState.done, async () => {
+        dispatch('runState', RunState.running);
         algoInstance?.reset();
         await ShortestPath.reverse(algoInstance!.name);
-        algoInstance?.run(onRunCompleteReplay);
+        void algoInstance?.run(onRunCompleteReplay);
       });
   }, [algoInstance, dispatch, onRunComplete, onRunCompleteReplay, runState]);
 
   const readyToRun = useMemo(() => !!algoInstance, [algoInstance]);
   const readyToRunMaze = useMemo(
-    () => runState === 'idle' && mazeRunState !== 'running',
+    () => runState === RunState.idle && mazeRunState !== MazeRunState.running,
     [mazeRunState, runState]
   );
 
   const maze = useMemo(
     () =>
       new Maze(refsMap, animationSpeed, () => {
-        dispatch('mazeRunState', 'done');
-        eventEmitter.emit('mazeComplete');
+        dispatch('mazeRunState', MazeRunState.done);
+        emitCustomEvent('mazeComplete');
       }),
     [animationSpeed, dispatch, refsMap]
   );
@@ -107,28 +108,28 @@ export const useRun = (): useRunReturn => {
   const reset = useCallback(() => {
     algoInstance?.pause();
     resetGrid();
-    dispatch('runState', 'idle');
-    dispatch('mazeRunState', 'idle');
+    dispatch('runState', RunState.idle);
+    dispatch('mazeRunState', MazeRunState.idle);
     ShortestPath.reset();
   }, [algoInstance, dispatch, resetGrid]);
 
   const runMaze = useCallback(() => {
     match(mazeRunState)
-      .with('idle', () => {
-        maze.run();
-        dispatch('mazeRunState', 'running');
+      .with(MazeRunState.idle, () => {
+        void maze.run();
+        dispatch('mazeRunState', MazeRunState.running);
       })
-      .with('done', () => {
+      .with(MazeRunState.done, () => {
         resetWalls();
-        dispatch('mazeRunState', 'running');
-        maze.run();
+        dispatch('mazeRunState', MazeRunState.running);
+        void maze.run();
       });
   }, [dispatch, maze, mazeRunState, resetWalls]);
 
   return {
-    algoRunning: runState === 'running',
+    algoRunning: runState === RunState.running,
     maze,
-    mazeRunning: mazeRunState === 'running',
+    mazeRunning: mazeRunState === MazeRunState.running,
     readyToRun,
     readyToRunMaze,
     reset,
@@ -153,10 +154,12 @@ export const useIsRunning = (): isRunningReturn => {
   );
 
   return {
-    algoRunning: runState === 'running',
-    anyRunning: runState === 'running' || mazeRunState === 'running',
-    idle: runState !== 'running' && mazeRunState !== 'running',
-    mazeRunning: mazeRunState === 'running',
+    algoRunning: runState === RunState.running,
+    anyRunning:
+      runState === RunState.running || mazeRunState === MazeRunState.running,
+    idle:
+      runState !== RunState.running && mazeRunState !== MazeRunState.running,
+    mazeRunning: mazeRunState === MazeRunState.running,
   };
 };
 
@@ -164,9 +167,11 @@ export function isRunningService(): isRunningReturn {
   const { mazeRunState, runState } = useRunStore.getState();
 
   return {
-    algoRunning: runState === 'running',
-    anyRunning: runState === 'running' || mazeRunState === 'running',
-    idle: runState !== 'running' && mazeRunState !== 'running',
-    mazeRunning: mazeRunState === 'running',
+    algoRunning: runState === RunState.running,
+    anyRunning:
+      runState === RunState.running || mazeRunState === MazeRunState.running,
+    idle:
+      runState !== RunState.running && mazeRunState !== MazeRunState.running,
+    mazeRunning: mazeRunState === MazeRunState.running,
   };
 }

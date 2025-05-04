@@ -2,10 +2,11 @@ import { type FC, useRef } from 'react';
 import TexSVG from 'react-hook-mathjax';
 import { useTranslation } from 'react-i18next';
 
-import { Card, Carousel, CarouselItem } from '@/components';
-import { useSettings } from '@/hooks';
-import { algoInfo } from '@/lib/constants';
-import { cn } from '@/lib/utils';
+import { algoInfo } from '@/algorithms';
+import { Card } from '@/components/card.component';
+import { Carousel, CarouselItem } from '@/components/ui/carousel';
+import { cn } from '@/lib';
+import { useSettings } from '@/store';
 
 export const AlgoForm: FC<{ className?: string }> = ({ className }) => {
   const dispatch = useSettings((state) => state.dispatch);

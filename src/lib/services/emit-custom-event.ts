@@ -1,4 +1,4 @@
-import { HTML_SELECTORS } from '../constants';
+import { HTML_SELECTORS } from '@/lib/constants/id';
 
 export const customEventKeys = {
   algoChanged: 'algoChanged',
@@ -12,12 +12,8 @@ export const customEvents = Object.fromEntries(
   Object.keys(customEventKeys).map((key) => [key, new CustomEvent(key)])
 ) as { [K in keyof typeof customEventKeys]: CustomEvent };
 
-class CustomEventEmitter {
-  emit(event: keyof typeof customEvents) {
-    document
-      .querySelector(HTML_SELECTORS.components.grid)
-      ?.dispatchEvent(customEvents[event]);
-  }
+export function emitCustomEvent(event: keyof typeof customEvents) {
+  document
+    .querySelector(HTML_SELECTORS.components.grid)
+    ?.dispatchEvent(customEvents[event]);
 }
-
-export const eventEmitter = new CustomEventEmitter();

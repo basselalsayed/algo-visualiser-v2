@@ -2,8 +2,8 @@ import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 
-import { useSvgGradient } from '@/hooks/ui/use-svg-gradient.hook';
-import { cn } from '@/lib/utils';
+import { useSvgGradient } from '@/hooks';
+import { cn } from '@/lib';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center gap-2 rounded-md text-base font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',

@@ -1,20 +1,16 @@
-import {
-  AStarEuclidean,
-  AStarManhatten,
-  BreadthFirstSearch,
-  DepthFirstSearch,
-  Dijkstra,
-  type IPathFindingAlgorithmConstructor,
-} from '../algorithms';
+import { AStarEuclidean, AStarManhatten } from './a-star';
+import { Dijkstra } from './dijkstra';
+import { BreadthFirstSearch, DepthFirstSearch } from './first-search';
+import { type IPathFindingAlgorithmConstructor } from './types';
 
-export type AlgoInfo = {
+export interface AlgoInfo {
   class: IPathFindingAlgorithmConstructor;
   description: TKey<'algoInfo'>;
   header: TKey<'algoInfo'>;
   id: string;
   name: TKey<'algoInfo'>;
   runTime: string;
-};
+}
 
 export const algoInfo: AlgoInfo[] = [
   {

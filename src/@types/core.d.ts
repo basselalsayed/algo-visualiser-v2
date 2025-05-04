@@ -1,5 +1,4 @@
-import { type NodeType } from '@/components';
-import { type ArrayKeyMap } from '@/lib';
+import { type ArrayKeyMap, type NodeType } from '@/lib';
 
 declare global {
   declare interface INode {
@@ -13,13 +12,13 @@ declare global {
     isWall: boolean;
     manhatten: number;
     pastNode?: INode;
-    reset(resetType: boolean | NodeType[]): void;
-    setDistance(distance: number): void;
-    setHeuristic(heuristic: number): void;
-    setManhatten(manhatten: number): void;
-    setPastNode(pastNode?: INode): void;
-    setType(type: NodeType): void;
-    setVisited(visited: boolean): void;
+    reset: (resetType: boolean | NodeType[]) => void;
+    setDistance: (distance: number) => void;
+    setHeuristic: (heuristic: number) => void;
+    setManhatten: (manhatten: number) => void;
+    setPastNode: (pastNode?: INode) => void;
+    setType: (type: NodeType) => void;
+    setVisited: (visited: boolean) => void;
     type: NodeType;
     visited: boolean;
     xIndex: number;

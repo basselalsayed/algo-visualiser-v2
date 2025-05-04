@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type T_SUPORTED_LOCALES } from '@/lib/constants';
+import { type T_SUPORTED_LOCALES } from '@/lib';
 
 import { Select } from './select.component';
 
@@ -42,7 +42,7 @@ export const LanguageSelect: FC = () => {
     <Select
       options={langOptions}
       value={langOptions.find(({ value }) => value === i18n.language)!}
-      onValueChange={i18n.changeLanguage}
+      onValueChange={(v) => void i18n.changeLanguage(v)}
     />
   );
 };

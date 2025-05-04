@@ -1,9 +1,7 @@
 import { match } from 'ts-pattern';
 
-import { useGrid } from '@/hooks';
-import { eventEmitter } from '@/lib';
-
-import { NodeType } from './node-type.enum';
+import { NodeType, emitCustomEvent } from '@/lib';
+import { useGrid } from '@/store';
 
 export function handleNodeClick({ type, xIndex, yIndex }: INode) {
   const { dispatch, endNode, startNode, wallMode } = useGrid.getState();
@@ -14,13 +12,13 @@ export function handleNodeClick({ type, xIndex, yIndex }: INode) {
     .with({ type: NodeType.wall, wallMode: true }, () => NodeType.none)
     .with({ startNode: undefined, type: NodeType.none }, () => {
       dispatch('startNode', [xIndex, yIndex]);
-      eventEmitter.emit('startSelected');
+      emitCustomEvent('startSelected');
 
       return NodeType.start;
     })
     .with({ endNode: undefined, type: NodeType.none }, () => {
       dispatch('endNode', [xIndex, yIndex]);
-      eventEmitter.emit('endSelected');
+      emitCustomEvent('endSelected');
 
       return NodeType.end;
     })

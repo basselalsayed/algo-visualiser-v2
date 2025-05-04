@@ -2,19 +2,23 @@ import { Settings2 } from 'lucide-react';
 import { type FC } from 'react';
 import { useBoolean } from 'usehooks-ts';
 
+import { Button } from '@/components/ui/button';
 import {
-  Button,
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui';
-import { useDeviceQueries, useIsRunning } from '@/hooks';
+} from '@/components/ui/sheet';
+import { useDeviceQueries } from '@/hooks';
 import { HTML_IDS } from '@/lib';
+import { useIsRunning } from '@/store';
 
-import { Accordian, AccordianItem, AlgoForm, SettingsForm, SrOnly } from '..';
+import { Accordian, AccordianItem } from '../accordian.component';
+import { AlgoForm } from '../core/algo-form/algo-form.component';
+import { SettingsForm } from '../core/settings-form/settings-form.component';
+import { SrOnly } from '../sr-only.component';
 
 import {
   DarkModeSwitch,
@@ -50,7 +54,7 @@ export const MobileNav: FC = () => {
 
             <DarkModeSwitch />
 
-            <Accordian type={'multiple'}>
+            <Accordian type='multiple'>
               <AccordianItem title='Algorithms'>
                 <AlgoForm className='w-full' />
               </AccordianItem>

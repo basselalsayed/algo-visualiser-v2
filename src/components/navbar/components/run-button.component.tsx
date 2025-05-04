@@ -2,20 +2,21 @@ import { PauseIcon, PlayIcon, Repeat1 } from 'lucide-react';
 import { type FC, type ReactElement } from 'react';
 import { match } from 'ts-pattern';
 
-import { SrOnly } from '@/components';
-import { Button } from '@/components/ui';
-import { useRun } from '@/hooks';
-import { HTML_IDS } from '@/lib';
+import { SrOnly } from '@/components/sr-only.component';
+import { Button } from '@/components/ui/button';
+import { HTML_IDS, RunState } from '@/lib';
+import { useRun } from '@/store';
 
 export const RunButton: FC = () => {
   const { readyToRun, run, runState } = useRun();
-
+  /*  eslint-disable react/jsx-key */
   const [icon, tKey] = match(runState)
     .returnType<[ReactElement, TKey]>()
-    .with('idle', 'paused', () => [<PlayIcon />, 'sr.play'])
-    .with('running', () => [<PauseIcon />, 'sr.pause'])
-    .with('done', () => [<Repeat1 />, 'sr.replay'])
+    .with(RunState.idle, RunState.paused, () => [<PlayIcon />, 'sr.play'])
+    .with(RunState.running, () => [<PauseIcon />, 'sr.pause'])
+    .with(RunState.done, () => [<Repeat1 />, 'sr.replay'])
     .exhaustive();
+  /*  eslint-enable react/jsx-key */
 
   return (
     <Button

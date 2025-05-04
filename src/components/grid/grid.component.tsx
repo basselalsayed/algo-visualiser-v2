@@ -2,24 +2,16 @@ import { memo, useCallback, useEffect, useRef } from 'react';
 import { match } from 'ts-pattern';
 import { useShallow } from 'zustand/react/shallow';
 
-import {
-  isRunningService,
-  useDimensions,
-  useEventListener,
-  useGrid,
-  useResizeObserver,
-  useSettings,
-} from '@/hooks';
-import { HTML_IDS } from '@/lib';
-import { cn } from '@/lib/utils';
+import { useDimensions, useEventListener, useResizeObserver } from '@/hooks';
+import { HTML_IDS, NodeType, cn } from '@/lib';
+import { isRunningService, useGrid, useSettings } from '@/store';
 
 import {
   NODE_SIZE_STEP,
   PERFORMANCE_NODE_SIZE_THRESHOLD,
-  updateNodeSize,
-} from '../core';
+} from '../core/settings-form/constants';
+import { updateNodeSize } from '../core/settings-form/utils';
 
-import { NodeType } from './node-type.enum';
 import { Node } from './node.component';
 import { getDistance, handleNodeClick } from './util';
 
@@ -71,7 +63,7 @@ export const Grid = memo(() => {
         dispatch('pointerDown', true);
         const node = e.target as HTMLDivElement | undefined;
 
-        if (node && node.hasPointerCapture(e.pointerId)) {
+        if (node?.hasPointerCapture(e.pointerId)) {
           node.releasePointerCapture(e.pointerId);
         }
       } else {

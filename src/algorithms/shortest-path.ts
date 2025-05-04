@@ -9,15 +9,9 @@ import {
 import { t } from 'i18next';
 import { animate, mix } from 'motion';
 
-import { useSettings } from '@/hooks';
+import { type Duration, HTML_SELECTORS, getCSSVariable, noOp } from '@/lib';
 
-import {
-  ALGO_NAMES,
-  type AlgoName,
-  type Duration,
-  HTML_SELECTORS,
-  getCSSVariable,
-} from '..';
+import { ALGO_NAMES, type AlgoName } from './types';
 
 class _ShortestPath {
   addPath = (name: AlgoName, path: INode[]) => {
@@ -25,7 +19,8 @@ class _ShortestPath {
   };
 
   reverse = async (name: AlgoName) => {
-    const animations = this.getGroupPaths(name)
+    const animations = _ShortestPath
+      .getGroupPaths(name)
       .reverse()
       .map((path, i) =>
         animate(
@@ -34,11 +29,11 @@ class _ShortestPath {
           {
             delay: i * this.animationDuration.inSeconds,
             duration: this.animationDuration.inSeconds,
-            onComplete: async () => {
+            onComplete: () => {
               if (path.dataset.tooltipTarget) {
-                await this.animateTooltip(name, 'out')?.finished;
-
-                this.getTooltip(name)?.remove();
+                _ShortestPath.animateTooltip(name, 'out')?.finished.then(() => {
+                  _ShortestPath.getTooltip(name)?.remove();
+                }, noOp);
               }
             },
           }
@@ -47,8 +42,10 @@ class _ShortestPath {
 
     await Promise.all(animations.map((a) => a.finished));
 
-    this.getGroup(name)?.remove();
+    _ShortestPath.getGroup(name)?.remove();
     this.pathMap.delete(name);
+    this.cleanupMap.get(name)?.();
+    this.cleanupMap.delete(name);
   };
 
   *run(this: this, animationSpeed: Duration) {
@@ -57,7 +54,7 @@ class _ShortestPath {
 
     const [name] = this.mostRecentPath;
 
-    for (const path of this.getGroupPaths(name)) {
+    for (const path of _ShortestPath.getGroupPaths(name)) {
       yield animate(
         path,
         {
@@ -68,7 +65,7 @@ class _ShortestPath {
           ease: 'linear',
           onComplete: () => {
             if (path.dataset.tooltipTarget) {
-              this.animateTooltip(name, 'in');
+              _ShortestPath.animateTooltip(name, 'in');
             }
           },
         }
@@ -84,61 +81,55 @@ class _ShortestPath {
 
     this.pathMap.clear();
 
-    for (const cleanup of this.cleanupArray) cleanup();
+    for (const [, cleanup] of this.cleanupMap) cleanup();
+    this.cleanupMap.clear();
   };
 
   constructor() {
     this.pathMap = new Map<AlgoName, INode[]>();
-    this.cleanupArray = [];
+    this.cleanupMap = new Map<AlgoName, VoidFunction>();
 
     this.run = this.run.bind(this);
   }
 
-  private static getGroupID = (name: string) => `g-${name}`;
-  private static getTooltipID = (name: string) => `tooltip-${name}`;
-  private static getGroupSelector = (name: string) =>
-    `#${_ShortestPath.getGroupID(name)}`;
-  private static getTooltipSelector = (name: string) =>
-    `#${_ShortestPath.getTooltipID(name)}`;
-
-  private readonly pathMap: Map<AlgoName, INode[]>;
-  private readonly cleanupArray: VoidFunction[];
-  private readonly colors = Object.fromEntries(
-    ['dijkstra', 'aStarE', 'aStarM', 'dfs', 'bfs'].map((name) => [
-      name,
-      ['--shortest-path-start', `--shortest-path-end-${name}`],
-    ])
-  );
-  private _animationSpeed: Duration | undefined;
-  private _pathSegments: number = 6;
-
-  private get animationDuration() {
-    return this._animationSpeed!.divide(this._pathSegments, {
-      max: 300,
-      min: 10,
-    });
-  }
-
-  private get svg() {
+  private static get svg() {
     return document.querySelector<SVGSVGElement>(
       HTML_SELECTORS.components.shortestPathSvg
     )!;
   }
-  private get tooltipContainer() {
+  private static get tooltipContainer() {
     return document.querySelector<HTMLDivElement>(
       HTML_SELECTORS.components.shortestPathTooltip
     )!;
   }
 
-  private get mostRecentPath() {
-    return [...this.pathMap.entries()].at(-1)!;
-  }
+  private static getGroupID = (name: string) => `g-${name}`;
 
-  private addCleanup = (cleanup: VoidFunction) => {
-    this.cleanupArray.push(cleanup);
-  };
+  private static getGroupSelector = (name: string) =>
+    `#${_ShortestPath.getGroupID(name)}`;
 
-  private getNodeCenter = (el: Element) => {
+  private static getGroup = (name: AlgoName) =>
+    _ShortestPath.svg?.querySelector<SVGGElement>(
+      _ShortestPath.getGroupSelector(name)
+    );
+
+  private static getGroupPaths = (name: AlgoName) => [
+    ...(_ShortestPath
+      .getGroup(name)
+      ?.querySelectorAll<SVGPathElement>('path') ?? []),
+  ];
+
+  private static getTooltipID = (name: string) => `tooltip-${name}`;
+
+  private static getTooltipSelector = (name: string) =>
+    `#${_ShortestPath.getTooltipID(name)}`;
+
+  private static getTooltip = (name: AlgoName) =>
+    _ShortestPath.tooltipContainer?.querySelector<HTMLDivElement>(
+      _ShortestPath.getTooltipSelector(name)
+    );
+
+  private static getNodeCenter = (el: Element) => {
     const rect = el.getBoundingClientRect();
 
     return {
@@ -147,17 +138,46 @@ class _ShortestPath {
     };
   };
 
-  private getGroup = (name: AlgoName) =>
-    this.svg?.querySelector<SVGGElement>(_ShortestPath.getGroupSelector(name));
+  private static animateTooltip(name: AlgoName, direction: 'in' | 'out') {
+    const keyframes = [
+      { opacity: 0, transform: 'scale(0)' },
+      { opacity: 1, transform: 'scale(1)' },
+    ];
 
-  private getGroupPaths = (name: AlgoName) => [
-    ...(this.getGroup(name)?.querySelectorAll<SVGPathElement>('path') ?? []),
-  ];
+    return _ShortestPath
+      .getTooltip(name)
+      ?.animate(direction === 'in' ? keyframes : keyframes.reverse(), {
+        duration: 300,
+        easing: 'ease-out',
+        fill: 'forwards',
+      });
+  }
 
-  private getTooltip = (name: AlgoName) =>
-    this.tooltipContainer?.querySelector<HTMLDivElement>(
-      _ShortestPath.getTooltipSelector(name)
-    );
+  private readonly pathMap: Map<AlgoName, INode[]>;
+  private readonly cleanupMap: Map<AlgoName, VoidFunction>;
+  private readonly colors = Object.fromEntries(
+    ['dijkstra', 'aStarE', 'aStarM', 'dfs', 'bfs'].map((name) => [
+      name,
+      ['--shortest-path-start', `--shortest-path-end-${name}`],
+    ])
+  );
+  private _animationSpeed: Duration | undefined;
+  private _pathSegments = 6;
+
+  private get animationDuration() {
+    return this._animationSpeed!.divide(this._pathSegments, {
+      max: 300,
+      min: 10,
+    });
+  }
+
+  private get mostRecentPath() {
+    return [...this.pathMap.entries()].at(-1)!;
+  }
+
+  private addCleanup = (name: AlgoName, cleanup: VoidFunction) => {
+    this.cleanupMap.set(name, cleanup);
+  };
 
   private createPathElement(
     d: string,
@@ -182,7 +202,8 @@ class _ShortestPath {
   private drawShortestPath = () => {
     const [name, shortestPath] = this.mostRecentPath;
     const totalPathLength = shortestPath.length;
-    const { nodeSize } = useSettings.getState();
+    const nodeSize = Number(getCSSVariable('--node-size'));
+
     this._pathSegments = Math.floor(nodeSize / 5);
 
     const groupElement = document.createElementNS(
@@ -194,8 +215,8 @@ class _ShortestPath {
     for (const [i, { domNode }] of shortestPath.entries()) {
       if (i === totalPathLength - 1) continue;
 
-      const p1 = this.getNodeCenter(domNode!);
-      const p2 = this.getNodeCenter(shortestPath[i + 1].domNode!);
+      const p1 = _ShortestPath.getNodeCenter(domNode!);
+      const p2 = _ShortestPath.getNodeCenter(shortestPath[i + 1].domNode!);
 
       const mixer = mix(p1, p2);
 
@@ -222,7 +243,7 @@ class _ShortestPath {
         start = { ...end };
       }
     }
-    this.svg.append(groupElement);
+    _ShortestPath.svg.append(groupElement);
   };
 
   private createToolTip = (name: AlgoName, path: SVGPathElement) => {
@@ -258,7 +279,7 @@ class _ShortestPath {
 
     tooltip.append(arrowEl);
 
-    this.tooltipContainer.append(tooltip);
+    _ShortestPath.tooltipContainer.append(tooltip);
 
     const cleanup = autoUpdate(path, tooltip, () => {
       computePosition(path, tooltip, {
@@ -294,10 +315,10 @@ class _ShortestPath {
           top: arrowY == undefined ? '' : `${arrowY}px`,
           ...(staticSide ? { [staticSide]: '-4px' } : {}),
         });
-      });
+      }, noOp);
     });
 
-    this.addCleanup(cleanup);
+    this.addCleanup(name, cleanup);
 
     return tooltip;
   };
@@ -325,22 +346,6 @@ class _ShortestPath {
       s === this._pathSegments
     );
   };
-
-  private animateTooltip(name: AlgoName, direction: 'in' | 'out') {
-    const keyframes = [
-      { opacity: 0, transform: 'scale(0)' },
-      { opacity: 1, transform: 'scale(1)' },
-    ];
-
-    return this.getTooltip(name)?.animate(
-      direction === 'in' ? keyframes : keyframes.reverse(),
-      {
-        duration: 300,
-        easing: 'ease-out',
-        fill: 'forwards',
-      }
-    );
-  }
 }
 
 export const ShortestPath = new _ShortestPath();

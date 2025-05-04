@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
-import { useGrid, useRunStore, useSettings } from '@/hooks';
-import { ShortestPath } from '@/lib';
+import { ShortestPath } from '@/algorithms';
+import { RunState } from '@/lib';
+import { useGrid, useRunStore, useSettings } from '@/store';
 
 /**
  * @description side effects related to updating the current algorithm based on other variables
@@ -46,7 +47,7 @@ export const useHandlleAlgoUpdates = () => {
         ? new currentAlgo.class(refsMap, startNode, endNode, animationSpeed)
         : undefined
     );
-    dispatch('runState', 'idle');
+    dispatch('runState', RunState.idle);
   }, [
     animationSpeed,
     currentAlgo.class,

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { SVGGradWrapper } from '@/components';
-import { Switch } from '@/components/ui';
+import { SVGGradWrapper } from '@/components/svg-grad-wrapper.component';
+import { Switch } from '@/components/ui/switch';
 import { useDarkMode } from '@/hooks';
 
 export const DarkModeSwitch = () => {
@@ -16,7 +16,7 @@ export const DarkModeSwitch = () => {
       checked={isDarkMode}
       thumbChildren={
         <SVGGradWrapper>
-          <IconComponent size={'1.25rem'} />
+          <IconComponent size='1.25rem' />
         </SVGGradWrapper>
       }
       title={t(

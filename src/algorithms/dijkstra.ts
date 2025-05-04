@@ -3,20 +3,6 @@ import { PathFindingAlgorithm } from './path-finding-algorithm';
 export class Dijkstra extends PathFindingAlgorithm {
   readonly name = 'dijkstra';
 
-  updateUnvisitedNeighbors(this: this, node: INode): void {
-    const unvisitedNeighbors = this.getUnvisitedNeighbors(node);
-    for (const neighbour of unvisitedNeighbors) {
-      neighbour.setDistance(node.distance + 1);
-      // iterating the distance
-      neighbour.setPastNode(node);
-      // the new node is the neighbour of the previous node
-    }
-  }
-
-  sortNodesByDistance(this: this, nodes: INode[]) {
-    nodes.sort((a, b) => a.distance - b.distance);
-  }
-
   *traverse(this: this) {
     this.startNode.setDistance(0);
     // If a start node is not chosen then it will set all nodes to 0
@@ -24,12 +10,12 @@ export class Dijkstra extends PathFindingAlgorithm {
     const unvisitedNodes = [...this.grid.values()];
 
     while (unvisitedNodes.length > 0) {
-      this.sortNodesByDistance(unvisitedNodes);
+      Dijkstra.sortNodesByDistance(unvisitedNodes);
 
       const closestNode = unvisitedNodes.shift()!;
 
       if (closestNode.isWall) {
-        this.visitWall(closestNode);
+        this.visitNode(closestNode);
         yield this.sleep();
         continue;
       }
@@ -43,5 +29,18 @@ export class Dijkstra extends PathFindingAlgorithm {
     }
 
     return this.visitedNodes.length;
+  }
+
+  private static sortNodesByDistance(nodes: INode[]) {
+    nodes.sort((a, b) => a.distance - b.distance);
+  }
+
+  private updateUnvisitedNeighbors(this: this, node: INode): void {
+    for (const neighbour of this.getUnvisitedNeighbors(node)) {
+      neighbour.setDistance(node.distance + 1);
+      // iterating the distance
+      neighbour.setPastNode(node);
+      // the new node is the neighbour of the previous node
+    }
   }
 }

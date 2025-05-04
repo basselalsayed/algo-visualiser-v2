@@ -1,9 +1,13 @@
 import { type ReactElement } from 'react';
 
-import * as S from '@/components/ui/select';
 import { cn } from '@/lib';
 
-type Option<T extends string> = { label: string | ReactElement; value: T };
+import * as S from './ui/select';
+
+interface Option<T extends string> {
+  label: string | ReactElement;
+  value: T;
+}
 
 interface Props<T extends string> {
   className?: string;
