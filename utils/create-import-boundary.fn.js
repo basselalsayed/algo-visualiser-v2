@@ -10,6 +10,7 @@ const getAlias = (dir) => `@/${dir}`;
 
 /**
  * @param {string} dir
+ * @returns {import('eslint').Linter.Config}
  */
 export function createImportBoundary(dir) {
   const alias = getAlias(dir);
