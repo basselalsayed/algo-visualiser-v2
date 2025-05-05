@@ -48,7 +48,10 @@ jobs:
       - name: Run Typescript
         run: pnpm typecheck
 
-      - name: Test
+      - name: Run Vitest
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: pnpm test
 
       - name: Vite compile
