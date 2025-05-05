@@ -1,17 +1,14 @@
-if (!globalThis.matchMedia) {
-  globalThis.matchMedia = (query: string) => ({
-    // deprecated
-    addEventListener: vi.fn(),
-    addListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-    matches: false,
-    media: query,
-    onchange: null,
-    removeEventListener: vi.fn(),
-    // deprecated
-    removeListener: vi.fn(),
-  });
-}
+vi.stubGlobal('matchMedia', (query: string) => ({
+  addEventListener: vi.fn(),
+  addListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+  matches: false,
+  media: query,
+  onchange: null,
+  removeEventListener: vi.fn(),
+  // deprecated
+  removeListener: vi.fn(),
+}));
 
 class ResizeObserver {
   observe = vi.fn();
@@ -19,6 +16,4 @@ class ResizeObserver {
   disconnect = vi.fn();
 }
 
-if (!globalThis.ResizeObserver) {
-  globalThis.ResizeObserver = ResizeObserver;
-}
+vi.stubGlobal('ResizeObserver', ResizeObserver);
