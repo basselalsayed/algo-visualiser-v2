@@ -6,6 +6,7 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import sort from 'eslint-plugin-sort';
+import testingLibrary from 'eslint-plugin-testing-library';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import { config, configs } from 'typescript-eslint';
@@ -161,6 +162,10 @@ export default config(
       '@typescript-eslint/no-floating-promises': 'off',
       'unicorn/no-null': 'off',
     },
+  },
+  {
+    files: ['**/*.test.tsx'],
+    ...testingLibrary.configs['flat/react'],
   },
   eslintPluginPrettierRecommended,
   eslintConfigPrettier,
