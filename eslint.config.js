@@ -8,6 +8,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import sort from 'eslint-plugin-sort';
 import testingLibrary from 'eslint-plugin-testing-library';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import { config, configs } from 'typescript-eslint';
 
@@ -39,6 +40,7 @@ export default config(
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'unused-imports': unusedImports,
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -141,6 +143,7 @@ export default config(
       'unicorn/consistent-destructuring': 'error',
       'unicorn/no-useless-undefined': ['error', { checkArguments: false }],
       'unicorn/prevent-abbreviations': 'off',
+      'unused-imports/no-unused-imports': 'error',
     },
     settings: {
       'import/parsers': {
