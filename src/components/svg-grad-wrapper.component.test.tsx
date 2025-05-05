@@ -3,24 +3,20 @@ import { type ComponentProps, type FC } from 'react';
 
 import { SVGGradWrapper } from './svg-grad-wrapper.component';
 
-const Component: FC<ComponentProps<'div'>> = (props) => {
-  return (
-    <div {...props}>
-      <svg>
-        <path />
-        <circle />
-      </svg>
-    </div>
-  );
-};
-const Component2: FC<ComponentProps<'svg'>> = (props) => {
-  return (
-    <svg {...props}>
+const Component: FC<ComponentProps<'div'>> = (props) => (
+  <div {...props}>
+    <svg>
       <path />
       <circle />
     </svg>
-  );
-};
+  </div>
+);
+const Component2: FC<ComponentProps<'svg'>> = (props) => (
+  <svg {...props}>
+    <path />
+    <circle />
+  </svg>
+);
 
 describe('SVGGradWrapper', () => {
   it('clones children and adds a gradient to nested svg and child elements', () => {

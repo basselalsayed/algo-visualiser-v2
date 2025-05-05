@@ -163,5 +163,15 @@ export default config(
     },
   },
   eslintPluginPrettierRecommended,
-  eslintConfigPrettier
+  eslintConfigPrettier,
+  {
+    rules: {
+      'arrow-body-style': [
+        'error',
+        'as-needed',
+        { requireReturnForObjectLiteral: false },
+      ],
+      'prefer-arrow-callback': 'error',
+    },
+  }
 );
