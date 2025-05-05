@@ -19,6 +19,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: 'src/test/polyfills.ts',
+    setupFiles: ['src/test/setup.ts', 'src/test/polyfills.ts'],
   },
 });
