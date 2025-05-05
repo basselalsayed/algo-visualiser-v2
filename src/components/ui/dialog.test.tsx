@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { renderDialogSnapshot } from '@/test/utils';
 
 import {
   Dialog,
@@ -11,18 +11,19 @@ import {
 
 describe('Dialog.component', () => {
   it('looks the same', () => {
-    const { baseElement } = render(
-      <Dialog open>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Title</DialogTitle>
-            <DialogDescription>DialogDescription</DialogDescription>
-          </DialogHeader>
+    expect(
+      renderDialogSnapshot(
+        <Dialog open>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Title</DialogTitle>
+              <DialogDescription>DialogDescription</DialogDescription>
+            </DialogHeader>
 
-          <DialogFooter>Footer</DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-    expect(baseElement).toMatchSnapshot();
+            <DialogFooter>Footer</DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )
+    ).toMatchSnapshot();
   });
 });

@@ -17,3 +17,13 @@ class ResizeObserver {
 }
 
 vi.stubGlobal('ResizeObserver', ResizeObserver);
+
+class IntersectionObserver {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+}
+
+vi.stubGlobal('IntersectionObserver', IntersectionObserver);
+
+globalThis.Element.prototype.scrollIntoView = vi.fn();

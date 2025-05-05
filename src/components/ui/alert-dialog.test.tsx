@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { renderDialogSnapshot } from '@/test/utils';
 
 import {
   AlertDialog,
@@ -13,23 +13,24 @@ import {
 
 describe('AlertDialog.component', () => {
   it('looks the same', () => {
-    const { baseElement } = render(
-      <AlertDialog open>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Title</AlertDialogTitle>
-            <AlertDialogDescription>
-              DesAlertDialogDescription
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+    expect(
+      renderDialogSnapshot(
+        <AlertDialog open>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Title</AlertDialogTitle>
+              <AlertDialogDescription>
+                DesAlertDialogDescription
+              </AlertDialogDescription>
+            </AlertDialogHeader>
 
-          <AlertDialogFooter>
-            <AlertDialogCancel />
-            <AlertDialogAction />
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-    expect(baseElement).toMatchSnapshot();
+            <AlertDialogFooter>
+              <AlertDialogCancel />
+              <AlertDialogAction />
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )
+    ).toMatchSnapshot();
   });
 });

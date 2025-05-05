@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 import { type ReactElement } from 'react';
 
-export function renderFragmentSnapshot(element: ReactElement) {
-  const { asFragment } = render(element);
+export const renderFragmentSnapshot = (element: ReactElement) =>
+  render(element).asFragment();
 
-  return asFragment();
-}
+export const renderDialogSnapshot = (element: ReactElement) =>
+  render(element).baseElement;
