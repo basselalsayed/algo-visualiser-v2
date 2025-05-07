@@ -6,10 +6,12 @@
   "scripts": {
     "prepare": "husky",
     "dev": "vite",
+    "dev-e2e": "E2E=\"true\" vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --cache",
     "preview": "vite preview",
     "test": "vitest",
+    "test-e2e": "playwright test",
     "typecheck": "tsc --project tsconfig.app.json",
     "update-index-ts": "cd src && for f in *; do pnpm dlx create-ts-index create ./$f -w -b; done"
   },
@@ -62,6 +64,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",
+    "@playwright/test": "^1.52.0",
     "@simbathesailor/use-what-changed": "^2.0.0",
     "@tailwindcss/postcss": "^4.1.4",
     "@tailwindcss/vite": "^4.1.4",
@@ -97,6 +100,6 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.3",
-    "vitest": "^3.1.2"
+    "vitest": "^3.1.3"
   }
 }

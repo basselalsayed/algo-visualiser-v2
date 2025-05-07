@@ -6,8 +6,8 @@ import { Duration, emitCustomEvent, setCSSVariable } from '@/lib';
 
 import { type DispatchFunction } from './types';
 
-const DEFAULT_NODE_SIZE = 32;
-const DEFAULT_ANIMATION_SPEED = 50;
+const DEFAULT_NODE_SIZE = __E2E__ ? 80 : 40;
+const DEFAULT_ANIMATION_SPEED = __E2E__ ? 1 : 50;
 
 interface SettingsStore {
   animationSpeed: Duration;
