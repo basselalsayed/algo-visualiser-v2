@@ -1,3 +1,5 @@
+/* eslint-disable testing-library/no-node-access */
+/* eslint-disable testing-library/no-container */
 import { render } from '@testing-library/react';
 
 import { useSvgGradient } from './use-svg-gradient.hook';
