@@ -10,6 +10,12 @@ import {
 } from './utils';
 
 test('test', async ({ page }) => {
+  async function closeStats() {
+    await page
+      .getByRole('button', { name: 'Close' })
+      .click({ timeout: 30_000 });
+  }
+
   await page.goto('/');
 
   await skipTour(page);
@@ -24,24 +30,24 @@ test('test', async ({ page }) => {
     page.getByRole('heading', { name: 'Run History' })
   ).toBeVisible();
 
-  await page.getByRole('button', { name: 'Close' }).click();
+  await closeStats();
   await openAlgoForm(page);
   await algoFormNext(page);
   await runVisualiser(page);
-  await page.getByRole('button', { name: 'Close' }).click();
+  await closeStats();
   await openAlgoForm(page);
   await algoFormNext(page);
 
   await runVisualiser(page);
-  await page.getByRole('button', { name: 'Close' }).click();
+  await closeStats();
   await openAlgoForm(page);
   await algoFormNext(page);
   await runVisualiser(page);
-  await page.getByRole('button', { name: 'Close' }).click();
+  await closeStats();
   await openAlgoForm(page);
   await algoFormNext(page);
   await runVisualiser(page);
-  await page.getByRole('button', { name: 'Close' }).click();
+  await closeStats();
 
   await assertShortestPathVisisble(page, 'dijkstra');
   await assertShortestPathVisisble(page, 'aStarE');
