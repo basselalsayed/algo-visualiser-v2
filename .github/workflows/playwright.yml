@@ -51,6 +51,9 @@ jobs:
         if: steps.cache-playwright.outputs.cache-hit != 'true'
 
       - name: Run Playwright Tests
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: pnpm test-e2e --project=${{ matrix.browser }}
 
       - uses: actions/upload-artifact@v4
