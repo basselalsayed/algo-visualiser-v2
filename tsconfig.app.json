@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+
     "types": ["vitest/globals"],
     "target": "ESNext",
     "useDefineForClassFields": true,
