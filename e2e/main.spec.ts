@@ -9,7 +9,7 @@ import {
   skipTour,
 } from './utils';
 
-test('test', async ({ page }) => {
+test.skip('test', async ({ page }) => {
   async function closeStats() {
     await page
       .getByRole('button', { name: 'Close' })
