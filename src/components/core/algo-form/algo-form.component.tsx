@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { algoInfo } from '@/algorithms';
 import { Card } from '@/components/card.component';
-import { Carousel, CarouselItem } from '@/components/ui/carousel';
+import { Carousel, CarouselItem } from '@/components/carousel.component';
 import { cn } from '@/lib';
 import { useSettings } from '@/store';
 
