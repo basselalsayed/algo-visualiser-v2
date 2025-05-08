@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+
+    "types": ["vitest/globals"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -22,8 +25,16 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "__msw__/*": ["./__msw__/*"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "__mocks__",
+    "__msw__",
+    "e2e",
+    "playwright.config.ts",
+    "public"
+  ]
 }

@@ -1,0 +1,367 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Command UI snapshot > looks the same 1`] = `
+<DocumentFragment>
+  <div
+    class="bg_grad_accent/10 flex h-full w-full flex-col overflow-hidden rounded-md text-popover-foreground"
+    cmdk-root=""
+    tabindex="-1"
+  >
+    <label
+      cmdk-label=""
+      for="radix-«r2»"
+      id="radix-«r1»"
+      style="position: absolute; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+    />
+    <div
+      class="grad-border flex items-center border-b px-3"
+      cmdk-input-wrapper=""
+    >
+      <svg
+        class="mr-2 h-4 w-4 shrink-0 opacity-50"
+        fill="none"
+        height="15"
+        viewBox="0 0 15 15"
+        width="15"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <input
+        aria-autocomplete="list"
+        aria-controls="radix-«r0»"
+        aria-expanded="true"
+        aria-labelledby="radix-«r1»"
+        autocomplete="off"
+        autocorrect="off"
+        class="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+        cmdk-input=""
+        id="radix-«r2»"
+        placeholder="Type a command..."
+        role="combobox"
+        spellcheck="false"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="relative overflow-hidden max-h-[300px]"
+      dir="ltr"
+      style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+    >
+      <style>
+        [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+      </style>
+      <div
+        class="h-full w-full rounded-[inherit]"
+        data-radix-scroll-area-viewport=""
+        style="overflow-x: hidden; overflow-y: scroll;"
+      >
+        <div
+          style="min-width: 100%; display: table;"
+        >
+          <div
+            aria-label="Suggestions"
+            class=""
+            cmdk-list=""
+            id="radix-«r0»"
+            role="listbox"
+            tabindex="-1"
+          >
+            <div
+              cmdk-list-sizer=""
+            >
+              <div
+                class="overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+                cmdk-group=""
+                data-value="Suggestions"
+                role="presentation"
+              >
+                <div
+                  aria-hidden="true"
+                  cmdk-group-heading=""
+                  id="radix-«r4»"
+                >
+                  Suggestions
+                </div>
+                <div
+                  aria-labelledby="radix-«r4»"
+                  cmdk-group-items=""
+                  role="group"
+                >
+                  <div
+                    aria-disabled="false"
+                    aria-selected="true"
+                    class="relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                    cmdk-item=""
+                    data-disabled="false"
+                    data-selected="true"
+                    data-value="Profile^P"
+                    id="radix-«r5»"
+                    role="option"
+                  >
+                    Profile
+                    <kbd
+                      class="font-sans ml-auto text-xs tracking-widest text-muted-foreground"
+                    >
+                      <abbr
+                        class="no-underline"
+                        title="Control"
+                      >
+                        ^
+                      </abbr>
+                      P
+                    </kbd>
+                  </div>
+                  <div
+                    aria-disabled="false"
+                    aria-selected="false"
+                    class="relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                    cmdk-item=""
+                    data-disabled="false"
+                    data-selected="false"
+                    data-value="Settings^S"
+                    id="radix-«r6»"
+                    role="option"
+                  >
+                    Settings
+                    <kbd
+                      class="font-sans ml-auto text-xs tracking-widest text-muted-foreground"
+                    >
+                      <abbr
+                        class="no-underline"
+                        title="Control"
+                      >
+                        ^
+                      </abbr>
+                      S
+                    </kbd>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="-mx-1 h-px grad-accent"
+                cmdk-separator=""
+                role="separator"
+              />
+              <div
+                class="overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+                cmdk-group=""
+                data-value="Actions"
+                role="presentation"
+              >
+                <div
+                  aria-hidden="true"
+                  cmdk-group-heading=""
+                  id="radix-«r8»"
+                >
+                  Actions
+                </div>
+                <div
+                  aria-labelledby="radix-«r8»"
+                  cmdk-group-items=""
+                  role="group"
+                >
+                  <div
+                    aria-disabled="false"
+                    aria-selected="false"
+                    class="relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                    cmdk-item=""
+                    data-disabled="false"
+                    data-selected="false"
+                    data-value="Logout"
+                    id="radix-«r9»"
+                    role="option"
+                  >
+                    Logout
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Command UI snapshot > renders CommandDialog correctly 1`] = `
+<body
+  data-scroll-locked="1"
+  style="pointer-events: none;"
+>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  />
+  <div
+    aria-hidden="true"
+    class="fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0"
+    data-aria-hidden="true"
+    data-state="open"
+    style="pointer-events: auto;"
+  />
+  <div
+    aria-describedby="radix-«rc»"
+    aria-labelledby="radix-«rb»"
+    class="border_default fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 bg-background shadow-lg duration-200 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=open]:zoom-in-95 sm:rounded-lg overflow-hidden p-0"
+    data-state="open"
+    id="radix-«ra»"
+    role="dialog"
+    style="pointer-events: auto;"
+    tabindex="-1"
+  >
+    <div
+      class="bg_grad_accent/10 flex h-full w-full flex-col overflow-hidden rounded-md text-popover-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+      cmdk-root=""
+      tabindex="-1"
+    >
+      <label
+        cmdk-label=""
+        for="radix-«rf»"
+        id="radix-«re»"
+        style="position: absolute; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+      />
+      <div
+        class="grad-border flex items-center border-b px-3"
+        cmdk-input-wrapper=""
+      >
+        <svg
+          class="mr-2 h-4 w-4 shrink-0 opacity-50"
+          fill="none"
+          height="15"
+          viewBox="0 0 15 15"
+          width="15"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <input
+          aria-autocomplete="list"
+          aria-controls="radix-«rd»"
+          aria-expanded="true"
+          aria-labelledby="radix-«re»"
+          autocomplete="off"
+          autocorrect="off"
+          class="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+          cmdk-input=""
+          id="radix-«rf»"
+          placeholder="Search..."
+          role="combobox"
+          spellcheck="false"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="relative overflow-hidden max-h-[300px]"
+        dir="ltr"
+        style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+      >
+        <style>
+          [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+        </style>
+        <div
+          class="h-full w-full rounded-[inherit]"
+          data-radix-scroll-area-viewport=""
+          style="overflow-x: hidden; overflow-y: scroll;"
+        >
+          <div
+            style="min-width: 100%; display: table;"
+          >
+            <div
+              aria-label="Suggestions"
+              class=""
+              cmdk-list=""
+              id="radix-«rd»"
+              role="listbox"
+              tabindex="-1"
+            >
+              <div
+                cmdk-list-sizer=""
+              >
+                <div
+                  aria-disabled="false"
+                  aria-selected="true"
+                  class="relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                  cmdk-item=""
+                  data-disabled="false"
+                  data-selected="true"
+                  data-value="Option 1"
+                  id="radix-«rg»"
+                  role="option"
+                >
+                  Option 1
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class="relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+                  cmdk-item=""
+                  data-disabled="false"
+                  data-selected="false"
+                  data-value="Option 2"
+                  id="radix-«rh»"
+                  role="option"
+                >
+                  Option 2
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+      type="button"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        height="15"
+        viewBox="0 0 15 15"
+        width="15"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span
+        class="sr-only"
+      >
+        sr.close
+      </span>
+    </button>
+  </div>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;

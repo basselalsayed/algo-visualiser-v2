@@ -1,0 +1,129 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Sheet.component > looks the same 1`] = `
+<body
+  data-scroll-locked="1"
+  style="pointer-events: none;"
+>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    aria-hidden="true"
+    data-aria-hidden="true"
+  >
+    <button
+      aria-controls="radix-«r0»"
+      aria-expanded="true"
+      aria-haspopup="dialog"
+      data-state="open"
+      type="button"
+    >
+      Open Sheet
+    </button>
+  </div>
+  <div
+    aria-hidden="true"
+    class="fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0"
+    data-aria-hidden="true"
+    data-state="open"
+    style="pointer-events: auto;"
+  />
+  <div
+    aria-describedby="radix-«r2»"
+    aria-labelledby="radix-«r1»"
+    class="fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=open]:duration-500 inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right bg_grad_accent/10"
+    data-state="open"
+    id="radix-«r0»"
+    role="dialog"
+    style="pointer-events: auto;"
+    tabindex="-1"
+  >
+    <button
+      class="inline-flex items-center justify-center gap-2 text-base font-medium whitespace-nowrap focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 animate_grad bg_grad_accent--outline--text shadow-sm [--base-color:hsl(var(--background))] fixed right-4 bottom-8 z-50 size-8 rounded-full p-5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-secondary sm:top-4 sm:bottom-[initial] mobile-landscape:right-safe"
+      type="button"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        height="15"
+        viewBox="0 0 15 15"
+        width="15"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+          stroke="url(#gradient-mock-id)"
+        />
+        <defs>
+          <lineargradient
+            gradientUnits="userSpaceOnUse"
+            id="gradient-mock-id"
+            style="--grad-1: hsl(var(--grad-accent-1)); --grad-2: hsl(var(--grad-accent-2));"
+            x1="0%"
+            x2="100%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              style="stop-color: var(--grad-1);"
+            />
+            <stop
+              offset="100%"
+              style="stop-color: var(--grad-2);"
+            />
+          </lineargradient>
+        </defs>
+      </svg>
+      <span
+        class="sr-only"
+      >
+        sr.close
+      </span>
+    </button>
+    <div
+      class="flex flex-col space-y-2 text-center sm:text-left"
+    >
+      <h1
+        class="text-2xl sm:text-4xl"
+        id="radix-«r1»"
+      >
+        Profile
+      </h1>
+      <p
+        class="text-sm text-muted-foreground"
+        id="radix-«r2»"
+      >
+        Make changes to your profile here.
+      </p>
+    </div>
+    <div
+      class="p-4"
+    >
+      Some form or content
+    </div>
+    <div
+      class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
+    >
+      <button>
+        Save
+      </button>
+    </div>
+  </div>
+  <span
+    aria-hidden="true"
+    data-aria-hidden="true"
+    data-radix-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;

@@ -16,10 +16,9 @@ import { mapKeysToSnake } from '../objects/map-keys-to-snake.fn';
 
 export const transformParams: <T>(
   arg: T
-) => Simplify<UndefinedToNull<SnakeCasedPropertiesDeep<T>>> = flow([
-  undefinedToNull,
-  mapKeysToSnake,
-]);
+) => Simplify<
+  UndefinedToNull<SnakeCasedPropertiesDeep<T, { splitOnNumbers: true }>>
+> = flow([undefinedToNull, mapKeysToSnake]);
 
 export const transformDTO: <T>(
   arg: T

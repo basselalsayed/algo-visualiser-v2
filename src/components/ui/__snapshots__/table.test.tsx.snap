@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Table.component > looks the same 1`] = `
+<DocumentFragment>
+  <table
+    class="w-full caption-bottom text-sm"
+  >
+    <caption
+      class="mt-4 text-sm text-muted-foreground"
+    />
+    <thead
+      class="[&_tr]:border-b"
+    >
+      <tr
+        class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      >
+        <th
+          class="h-10 px-2 text-left align-middle font-medium text-grad-accent-mix [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="[&_tr:last-child]:border-0"
+    >
+      <tr
+        class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      >
+        <td
+          class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+        />
+      </tr>
+    </tbody>
+    <tfoot
+      class="border-t bg-muted/50 font-medium last:[&>tr]:border-b-0"
+    >
+      <tr
+        class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+      >
+        <td
+          class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+        />
+      </tr>
+    </tfoot>
+  </table>
+</DocumentFragment>
+`;

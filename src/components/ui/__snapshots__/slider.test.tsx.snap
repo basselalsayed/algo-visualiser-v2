@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Slider.component > looks the same 1`] = `
+<DocumentFragment>
+  <span
+    aria-disabled="false"
+    class="relative flex w-full touch-none items-center select-none"
+    data-orientation="horizontal"
+    dir="ltr"
+    style="--radix-slider-thumb-transform: translateX(-50%);"
+  >
+    <span
+      class="bg_grad_accent/20 relative h-1.5 w-full grow overflow-hidden rounded-full"
+      data-orientation="horizontal"
+    >
+      <span
+        class="absolute h-full grad-accent"
+        data-orientation="horizontal"
+        style="left: 0%; right: 100%;"
+      />
+    </span>
+    <span
+      style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+    >
+      <span
+        aria-orientation="horizontal"
+        aria-valuemax="100"
+        aria-valuemin="0"
+        aria-valuenow="0"
+        class="block h-4 w-4 rounded-full border border-grad-accent-mix bg-background shadow-sm transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+        data-orientation="horizontal"
+        data-radix-collection-item=""
+        role="slider"
+        style=""
+        tabindex="0"
+      />
+    </span>
+  </span>
+</DocumentFragment>
+`;

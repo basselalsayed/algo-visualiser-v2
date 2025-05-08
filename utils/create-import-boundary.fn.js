@@ -10,6 +10,7 @@ const getAlias = (dir) => `@/${dir}`;
 
 /**
  * @param {string} dir
+ * @returns {import('eslint').Linter.Config}
  */
 export function createImportBoundary(dir) {
   const alias = getAlias(dir);
@@ -43,6 +44,10 @@ export function createImportBoundary(dir) {
             },
           ],
           patterns: [
+            {
+              group: ['e2e/**/*'],
+              message: 'Importing from e2e test files is forbidden',
+            },
             {
               group: ['**/index', '**/index.ts', '**/index.tsx'],
               message: `Avoid importing index files directly. Import specific files instead.`,

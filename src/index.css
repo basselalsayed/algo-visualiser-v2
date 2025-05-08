@@ -312,11 +312,11 @@
 }
 
 @utility grad-accent {
-  @apply from-grad-accent-1 to-grad-accent-2 bg-linear-to-br;
+  @apply bg-linear-to-br from-grad-accent-1 to-grad-accent-2;
 }
 
 @utility bg_grad_accent {
-  @apply text-secondary border-2 border-solid border-transparent dark:border;
+  @apply border-2 border-solid border-transparent text-secondary dark:border;
 
   --base-color: hsl(var(--background) / 0.8);
   --grad-1: hsl(var(--grad-accent-1));
@@ -394,7 +394,7 @@
 }
 
 @utility grad_text--accent {
-  @apply grad_text grad-accent;
+  @apply grad-accent grad_text;
 }
 
 @utility grad_text--header {
@@ -402,6 +402,10 @@
 }
 
 @layer base {
+  html[data-e2e='true'] * {
+    transition: none !important;
+    animation: none !important;
+  }
   /* button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
@@ -418,20 +422,20 @@
   }
 
   .grad-accent {
-    @apply from-grad-accent-1 to-grad-accent-2 bg-linear-to-br;
+    @apply bg-linear-to-br from-grad-accent-1 to-grad-accent-2;
   }
 
   .bg_grad_accent\/70 {
-    @apply from-grad-accent-1/70 to-grad-accent-2/70 bg-linear-to-br;
+    @apply bg-linear-to-br from-grad-accent-1/70 to-grad-accent-2/70;
   }
   .bg_grad_accent\/10 {
-    @apply from-grad-accent-1/10 to-grad-accent-2/10 bg-linear-to-br;
+    @apply bg-linear-to-br from-grad-accent-1/10 to-grad-accent-2/10;
   }
   .bg_grad_accent\/20 {
-    @apply from-grad-accent-1/20 to-grad-accent-2/20 bg-linear-to-br;
+    @apply bg-linear-to-br from-grad-accent-1/20 to-grad-accent-2/20;
   }
   .grad-accent-vertical {
-    @apply from-grad-accent-1 to-grad-accent-2 bg-linear-to-b;
+    @apply bg-linear-to-b from-grad-accent-1 to-grad-accent-2;
   }
 
   /* because of border image limitations, this class is only useful if you don't need a border radius */
@@ -477,7 +481,7 @@
   }
 
   .grad-grid {
-    @apply from-grad-bg-1 to-grad-bg-2 bg-linear-to-br;
+    @apply bg-linear-to-br from-grad-bg-1 to-grad-bg-2;
   }
 
   h1,
@@ -533,13 +537,13 @@
       @apply justify-start!;
 
       &:has(+ .shepherd-text) {
-        @apply border-grad-accent-mix! border-b-2!;
+        @apply border-b-2! border-grad-accent-mix!;
       }
 
       h3 {
         --stroke-color: var(--grad-accent-mix);
         --stroke-width: 0.04rem;
-        @apply text-primary! text-2xl!;
+        @apply text-2xl! text-primary!;
       }
     }
 

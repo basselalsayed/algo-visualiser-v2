@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Card.component > looks the same 1`] = `
+<DocumentFragment>
+  <div
+    class="bg_grad_accent/10 border_default rounded-xl bg_grad_accent--outline bg-card text-card-foreground shadow-sm"
+  >
+    <div
+      class="flex flex-col space-y-1.5 p-6"
+    >
+      <h2
+        class="leading-none font-semibold"
+      >
+        Title
+      </h2>
+      <p
+        class="text-sm text-muted-foreground"
+      >
+        Description
+      </p>
+    </div>
+    <div
+      class="p-6 pt-0"
+    >
+      Content
+    </div>
+  </div>
+</DocumentFragment>
+`;
