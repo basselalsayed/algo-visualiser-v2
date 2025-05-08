@@ -7,11 +7,19 @@ import {
   shift,
 } from '@floating-ui/dom';
 import { t } from 'i18next';
-import { animate, mix } from 'motion';
+import { isEqual } from 'lodash-es';
+import { type DOMKeyframesDefinition, animate, mix } from 'motion';
+import { match } from 'ts-pattern';
 
 import { type Duration, HTML_SELECTORS, getCSSVariable, noOp } from '@/lib';
 
 import { ALGO_NAMES, type AlgoName } from './types';
+
+interface Coordinates {
+  x: number;
+  y: number;
+}
+type AnimationDirection = 'in' | 'out';
 
 class _ShortestPath {
   addPath = (name: AlgoName, path: INode[]) => {
@@ -22,22 +30,18 @@ class _ShortestPath {
     const animations = _ShortestPath
       .getGroupPaths(name)
       .reverse()
-      .map((path, i) =>
-        animate(
-          path,
-          { pathLength: 0 },
-          {
-            delay: i * this.animationDuration.inSeconds,
-            duration: this.animationDuration.inSeconds,
-            onComplete: () => {
-              if (path.dataset.tooltipTarget) {
-                _ShortestPath.animateTooltip(name, 'out')?.finished.then(() => {
-                  _ShortestPath.getTooltip(name)?.remove();
-                }, noOp);
-              }
-            },
-          }
-        )
+      .map((el, i) =>
+        animate(el, _ShortestPath.getSVGTransition(el, 'out'), {
+          delay: i * this.animationDuration.inSeconds,
+          duration: this.animationDuration.inSeconds,
+          onComplete: () => {
+            if (el.dataset.tooltipTarget) {
+              _ShortestPath.animateTooltip(name, 'out')?.finished.then(() => {
+                _ShortestPath.getTooltip(name)?.remove();
+              }, noOp);
+            }
+          },
+        })
       );
 
     await Promise.all(animations.map((a) => a.finished));
@@ -54,22 +58,16 @@ class _ShortestPath {
 
     const [name] = this.mostRecentPath;
 
-    for (const path of _ShortestPath.getGroupPaths(name)) {
-      yield animate(
-        path,
-        {
-          pathLength: 1,
+    for (const el of _ShortestPath.getGroupPaths(name)) {
+      yield animate(el, _ShortestPath.getSVGTransition(el, 'in'), {
+        duration: this.animationDuration.inSeconds,
+        ease: 'linear',
+        onComplete: () => {
+          if (el.dataset.tooltipTarget) {
+            _ShortestPath.animateTooltip(name, 'in');
+          }
         },
-        {
-          duration: this.animationDuration.inSeconds,
-          ease: 'linear',
-          onComplete: () => {
-            if (path.dataset.tooltipTarget) {
-              _ShortestPath.animateTooltip(name, 'in');
-            }
-          },
-        }
-      ).finished;
+      }).finished;
     }
   }
 
@@ -103,6 +101,10 @@ class _ShortestPath {
     )!;
   }
 
+  private static get nodeSize() {
+    return Number(getCSSVariable('--node-size'));
+  }
+
   private static getGroupID = (name: string) => `g-${name}`;
 
   private static getGroupSelector = (name: string) =>
@@ -116,7 +118,8 @@ class _ShortestPath {
   private static getGroupPaths = (name: AlgoName) => [
     ...(_ShortestPath
       .getGroup(name)
-      ?.querySelectorAll<SVGPathElement>('path') ?? []),
+      ?.querySelectorAll<SVGPathElement | SVGCircleElement>('path, circle') ??
+      []),
   ];
 
   private static getTooltipID = (name: string) => `tooltip-${name}`;
@@ -129,7 +132,7 @@ class _ShortestPath {
       _ShortestPath.getTooltipSelector(name)
     );
 
-  private static getNodeCenter = (el: Element) => {
+  private static getNodeCenter = (el: Element): Coordinates => {
     const rect = el.getBoundingClientRect();
 
     return {
@@ -138,6 +141,47 @@ class _ShortestPath {
     };
   };
 
+  private static createPathElement(d: string, color: string) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+    path.setAttribute('d', d);
+    path.setAttribute('stroke-width', 'var(--shortest-path-width)');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', color);
+
+    const length = String(path.getTotalLength());
+    path.setAttribute('stroke-dasharray', length);
+    path.setAttribute('stroke-dashoffset', length);
+
+    return path;
+  }
+
+  private static createCircleElement(cx: string, cy: string, color: string) {
+    const circle = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'circle'
+    );
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', '0');
+    circle.setAttribute('fill', color);
+
+    return circle;
+  }
+
+  private static getSVGTransition(
+    el: SVGElement,
+    dir: AnimationDirection
+  ): DOMKeyframesDefinition {
+    const [pathLength, r] =
+      dir === 'in' ? [1, _ShortestPath.nodeSize / 20] : [0, 0];
+
+    return match(el.tagName.toLowerCase())
+      .returnType<DOMKeyframesDefinition>()
+      .with('path', () => ({ pathLength }))
+      .with('circle', () => ({ r }))
+      .otherwise(() => ({}));
+  }
   private static animateTooltip(name: AlgoName, direction: 'in' | 'out') {
     const keyframes = [
       { opacity: 0, transform: 'scale(0)' },
@@ -179,32 +223,11 @@ class _ShortestPath {
     this.cleanupMap.set(name, cleanup);
   };
 
-  private createPathElement(
-    d: string,
-    name: AlgoName,
-    totalPathLength: number,
-    i: number
-  ) {
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-
-    path.setAttribute('d', d);
-    path.setAttribute('stroke-width', 'var(--shortest-path-width)');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', this.getPathColor(i, totalPathLength, name));
-
-    const length = String(path.getTotalLength());
-    path.setAttribute('stroke-dasharray', length);
-    path.setAttribute('stroke-dashoffset', length);
-
-    return path;
-  }
-
   private drawShortestPath = () => {
     const [name, shortestPath] = this.mostRecentPath;
     const totalPathLength = shortestPath.length;
-    const nodeSize = Number(getCSSVariable('--node-size'));
 
-    this._pathSegments = Math.floor(nodeSize / 5);
+    this._pathSegments = Math.floor(_ShortestPath.nodeSize / 5);
 
     const groupElement = document.createElementNS(
       'http://www.w3.org/2000/svg',
@@ -212,11 +235,29 @@ class _ShortestPath {
     );
     groupElement.id = _ShortestPath.getGroupID(name);
 
+    let prevDir: Coordinates | undefined;
+
     for (const [i, { domNode }] of shortestPath.entries()) {
       if (i === totalPathLength - 1) continue;
 
       const p1 = _ShortestPath.getNodeCenter(domNode!);
       const p2 = _ShortestPath.getNodeCenter(shortestPath[i + 1].domNode!);
+
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      const dir = { x: Math.sign(dx), y: Math.sign(dy) };
+
+      if (prevDir && !isEqual(dir, prevDir)) {
+        const joint = _ShortestPath.createCircleElement(
+          String(p1.x),
+          String(p1.y),
+          this.getPathColor(i, totalPathLength, name)
+        );
+
+        groupElement.append(joint);
+      }
+
+      prevDir = dir;
 
       const mixer = mix(p1, p2);
 
@@ -226,11 +267,9 @@ class _ShortestPath {
         const mixRatio = s / this._pathSegments;
         const end = mixer(mixRatio);
 
-        const path = this.createPathElement(
+        const path = _ShortestPath.createPathElement(
           `M ${start.x} ${start.y} L ${end.x} ${end.y}`,
-          name,
-          totalPathLength,
-          i + mixRatio
+          this.getPathColor(i + mixRatio, totalPathLength, name)
         );
 
         if (this.isTooltipTarget(i, totalPathLength, name, s)) {
