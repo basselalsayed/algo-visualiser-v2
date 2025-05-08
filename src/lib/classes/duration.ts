@@ -52,11 +52,16 @@ export class Duration {
     millis?: number;
     seconds?: number;
   }) {
-    this._ms = seconds * 1000 + millis;
+    this._ms = __E2E__ ? 0 : seconds * 1000 + millis;
   }
 
-  private static handleClamp = (num: number, clampParams?: ClampParams) =>
-    match(clampParams)
+  private static handleClamp = (
+    num: number,
+    clampParams?: ClampParams
+  ): number => {
+    if (__E2E__) return 0;
+
+    return match(clampParams)
       .with(undefined, () => num)
       .with({ max: P.number, min: P.number }, ({ max, min }) =>
         clamp(num, min, max)
@@ -64,6 +69,7 @@ export class Duration {
       .with({ min: P.number }, ({ min }) => clamp(num, min, num))
       .with({ max: P.number }, ({ max }) => clamp(num, max))
       .otherwise(() => num);
+  };
 
   private readonly _ms: number;
 }
