@@ -16,6 +16,10 @@ import 'shepherd.js/dist/css/shepherd.css';
 if (__E2E__) {
   MotionGlobalConfig.skipAnimations = true;
   document.documentElement.dataset.e2e = '';
+
+  const { worker } = await import('../__msw__/browser.ts');
+
+  await worker.start();
 }
 
 createRoot(document.querySelector('#root')!).render(
