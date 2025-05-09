@@ -5,11 +5,8 @@ import { Slider } from '@/components/slider.component';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useDimensions } from '@/hooks';
-import { Duration } from '@/lib';
-import { useSettings } from '@/store';
-
-import { MAX_NODE_SIZE, MIN_NODE_SIZE, NODE_SIZE_STEP } from './constants';
-import { updateNodeSize } from './utils';
+import { Duration, MAX_NODE_SIZE, MIN_NODE_SIZE, NODE_SIZE_STEP } from '@/lib';
+import { updateNodeSize, useSettings } from '@/store';
 
 export const NodeSizeSlider: FC = () => {
   const { nodeSize } = useSettings();

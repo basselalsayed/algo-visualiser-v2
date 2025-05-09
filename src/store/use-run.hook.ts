@@ -139,7 +139,7 @@ export const useRun = (): useRunReturn => {
   };
 };
 
-interface isRunningReturn
+export interface isRunningReturn
   extends Pick<useRunReturn, 'algoRunning' | 'mazeRunning'> {
   anyRunning: boolean;
   idle: boolean;
@@ -162,16 +162,3 @@ export const useIsRunning = (): isRunningReturn => {
     mazeRunning: mazeRunState === MazeRunState.running,
   };
 };
-
-export function isRunningService(): isRunningReturn {
-  const { mazeRunState, runState } = useRunStore.getState();
-
-  return {
-    algoRunning: runState === RunState.running,
-    anyRunning:
-      runState === RunState.running || mazeRunState === MazeRunState.running,
-    idle:
-      runState !== RunState.running && mazeRunState !== MazeRunState.running,
-    mazeRunning: mazeRunState === MazeRunState.running,
-  };
-}
