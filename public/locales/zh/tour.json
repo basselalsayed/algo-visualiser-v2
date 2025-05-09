@@ -1,0 +1,56 @@
+{
+  "description": "该项目展示了各种路径查找算法的工作原理。它是使用 React、TypeScript、Shadcdn 和 Zustand 构建的",
+  "complete": "感谢您完成导览！祝您玩得开心！",
+  "steps": {
+    "intro": {
+      "header": "欢迎来到算法可视化器！",
+      "content": "请选择语言"
+    },
+    "tourConfirm": {
+      "header": "您想进行简短的导览吗？",
+      "content": "导览可以通过快速搜索菜单随时重新开始"
+    },
+    "grid": {
+      "header": "这是网格",
+      "content": "它由方形节点组成。"
+    },
+    "node": {
+      "header": "这是一个节点",
+      "content": "它可以是起点、终点或墙壁。"
+    },
+    "maze": {
+      "header": "点击迷宫按钮生成一个递归分割的迷宫"
+    },
+    "startNode": {
+      "header": "点击任意空白节点设置起点"
+    },
+    "endNode": {
+      "header": "点击任意空白节点设置终点"
+    },
+    "algoChange": {
+      "header": "在这里选择其他算法"
+    },
+    "settings": {
+      "header": "在这里可选地更改设置"
+    },
+    "search": {
+      "header": "在这里探索更多选项"
+    },
+    "run": {
+      "header": "点击运行按钮以可视化最短路径"
+    },
+    "run2": {
+      "header": "点击运行按钮以与先前的算法进行比较"
+    },
+    "pinch": {
+      "header": "捏合以缩放更新节点大小"
+    },
+    "kbd": {
+      "header": "通过 CMD+Shift+G 启用键盘导航网格",
+      "content": "或者 Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "点击重置网格"
+    }
+  }
+}

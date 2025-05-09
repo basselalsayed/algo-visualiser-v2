@@ -44,6 +44,7 @@ const advanceOnCustomEvent = (
 
 export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
   const { t } = useTranslation('tour');
+  const { t: tBase } = useTranslation();
   const { isMobile } = useDeviceQueries();
   const [tourComplete, setTourComplete] = useLocalStorage<boolean>(
     'av-tour-complete',
@@ -62,9 +63,9 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
       },
       classes: buttonVariants({ size: 'lg', variant: 'outline' }),
       secondary: true,
-      text: t('buttons.cancel'),
+      text: tBase('buttons.cancel'),
     }),
-    [setTourDismissed, t]
+    [setTourDismissed, tBase]
   );
 
   const shepherdNextButton = useMemo<StepOptionsButton>(
@@ -73,9 +74,9 @@ export const TourProvider: FC<PropsWithChildren> = memo(({ children }) => {
         this.next();
       },
       classes: buttonVariants({ size: 'lg', variant: 'secondary' }),
-      text: t('buttons.next'),
+      text: tBase('buttons.next'),
     }),
-    [t]
+    [tBase]
   );
 
   const steps = useMemo<StepOptions[]>(

@@ -1,0 +1,56 @@
+{
+  "description": "Dit project toont hoe verschillende padvindersalgoritmen werken. Het is gebouwd met React, TypeScript, Shadcdn en Zustand",
+  "complete": "Bedankt voor het voltooien van de tour! Geniet ervan!",
+  "steps": {
+    "intro": {
+      "header": "Welkom bij de Algoritme Visualizer!",
+      "content": "Selecteer een taal"
+    },
+    "tourConfirm": {
+      "header": "Wil je een korte rondleiding maken?",
+      "content": "De rondleiding kan op elk moment opnieuw worden gestart via het snelle zoekmenu"
+    },
+    "grid": {
+      "header": "Dit is het rooster",
+      "content": "Het bestaat uit vierkante knooppunten."
+    },
+    "node": {
+      "header": "Dit is een knooppunt",
+      "content": "Het kan een startpunt, eindpunt of een muur zijn."
+    },
+    "maze": {
+      "header": "Klik op de labyrintknop om een recursief verdeellabyrint te genereren"
+    },
+    "startNode": {
+      "header": "Klik op een leeg knooppunt om een startpunt in te stellen"
+    },
+    "endNode": {
+      "header": "Klik op een leeg knooppunt om een eindpunt in te stellen"
+    },
+    "algoChange": {
+      "header": "Kies hier een ander algoritme"
+    },
+    "settings": {
+      "header": "Pas hier optioneel de instellingen aan"
+    },
+    "search": {
+      "header": "Verken hier meer opties"
+    },
+    "run": {
+      "header": "Klik op de knop uitvoeren om het kortste pad te visualiseren"
+    },
+    "run2": {
+      "header": "Klik op de knop uitvoeren om te vergelijken met het vorige algoritme"
+    },
+    "pinch": {
+      "header": "Knijp om in of uit te zoomen en de knooppuntgrootte bij te werken"
+    },
+    "kbd": {
+      "header": "Schakel toetsenbordnavigatie in op het rooster met CMD+Shift+G",
+      "content": "Of Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Klik om het rooster opnieuw in te stellen"
+    }
+  }
+}

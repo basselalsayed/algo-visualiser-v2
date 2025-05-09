@@ -1,0 +1,56 @@
+{
+  "description": "Ce projet montre comment fonctionnent divers algorithmes de recherche de chemin. Il est construit avec React, TypeScript, Shadcdn et Zustand",
+  "complete": "Merci d'avoir terminé la visite ! Profitez-en !",
+  "steps": {
+    "intro": {
+      "header": "Bienvenue dans le Visualiseur d'Algorithmes !",
+      "content": "Veuillez sélectionner une langue"
+    },
+    "tourConfirm": {
+      "header": "Souhaitez-vous faire une brève visite ?",
+      "content": "La visite peut être relancée à tout moment via le menu de recherche rapide"
+    },
+    "grid": {
+      "header": "Voici la grille",
+      "content": "Elle est composée de nœuds carrés."
+    },
+    "node": {
+      "header": "Voici un nœud",
+      "content": "Il peut être un point de départ, d'arrivée ou un mur."
+    },
+    "maze": {
+      "header": "Cliquez sur le bouton labyrinthe pour générer un labyrinthe par division récursive"
+    },
+    "startNode": {
+      "header": "Cliquez sur un nœud vide pour définir un point de départ"
+    },
+    "endNode": {
+      "header": "Cliquez sur un nœud vide pour définir un point d'arrivée"
+    },
+    "algoChange": {
+      "header": "Sélectionnez un autre algorithme ici"
+    },
+    "settings": {
+      "header": "Changez les paramètres ici si vous le souhaitez"
+    },
+    "search": {
+      "header": "Explorez plus d'options ici"
+    },
+    "run": {
+      "header": "Cliquez sur le bouton exécuter pour visualiser le chemin le plus court"
+    },
+    "run2": {
+      "header": "Cliquez sur le bouton exécuter pour comparer avec l'algorithme précédent"
+    },
+    "pinch": {
+      "header": "Pincez pour zoomer et mettre à jour la taille du nœud"
+    },
+    "kbd": {
+      "header": "Activez la navigation au clavier dans la grille avec CMD+Shift+G",
+      "content": "Ou Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Cliquez pour réinitialiser la grille"
+    }
+  }
+}
