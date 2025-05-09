@@ -89,17 +89,23 @@ export const Grid = memo(() => {
 
   const toggledRecentlyRef = useRef(new Set<string>());
 
+  const hoveredCoordinates = useRef<string | undefined>(undefined);
+
   const onPointerMove = useCallback((e: PointerEvent) => {
     const { wallMode } = useGrid.getState();
 
     if (wallMode) {
       const node = e.target as HTMLDivElement;
-      const { pointerDown, wallMode } = useGrid.getState();
+      const { pointerDown } = useGrid.getState();
 
-      if (!pointerDown || !wallMode || !node) return;
+      if (!pointerDown || !node) return;
 
       const { type, xIndex, yIndex } = node.dataset;
       const key = String([xIndex, yIndex]);
+
+      if (hoveredCoordinates.current === key) return;
+
+      hoveredCoordinates.current = key;
       const toggledRecently = toggledRecentlyRef.current;
 
       if (toggledRecently.has(key)) return;
@@ -152,6 +158,7 @@ export const Grid = memo(() => {
       pointersRef.current = pointersRef.current.filter(
         (p) => p.pointerId !== e.pointerId
       );
+      hoveredCoordinates.current = undefined;
     },
     [dispatch]
   );
