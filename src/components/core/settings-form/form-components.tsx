@@ -1,3 +1,4 @@
+import { mean } from 'lodash-es';
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -5,7 +6,20 @@ import { Slider } from '@/components/slider.component';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useDimensions } from '@/hooks';
-import { Duration, MAX_NODE_SIZE, MIN_NODE_SIZE, NODE_SIZE_STEP } from '@/lib';
+import {
+  ANIMATION_SPEED_STEP,
+  Duration,
+  GRID_HEIGHT_STEP,
+  GRID_WIDTH_STEP,
+  MAX_ANIMATION_SPEED,
+  MAX_NODE_SIZE,
+  MIN_ANIMATION_SPEED,
+  MIN_GRID_HEIGHT,
+  MIN_GRID_WIDTH,
+  MIN_NODE_SIZE,
+  MIN_SQUARE_SIZE,
+  NODE_SIZE_STEP,
+} from '@/lib';
 import { updateNodeSize, useSettings } from '@/store';
 
 export const NodeSizeSlider: FC = () => {
@@ -33,9 +47,9 @@ export const GridWidthSlider: FC = () => {
     <Slider
       label={t('settings.gridWidth')}
       value={[columnCount]}
-      min={6}
+      min={MIN_GRID_WIDTH}
       max={maxColumnCount}
-      step={1}
+      step={GRID_WIDTH_STEP}
       onValueChange={(v) => dispatch('gridWidth', v[0] * nodeSize)}
     />
   );
@@ -50,8 +64,9 @@ export const GridHeightSlider: FC = () => {
     <Slider
       label={t('settings.gridHeight')}
       value={[rowCount]}
-      min={6}
+      min={MIN_GRID_HEIGHT}
       max={maxRowCount}
+      step={GRID_HEIGHT_STEP}
       onValueChange={(v) => dispatch('gridHeight', v[0] * nodeSize)}
     />
   );
@@ -65,8 +80,8 @@ export const DrawSquareSlider: FC = () => {
   return (
     <Slider
       label={t('settings.drawSquare')}
-      defaultValue={[10]}
-      min={6}
+      defaultValue={[mean([MIN_SQUARE_SIZE, maxSquareSize])]}
+      min={MIN_SQUARE_SIZE}
       max={maxSquareSize}
       onValueChange={(v) => dispatch('drawSquare', v[0] * nodeSize)}
     />
@@ -80,9 +95,9 @@ export const AnimationSpeedSlider: FC = () => {
   return (
     <Slider
       label={t('settings.animationSpeed')}
-      min={-200}
-      max={-1}
-      step={-1}
+      min={MIN_ANIMATION_SPEED}
+      max={MAX_ANIMATION_SPEED}
+      step={ANIMATION_SPEED_STEP}
       defaultValue={[-animationSpeed.inMillis]}
       onValueChange={(v) =>
         dispatch('animationSpeed', Duration.fromMillis(Math.abs(v[0])))

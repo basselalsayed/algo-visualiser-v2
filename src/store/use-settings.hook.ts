@@ -2,12 +2,15 @@ import { produce } from 'immer';
 import { create } from 'zustand';
 
 import { type AlgoInfo, algoInfo } from '@/algorithms';
-import { Duration, emitCustomEvent, setCSSVariable } from '@/lib';
+import {
+  DEFAULT_ANIMATION_SPEED,
+  DEFAULT_NODE_SIZE,
+  Duration,
+  emitCustomEvent,
+  setCSSVariable,
+} from '@/lib';
 
 import { type DispatchFunction } from './types';
-
-const DEFAULT_NODE_SIZE = __E2E__ ? 80 : 40;
-const DEFAULT_ANIMATION_SPEED = __E2E__ ? 1 : 50;
 
 interface SettingsStore {
   animationSpeed: Duration;
