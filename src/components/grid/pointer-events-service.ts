@@ -84,14 +84,6 @@ export class PointerEventService {
     this.initialPinchDistance = currentDistance;
   };
 
-  setInitialPinchDistance(distance: number) {
-    this.initialPinchDistance = distance;
-  }
-
-  resetPointers() {
-    this.pointers = [];
-  }
-
   handlePointerUpOrCancel = (e: PointerEvent) => {
     this.toggledRecently.clear();
     this.pointers = this.pointers.filter((p) => p.pointerId !== e.pointerId);
