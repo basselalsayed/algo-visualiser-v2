@@ -10,6 +10,7 @@ import {
   setCSSVariable,
 } from '@/lib';
 
+import { createSelectors } from './create-selectors.functoin';
 import { type DispatchFunction } from './types';
 
 interface SettingsStore {
@@ -27,43 +28,45 @@ interface SettingsStore {
   reset: VoidFunction;
 }
 
-export const useSettings = create<SettingsStore>((set) => ({
-  animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
-  currentAlgo: algoInfo[0],
-  dispatch: (key, payload) =>
-    set(
-      produce<SettingsStore>((state) => {
-        if (key === 'drawSquare') {
-          state.gridWidth = payload as number;
-          state.gridHeight = payload as number;
-        } else state[key] = payload;
+export const useSettings = createSelectors(
+  create<SettingsStore>((set) => ({
+    animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
+    currentAlgo: algoInfo[0],
+    dispatch: (key, payload) =>
+      set(
+        produce<SettingsStore>((state) => {
+          if (key === 'drawSquare') {
+            state.gridWidth = payload as number;
+            state.gridHeight = payload as number;
+          } else state[key] = payload;
 
-        if (key === 'nodeSize') {
-          setCSSVariable('--node-size', payload as number);
-        }
+          if (key === 'nodeSize') {
+            setCSSVariable('--node-size', payload as number);
+          }
 
-        if (key === 'currentAlgo') {
-          emitCustomEvent('algoChanged');
-        }
-      })
-    ),
-  drawSquare: 0,
-  gridHeight: 0,
-  gridWidth: 0,
-  maxGridHeight: 0,
-  maxGridWidth: 0,
-  nodeSize: DEFAULT_NODE_SIZE,
-  performanceMode: false,
-  performanceModeDialogOpen: false,
-  reset: () => {
-    setCSSVariable('--node-size', DEFAULT_NODE_SIZE);
+          if (key === 'currentAlgo') {
+            emitCustomEvent('algoChanged');
+          }
+        })
+      ),
+    drawSquare: 0,
+    gridHeight: 0,
+    gridWidth: 0,
+    maxGridHeight: 0,
+    maxGridWidth: 0,
+    nodeSize: DEFAULT_NODE_SIZE,
+    performanceMode: false,
+    performanceModeDialogOpen: false,
+    reset: () => {
+      setCSSVariable('--node-size', DEFAULT_NODE_SIZE);
 
-    return set((state) => ({
-      animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
-      drawSquare: 0,
-      gridHeight: state.maxGridHeight,
-      gridWidth: state.maxGridWidth,
-      nodeSize: DEFAULT_NODE_SIZE,
-    }));
-  },
-}));
+      return set((state) => ({
+        animationSpeed: Duration.fromMillis(DEFAULT_ANIMATION_SPEED),
+        drawSquare: 0,
+        gridHeight: state.maxGridHeight,
+        gridWidth: state.maxGridWidth,
+        nodeSize: DEFAULT_NODE_SIZE,
+      }));
+    },
+  }))
+);

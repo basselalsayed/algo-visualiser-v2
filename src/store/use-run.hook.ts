@@ -13,6 +13,7 @@ import { useTour } from '@/contexts';
 import { useMutation } from '@/data';
 import { MazeRunState, RunState, emitCustomEvent, noOp } from '@/lib';
 
+import { createSelectors } from './create-selectors.functoin';
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
 import { useSettings } from './use-settings.hook';
@@ -25,12 +26,14 @@ interface RunStore {
   runState: RunState;
 }
 
-export const useRunStore = create<RunStore>((set) => ({
-  algoInstance: undefined,
-  dispatch: (key, value) => set((state) => ({ ...state, [key]: value })),
-  mazeRunState: MazeRunState.idle,
-  runState: RunState.idle,
-}));
+export const useRunStore = createSelectors(
+  create<RunStore>((set) => ({
+    algoInstance: undefined,
+    dispatch: (key, value) => set((state) => ({ ...state, [key]: value })),
+    mazeRunState: MazeRunState.idle,
+    runState: RunState.idle,
+  }))
+);
 
 interface useRunReturn {
   algoRunning: boolean;

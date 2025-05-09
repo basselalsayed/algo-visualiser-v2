@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 
+import { createSelectors } from './create-selectors.functoin';
 import { type DispatchFunction } from './types';
 
 interface CommandStore {
@@ -9,13 +10,15 @@ interface CommandStore {
   search: string;
 }
 
-export const useCommand = create<CommandStore>((set) => ({
-  dispatch: (type, payload) =>
-    set(
-      produce<CommandStore>((state) => {
-        state[type] = payload;
-      })
-    ),
-  open: false,
-  search: '',
-}));
+export const useCommand = createSelectors(
+  create<CommandStore>((set) => ({
+    dispatch: (type, payload) =>
+      set(
+        produce<CommandStore>((state) => {
+          state[type] = payload;
+        })
+      ),
+    open: false,
+    search: '',
+  }))
+);
