@@ -13,7 +13,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
   async run(
     this: this,
-    onDone?: (results: RuntimeInfo) => unknown
+    onDone?: (results?: RuntimeInfo) => unknown
   ): Promise<void> {
     if (this.paused) {
       this.resume();
@@ -29,6 +29,12 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
     if (this.traverseGenerator.next().done) {
       this.executionEnd = performance.now();
+      if (this.shortestPath.length === 1) {
+        PathFindingAlgorithm.wallFlash();
+        onDone?.();
+        return;
+      }
+
       ShortestPath.addPath(this.name, this.shortestPath);
       this.shortestPathGenerator ??= ShortestPath.run(this.animationSpeed);
 
@@ -74,6 +80,23 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     this.reset = this.reset.bind(this);
   }
 
+  private static wallFlash() {
+    const walls = document.querySelectorAll('[data-type="wall"]');
+    for (const wall of walls) {
+      wall.toggleAttribute('data-visited-wall', false);
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      setTimeout(() => {
+        for (const wall of walls) {
+          wall.toggleAttribute('data-visited-wall', true);
+          setTimeout(() => {
+            wall.toggleAttribute('data-visited-wall', false);
+          }, 700);
+        }
+      }, i * 800);
+    }
+  }
   protected queue: INode[] = [];
   protected visitedNodes: INode[] = [];
 

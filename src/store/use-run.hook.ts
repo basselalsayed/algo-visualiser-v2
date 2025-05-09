@@ -58,13 +58,15 @@ export const useRun = (): useRunReturn => {
   const { tour } = useTour();
 
   const onRunComplete = useCallback(
-    (result: RuntimeInfo) => {
+    (result?: RuntimeInfo) => {
       const { addResult } = useStats.getState();
       const { dispatch } = useRunStore.getState();
       dispatch('runState', RunState.done);
       emitCustomEvent('runComplete');
-      trigger([result]).catch(noOp);
-      void addResult(result, !tour.isActive());
+      if (result) {
+        trigger([result]).catch(noOp);
+        void addResult(result, !tour.isActive());
+      }
     },
     [tour, trigger]
   );

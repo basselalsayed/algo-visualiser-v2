@@ -16,7 +16,7 @@ export interface IPathFindingAlgorithm {
   name: AlgoName;
   pause(): void;
   reset(): void;
-  run(onDone?: (results: RuntimeInfo) => unknown): Promise<void>;
+  run(onDone?: (results?: RuntimeInfo) => unknown): Promise<void>;
 }
 
 export type IPathFindingAlgorithmConstructor = new (
