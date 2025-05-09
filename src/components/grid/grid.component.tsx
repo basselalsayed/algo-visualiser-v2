@@ -1,5 +1,4 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 
 import { useDimensions, useEventListener, useResizeObserver } from '@/hooks';
 import { HTML_IDS, cn } from '@/lib';
@@ -12,21 +11,13 @@ import { handleNodeClick } from './util';
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const { nodeSize, settingsDispatch } = useSettings(
-    useShallow(({ dispatch, nodeSize }) => ({
-      nodeSize,
-      settingsDispatch: dispatch,
-    }))
-  );
+  const nodeSize = useSettings.use.nodeSize();
+  const settingsDispatch = useSettings.use.dispatch();
 
-  const { addRef, dispatch, refreshKey, resetGrid } = useGrid(
-    useShallow(({ addRef, dispatch, refreshKey, resetGrid }) => ({
-      addRef,
-      dispatch,
-      refreshKey,
-      resetGrid,
-    }))
-  );
+  const addRef = useGrid.use.addRef();
+  const dispatch = useGrid.use.dispatch();
+  const refreshKey = useGrid.use.refreshKey();
+  const resetGrid = useGrid.use.resetGrid();
 
   const { height = 0, width = 0 } = useResizeObserver({
     ref: gridRef,

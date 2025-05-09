@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { match } from 'ts-pattern';
 import { create } from 'zustand';
-import { useShallow } from 'zustand/react/shallow';
 
 import {
   type IPathFindingAlgorithm,
@@ -149,12 +148,8 @@ export interface isRunningReturn
 }
 
 export const useIsRunning = (): isRunningReturn => {
-  const { mazeRunState, runState } = useRunStore(
-    useShallow(({ mazeRunState, runState }) => ({
-      mazeRunState,
-      runState,
-    }))
-  );
+  const mazeRunState = useRunStore.use.mazeRunState();
+  const runState = useRunStore.use.runState();
 
   return {
     algoRunning: runState === RunState.running,
