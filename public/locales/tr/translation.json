@@ -41,7 +41,8 @@
     "gridWidth": "Izgara Genişliği",
     "nodeSize": "Düğüm Boyutu",
     "performance": "Performans Modu",
-    "performanceCheck": "Bu boyut yalnızca daha hızlı cihazlar için önerilir, emin misiniz?",
+    "performanceCheck": "Bu boyut yalnızca daha hızlı cihazlar için önerilir",
+    "performanceCheckTitle": "Emin misiniz?",
     "reset": "Sıfırla",
     "title": "Ayarlar"
   },

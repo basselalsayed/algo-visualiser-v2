@@ -41,7 +41,8 @@
     "gridWidth": "グリッド幅",
     "nodeSize": "ノードサイズ",
     "performance": "パフォーマンスモード",
-    "performanceCheck": "このサイズは高速なデバイスのみ推奨されます。よろしいですか？",
+    "performanceCheck": "このサイズは高速なデバイスでのみ推奨されます",
+    "performanceCheckTitle": "本当によろしいですか？",
     "reset": "リセット",
     "title": "設定"
   },

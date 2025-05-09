@@ -41,7 +41,8 @@
     "gridWidth": "Roosterbreedte",
     "nodeSize": "Nodegrootte",
     "performance": "Prestatiemodus",
-    "performanceCheck": "Deze grootte wordt alleen aanbevolen voor snellere apparaten, weet je het zeker?",
+    "performanceCheck": "Deze grootte wordt alleen aanbevolen voor snellere apparaten",
+    "performanceCheckTitle": "Weet je het zeker?",
     "reset": "Herstellen",
     "title": "Instellingen"
   },

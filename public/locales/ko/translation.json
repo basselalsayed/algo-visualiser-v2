@@ -41,7 +41,8 @@
     "gridWidth": "그리드 너비",
     "nodeSize": "노드 크기",
     "performance": "성능 모드",
-    "performanceCheck": "이 크기는 빠른 장치에서만 권장됩니다. 계속하시겠습니까?",
+    "performanceCheck": "이 크기는 빠른 장치에서만 권장됩니다",
+    "performanceCheckTitle": "정말로 진행하시겠습니까?",
     "reset": "초기화",
     "title": "설정"
   },

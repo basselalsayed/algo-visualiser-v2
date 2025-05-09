@@ -41,7 +41,8 @@
     "gridWidth": "Szerokość siatki",
     "nodeSize": "Rozmiar węzła",
     "performance": "Tryb wydajności",
-    "performanceCheck": "Ten rozmiar jest zalecany tylko dla szybszych urządzeń, czy jesteś pewny?",
+    "performanceCheck": "Ten rozmiar jest zalecany tylko dla szybszych urządzeń",
+    "performanceCheckTitle": "Jesteś pewien?",
     "reset": "Resetuj",
     "title": "Ustawienia"
   },

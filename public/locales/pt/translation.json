@@ -41,7 +41,8 @@
     "gridWidth": "Largura da grade",
     "nodeSize": "Tamanho do nó",
     "performance": "Modo de desempenho",
-    "performanceCheck": "Este tamanho é recomendado apenas para dispositivos mais rápidos, tem certeza?",
+    "performanceCheck": "Esse tamanho é recomendado apenas para dispositivos mais rápidos",
+    "performanceCheckTitle": "Tem certeza?",
     "reset": "Reiniciar",
     "title": "Configurações"
   },
