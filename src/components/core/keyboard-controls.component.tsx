@@ -2,7 +2,7 @@ import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type Entries } from 'type-fest';
 
-import { KbdKey } from '../kbd-key.component';
+import { KbdKey } from '@/components/kbd-key.component';
 
 const navigationActionSymbols: Record<
   Exclude<TKey<'translation', 'gridNav'>, 'header'>,

@@ -305,10 +305,7 @@
     --tw-ease,
     var(--default-transition-timing-function) /* cubic-bezier(0.4, 0, 0.2, 1) */
   );
-  transition-duration: var(
-    --node-animation-duration,
-    var(--default-transition-duration) /* 150ms */
-  );
+  transition-duration: var(--node-animation-duration, 300ms);
 }
 
 @utility grad-accent {

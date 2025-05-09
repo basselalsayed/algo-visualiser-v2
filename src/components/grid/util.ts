@@ -1,10 +1,12 @@
 import { match } from 'ts-pattern';
 
 import { NodeType, emitCustomEvent } from '@/lib';
-import { useGrid } from '@/store';
+import { isRunning, useGrid } from '@/store';
 
 export function handleNodeClick({ type, xIndex, yIndex }: INode) {
   const { dispatch, endNode, startNode, wallMode } = useGrid.getState();
+
+  if (isRunning().anyRunning) return type;
 
   return match({ endNode, startNode, type, wallMode })
     .returnType<NodeType>()
@@ -33,11 +35,4 @@ export function handleNodeClick({ type, xIndex, yIndex }: INode) {
       return NodeType.none;
     })
     .otherwise(() => type);
-}
-
-export function getDistance(p1: PointerEvent, p2: PointerEvent) {
-  const dx = p2.clientX - p1.clientX;
-  const dy = p2.clientY - p1.clientY;
-
-  return Math.hypot(dx, dy);
 }
