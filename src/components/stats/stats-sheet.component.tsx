@@ -11,7 +11,13 @@ import { useStats } from '@/store';
 
 import { Tabs } from '../tabs.component';
 import { ScrollArea } from '../ui/scroll-area';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '../ui/sheet';
 
 import { StatsCards } from './stats-cards.component';
 import { StatsTable } from './stats-table.component';
@@ -54,7 +60,10 @@ export const StatsSheet: FC = () => {
     <Sheet open={statsOpen} onOpenChange={(v) => dispatch('statsOpen', v)}>
       <SheetContent className='flex flex-col gap-y-4 sm:w-7/12'>
         <SheetHeader>
-          <SheetTitle className=''>{t('stats.title')}</SheetTitle>
+          <SheetTitle>{t('stats.title')}</SheetTitle>
+          <SheetDescription className='sr-only'>
+            {t('stats.title')}
+          </SheetDescription>
         </SheetHeader>
         <Tabs
           defaultValue='stats.local'
