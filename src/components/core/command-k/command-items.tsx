@@ -36,7 +36,7 @@ export const CommandKItem: FC<Props> = ({
   tKey,
   ...props
 }) => {
-  const dispatch = useCommand((state) => state.dispatch);
+  const dispatch = useCommand.use.dispatch();
 
   const { t } = useTranslation();
 
@@ -174,7 +174,7 @@ function randomiseWalls(refsMap: NodeMap) {
 }
 
 export const RandomiseWallsCommandItem: FC = () => {
-  const { refsMap } = useGrid();
+  const refsMap = useGrid.use.refsMap();
 
   return (
     <CommandKItem

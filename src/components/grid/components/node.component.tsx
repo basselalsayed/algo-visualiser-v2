@@ -122,11 +122,10 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
   setVisited(visited: boolean) {
     this._visited = visited;
-    if (this.isWall) {
-      this.domNode?.toggleAttribute('data-visited-wall', visited);
-    } else {
-      this.domNode?.toggleAttribute('data-visited', visited);
-    }
+    this.domNode?.toggleAttribute(
+      this.isWall ? 'data-visited-wall' : 'data-visited',
+      visited
+    );
   }
 
   reset(this: this, resetType: boolean | NodeType[]) {

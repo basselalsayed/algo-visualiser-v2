@@ -51,7 +51,7 @@ export const useRun = (): useRunReturn => {
 
   const { refsMap, resetGrid, resetWalls } = useGrid();
 
-  const animationSpeed = useSettings((settings) => settings.animationSpeed);
+  const animationSpeed = useSettings.use.animationSpeed();
 
   const trigger = useMutation({ tableName: 'algo_result' });
 

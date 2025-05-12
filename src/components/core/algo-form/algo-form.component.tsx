@@ -9,7 +9,7 @@ import { cn } from '@/lib';
 import { useSettings } from '@/store';
 
 export const AlgoForm: FC<{ className?: string }> = ({ className }) => {
-  const dispatch = useSettings((state) => state.dispatch);
+  const dispatch = useSettings.use.dispatch();
 
   const startIndex = useRef<number>(
     algoInfo.indexOf(useSettings.getState().currentAlgo)
