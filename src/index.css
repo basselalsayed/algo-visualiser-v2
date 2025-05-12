@@ -185,8 +185,8 @@
   :root {
     --white: 0 0% 100%;
     --black: 240 10% 3.9%;
-    --grad-bg-1: 142 69% 58%; /* Tailwind Green 400 */
-    --grad-bg-2: 213 94% 68%; /* Tailwind Blue 400 */
+    --grad-bg-1: var(--grad-accent-1);
+    --grad-bg-2: var(--grad-accent-2);
     --grad-accent-1: 270 95% 75%; /* Tailwind Purple 400 */
     --grad-accent-2: 188 86% 53%; /* Tailwind Cyan 400 */
     --grad-accent-mix: color-mix(
