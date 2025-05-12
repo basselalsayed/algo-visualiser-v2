@@ -88,8 +88,7 @@ export const useRun = (): useRunReturn => {
       })
       .with(RunState.done, async () => {
         dispatch('runState', RunState.running);
-        algoInstance?.reset();
-        await ShortestPath.reverse(algoInstance!.name);
+        await algoInstance?.reset();
         void algoInstance?.run(onRunCompleteReplay);
       });
   }, [algoInstance, dispatch, onRunComplete, onRunCompleteReplay, runState]);

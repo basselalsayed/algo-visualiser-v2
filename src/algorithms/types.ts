@@ -15,7 +15,7 @@ export const ALGO_NAMES = Object.keys(tAlgoInfo) as AlgoName[];
 export interface IPathFindingAlgorithm {
   name: AlgoName;
   pause(): void;
-  reset(): void;
+  reset(): Promise<void>;
   run(onDone?: (results?: RuntimeInfo) => unknown): Promise<void>;
 }
 

@@ -59,10 +59,11 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
     this.paused = false;
   }
 
-  reset(this: this): void {
+  async reset(this: this): Promise<void> {
     for (const node of this.grid.values()) {
       node.reset(false);
     }
+    await ShortestPath.reverse(this.name);
     this.visitedNodes = [];
     this.traverseGenerator = undefined;
     this.shortestPathGenerator = undefined;
