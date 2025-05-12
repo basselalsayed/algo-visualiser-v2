@@ -11,14 +11,14 @@ import {
   StatsSheet,
 } from '@/components';
 
-import { useHandlleAlgoUpdates } from './use-handle-algo-updates.hook';
+import { useHandleAlgoUpdates } from './use-handle-algo-updates.hook';
 import { useHandleDarkMode } from './use-handle-dark-mode.hook';
 import { useHandleTour } from './use-handle-tour.hook';
 import { useKeyboardShortcuts } from './use-keyboard-shortcuts.hook';
 
 export const App: FC = () => {
   useHandleDarkMode();
-  useHandlleAlgoUpdates();
+  useHandleAlgoUpdates();
   useHandleTour();
   useKeyboardShortcuts();
 
