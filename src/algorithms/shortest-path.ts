@@ -294,7 +294,7 @@ class _ShortestPath {
       'p-2',
       'py-4',
       'rounded-md',
-      'text-sm',
+      'text-base',
       'z-2',
       'pointer-events-none'
     );
