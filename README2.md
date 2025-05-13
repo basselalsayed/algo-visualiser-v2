@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/basselalsayed/algo-visualiser-v2">
+  <a href="https://algovi.netlify.app">
     <picture>
       <source srcset="images/logo-light.png" media="(prefers-color-scheme: dark)">
       <img src="images/logo-dark.png" alt="Logo" width="200" height="200"/>
@@ -165,6 +165,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Guided tour via [shepherd.js](https://www.shepherdjs.dev/)
 - [x] Linting
   - [x] Custom setup to prevent circular dependencies
+- [x] Multiple shortest paths
 - [x] Testing
   - [x] Vitest
   - [x] Playwright
@@ -241,6 +242,7 @@ Project Link: [https://github.com/basselalsayed/algo-visualiser-v2](https://gith
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
+[netlify-url]: https://algovi.netlify.app
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [TailwindCSS]: https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white
