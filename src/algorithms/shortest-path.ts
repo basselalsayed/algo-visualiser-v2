@@ -8,9 +8,10 @@ import {
 } from '@floating-ui/dom';
 import { t } from 'i18next';
 import { isEqual } from 'lodash-es';
-import { type DOMKeyframesDefinition, animate, mix } from 'motion';
+import { mix } from 'motion';
 import { match } from 'ts-pattern';
 
+import { type AnimationDirection } from '@/@types';
 import { type Duration, HTML_SELECTORS, getCSSVariable, noOp } from '@/lib';
 
 import { ALGO_NAMES, type AlgoName } from './types';
@@ -19,7 +20,6 @@ interface Coordinates {
   x: number;
   y: number;
 }
-type AnimationDirection = 'in' | 'out';
 
 class _ShortestPath {
   addPath = (name: AlgoName, path: INode[]) => {
@@ -30,19 +30,27 @@ class _ShortestPath {
     const animations = _ShortestPath
       .getGroupPaths(name)
       .reverse()
-      .map((el, i) =>
-        animate(el, _ShortestPath.getSVGTransition(el, 'out'), {
-          delay: i * this.animationDuration.inSeconds,
-          duration: this.animationDuration.inSeconds,
-          onComplete: () => {
-            if (el.dataset.tooltipTarget) {
-              _ShortestPath.animateTooltip(name, 'out')?.finished.then(() => {
-                _ShortestPath.getTooltip(name)?.remove();
-              }, noOp);
-            }
-          },
-        })
-      );
+      .map((el, i) => {
+        const animation = el.animate(
+          [_ShortestPath.getSVGTransition(el, 'out')],
+          {
+            delay: i * this.animationDuration.inMillis,
+            duration: this.animationDuration.inMillis,
+            easing: 'linear',
+            fill: 'forwards',
+          }
+        );
+
+        animation.onfinish = () => {
+          if (el.dataset.tooltipTarget) {
+            _ShortestPath.animateTooltip(name, 'out')?.finished.then(() => {
+              _ShortestPath.getTooltip(name)?.remove();
+            }, noOp);
+          }
+        };
+
+        return animation;
+      });
 
     await Promise.all(animations.map((a) => a.finished));
 
@@ -59,29 +67,24 @@ class _ShortestPath {
     const [name] = this.mostRecentPath;
 
     for (const el of _ShortestPath.getGroupPaths(name)) {
-      yield animate(el, _ShortestPath.getSVGTransition(el, 'in'), {
-        duration: this.animationDuration.inSeconds,
-        ease: 'linear',
-        onComplete: () => {
-          if (el.dataset.tooltipTarget) {
-            _ShortestPath.animateTooltip(name, 'in');
-          }
-        },
-      }).finished;
+      const animation = el.animate([_ShortestPath.getSVGTransition(el, 'in')], {
+        duration: this.animationDuration.inMillis,
+        easing: 'linear',
+        fill: 'forwards',
+      });
+
+      animation.onfinish = () => {
+        if (el.dataset.tooltipTarget) {
+          _ShortestPath.animateTooltip(name, 'in');
+        }
+      };
+
+      yield animation.finished;
     }
   }
 
-  reset = () => {
-    const { shortestPathSvg, shortestPathTooltip } = HTML_SELECTORS.components;
-
-    document.querySelector(shortestPathSvg)?.replaceChildren();
-    document.querySelector(shortestPathTooltip)?.replaceChildren();
-
-    this.pathMap.clear();
-
-    for (const [, cleanup] of this.cleanupMap) cleanup();
-    this.cleanupMap.clear();
-  };
+  reset = () =>
+    Promise.all([...this.pathMap.keys()].map((name) => this.reverse(name)));
 
   constructor() {
     this.pathMap = new Map<AlgoName, INode[]>();
@@ -108,12 +111,10 @@ class _ShortestPath {
   private static getGroupID = (name: string) => `g-${name}`;
 
   private static getGroupSelector = (name: string) =>
-    `#${_ShortestPath.getGroupID(name)}`;
+    `#${this.getGroupID(name)}`;
 
   private static getGroup = (name: AlgoName) =>
-    _ShortestPath.svg?.querySelector<SVGGElement>(
-      _ShortestPath.getGroupSelector(name)
-    );
+    this.svg?.querySelector<SVGGElement>(this.getGroupSelector(name));
 
   private static getGroupPaths = (name: AlgoName) => [
     ...(_ShortestPath
@@ -125,11 +126,11 @@ class _ShortestPath {
   private static getTooltipID = (name: string) => `tooltip-${name}`;
 
   private static getTooltipSelector = (name: string) =>
-    `#${_ShortestPath.getTooltipID(name)}`;
+    `#${this.getTooltipID(name)}`;
 
   private static getTooltip = (name: AlgoName) =>
-    _ShortestPath.tooltipContainer?.querySelector<HTMLDivElement>(
-      _ShortestPath.getTooltipSelector(name)
+    this.tooltipContainer?.querySelector<HTMLDivElement>(
+      this.getTooltipSelector(name)
     );
 
   private static getNodeCenter = (el: Element): Coordinates => {
@@ -172,29 +173,33 @@ class _ShortestPath {
   private static getSVGTransition(
     el: SVGElement,
     dir: AnimationDirection
-  ): DOMKeyframesDefinition {
-    const [pathLength, r] =
-      dir === 'in' ? [1, _ShortestPath.nodeSize / 20] : [0, 0];
+  ): Keyframe {
+    const [strokeDashoffset, r] =
+      dir === 'in'
+        ? [0, _ShortestPath.nodeSize / 20]
+        : [(el as SVGPathElement).getTotalLength(), 0];
 
     return match(el.tagName.toLowerCase())
-      .returnType<DOMKeyframesDefinition>()
-      .with('path', () => ({ pathLength }))
+      .returnType<Keyframe>()
+      .with('path', () => ({ strokeDashoffset }))
       .with('circle', () => ({ r }))
       .otherwise(() => ({}));
   }
+
   private static animateTooltip(name: AlgoName, direction: 'in' | 'out') {
     const keyframes = [
       { opacity: 0, transform: 'scale(0)' },
       { opacity: 1, transform: 'scale(1)' },
     ];
 
-    return _ShortestPath
-      .getTooltip(name)
-      ?.animate(direction === 'in' ? keyframes : keyframes.reverse(), {
+    return this.getTooltip(name)?.animate(
+      direction === 'in' ? keyframes : keyframes.reverse(),
+      {
         duration: 300,
         easing: 'ease-out',
         fill: 'forwards',
-      });
+      }
+    );
   }
 
   private readonly pathMap: Map<AlgoName, INode[]>;

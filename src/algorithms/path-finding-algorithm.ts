@@ -155,7 +155,7 @@ export abstract class PathFindingAlgorithm implements IPathFindingAlgorithm {
 
   private accessor traverseGenerator: TraverseGenerator | undefined;
   private accessor shortestPathGenerator:
-    | Generator<Promise<void>, void>
+    | Generator<Promise<Animation>, void>
     | undefined;
   private accessor executionStart: number | undefined;
   private accessor executionEnd: number | undefined;

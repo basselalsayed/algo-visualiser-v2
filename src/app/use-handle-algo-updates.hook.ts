@@ -24,7 +24,7 @@ export const useHandleAlgoUpdates = () => {
   const { endNode, refsMap, startNode } = useGrid();
 
   useEffect(() => {
-    ShortestPath.reset();
+    void ShortestPath.reset();
   }, [
     drawSquare,
     gridHeight,

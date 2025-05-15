@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
+import { ShortestPath } from '@/algorithms';
 import { ArrayKeyMap, NodeType } from '@/lib';
 
 import { createSelectors } from './create-selectors.functoin';
@@ -13,7 +14,7 @@ interface GridStore {
   pointerDown: boolean;
   refreshKey: string;
   refsMap: NodeMap;
-  resetGrid: () => Promise<void>;
+  resetGrid: (skipAnimations?: boolean) => Promise<void>;
   resetWalls: VoidFunction;
   startNode?: NodeCoordinates;
   wallMode: boolean;
@@ -41,10 +42,15 @@ export const useGrid = createSelectors(
     pointerDown: false,
     refreshKey: nanoid(),
     refsMap: new ArrayKeyMap<NodeCoordinates, INode>(),
-    resetGrid: async () => {
-      await Promise.all(
-        [...get().refsMap.values()].map((node) => node.animatePresence('out'))
-      );
+    resetGrid: async (skipAnimations = false) => {
+      if (!skipAnimations) {
+        await Promise.all([
+          ...[...get().refsMap.values()].map((node) =>
+            node.animatePresence('out')
+          ),
+          ShortestPath.reset(),
+        ]);
+      }
 
       return set((state) => ({
         ...state,
