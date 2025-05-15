@@ -13,7 +13,7 @@ interface GridStore {
   pointerDown: boolean;
   refreshKey: string;
   refsMap: NodeMap;
-  resetGrid: VoidFunction;
+  resetGrid: () => Promise<void>;
   resetWalls: VoidFunction;
   startNode?: NodeCoordinates;
   wallMode: boolean;
@@ -41,13 +41,18 @@ export const useGrid = createSelectors(
     pointerDown: false,
     refreshKey: nanoid(),
     refsMap: new ArrayKeyMap<NodeCoordinates, INode>(),
-    resetGrid: () =>
-      set((state) => ({
+    resetGrid: async () => {
+      await Promise.all(
+        [...get().refsMap.values()].map((node) => node.animatePresence('out'))
+      );
+
+      return set((state) => ({
         ...state,
         endNode: undefined,
         refreshKey: nanoid(),
         startNode: undefined,
-      })),
+      }));
+    },
     resetWalls: () => {
       for (const node of get().refsMap.values()) {
         if (node.isWall) node.setType(NodeType.none);

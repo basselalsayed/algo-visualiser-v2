@@ -1,4 +1,3 @@
-import { MotionConfig, MotionGlobalConfig } from 'motion/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { MathJaxProvider } from 'react-hook-mathjax';
@@ -14,7 +13,6 @@ import './i18n.ts';
 import 'shepherd.js/dist/css/shepherd.css';
 
 if (__E2E__) {
-  MotionGlobalConfig.skipAnimations = true;
   document.documentElement.dataset.e2e = '';
 
   const { worker } = await import('__msw__/browser.ts');
@@ -31,16 +29,14 @@ createRoot(document.querySelector('#root')!).render(
         revalidateOnFocus: false,
       }}
     >
-      <MotionConfig reducedMotion='user'>
-        <MathJaxProvider
-          options={{
-            options: { enableMenu: false },
-          }}
-        />
-        <TourProvider>
-          <App />
-        </TourProvider>
-      </MotionConfig>
+      <MathJaxProvider
+        options={{
+          options: { enableMenu: false },
+        }}
+      />
+      <TourProvider>
+        <App />
+      </TourProvider>
     </SWRConfig>
   </StrictMode>
 );

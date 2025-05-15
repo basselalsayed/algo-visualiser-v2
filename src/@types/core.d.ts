@@ -1,7 +1,10 @@
 import { type ArrayKeyMap, type NodeType } from '@/lib';
 
+import { type AnimationDirection } from './index';
+
 declare global {
   declare interface INode {
+    animatePresence: (direction: AnimationDirection) => Promise<Animation[]>;
     coordinates: NodeCoordinates;
     costFromStart: number;
     domNode?: HTMLDivElement;
