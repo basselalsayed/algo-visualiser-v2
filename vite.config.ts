@@ -4,7 +4,12 @@ import path from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { type PluginOption, defineConfig } from 'vite';
+import { analyzer } from 'vite-bundle-analyzer';
+
+const plugins: PluginOption[] = [react(), tailwindcss()];
+
+if (process.env.BUNDLE_ANALYZE) plugins.push(analyzer());
 
 export default defineConfig({
   define: {
@@ -13,7 +18,7 @@ export default defineConfig({
   esbuild: {
     target: 'es2022',
   },
-  plugins: [react(), tailwindcss()],
+  plugins,
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
