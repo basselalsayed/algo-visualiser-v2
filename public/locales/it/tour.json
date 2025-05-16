@@ -1,0 +1,56 @@
+{
+  "description": "Questo progetto mostra come funzionano i diversi algoritmi di ricerca del percorso. È costruito con React, TypeScript, Shadcdn e Zustand",
+  "complete": "Grazie per aver completato il tour! Buon divertimento!",
+  "steps": {
+    "intro": {
+      "header": "Benvenuto nel Visualizzatore di Algoritmi!",
+      "content": "Seleziona una lingua"
+    },
+    "tourConfirm": {
+      "header": "Vuoi fare un breve tour?",
+      "content": "Il tour può essere riavviato in qualsiasi momento dal menu di ricerca rapida"
+    },
+    "grid": {
+      "header": "Questa è la griglia",
+      "content": "È composta da nodi quadrati."
+    },
+    "node": {
+      "header": "Questo è un nodo",
+      "content": "Può essere un punto di partenza, un punto di arrivo o un muro."
+    },
+    "maze": {
+      "header": "Clicca sul pulsante labirinto per generare un labirinto con divisione ricorsiva"
+    },
+    "startNode": {
+      "header": "Clicca su un nodo vuoto per impostare un punto di partenza"
+    },
+    "endNode": {
+      "header": "Clicca su un nodo vuoto per impostare un punto di arrivo"
+    },
+    "algoChange": {
+      "header": "Seleziona un altro algoritmo qui"
+    },
+    "settings": {
+      "header": "Modifica le impostazioni opzionali qui"
+    },
+    "search": {
+      "header": "Esplora altre opzioni qui"
+    },
+    "run": {
+      "header": "Clicca sul pulsante esegui per visualizzare il percorso più breve"
+    },
+    "run2": {
+      "header": "Clicca sul pulsante esegui per confrontare con l'algoritmo precedente"
+    },
+    "pinch": {
+      "header": "Esegui uno zoom per aggiornare la dimensione del nodo"
+    },
+    "kbd": {
+      "header": "Abilita la navigazione con tastiera nella griglia con CMD+Shift+G",
+      "content": "O Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Clicca per resettare la griglia"
+    }
+  }
+}

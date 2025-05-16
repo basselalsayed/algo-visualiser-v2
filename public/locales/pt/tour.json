@@ -1,0 +1,56 @@
+{
+  "description": "Este projeto mostra como funcionam vários algoritmos de busca de caminho. Foi feito com React, TypeScript, Shadcdn e Zustand",
+  "complete": "Obrigado por concluir o tour! Aproveite!",
+  "steps": {
+    "intro": {
+      "header": "Bem-vindo ao Visualizador de Algoritmos!",
+      "content": "Selecione um idioma"
+    },
+    "tourConfirm": {
+      "header": "Gostaria de fazer um breve tour?",
+      "content": "O tour pode ser reiniciado a qualquer momento pelo menu de pesquisa rápida"
+    },
+    "grid": {
+      "header": "Esta é a grade",
+      "content": "Ela é composta por nós quadrados."
+    },
+    "node": {
+      "header": "Este é um nó",
+      "content": "Ele pode ser um ponto de partida, ponto final ou uma parede."
+    },
+    "maze": {
+      "header": "Clique no botão labirinto para gerar um labirinto de divisão recursiva"
+    },
+    "startNode": {
+      "header": "Clique em qualquer nó vazio para definir o ponto de partida"
+    },
+    "endNode": {
+      "header": "Clique em qualquer nó vazio para definir o ponto final"
+    },
+    "algoChange": {
+      "header": "Selecione outro algoritmo aqui"
+    },
+    "settings": {
+      "header": "Altere as configurações aqui, se desejar"
+    },
+    "search": {
+      "header": "Explore mais opções aqui"
+    },
+    "run": {
+      "header": "Clique no botão de execução para visualizar o caminho mais curto"
+    },
+    "run2": {
+      "header": "Clique no botão de execução para comparar com o algoritmo anterior"
+    },
+    "pinch": {
+      "header": "Aperte para ampliar e atualizar o tamanho do nó"
+    },
+    "kbd": {
+      "header": "Habilite a navegação por teclado da grade com CMD+Shift+G",
+      "content": "Ou Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Clique para redefinir a grade"
+    }
+  }
+}

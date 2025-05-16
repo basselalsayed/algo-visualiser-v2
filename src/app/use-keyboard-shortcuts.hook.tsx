@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { match } from 'ts-pattern';
 import { useEventCallback, useEventListener } from 'usehooks-ts';
 
-import { KeyboardControls } from '@/components/grid/keyboard-controls.component';
+import { KeyboardControls } from '@/components';
 import { useDimensions } from '@/hooks';
 import {
   EDIT_ALGORITHM,

@@ -41,7 +41,8 @@
     "gridWidth": "Rasterbreite",
     "nodeSize": "Knotengröße",
     "performance": "Leistungsmodus",
-    "performanceCheck": "Diese Größe wird nur für schnellere Geräte empfohlen. Bist du sicher?",
+    "performanceCheck": "Diese Größe wird nur für schnellere Geräte empfohlen",
+    "performanceCheckTitle": "Bist du sicher?",
     "reset": "Zurücksetzen",
     "title": "Einstellungen"
   },

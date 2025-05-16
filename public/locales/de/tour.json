@@ -1,0 +1,56 @@
+{
+  "description": "Dieses Projekt zeigt, wie verschiedene Pfadfindungsalgorithmen funktionieren. Es wurde mit React, TypeScript, Shadcdn und Zustand erstellt.",
+  "complete": "Danke für das Abschließen der Tour! Viel Spaß!",
+  "steps": {
+    "intro": {
+      "header": "Willkommen beim Algorithmus-Visualizer!",
+      "content": "Bitte wählen Sie eine Sprache aus"
+    },
+    "tourConfirm": {
+      "header": "Möchten Sie eine kurze Tour machen?",
+      "content": "Die Tour kann jederzeit über das Schnellmenü neu gestartet werden"
+    },
+    "grid": {
+      "header": "Das ist das Gitter",
+      "content": "Es besteht aus quadratischen Knoten."
+    },
+    "node": {
+      "header": "Das ist ein Knoten",
+      "content": "Er kann ein Startpunkt, Endpunkt oder eine Wand sein."
+    },
+    "maze": {
+      "header": "Klicken Sie auf die Labyrinth-Schaltfläche, um ein rekursives Teilungslabyrinth zu generieren"
+    },
+    "startNode": {
+      "header": "Klicken Sie auf einen leeren Knoten, um einen Startpunkt festzulegen"
+    },
+    "endNode": {
+      "header": "Klicken Sie auf einen leeren Knoten, um einen Endpunkt festzulegen"
+    },
+    "algoChange": {
+      "header": "Wählen Sie hier einen anderen Algorithmus aus"
+    },
+    "settings": {
+      "header": "Ändern Sie hier optional die Einstellungen"
+    },
+    "search": {
+      "header": "Entdecken Sie hier weitere Optionen"
+    },
+    "run": {
+      "header": "Klicken Sie auf die Schaltfläche 'Ausführen', um den kürzesten Pfad zu visualisieren"
+    },
+    "run2": {
+      "header": "Klicken Sie auf die Schaltfläche 'Ausführen', um mit dem vorherigen Algorithmus zu vergleichen"
+    },
+    "pinch": {
+      "header": "Zum Zoomen und Aktualisieren der Knotengröße zusammenziehen"
+    },
+    "kbd": {
+      "header": "Aktivieren Sie die Tastaturnavigation des Gitters mit CMD+Shift+G",
+      "content": "Oder Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Klicken Sie, um das Gitter zurückzusetzen"
+    }
+  }
+}

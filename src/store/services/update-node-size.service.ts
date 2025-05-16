@@ -1,12 +1,12 @@
 import { clamp } from 'lodash-es';
 
-import { useSettings } from '@/store';
-
 import {
   MAX_NODE_SIZE,
   MIN_NODE_SIZE,
   PERFORMANCE_NODE_SIZE_THRESHOLD,
-} from './constants';
+} from '@/lib';
+
+import { useSettings } from '../use-settings.hook';
 
 export function updateNodeSize(value: number) {
   const { dispatch, nodeSize, performanceMode, performanceModeDialogOpen } =

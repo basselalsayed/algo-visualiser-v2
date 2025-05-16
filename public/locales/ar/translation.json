@@ -41,7 +41,8 @@
     "gridWidth": "عرض الشبكة",
     "nodeSize": "حجم العقدة",
     "performance": "وضع الأداء",
-    "performanceCheck": "هذا الحجم موصى به فقط للأجهزة الأسرع، هل أنت متأكد؟",
+    "performanceCheck": "هذا الحجم موصى به فقط للأجهزة السريعة",
+    "performanceCheckTitle": "هل أنت متأكد؟",
     "reset": "إعادة تعيين",
     "title": "الإعدادات"
   },

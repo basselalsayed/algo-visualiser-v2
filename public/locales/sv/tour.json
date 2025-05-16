@@ -1,0 +1,56 @@
+{
+  "description": "Detta projekt visar hur olika vägfindningsalgoritmer fungerar. Det är byggt med React, TypeScript, Shadcdn och Zustand",
+  "complete": "Tack för att du slutförde turen! Njut!",
+  "steps": {
+    "intro": {
+      "header": "Välkommen till Algoritmvisualiseraren!",
+      "content": "Vänligen välj ett språk"
+    },
+    "tourConfirm": {
+      "header": "Vill du ta en kort tur?",
+      "content": "Turen kan startas om när som helst via snabb sökning"
+    },
+    "grid": {
+      "header": "Detta är rutnätet",
+      "content": "Det består av fyrkantiga noder."
+    },
+    "node": {
+      "header": "Detta är en nod",
+      "content": "Det kan vara en startpunkt, en slutpunkt eller en vägg."
+    },
+    "maze": {
+      "header": "Klicka på labyrintknappen för att skapa en labyrint med rekursiv uppdelning"
+    },
+    "startNode": {
+      "header": "Klicka på en tom nod för att ställa in en startpunkt"
+    },
+    "endNode": {
+      "header": "Klicka på en tom nod för att ställa in en slutpunkt"
+    },
+    "algoChange": {
+      "header": "Välj en annan algoritm här"
+    },
+    "settings": {
+      "header": "Ändra inställningar här om du vill"
+    },
+    "search": {
+      "header": "Utforska fler alternativ här"
+    },
+    "run": {
+      "header": "Klicka på körknappen för att visualisera den kortaste vägen"
+    },
+    "run2": {
+      "header": "Klicka på körknappen för att jämföra med föregående algoritm"
+    },
+    "pinch": {
+      "header": "Nyp för att zooma och uppdatera nodstorleken"
+    },
+    "kbd": {
+      "header": "Aktivera tangentbordnavigering i rutnätet med CMD+Shift+G",
+      "content": "Eller Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Klicka för att återställa rutnätet"
+    }
+  }
+}

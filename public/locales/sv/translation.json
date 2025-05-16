@@ -41,7 +41,8 @@
     "gridWidth": "Rutnätsbredd",
     "nodeSize": "Nodstorlek",
     "performance": "Prestandaläge",
-    "performanceCheck": "Denna storlek rekommenderas endast för snabbare enheter, är du säker?",
+    "performanceCheck": "Denna storlek rekommenderas endast för snabbare enheter",
+    "performanceCheckTitle": "Är du säker?",
     "reset": "Återställ",
     "title": "Inställningar"
   },

@@ -41,7 +41,8 @@
     "gridWidth": "Šířka mřížky",
     "nodeSize": "Velikost uzlu",
     "performance": "Režim výkonu",
-    "performanceCheck": "Tato velikost je doporučena pouze pro rychlejší zařízení, jste si jistí?",
+    "performanceCheck": "Tato velikost je doporučena pouze pro rychlá zařízení",
+    "performanceCheckTitle": "Jste si jistý?",
     "reset": "Obnovit",
     "title": "Nastavení"
   },

@@ -1,0 +1,56 @@
+{
+  "description": "Ten projekt pokazuje, jak działają różne algorytmy wyszukiwania ścieżek. Został stworzony za pomocą React, TypeScript, Shadcdn i Zustand",
+  "complete": "Dziękujemy za ukończenie wycieczki! Miłej zabawy!",
+  "steps": {
+    "intro": {
+      "header": "Witaj w Wizualizerze Algorytmów!",
+      "content": "Wybierz język"
+    },
+    "tourConfirm": {
+      "header": "Czy chciałbyś odbyć krótką wycieczkę?",
+      "content": "Wycieczkę można wznowić w każdej chwili z menu szybkiego wyszukiwania"
+    },
+    "grid": {
+      "header": "To jest siatka",
+      "content": "Składa się z kwadratowych węzłów."
+    },
+    "node": {
+      "header": "To jest węzeł",
+      "content": "Może to być punkt początkowy, punkt końcowy lub ściana."
+    },
+    "maze": {
+      "header": "Kliknij przycisk labiryntu, aby wygenerować labirynt z podziałem rekurencyjnym"
+    },
+    "startNode": {
+      "header": "Kliknij dowolny pusty węzeł, aby ustawić punkt początkowy"
+    },
+    "endNode": {
+      "header": "Kliknij dowolny pusty węzeł, aby ustawić punkt końcowy"
+    },
+    "algoChange": {
+      "header": "Wybierz tutaj inny algorytm"
+    },
+    "settings": {
+      "header": "Opcjonalnie zmień ustawienia tutaj"
+    },
+    "search": {
+      "header": "Zbadaj więcej opcji tutaj"
+    },
+    "run": {
+      "header": "Kliknij przycisk uruchamiania, aby zwizualizować najkrótszą ścieżkę"
+    },
+    "run2": {
+      "header": "Kliknij przycisk uruchamiania, aby porównać z poprzednim algorytmem"
+    },
+    "pinch": {
+      "header": "Zgnij, aby powiększyć i zaktualizować rozmiar węzła"
+    },
+    "kbd": {
+      "header": "Włącz nawigację klawiaturą po siatce za pomocą CMD+Shift+G",
+      "content": "Lub Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Kliknij, aby zresetować siatkę"
+    }
+  }
+}

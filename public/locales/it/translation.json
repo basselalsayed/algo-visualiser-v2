@@ -41,7 +41,8 @@
     "gridWidth": "Larghezza griglia",
     "nodeSize": "Dimensione nodo",
     "performance": "Modalità prestazioni",
-    "performanceCheck": "Questa dimensione è consigliata solo per dispositivi più veloci, sei sicuro?",
+    "performanceCheck": "Questa dimensione è consigliata solo per dispositivi veloci",
+    "performanceCheckTitle": "Sei sicuro?",
     "reset": "Reimposta",
     "title": "Impostazioni"
   },

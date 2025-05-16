@@ -1,0 +1,56 @@
+{
+  "description": "이 프로젝트는 다양한 경로 탐색 알고리즘이 작동하는 방식을 보여줍니다. React, TypeScript, Shadcdn, Zustand로 제작되었습니다",
+  "complete": "투어를 완료해 주셔서 감사합니다! 즐기세요!",
+  "steps": {
+    "intro": {
+      "header": "알고리즘 시각화 도구에 오신 것을 환영합니다!",
+      "content": "언어를 선택해 주세요"
+    },
+    "tourConfirm": {
+      "header": "간단한 투어를 진행하시겠습니까?",
+      "content": "퀵 서치 메뉴를 통해 언제든지 다시 시작할 수 있습니다"
+    },
+    "grid": {
+      "header": "이것이 그리드입니다",
+      "content": "정사각형 노드들로 구성되어 있습니다."
+    },
+    "node": {
+      "header": "이것은 노드입니다",
+      "content": "시작점, 종료점 또는 벽이 될 수 있습니다."
+    },
+    "maze": {
+      "header": "재귀 분할 미로를 생성하려면 미로 버튼을 클릭하세요"
+    },
+    "startNode": {
+      "header": "빈 노드를 클릭하여 시작점을 설정하세요"
+    },
+    "endNode": {
+      "header": "빈 노드를 클릭하여 종료점을 설정하세요"
+    },
+    "algoChange": {
+      "header": "여기에서 다른 알고리즘을 선택하세요"
+    },
+    "settings": {
+      "header": "여기에서 설정을 변경할 수 있습니다"
+    },
+    "search": {
+      "header": "여기에서 더 많은 옵션을 탐색하세요"
+    },
+    "run": {
+      "header": "실행 버튼을 클릭하여 최단 경로를 시각화하세요"
+    },
+    "run2": {
+      "header": "실행 버튼을 클릭하여 이전 알고리즘과 비교하세요"
+    },
+    "pinch": {
+      "header": "노드 크기를 업데이트하려면 확대/축소하세요"
+    },
+    "kbd": {
+      "header": "CMD+Shift+G로 그리드 키보드 탐색 활성화",
+      "content": "또는 Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "클릭하여 그리드를 초기화하세요"
+    }
+  }
+}

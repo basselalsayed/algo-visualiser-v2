@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { match } from 'ts-pattern';
 import { create } from 'zustand';
-import { useShallow } from 'zustand/react/shallow';
 
 import {
   type IPathFindingAlgorithm,
@@ -13,6 +12,7 @@ import { useTour } from '@/contexts';
 import { useMutation } from '@/data';
 import { MazeRunState, RunState, emitCustomEvent, noOp } from '@/lib';
 
+import { createSelectors } from './create-selectors.functoin';
 import { type DispatchFunction } from './types';
 import { useGrid } from './use-grid.hook';
 import { useSettings } from './use-settings.hook';
@@ -25,12 +25,14 @@ interface RunStore {
   runState: RunState;
 }
 
-export const useRunStore = create<RunStore>((set) => ({
-  algoInstance: undefined,
-  dispatch: (key, value) => set((state) => ({ ...state, [key]: value })),
-  mazeRunState: MazeRunState.idle,
-  runState: RunState.idle,
-}));
+export const useRunStore = createSelectors(
+  create<RunStore>((set) => ({
+    algoInstance: undefined,
+    dispatch: (key, value) => set((state) => ({ ...state, [key]: value })),
+    mazeRunState: MazeRunState.idle,
+    runState: RunState.idle,
+  }))
+);
 
 interface useRunReturn {
   algoRunning: boolean;
@@ -49,20 +51,22 @@ export const useRun = (): useRunReturn => {
 
   const { refsMap, resetGrid, resetWalls } = useGrid();
 
-  const animationSpeed = useSettings((settings) => settings.animationSpeed);
+  const animationSpeed = useSettings.use.animationSpeed();
 
   const trigger = useMutation({ tableName: 'algo_result' });
 
   const { tour } = useTour();
 
   const onRunComplete = useCallback(
-    (result: RuntimeInfo) => {
+    (result?: RuntimeInfo) => {
       const { addResult } = useStats.getState();
       const { dispatch } = useRunStore.getState();
       dispatch('runState', RunState.done);
       emitCustomEvent('runComplete');
-      trigger([result]).catch(noOp);
-      void addResult(result, !tour.isActive());
+      if (result) {
+        trigger([result]).catch(noOp);
+        void addResult(result, !tour.isActive());
+      }
     },
     [tour, trigger]
   );
@@ -84,8 +88,7 @@ export const useRun = (): useRunReturn => {
       })
       .with(RunState.done, async () => {
         dispatch('runState', RunState.running);
-        algoInstance?.reset();
-        await ShortestPath.reverse(algoInstance!.name);
+        await algoInstance?.reset();
         void algoInstance?.run(onRunCompleteReplay);
       });
   }, [algoInstance, dispatch, onRunComplete, onRunCompleteReplay, runState]);
@@ -139,19 +142,15 @@ export const useRun = (): useRunReturn => {
   };
 };
 
-interface isRunningReturn
+export interface isRunningReturn
   extends Pick<useRunReturn, 'algoRunning' | 'mazeRunning'> {
   anyRunning: boolean;
   idle: boolean;
 }
 
 export const useIsRunning = (): isRunningReturn => {
-  const { mazeRunState, runState } = useRunStore(
-    useShallow(({ mazeRunState, runState }) => ({
-      mazeRunState,
-      runState,
-    }))
-  );
+  const mazeRunState = useRunStore.use.mazeRunState();
+  const runState = useRunStore.use.runState();
 
   return {
     algoRunning: runState === RunState.running,
@@ -162,16 +161,3 @@ export const useIsRunning = (): isRunningReturn => {
     mazeRunning: mazeRunState === MazeRunState.running,
   };
 };
-
-export function isRunningService(): isRunningReturn {
-  const { mazeRunState, runState } = useRunStore.getState();
-
-  return {
-    algoRunning: runState === RunState.running,
-    anyRunning:
-      runState === RunState.running || mazeRunState === MazeRunState.running,
-    idle:
-      runState !== RunState.running && mazeRunState !== MazeRunState.running,
-    mazeRunning: mazeRunState === MazeRunState.running,
-  };
-}

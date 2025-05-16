@@ -41,7 +41,8 @@
     "gridWidth": "Ancho de cuadrícula",
     "nodeSize": "Tamaño de nodo",
     "performance": "Modo rendimiento",
-    "performanceCheck": "Este tamaño solo se recomienda para dispositivos más rápidos, ¿estás seguro?",
+    "performanceCheck": "Este tamaño solo se recomienda para dispositivos rápidos",
+    "performanceCheckTitle": "¿Estás seguro?",
     "reset": "Restablecer",
     "title": "Configuración"
   },

@@ -12,7 +12,6 @@ import {
 import { type ComponentProps, type FC, type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
-import { useShallow } from 'zustand/react/shallow';
 
 import { CommandItem, CommandShortcut } from '@/components/ui/command';
 import { useTour } from '@/contexts';
@@ -37,7 +36,7 @@ export const CommandKItem: FC<Props> = ({
   tKey,
   ...props
 }) => {
-  const dispatch = useCommand((state) => state.dispatch);
+  const dispatch = useCommand.use.dispatch();
 
   const { t } = useTranslation();
 
@@ -140,10 +139,8 @@ export const DarkModeCommandItem: FC = () => {
 };
 
 export const WallModeCommandItem: FC = () => {
-  const { dispatch, wallMode } = useGrid(
-    useShallow(({ dispatch, wallMode }) => ({ dispatch, wallMode }))
-  );
-
+  const wallMode = useGrid.use.wallMode();
+  const dispatch = useGrid.use.dispatch();
   return (
     <CommandKItem
       icon={<Fence />}
@@ -177,7 +174,7 @@ function randomiseWalls(refsMap: NodeMap) {
 }
 
 export const RandomiseWallsCommandItem: FC = () => {
-  const { refsMap } = useGrid();
+  const refsMap = useGrid.use.refsMap();
 
   return (
     <CommandKItem

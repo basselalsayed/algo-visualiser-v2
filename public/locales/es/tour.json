@@ -1,0 +1,56 @@
+{
+  "description": "Este proyecto muestra cómo funcionan varios algoritmos de búsqueda de caminos. Está construido con React, TypeScript, Shadcdn y Zustand",
+  "complete": "¡Gracias por completar el recorrido! ¡Disfrútalo!",
+  "steps": {
+    "intro": {
+      "header": "¡Bienvenido al Visualizador de Algoritmos!",
+      "content": "Por favor selecciona un idioma"
+    },
+    "tourConfirm": {
+      "header": "¿Te gustaría hacer un recorrido breve?",
+      "content": "El recorrido puede reiniciarse en cualquier momento desde el menú de búsqueda rápida"
+    },
+    "grid": {
+      "header": "Esta es la cuadrícula",
+      "content": "Está compuesta por nodos cuadrados."
+    },
+    "node": {
+      "header": "Este es un nodo",
+      "content": "Puede ser un punto de inicio, de fin o una pared."
+    },
+    "maze": {
+      "header": "Haz clic en el botón de laberinto para generar un laberinto de división recursiva"
+    },
+    "startNode": {
+      "header": "Haz clic en cualquier nodo en blanco para establecer un punto de inicio"
+    },
+    "endNode": {
+      "header": "Haz clic en cualquier nodo en blanco para establecer un punto de finalización"
+    },
+    "algoChange": {
+      "header": "Selecciona otro algoritmo aquí"
+    },
+    "settings": {
+      "header": "Opcionalmente cambia la configuración aquí"
+    },
+    "search": {
+      "header": "Explora más opciones aquí"
+    },
+    "run": {
+      "header": "Haz clic en el botón ejecutar para visualizar el camino más corto"
+    },
+    "run2": {
+      "header": "Haz clic en el botón ejecutar para comparar con el algoritmo anterior"
+    },
+    "pinch": {
+      "header": "Pellizca para acercar o alejar y actualizar el tamaño del nodo"
+    },
+    "kbd": {
+      "header": "Habilita la navegación con teclado de la cuadrícula con CMD+Shift+G",
+      "content": "O Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Haz clic para reiniciar la cuadrícula"
+    }
+  }
+}

@@ -41,7 +41,8 @@
     "gridWidth": "网格宽度",
     "nodeSize": "节点大小",
     "performance": "性能模式",
-    "performanceCheck": "此尺寸仅推荐用于更快的设备，确定吗？",
+    "performanceCheck": "此尺寸仅推荐用于性能较好的设备",
+    "performanceCheckTitle": "你确定吗？",
     "reset": "重置",
     "title": "设置"
   },

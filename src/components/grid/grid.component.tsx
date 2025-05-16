@@ -1,38 +1,23 @@
 import { memo, useCallback, useEffect, useRef } from 'react';
-import { match } from 'ts-pattern';
-import { useShallow } from 'zustand/react/shallow';
 
 import { useDimensions, useEventListener, useResizeObserver } from '@/hooks';
-import { HTML_IDS, NodeType, cn } from '@/lib';
-import { isRunningService, useGrid, useSettings } from '@/store';
+import { HTML_IDS, cn } from '@/lib';
+import { isRunning, updateNodeSize, useGrid, useSettings } from '@/store';
 
-import {
-  NODE_SIZE_STEP,
-  PERFORMANCE_NODE_SIZE_THRESHOLD,
-} from '../core/settings-form/constants';
-import { updateNodeSize } from '../core/settings-form/utils';
-
-import { Node } from './node.component';
-import { getDistance, handleNodeClick } from './util';
+import { Node } from './components/node.component';
+import { PointerEventService } from './pointer-events-service';
+import { handleNodeClick } from './util';
 
 export const Grid = memo(() => {
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const { nodeSize, settingsDispatch } = useSettings(
-    useShallow(({ dispatch, nodeSize }) => ({
-      nodeSize,
-      settingsDispatch: dispatch,
-    }))
-  );
+  const nodeSize = useSettings.use.nodeSize();
+  const settingsDispatch = useSettings.use.dispatch();
 
-  const { addRef, dispatch, refreshKey, resetGrid } = useGrid(
-    useShallow(({ addRef, dispatch, refreshKey, resetGrid }) => ({
-      addRef,
-      dispatch,
-      refreshKey,
-      resetGrid,
-    }))
-  );
+  const addRef = useGrid.use.addRef();
+  const dispatch = useGrid.use.dispatch();
+  const refreshKey = useGrid.use.refreshKey();
+  const resetGrid = useGrid.use.resetGrid();
 
   const { height = 0, width = 0 } = useResizeObserver({
     ref: gridRef,
@@ -53,32 +38,18 @@ export const Grid = memo(() => {
 
   const { columnCount, rowCount } = useDimensions();
 
-  const pointersRef = useRef<PointerEvent[]>([]);
-  const initialPinchDistanceRef = useRef<number>(0);
+  const pointerService = useRef(new PointerEventService());
 
   const onPointerDown = useCallback(
     (e: PointerEvent) => {
-      const { wallMode } = useGrid.getState();
-      if (wallMode) {
-        dispatch('pointerDown', true);
-        const node = e.target as HTMLDivElement | undefined;
+      if (isRunning().idle) {
+        const { wallMode } = useGrid.getState();
 
-        if (node?.hasPointerCapture(e.pointerId)) {
-          node.releasePointerCapture(e.pointerId);
-        }
-      } else {
-        const { idle } = isRunningService();
-
-        if (idle) {
-          const pointers = pointersRef.current;
-
-          pointers.push(e);
-          if (pointers.length === 2) {
-            initialPinchDistanceRef.current = getDistance(
-              pointers[0],
-              pointers[1]
-            );
-          }
+        if (wallMode) {
+          dispatch('pointerDown', true);
+          pointerService.current.handleWallPointerDown(e);
+        } else {
+          pointerService.current.handleZoomPointerDown(e);
         }
       }
     },
@@ -87,59 +58,22 @@ export const Grid = memo(() => {
 
   useEventListener('pointerdown', onPointerDown, gridRef);
 
-  const toggledRecentlyRef = useRef(new Set<string>());
-
   const onPointerMove = useCallback((e: PointerEvent) => {
-    const { wallMode } = useGrid.getState();
-
-    if (wallMode) {
-      const node = e.target as HTMLDivElement;
+    if (isRunning().idle) {
       const { pointerDown, wallMode } = useGrid.getState();
 
-      if (!pointerDown || !wallMode || !node) return;
+      if (wallMode && pointerDown) {
+        return pointerService.current.handleWallPointerMove(e);
+      }
 
-      const { type, xIndex, yIndex } = node.dataset;
-      const key = String([xIndex, yIndex]);
-      const toggledRecently = toggledRecentlyRef.current;
-
-      if (toggledRecently.has(key)) return;
-
-      toggledRecently.add(key);
-      setTimeout(() => toggledRecently.delete(key), 300);
-
-      node.dataset.type = match(type as NodeType)
-        .with(NodeType.wall, () => NodeType.none)
-        .with(NodeType.none, () => NodeType.wall)
-        .otherwise(() => type);
-    } else {
       const { nodeSize, performanceMode } = useSettings.getState();
 
-      const pointers = pointersRef.current;
-      const initialDistance = initialPinchDistanceRef.current;
-
-      const index = pointers.findIndex((p) => p.pointerId === e.pointerId);
-      if (index !== -1) pointers[index] = e;
-
-      if (pointers.length === 2) {
-        const currentDistance = getDistance(pointers[0], pointers[1]);
-        const delta = currentDistance - initialDistance;
-
-        if (Math.abs(delta) > 10) {
-          const sizeChange = delta > 0 ? NODE_SIZE_STEP : -NODE_SIZE_STEP;
-          const newSize = nodeSize + sizeChange;
-
-          if (
-            sizeChange < 0 &&
-            newSize <= PERFORMANCE_NODE_SIZE_THRESHOLD &&
-            !performanceMode
-          ) {
-            pointersRef.current = [];
-          }
-
-          updateNodeSize(newSize);
-          initialPinchDistanceRef.current = currentDistance;
-        }
-      }
+      return pointerService.current.handleZoomPointerMove(
+        e,
+        nodeSize,
+        performanceMode,
+        updateNodeSize
+      );
     }
   }, []);
 
@@ -147,11 +81,8 @@ export const Grid = memo(() => {
 
   const onPointerUpOrCancel = useCallback(
     (e: PointerEvent) => {
-      toggledRecentlyRef.current.clear();
       dispatch('pointerDown', false);
-      pointersRef.current = pointersRef.current.filter(
-        (p) => p.pointerId !== e.pointerId
-      );
+      pointerService.current.handlePointerUpOrCancel(e);
     },
     [dispatch]
   );

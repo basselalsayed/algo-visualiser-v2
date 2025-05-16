@@ -41,7 +41,8 @@
     "gridWidth": "Largeur de la grille",
     "nodeSize": "Taille du nœud",
     "performance": "Mode performance",
-    "performanceCheck": "Cette taille est recommandée uniquement pour les appareils plus rapides, êtes-vous sûr ?",
+    "performanceCheck": "Cette taille est recommandée uniquement pour les appareils rapides",
+    "performanceCheckTitle": "Êtes-vous sûr ?",
     "reset": "Réinitialiser",
     "title": "Paramètres"
   },

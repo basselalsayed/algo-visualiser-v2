@@ -1,0 +1,56 @@
+{
+  "description": "Bu proje, çeşitli yol bulma algoritmalarının nasıl çalıştığını gösterir. React, TypeScript, Shadcdn ve Zustand ile oluşturulmuştur",
+  "complete": "Turu tamamladığınız için teşekkürler! Keyfini çıkarın!",
+  "steps": {
+    "intro": {
+      "header": "Algoritma Görselleştiriciye Hoş Geldiniz!",
+      "content": "Lütfen bir dil seçin"
+    },
+    "tourConfirm": {
+      "header": "Kısa bir tur yapmak ister misiniz?",
+      "content": "Tur, hızlı arama menüsünden her zaman yeniden başlatılabilir"
+    },
+    "grid": {
+      "header": "Bu, ızgara",
+      "content": "Kare düğümlerden oluşur."
+    },
+    "node": {
+      "header": "Bu bir düğümdür",
+      "content": "Başlangıç noktası, bitiş noktası veya bir duvar olabilir."
+    },
+    "maze": {
+      "header": "Bir rekürsif bölme labirenti oluşturmak için labirent düğmesine tıklayın"
+    },
+    "startNode": {
+      "header": "Başlangıç noktası koymak için herhangi bir boş düğüme tıklayın"
+    },
+    "endNode": {
+      "header": "Bitiş noktası koymak için herhangi bir boş düğüme tıklayın"
+    },
+    "algoChange": {
+      "header": "Buradan başka bir algoritma seçin"
+    },
+    "settings": {
+      "header": "Buradan ayarları isteğe bağlı olarak değiştirebilirsiniz"
+    },
+    "search": {
+      "header": "Buradan daha fazla seçeneği keşfedin"
+    },
+    "run": {
+      "header": "En kısa yolu görselleştirmek için çalıştırma düğmesine tıklayın"
+    },
+    "run2": {
+      "header": "Önceki algoritma ile karşılaştırmak için çalıştırma düğmesine tıklayın"
+    },
+    "pinch": {
+      "header": "Düğüm boyutunu güncellemek için yakınlaştırın"
+    },
+    "kbd": {
+      "header": "CMD+Shift+G ile ızgarada klavye navigasyonunu etkinleştirin",
+      "content": "Veya Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Izgarayı sıfırlamak için tıklayın"
+    }
+  }
+}

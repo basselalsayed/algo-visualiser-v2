@@ -122,11 +122,10 @@ export class Node extends PureComponent<Props, State> implements INode {
   }
   setVisited(visited: boolean) {
     this._visited = visited;
-    if (this.isWall) {
-      this.domNode?.toggleAttribute('data-visited-wall', visited);
-    } else {
-      this.domNode?.toggleAttribute('data-visited', visited);
-    }
+    this.domNode?.toggleAttribute(
+      this.isWall ? 'data-visited-wall' : 'data-visited',
+      visited
+    );
   }
 
   reset(this: this, resetType: boolean | NodeType[]) {
@@ -234,7 +233,7 @@ export class Node extends PureComponent<Props, State> implements INode {
         data-y-index={yIndex}
         className={cn(
           // general
-          'bg-radial from-transparent to-transparent transition-node duration-700 [will-change:transform,backdrop-filter,--border-width,border-width]',
+          'bg-radial from-transparent to-transparent transition-node [will-change:transform,backdrop-filter,--border-width,border-width]',
           // border
           'border-t-(length:--border-width) border-l-(length:--border-width) border-background [--border-width:1px] last:border-b-(length:--border-width)',
           isLastColumn && 'border-r-(length:--border-width)',

@@ -1,0 +1,56 @@
+{
+  "description": "Tento projekt ukazuje, jak fungují různé algoritmy pro hledání cesty. Je postaven pomocí Reactu, TypeScriptu, Shadcdn a Zustandu.",
+  "complete": "Děkujeme za absolvování prohlídky! Užijte si to!",
+  "steps": {
+    "intro": {
+      "header": "Vítejte ve vizualizátoru algoritmů!",
+      "content": "Prosím, vyberte jazyk"
+    },
+    "tourConfirm": {
+      "header": "Chcete si projít krátkou prohlídku?",
+      "content": "Prohlídku lze kdykoli znovu spustit pomocí nabídky rychlého hledání"
+    },
+    "grid": {
+      "header": "Toto je mřížka",
+      "content": "Skládá se ze čtvercových uzlů."
+    },
+    "node": {
+      "header": "Toto je uzel",
+      "content": "Může být výchozím bodem, cílovým bodem nebo zdí."
+    },
+    "maze": {
+      "header": "Kliknutím na tlačítko labyrintu vygenerujete labyrint pomocí rekurzivního dělení"
+    },
+    "startNode": {
+      "header": "Klikněte na libovolný prázdný uzel pro nastavení výchozího bodu"
+    },
+    "endNode": {
+      "header": "Klikněte na libovolný prázdný uzel pro nastavení cílového bodu"
+    },
+    "algoChange": {
+      "header": "Zde vyberte jiný algoritmus"
+    },
+    "settings": {
+      "header": "Volitelně zde změňte nastavení"
+    },
+    "search": {
+      "header": "Prozkoumejte další možnosti zde"
+    },
+    "run": {
+      "header": "Kliknutím na tlačítko Spustit vizualizujete nejkratší cestu"
+    },
+    "run2": {
+      "header": "Kliknutím na tlačítko Spustit porovnáte s předchozím algoritmem"
+    },
+    "pinch": {
+      "header": "Přiblížením aktualizujete velikost uzlu"
+    },
+    "kbd": {
+      "header": "Povolte navigaci po mřížce pomocí klávesnice pomocí CMD+Shift+G",
+      "content": "Nebo Ctrl+Shift+G"
+    },
+    "reset": {
+      "header": "Kliknutím resetujete mřížku"
+    }
+  }
+}
