@@ -37,7 +37,7 @@ export const useHandleAlgoUpdates = () => {
   ]);
 
   useEffect(() => {
-    algoInstance?.reset();
+    void algoInstance?.reset();
   }, [algoInstance, refsMap]);
 
   useEffect(() => {
