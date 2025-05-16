@@ -34,7 +34,8 @@ export const StatsSheet: FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { data, isValidating, loadMore } = useOffsetInfiniteScrollQuery(
-    apiClient.from('algo_result').select().order('id', { ascending: true }),
+    () =>
+      apiClient.from('algo_result').select().order('id', { ascending: true }),
     { pageSize: 25 }
   );
 
