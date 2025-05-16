@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
 import { ShortestPath } from '@/algorithms';
-import { ArrayKeyMap, NodeType } from '@/lib';
+import { ArrayKeyMap, NodeType, noOp } from '@/lib';
 
 import { createSelectors } from './create-selectors.functoin';
 import { type DispatchFunction } from './types';
@@ -44,12 +44,16 @@ export const useGrid = createSelectors(
     refsMap: new ArrayKeyMap<NodeCoordinates, INode>(),
     resetGrid: async (skipAnimations = false) => {
       if (!skipAnimations) {
-        await Promise.all([
-          ...[...get().refsMap.values()].map((node) =>
-            node.animatePresence('out')
-          ),
-          ShortestPath.reset(),
-        ]);
+        await new Promise((resolve) => {
+          requestAnimationFrame(() => {
+            Promise.all([
+              ...[...get().refsMap.values()].map((node) =>
+                node.animatePresence('out')
+              ),
+              ShortestPath.reset(),
+            ]).then(resolve, noOp);
+          });
+        });
       }
 
       return set((state) => ({

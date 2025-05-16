@@ -78,8 +78,8 @@ export class Node extends PureComponent<Props, State> implements INode {
       props: { size },
     } = this;
 
-    const delay = clamp(size * 15, 200, 800);
-    const duration = Duration.randomMillis({ max: 2500, min: 400 }).inMillis;
+    const delay = Duration.randomMillis({ max: 1000, min: 400 }).inMillis;
+    const duration = clamp(size * 15, 200, 600);
 
     const sides = shuffle([
       'borderLeftColor',
@@ -109,8 +109,7 @@ export class Node extends PureComponent<Props, State> implements INode {
         domNode!.animate(
           [
             {
-              '--tw-gradient-from': 'hsl(var(--primary) / 0)',
-              '--tw-gradient-to': 'hsl(var(--primary) / 0)',
+              opacity: 0,
             },
           ],
           {
