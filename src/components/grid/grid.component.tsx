@@ -29,7 +29,7 @@ export const Grid = memo(() => {
     settingsDispatch('maxGridHeight', height);
     settingsDispatch('gridWidth', width);
     settingsDispatch('maxGridWidth', width);
-    void resetGrid();
+    void resetGrid(true);
   }, [settingsDispatch, height, resetGrid, width]);
 
   useEffect(() => {
