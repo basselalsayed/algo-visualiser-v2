@@ -244,7 +244,7 @@ Project Link: [https://github.com/basselalsayed/algo-visualiser-v2](https://gith
 [license-shield]: https://img.shields.io/github/license/basselalsayed/algo-visualiser-v2.svg?style=for-the-badge
 [license-url]: https://github.com/basselalsayed/algo-visualiser-v2/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://www.linkedin.com/in/bsas/
 [product-screenshot]: images/screenshot.png
 [netlify-url]: https://algovi.netlify.app
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
