@@ -181,6 +181,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] CI - github actions
 - [x] Handle touch gestures
 - [x] Replace framer motion with native animations
+- [ ] Update viable algorithms to work diagonally
 
 See the [open issues](https://github.com/basselalsayed/algo-visualiser-v2/issues) for a full list of proposed features (and known issues).
 
