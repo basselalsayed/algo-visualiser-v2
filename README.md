@@ -164,6 +164,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] MVP
   - [x] Salvage algorithms from v1
 - [x] UI design
+  - [x] Responsive
 - [x] Pause visualisation mechanism via generators
 - [x] Store run info locally
   - [x] Store run info in supabase
@@ -172,6 +173,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Guided tour via [shepherd.js](https://www.shepherdjs.dev/)
 - [x] Linting
   - [x] Custom setup to prevent circular dependencies
+- [x] Adjustable animation speed
 - [x] Multiple shortest paths
 - [x] Testing
   - [x] Vitest
