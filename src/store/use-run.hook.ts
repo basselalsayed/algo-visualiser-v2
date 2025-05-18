@@ -6,7 +6,6 @@ import {
   type IPathFindingAlgorithm,
   Maze,
   type RuntimeInfo,
-  ShortestPath,
 } from '@/algorithms';
 import { useTour } from '@/contexts';
 import { useMutation } from '@/data';
@@ -110,10 +109,9 @@ export const useRun = (): useRunReturn => {
 
   const reset = useCallback(() => {
     algoInstance?.pause();
-    resetGrid();
+    void resetGrid();
     dispatch('runState', RunState.idle);
     dispatch('mazeRunState', MazeRunState.idle);
-    ShortestPath.reset();
   }, [algoInstance, dispatch, resetGrid]);
 
   const runMaze = useCallback(() => {

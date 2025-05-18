@@ -225,6 +225,22 @@ exports[`Command UI snapshot > renders CommandDialog correctly 1`] = `
     tabindex="-1"
   >
     <div
+      class="flex flex-col space-y-1.5 text-center sm:text-left sr-only"
+    >
+      <h2
+        class="text-lg leading-none font-semibold tracking-tight"
+        id="radix-«rb»"
+      >
+        Quick search
+      </h2>
+      <p
+        class="text-sm text-muted-foreground"
+        id="radix-«rc»"
+      >
+        Explore more options here
+      </p>
+    </div>
+    <div
       class="bg_grad_accent/10 flex h-full w-full flex-col overflow-hidden rounded-md text-popover-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
       cmdk-root=""
       tabindex="-1"

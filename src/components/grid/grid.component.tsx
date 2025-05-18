@@ -29,11 +29,11 @@ export const Grid = memo(() => {
     settingsDispatch('maxGridHeight', height);
     settingsDispatch('gridWidth', width);
     settingsDispatch('maxGridWidth', width);
-    resetGrid();
+    void resetGrid(true);
   }, [settingsDispatch, height, resetGrid, width]);
 
   useEffect(() => {
-    resetGrid();
+    void resetGrid(true);
   }, [resetGrid, nodeSize]);
 
   const { columnCount, rowCount } = useDimensions();

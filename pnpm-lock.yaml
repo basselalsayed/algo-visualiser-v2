@@ -255,6 +255,9 @@ importers:
       vite:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.82.0)(yaml@2.8.0)
+      vite-bundle-analyzer:
+        specifier: ^0.20.1
+        version: 0.20.2
       vitest:
         specifier: ^3.1.3
         version: 3.1.3(@types/node@22.15.18)(@vitest/browser@3.1.3)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.8.2(@types/node@22.15.18)(typescript@5.8.3))(sass@1.82.0)(yaml@2.8.0)
@@ -3990,6 +3993,10 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  vite-bundle-analyzer@0.20.2:
+    resolution: {integrity: sha512-4rqLYRDaDZs3Una9XJA+jR41rj8yr+Lfoe8huWsHlBToHk/ETRxBMcxiTG/dRqO4K4Dl3S+vqiIqmiI1M6zH1g==}
+    hasBin: true
 
   vite-node@3.1.3:
     resolution: {integrity: sha512-uHV4plJ2IxCl4u1up1FQRrqclylKAogbtBfOTwcuJ28xFi+89PZ57BRh+naIRvH70HPwxy5QHYzg1OrEaC7AbA==}
@@ -8058,6 +8065,8 @@ snapshots:
       react: 19.1.0
 
   vary@1.1.2: {}
+
+  vite-bundle-analyzer@0.20.2: {}
 
   vite-node@3.1.3(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.30.1)(sass@1.82.0)(yaml@2.8.0):
     dependencies:

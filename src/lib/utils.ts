@@ -61,7 +61,7 @@ export function getCSSVariable(
   name: string,
   element: HTMLElement | SVGElement = document.documentElement
 ) {
-  return getComputedStyle(element).getPropertyValue(name);
+  return getComputedStyle(element).getPropertyValue(name).trim();
 }
 
 export function setCSSVariable(

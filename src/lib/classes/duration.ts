@@ -8,6 +8,15 @@ interface ClampParams {
 
 export class Duration {
   static fromMillis = (millis: number) => new Duration({ millis });
+  static randomMillis(clampParams?: ClampParams): Duration {
+    const millis = this.generateRandomWithinClamp(clampParams, 0, 10_000); // default 0–10,000ms
+    return new Duration({ millis });
+  }
+
+  static randomSeconds(clampParams?: ClampParams): Duration {
+    const seconds = this.generateRandomWithinClamp(clampParams, 0, 100); // default 0–100s
+    return new Duration({ millis: seconds * 1000 });
+  }
 
   get inMillis(): number {
     return this._ms;
@@ -52,7 +61,9 @@ export class Duration {
     millis?: number;
     seconds?: number;
   }) {
-    this._ms = __E2E__ ? 0 : seconds * 1000 + millis;
+    const ms = seconds * 1000;
+
+    this._ms = __E2E__ ? 0 : ms + millis;
   }
 
   private static handleClamp = (
@@ -70,6 +81,19 @@ export class Duration {
       .with({ max: P.number }, ({ max }) => clamp(num, max))
       .otherwise(() => num);
   };
+
+  private static generateRandomWithinClamp(
+    clampParams: ClampParams | undefined,
+    defaultMin: number,
+    defaultMax: number
+  ): number {
+    if (__E2E__) return 0;
+
+    const min = clampParams?.min ?? defaultMin;
+    const max = clampParams?.max ?? defaultMax;
+
+    return Math.random() * (max - min) + min;
+  }
 
   private readonly _ms: number;
 }

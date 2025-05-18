@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { type TargetAndTransition, motion } from 'motion/react';
+import { clamp, shuffle } from 'lodash-es';
 import { PureComponent, type RefObject, createRef } from 'react';
 
-import { NodeType, cn, getCSSVariable } from '@/lib';
+import { type AnimationDirection } from '@/@types';
+import { Duration, NodeType, cn, getCSSVariable, noOp } from '@/lib';
 
 interface Props {
   className?: string;
@@ -43,6 +44,8 @@ export class Node extends PureComponent<Props, State> implements INode {
   observer: MutationObserver | undefined;
 
   componentDidMount(): void {
+    this.animatePresence('in').catch(noOp);
+
     this.observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (
@@ -67,6 +70,58 @@ export class Node extends PureComponent<Props, State> implements INode {
 
   componentWillUnmount(): void {
     this.observer?.disconnect();
+  }
+
+  animatePresence(this: this, direction: AnimationDirection) {
+    const {
+      domNode,
+      props: { size },
+    } = this;
+
+    const delay = Duration.randomMillis({ max: 1000, min: 400 }).inMillis;
+    const duration = clamp(size * 15, 200, 600);
+
+    const sides = shuffle([
+      'borderLeftColor',
+      'borderTopColor',
+      'borderRightColor',
+      'borderBottomColor',
+    ]);
+
+    const animations = [
+      ...sides.map((side, index) =>
+        domNode!.animate(
+          [
+            {
+              [side]:
+                direction === 'in' ? 'var(--color-background)' : 'transparent',
+            },
+          ],
+          {
+            delay: delay + index * Math.random() * 100,
+            duration,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+          }
+        )
+      ),
+      direction === 'out' &&
+        domNode!.animate(
+          [
+            {
+              opacity: 0,
+            },
+          ],
+          {
+            delay,
+            duration,
+            easing: 'ease-in-out',
+            fill: 'forwards',
+          }
+        ),
+    ].filter(Boolean);
+
+    return Promise.all(animations.map((a) => a.finished));
   }
 
   private ref: RefObject<HTMLDivElement | null>;
@@ -165,36 +220,60 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.setState({ type: onClick(this) });
   }
 
-  private get shadowOffset(): { x: number; y: number } {
-    const { columnCount, rowCount } = this.props;
+  private animateFocusHover(this: this, direction: AnimationDirection) {
+    const {
+      domNode,
+      isEnd,
+      isStart,
+      props: { columnCount, rowCount },
+      xIndex,
+      yIndex,
+    } = this;
 
-    return {
-      x: 0.4 * (1 - 2 * (this.xIndex / columnCount)),
-      y: 0.4 * (1 - 2 * (this.yIndex / rowCount)),
-    };
-  }
+    const isIn = direction === 'in';
 
-  private get hoverFocusStyles(): TargetAndTransition {
     const colorPrimary = getCSSVariable('--primary');
 
-    const { columnCount, rowCount } = this.props;
-
-    const x = -(1 - 2 * (this.xIndex / columnCount));
-    const y = -(1 - 2 * (this.yIndex / rowCount));
-
-    return {
-      backdropFilter: 'blur(10px)',
-      backgroundColor: `hsl(${colorPrimary} / 0.1)`,
-      boxShadow: `${this.shadowOffset.x}rem ${this.shadowOffset.y}rem 0.5rem 0.2rem var(--color-primary-foreground)`,
-      scale: 1.1,
-      transition: {
-        duration: 0.01,
-        ease: 'easeInOut',
-      },
-      x,
-      y,
-      zIndex: 4,
+    const shadowOffset = {
+      x: 0.4 * (1 - 2 * (xIndex / columnCount)),
+      y: 0.4 * (1 - 2 * (yIndex / rowCount)),
     };
+
+    const position = isIn
+      ? {
+          x: -(1 - 2 * (xIndex / columnCount)),
+          y: -(1 - 2 * (yIndex / rowCount)),
+        }
+      : { x: 0, y: 0 };
+
+    const boxShadow = isIn
+      ? `${shadowOffset.x}rem ${shadowOffset.y}rem 0.5rem 0.2rem var(--color-primary-foreground)`
+      : 'none';
+
+    const scale = isIn ? 1.1 : 1;
+
+    const initialZ = isStart || isEnd ? 2 : 0;
+    const zIndex = isIn ? 4 : initialZ;
+
+    const backdropFilter = isIn ? 'blur(10px)' : 'none';
+    const backgroundColor = isIn ? `hsl(${colorPrimary} / 0.1)` : 'initial';
+
+    domNode!.animate(
+      [
+        {
+          backdropFilter,
+          backgroundColor,
+          boxShadow,
+          transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+          zIndex,
+        },
+      ],
+      {
+        duration: 300,
+        easing: 'ease-in-out',
+        fill: 'forwards',
+      }
+    );
   }
 
   render() {
@@ -202,25 +281,14 @@ export class Node extends PureComponent<Props, State> implements INode {
     const { type } = this.state;
 
     return (
-      <motion.div
+      <div
         id={id}
         tabIndex={-1}
         ref={this.ref}
-        initial={{
-          x: -(xIndex * 100),
-          y: -(yIndex * 100),
-        }}
-        animate={{
-          transition: {
-            duration: 0.1 * (this.xIndex + this.yIndex),
-            ease: 'easeInOut',
-            type: 'spring',
-          },
-          x: 0,
-          y: 0,
-        }}
-        whileHover={this.hoverFocusStyles}
-        whileFocus={this.hoverFocusStyles}
+        onPointerEnter={() => this.animateFocusHover('in')}
+        onPointerLeave={() => this.animateFocusHover('out')}
+        onFocus={() => this.animateFocusHover('in')}
+        onBlur={() => this.animateFocusHover('out')}
         // eslint-disable-next-line @typescript-eslint/unbound-method
         onClick={this.handleClick}
         style={{
@@ -235,7 +303,7 @@ export class Node extends PureComponent<Props, State> implements INode {
           // general
           'bg-radial from-transparent to-transparent transition-node [will-change:transform,backdrop-filter,--border-width,border-width]',
           // border
-          'border-t-(length:--border-width) border-l-(length:--border-width) border-background [--border-width:1px] last:border-b-(length:--border-width)',
+          'border-t-(length:--border-width) border-l-(length:--border-width) border-transparent [--border-width:1px] last:border-b-(length:--border-width)',
           isLastColumn && 'border-r-(length:--border-width)',
           // visited state
           'data-visited:z-2 data-visited:scale-100 data-visited:animate-node-visited data-visited:[--border-width:0px]',
