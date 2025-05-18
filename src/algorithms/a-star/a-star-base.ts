@@ -1,16 +1,18 @@
 import { PathFindingAlgorithm } from '../path-finding-algorithm';
 
 export abstract class AStarBase extends PathFindingAlgorithm {
-  abstract findManhatten(this: this, node: INode, endNode: INode): number;
+  abstract calculateHeuristic(this: this, node: INode, endNode: INode): number;
 
   *traverse(this: this) {
     this.queue = [this.startNode];
 
-    this.startNode.setDistance(0);
-    this.startNode.setManhatten(
-      this.findManhatten(this.startNode, this.endNode)
+    this.startNode.setCostFromStart(0);
+    this.startNode.setEstimatedCostToGoal(
+      this.calculateHeuristic(this.startNode, this.endNode)
     );
-    this.startNode.setHeuristic(AStarBase.findHeuristicTotal(this.startNode));
+    this.startNode.setTotalEstimatedCost(
+      AStarBase.findHeuristicTotal(this.startNode)
+    );
 
     while (this.queue.length > 0) {
       this.sortOpenHeuritsicUnvisited();
@@ -31,19 +33,29 @@ export abstract class AStarBase extends PathFindingAlgorithm {
     return this.visitedNodes.length;
   }
 
+  protected static getPositionDifference(
+    a: INode,
+    b: INode
+  ): [deltaX: number, deltaY: number] {
+    const deltaX = a.xIndex - b.xIndex;
+    const deltaY = a.yIndex - b.yIndex;
+
+    return [deltaX, deltaY];
+  }
+
   protected static findHeuristicTotal(node: INode) {
-    return node.distance + node.manhatten;
+    return node.costFromStart + node.estimatedCostToGoal;
   }
   protected static maybeUpdateHeuristic(node: INode) {
-    const heuristicTotal = node.distance + node.manhatten;
-    if (node.heuristic > heuristicTotal) {
-      node.setHeuristic(heuristicTotal);
+    const heuristicTotal = node.costFromStart + node.estimatedCostToGoal;
+    if (node.totalEstimatedCost > heuristicTotal) {
+      node.setTotalEstimatedCost(heuristicTotal);
     }
   }
 
   private sortOpenHeuritsicUnvisited(this: this) {
     this.queue = this.queue
-      .sort((a, b) => a.heuristic - b.heuristic)
+      .sort((a, b) => a.totalEstimatedCost - b.totalEstimatedCost)
       .filter((nodes) => !nodes.visited);
   }
 
@@ -53,8 +65,10 @@ export abstract class AStarBase extends PathFindingAlgorithm {
         this.visitNode(neighbour);
         continue;
       }
-      neighbour.setDistance(node.distance + 1);
-      neighbour.setManhatten(this.findManhatten(neighbour, this.endNode));
+      neighbour.setCostFromStart(node.costFromStart + 1);
+      neighbour.setEstimatedCostToGoal(
+        this.calculateHeuristic(neighbour, this.endNode)
+      );
       AStarBase.maybeUpdateHeuristic(neighbour);
       neighbour.setPastNode(node);
       if (!this.queue.includes(neighbour)) {

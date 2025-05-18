@@ -4,10 +4,11 @@ export class AStarManhatten extends AStarBase {
   readonly name = 'aStarM';
 
   // eslint-disable-next-line class-methods-use-this
-  findManhatten(this: this, node: INode, endNode: INode) {
-    return (
-      Math.abs(node.xIndex - endNode.xIndex) +
-      Math.abs(node.yIndex - endNode.yIndex)
-    );
+  calculateHeuristic(this: this, node: INode, endNode: INode) {
+    const [deltaX, deltaY] = AStarBase.getPositionDifference(node, endNode);
+
+    const manhatten = Math.abs(deltaX) + Math.abs(deltaY);
+
+    return manhatten;
   }
 }
