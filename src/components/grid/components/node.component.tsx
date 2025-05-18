@@ -34,9 +34,9 @@ export class Node extends PureComponent<Props, State> implements INode {
     this.ref = createRef();
     this.handleClick = this.handleClick.bind(this);
     this.setPastNode = this.setPastNode.bind(this);
-    this.setHeuristic = this.setHeuristic.bind(this);
-    this.setManhatten = this.setManhatten.bind(this);
-    this.setDistance = this.setDistance.bind(this);
+    this.setTotalEstimatedCost = this.setTotalEstimatedCost.bind(this);
+    this.setEstimatedCostToGoal = this.setEstimatedCostToGoal.bind(this);
+    this.setCostFromStart = this.setCostFromStart.bind(this);
     this.setType = this.setType.bind(this);
     this.setVisited = this.setVisited.bind(this);
   }
@@ -85,28 +85,28 @@ export class Node extends PureComponent<Props, State> implements INode {
     this._pastNode = value;
   }
 
-  private _heuristic = Infinity;
-  get heuristic() {
-    return this._heuristic;
+  private _totalEstimatedCost = Infinity;
+  get totalEstimatedCost() {
+    return this._totalEstimatedCost;
   }
-  setHeuristic(value: number) {
-    this._heuristic = value;
-  }
-
-  private _manhatten = Infinity;
-  get manhatten() {
-    return this._manhatten;
-  }
-  setManhatten(value: number) {
-    this._manhatten = value;
+  setTotalEstimatedCost(value: number) {
+    this._totalEstimatedCost = value;
   }
 
-  private _distance = Infinity;
-  get distance() {
-    return this._distance;
+  private _estimatedCostToGoal = Infinity;
+  get estimatedCostToGoal() {
+    return this._estimatedCostToGoal;
   }
-  setDistance(value: number) {
-    this._distance = value;
+  setEstimatedCostToGoal(value: number) {
+    this._estimatedCostToGoal = value;
+  }
+
+  private _costFromStart = Infinity;
+  get costFromStart() {
+    return this._costFromStart;
+  }
+  setCostFromStart(value: number) {
+    this._costFromStart = value;
   }
 
   get type() {
@@ -130,9 +130,9 @@ export class Node extends PureComponent<Props, State> implements INode {
 
   reset(this: this, resetType: boolean | NodeType[]) {
     this.setPastNode(undefined);
-    this.setHeuristic(Infinity);
-    this.setManhatten(Infinity);
-    this.setDistance(Infinity);
+    this.setTotalEstimatedCost(Infinity);
+    this.setEstimatedCostToGoal(Infinity);
+    this.setCostFromStart(Infinity);
     this.setVisited(false);
 
     let newType = this.type;
