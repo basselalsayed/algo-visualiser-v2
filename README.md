@@ -1,25 +1,5 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-
 <a id="readme-top"></a>
 
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -37,7 +17,6 @@
   </a>
 
 <h3 align="center">Algovi</h3>
-
   <p align="center">
     A rebuild of a passion project I built with a friend in 2020.    
     <br />
@@ -89,9 +68,13 @@
   </picture>
 </div>
 
-Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `basselalsayed`, `algo-visualiser-v2`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`, `project_license`
+Working professionally as a developer has taught me a great deal. However, in a professional setting, time is rarely a luxury—commitments must be honored, and deadlines must be met.
+
+I wanted to take what I’ve learned and apply it to a personal project; something open-ended that I could build on freely, adding new features at my own pace.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- BUILT WITH -->
 
 ### Built With
 
@@ -216,7 +199,7 @@ Distributed under the MIT license. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Bassel Al-Sayed - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Bassel Al-Sayed - alsayed.bassel+client@proton.me
 
 Project Link: [https://github.com/basselalsayed/algo-visualiser-v2](https://github.com/basselalsayed/algo-visualiser-v2)
 
@@ -227,6 +210,7 @@ Project Link: [https://github.com/basselalsayed/algo-visualiser-v2](https://gith
 ## Acknowledgments
 
 - [Tom Walker](https://github.com/Walker-TW)
+- https://github.com/othneildrew/Best-README-Template
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
