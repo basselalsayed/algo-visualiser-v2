@@ -1,11 +1,13 @@
+import { Github } from 'lucide-react';
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { HTML_IDS } from '@/lib';
+import { HTML_IDS, LINKS } from '@/lib';
 import { useIsRunning } from '@/store';
 
 import { AlgoForm } from '../core/algo-form/algo-form.component';
 import { SettingsForm } from '../core/settings-form/settings-form.component';
+import { SVGGradWrapper } from '../svg-grad-wrapper.component';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -29,7 +31,14 @@ export const DesktopNav: FC = () => {
 
   return (
     <NavigationMenu className='grad-border row-start-1 grid w-full max-w-full grid-flow-col items-center justify-between justify-items-stretch border-b-2 bg-background px-4 py-3'>
-      <h1 className='pr-1 text-left'>{t('navbar.appName')}</h1>
+      <div className='inline-flex items-center gap-3'>
+        <h1 className='pr-1 text-left'>{t('navbar.appName')}</h1>
+        <SVGGradWrapper>
+          <a href={LINKS.github} target='_blank' rel='noreferrer'>
+            <Github />
+          </a>
+        </SVGGradWrapper>
+      </div>
       <NavigationMenuList className='gap-3'>
         <QuickSearchButton />
         <DarkModeSwitch />

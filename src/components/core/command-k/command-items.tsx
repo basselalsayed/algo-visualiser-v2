@@ -3,6 +3,7 @@ import {
   ChartNoAxesColumn,
   Dices,
   Fence,
+  Github,
   Map,
   PauseIcon,
   PlayIcon,
@@ -16,7 +17,7 @@ import { match } from 'ts-pattern';
 import { CommandItem, CommandShortcut } from '@/components/ui/command';
 import { useTour } from '@/contexts';
 import { useDarkMode } from '@/hooks';
-import { NodeType, RUN_ALGO_KEY, RUN_MAZE_KEY, RunState } from '@/lib';
+import { LINKS, NodeType, RUN_ALGO_KEY, RUN_MAZE_KEY, RunState } from '@/lib';
 import { useCommand, useGrid, useRun, useStats } from '@/store';
 
 interface Props extends ComponentProps<typeof CommandItem> {
@@ -198,3 +199,14 @@ export const StartTourCommandItem: FC = () => {
     />
   );
 };
+
+export const GithubCommandItem: FC = () => (
+  <CommandItem
+    onSelect={() => {
+      window.open(LINKS.github, '_blank');
+    }}
+  >
+    <Github />
+    <span>Github</span>
+  </CommandItem>
+);

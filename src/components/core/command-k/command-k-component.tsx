@@ -42,6 +42,7 @@ import {
 import {
   CommandKItem,
   DarkModeCommandItem,
+  GithubCommandItem,
   MazeRunCommandItem,
   RandomiseWallsCommandItem,
   ResetGridCommandItem,
@@ -120,6 +121,7 @@ export const CommandKComponent: FC = () => {
           <CommandGroup heading={t('commandk.headings.misc')}>
             <RandomiseWallsCommandItem />
             <StartTourCommandItem />
+            <GithubCommandItem />
           </CommandGroup>
         </CommandGroup>
       </CommandList>
