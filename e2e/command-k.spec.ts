@@ -7,6 +7,8 @@ test('test', async ({ page }) => {
 
   await skipTour(page);
 
+  await expect(page.getByRole('link')).toBeVisible();
+
   await openCommandKKbd(page);
 
   await expect(
@@ -35,18 +37,20 @@ test('test', async ({ page }) => {
   await openCommandKKbd(page);
 
   await page.getByRole('option', { name: 'Enable wall mode' }).click();
-  //   await expect(page.getByText('Disable wall mode')).toBeVisible();
+
   await page.getByRole('option', { name: 'Disable wall mode' }).click();
 
-  //   await expect(page.getByText('Enable wall mode')).toBeVisible();
   await page.getByRole('option', { name: 'Enable dark mode' }).click();
-  //   await expect(page.getByText('Disable dark mode')).toBeVisible();
+
   await page.getByRole('option', { name: 'Disable dark mode' }).click();
 
   await page.getByRole('option', { name: 'Randomise walls' }).click();
   await expect(page.locator('div[data-type="wall"]').first()).toBeVisible();
 
   await openCommandKKbd(page);
+
+  await expect(page.getByRole('option', { name: 'Github' })).toBeVisible();
+
   await page.getByRole('option', { name: 'Start tour' }).click();
   await expect(
     page.getByRole('heading', { name: 'Welcome to the Algorithm' })
