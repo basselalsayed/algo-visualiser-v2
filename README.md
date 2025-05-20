@@ -48,7 +48,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -120,11 +119,6 @@ To get a local copy up and running follow these steps.
 1. Production mode
    ```sh
    pnpm preview
-   ```
-1. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin basselalsayed/algo-visualiser-v2
-   git remote -v # confirm the changes
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
